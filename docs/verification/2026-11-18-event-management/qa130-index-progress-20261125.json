@@ -2,9 +2,10 @@
   "date": "2026-11-25",
   "collection": "merchantServices",
   "observedExistingIndexes": [
-    "merchant_status_title",
+    "_id_",
+    "merchant_created_id",
     "_openid_1",
-    "_id_"
+    "merchant_status_title"
   ],
   "desired": {
     "name": "merchant_created_id",
@@ -24,9 +25,15 @@
       ]
     ]
   },
-  "submitted": false,
-  "created": false,
-  "lastObservedDraft": {
+  "submitted": true,
+  "created": true,
+  "lastObservedDraft": null,
+  "blocker": null,
+  "liveQueryVerified": false,
+  "latestAttempt": "2026-11-25 native accessibility index-list readback after draft closed; repeated after reload key",
+  "readback": {
+    "name": "merchant_created_id",
+    "unique": false,
     "fields": [
       [
         "merchantId",
@@ -38,12 +45,11 @@
       ],
       [
         "_id",
-        "asc"
+        "desc"
       ]
     ],
-    "sortDropdownOpen": true
-  },
-  "blocker": "DOM snapshot timed out; native screenshot confirms _id ascending; coordinate click on descending returned noWindowsAvailable",
-  "liveQueryVerified": false,
-  "latestAttempt": "2026-11-25 continued QA135 session; did not click confirm"
+    "method": "native accessibility index table read twice",
+    "screenshotFresh": false,
+    "note": "Screenshot remained stale; no claim of live-query verification or screenshot confirmation."
+  }
 }

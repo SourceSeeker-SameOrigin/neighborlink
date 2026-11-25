@@ -1,14 +1,57 @@
 {
   "date": "2026-11-25",
-  "width": 320,
+  "sourceCommit": "b01b64c",
   "page": "station/create/create",
-  "observed": [
-    "synthetic lookup failure",
-    "creation result pending verification",
-    "read-only retry button"
+  "fixtureSourceMatches": true,
+  "fixtureTemplateMatches": true,
+  "touristOnly": true,
+  "widthResults": [
+    {
+      "width": 320,
+      "lookupFailureVisible": true,
+      "readonlyRetryFoundOriginal": true,
+      "foundResultScreenshotConfirmed": true,
+      "confirmFormVisible": true,
+      "confirmSubmissionVerified": false,
+      "note": "Lower submit button was not visually reached; scroll returned noWindowsAvailable; no full-width completion claim."
+    },
+    {
+      "width": 375,
+      "verified": false,
+      "note": "Selected iPhone X but subsequent screenshot and accessibility still showed previous390/blank webview; no result counted."
+    },
+    {
+      "width": 390,
+      "readonlyRetryFoundOriginal": true,
+      "confirmOriginalInputClicked": true,
+      "lostCreateResponseRecoveredOriginal": true,
+      "screenshotsMatchedStates": true
+    },
+    {
+      "width": 430,
+      "readonlyRetryFoundOriginal": true,
+      "confirmOriginalInputClicked": true,
+      "lostCreateResponseRecoveredOriginal": true,
+      "screenshotsMatchedStates": true
+    }
   ],
-  "interactionPassed": false,
-  "otherWidthsVerified": [],
-  "blocker": "touristappid modal remains after AX click; coordinate click returned noWindowsAvailable",
-  "realCloudWrites": 0
+  "fullFourWidthAcceptance": false,
+  "normalScrollVerified": false,
+  "nativeOrLiveBusinessVerified": false,
+  "realCloudWrites": 0,
+  "syntheticRegressions": {
+    "creation": 24,
+    "recovery": 20,
+    "fail": 0
+  },
+  "jest": {
+    "suites": 55,
+    "tests": 652,
+    "fail": 0
+  },
+  "remaining": [
+    "320 lower submit reachability and retry flow",
+    "375 both recovery flows",
+    "real account/device acceptance under separate scope"
+  ]
 }
