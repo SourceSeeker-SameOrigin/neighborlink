@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-25",
+  "decision": "A approved",
+  "page": "miniprogram/merchant/workbench/workbench.js",
+  "evidence": "isolated-actual-page-synthetic-api",
+  "total": 21,
+  "passed": 21,
+  "failed": 0,
+  "cloudWrites": 0,
+  "results": [
+    {
+      "name": "正常成功读取已通过商家",
+      "pass": true
+    },
+    {
+      "name": "成功无申请保留明确空结果",
+      "pass": true
+    },
+    {
+      "name": "读取失败阻止业务内容显示的状态条件",
+      "pass": true
+    },
+    {
+      "name": "旧成功不得覆盖较新成功",
+      "pass": true
+    },
+    {
+      "name": "旧失败不得覆盖较新成功",
+      "pass": true
+    },
+    {
+      "name": "旧请求完成不得提前结束新请求加载",
+      "pass": true
+    },
+    {
+      "name": "onHide后的success不得写回界面",
+      "pass": true
+    },
+    {
+      "name": "onHide后的error不得写回界面",
+      "pass": true
+    },
+    {
+      "name": "onUnload后的success不得写回界面",
+      "pass": true
+    },
+    {
+      "name": "onUnload后的error不得写回界面",
+      "pass": true
+    },
+    {
+      "name": "身份改变后旧商家结果不得回填",
+      "pass": true
+    },
+    {
+      "name": "身份初始化期间隐藏不得继续读取商家",
+      "pass": true
+    },
+    {
+      "name": "返回重新读取且旧离页请求不覆盖新结果",
+      "pass": true
+    },
+    {
+      "name": "失败重试期间隐藏旧资料且成功后恢复",
+      "pass": true
+    },
+    {
+      "name": "已隐藏页面直接重试不发读取",
+      "pass": true
+    },
+    {
+      "name": "首次身份初始化成功后正常读取",
+      "pass": true
+    },
+    {
+      "name": "身份初始化失败显示错误且不发商家请求",
+      "pass": true
+    },
+    {
+      "name": "缺少本人编号不得读取或展示申请结果",
+      "pass": true
+    },
+    {
+      "name": "身份初始化期间换人不继续旧读取",
+      "pass": true
+    },
+    {
+      "name": "换人返回成功无申请不显示原商家",
+      "pass": true
+    },
+    {
+      "name": "实际API参数禁止旧请求提示或自动导航",
+      "pass": true
+    }
+  ],
+  "simulator": {
+    "started": true,
+    "initialCardObserved": true,
+    "interactionPassed": false,
+    "widths": {
+      "320": "pending",
+      "375": "pending",
+      "390": "pending",
+      "430": "pending"
+    },
+    "blocker": "AX click did not change page; coordinate click returned noWindowsAvailable"
+  },
+  "regression": {
+    "jestSuitesPassed": 55,
+    "jestTestsPassed": 652,
+    "diffCheckPassed": true
+  }
+}
