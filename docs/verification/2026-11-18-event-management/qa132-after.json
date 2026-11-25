@@ -1,0 +1,306 @@
+{
+  "scope": "actual P62 page, synthetic identities and responses; zero cloud, clipboard or native modal actions",
+  "pass": 38,
+  "fail": 0,
+  "results": [
+    {
+      "name": "normal-read",
+      "pass": true,
+      "evidence": {
+        "rows": [
+          "A"
+        ]
+      }
+    },
+    {
+      "name": "normal-next-page",
+      "pass": true,
+      "evidence": {
+        "offset": 1,
+        "rows": [
+          "A",
+          "B"
+        ]
+      }
+    },
+    {
+      "name": "reload-denied-clears-old-batches",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "error": "合成无权访问"
+      }
+    },
+    {
+      "name": "older-success",
+      "pass": true,
+      "evidence": {
+        "rows": [
+          "B"
+        ],
+        "error": ""
+      }
+    },
+    {
+      "name": "older-error",
+      "pass": true,
+      "evidence": {
+        "rows": [
+          "B"
+        ],
+        "error": ""
+      }
+    },
+    {
+      "name": "late-read-hide",
+      "pass": true,
+      "evidence": {
+        "writesAfterBoundary": 0,
+        "rows": []
+      }
+    },
+    {
+      "name": "late-read-unload",
+      "pass": true,
+      "evidence": {
+        "writesAfterBoundary": 0,
+        "rows": []
+      }
+    },
+    {
+      "name": "late-read-user",
+      "pass": true,
+      "evidence": {
+        "writesAfterBoundary": 0,
+        "rows": []
+      }
+    },
+    {
+      "name": "late-read-return",
+      "pass": true,
+      "evidence": {
+        "writesAfterBoundary": 0,
+        "rows": [
+          "B"
+        ]
+      }
+    },
+    {
+      "name": "next-page-network-error-retains-rows",
+      "pass": true,
+      "evidence": {
+        "rows": [
+          "A"
+        ]
+      }
+    },
+    {
+      "name": "retry-event-keeps-failed-page-offset",
+      "pass": true,
+      "evidence": {
+        "offset": 1
+      }
+    },
+    {
+      "name": "normal-export",
+      "pass": true,
+      "evidence": {
+        "clipboard": 1,
+        "modals": 1
+      }
+    },
+    {
+      "name": "duplicate-export-blocked",
+      "pass": true,
+      "evidence": {
+        "exports": 1
+      }
+    },
+    {
+      "name": "export-start-hide",
+      "pass": true,
+      "evidence": {
+        "exports": 0
+      }
+    },
+    {
+      "name": "export-start-unload",
+      "pass": true,
+      "evidence": {
+        "exports": 0
+      }
+    },
+    {
+      "name": "export-start-user",
+      "pass": true,
+      "evidence": {
+        "exports": 0
+      }
+    },
+    {
+      "name": "export-start-denied",
+      "pass": true,
+      "evidence": {
+        "exports": 0
+      }
+    },
+    {
+      "name": "late-export-hide",
+      "pass": true,
+      "evidence": {
+        "clipboard": 0,
+        "modals": 0
+      }
+    },
+    {
+      "name": "late-export-unload",
+      "pass": true,
+      "evidence": {
+        "clipboard": 0,
+        "modals": 0
+      }
+    },
+    {
+      "name": "late-export-user",
+      "pass": true,
+      "evidence": {
+        "clipboard": 0,
+        "modals": 0
+      }
+    },
+    {
+      "name": "late-export-refresh",
+      "pass": true,
+      "evidence": {
+        "clipboard": 0,
+        "modals": 0
+      }
+    },
+    {
+      "name": "export-scope-change-stationCode",
+      "pass": true,
+      "evidence": {
+        "exports": 0
+      }
+    },
+    {
+      "name": "export-scope-change-stationCommunityId",
+      "pass": true,
+      "evidence": {
+        "exports": 0
+      }
+    },
+    {
+      "name": "export-scope-change-roles",
+      "pass": true,
+      "evidence": {
+        "exports": 0
+      }
+    },
+    {
+      "name": "next-page-overlap-and-raw-offset",
+      "pass": true,
+      "evidence": {
+        "rows": [
+          "A",
+          "B"
+        ],
+        "nextOffset": 3
+      }
+    },
+    {
+      "name": "next-page-denied-E_FORBIDDEN",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false
+      }
+    },
+    {
+      "name": "next-page-denied-E_FEATURE_OFF",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false
+      }
+    },
+    {
+      "name": "next-page-denied-E_UNBOUND",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false
+      }
+    },
+    {
+      "name": "export-denied-clears-readiness-and-rows",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false
+      }
+    },
+    {
+      "name": "export-network-error-allows-active-retry",
+      "pass": true,
+      "evidence": {
+        "exports": 2
+      }
+    },
+    {
+      "name": "export-freezes-month-and-blocks-next-page",
+      "pass": true,
+      "evidence": {
+        "month": "2026-11",
+        "reads": 1
+      }
+    },
+    {
+      "name": "clipboard-callback-active",
+      "pass": true,
+      "evidence": {
+        "modals": 1
+      }
+    },
+    {
+      "name": "clipboard-callback-hide",
+      "pass": true,
+      "evidence": {
+        "modals": 0
+      }
+    },
+    {
+      "name": "clipboard-callback-user",
+      "pass": true,
+      "evidence": {
+        "modals": 0
+      }
+    },
+    {
+      "name": "clipboard-failure-restores-button",
+      "pass": true,
+      "evidence": {
+        "error": "合成复制失败"
+      }
+    },
+    {
+      "name": "hidden-load-is-noop",
+      "pass": true,
+      "evidence": {
+        "reads": 0
+      }
+    },
+    {
+      "name": "missing-identity-does-not-query",
+      "pass": true,
+      "evidence": {
+        "reads": 0
+      }
+    },
+    {
+      "name": "request-options-suppress-stale-global-effects",
+      "pass": true,
+      "evidence": {}
+    }
+  ]
+}
