@@ -314,6 +314,18 @@ async function providerBatch(event, { openid }) {
   return providerBatchDetail(batch);
 }
 
+async function readAssignedBatch(transaction, batch, provider, openid) {
+  const current = await read(transaction, 'deliveryBatches', batch._id);
+  const currentProvider = await read(transaction, 'providers', provider._id);
+  ensure(currentProvider && currentProvider.openid === openid &&
+    currentProvider.communityId === provider.communityId && current &&
+    current.providerId === currentProvider._id && current.providerOpenid === openid &&
+    current.communityId === currentProvider.communityId,
+  '服务员或批次归属已变化，请刷新后重试', 'E_FORBIDDEN');
+  requireApprovedProvider(currentProvider, 1);
+  return { current, currentProvider };
+}
+
 async function startBatch(event, { openid }) {
   const { provider, batch } = await assignedBatch(event.batchId, openid);
   canWork(provider, new Date(), 1);
@@ -321,9 +333,9 @@ async function startBatch(event, { openid }) {
   if (batch.startedAt) return { batchId: batch._id, status: batch.status, startedAt: batch.startedAt };
   const now = new Date();
   const result = await atomic(db, async transaction => {
-    const current = await read(transaction, 'deliveryBatches', batch._id);
-    ensure(current && current.status === 'assigned' && current.providerId === provider._id &&
-      current.providerOpenid === openid, '批次状态已变化，请刷新后重试', 'E_CONFLICT');
+    const { current, currentProvider } = await readAssignedBatch(transaction, batch, provider, openid);
+    canWork(currentProvider, new Date(), 1);
+    ensure(current.status === 'assigned', '批次状态已变化，请刷新后重试', 'E_CONFLICT');
     if (current.startedAt) return { startedAt: current.startedAt };
     await transaction.collection('deliveryBatches').doc(current._id).update({ data: { startedAt: now, updatedAt: now } });
     return { startedAt: now };
@@ -336,8 +348,8 @@ async function checkDoorDeliveryConsent(event, { openid }) {
   ensure(batch.status === 'assigned' && batch.startedAt, '请先开始配送', 'E_BAD_STATE');
   text(event.itemId, '门牌记录');
   return atomic(db, async transaction => {
-    const current = await read(transaction, 'deliveryBatches', batch._id);
-    ensure(current && current.status === 'assigned' && current.providerId === provider._id && current.startedAt,
+    const { current } = await readAssignedBatch(transaction, batch, provider, openid);
+    ensure(current.status === 'assigned' && current.startedAt,
       '批次状态已变化，请刷新后重试', 'E_CONFLICT');
     const index = (current.items || []).findIndex(item => item._id === event.itemId);
     ensure(index >= 0, '门牌记录不存在');
@@ -373,8 +385,8 @@ async function recordDelivery(event, { openid }) {
   ensure(['delivered', 'failed'].includes(event.status), '配送结果不正确');
   if (event.status === 'delivered') fileInFolder(event.photoFileId, 'station/' + batch._id);
   return atomic(db, async transaction => {
-    const current = await read(transaction, 'deliveryBatches', batch._id);
-    ensure(current && current.status === 'assigned' && current.providerId === provider._id && current.startedAt,
+    const { current } = await readAssignedBatch(transaction, batch, provider, openid);
+    ensure(current.status === 'assigned' && current.startedAt,
       '批次状态已变化，请刷新后重试', 'E_CONFLICT');
     const index = (current.items || []).findIndex(item => item._id === event.itemId);
     ensure(index >= 0, '门牌记录不存在');
