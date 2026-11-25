@@ -1,4 +1,8 @@
-# 近邻帮
+# NeighborLink（近邻帮）
+
+英文项目名为 **NeighborLink**，仓库与代码标识使用 `neighborlink`。
+
+仓库：[SourceSeeker-SameOrigin/neighborlink](https://github.com/SourceSeeker-SameOrigin/neighborlink)。
 
 以小区为单位的上门服务与邻里互助微信小程序。住户找人取快递、扔垃圾、代买、帮把手；经审核的服务员、商家、驿站协作履约，管理员与物业按各自权限处理运营和售后。
 

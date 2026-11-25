@@ -1,1 +1,1 @@
-{"name":"jinlin-idle","version":"0.1.0","private":true,"main":"index.js","dependencies":{"wx-server-sdk":"4.0.2"}}
+{"name":"neighborlink-idle","version":"0.1.0","private":true,"main":"index.js","dependencies":{"wx-server-sdk":"4.0.2"}}

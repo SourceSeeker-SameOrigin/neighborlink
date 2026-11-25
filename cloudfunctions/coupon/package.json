@@ -1,1 +1,1 @@
-{ "name": "jinlin-coupon", "version": "0.1.0", "private": true, "main": "index.js", "dependencies": { "wx-server-sdk": "4.0.2" } }
+{ "name": "neighborlink-coupon", "version": "0.1.0", "private": true, "main": "index.js", "dependencies": { "wx-server-sdk": "4.0.2" } }
