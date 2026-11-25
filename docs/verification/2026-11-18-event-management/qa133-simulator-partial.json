@@ -18,7 +18,11 @@
     {
       "width": 375,
       "verified": false,
-      "note": "Selected iPhone X but subsequent screenshot and accessibility still showed previous390/blank webview; no result counted."
+      "note": "375-width accessibility state changed lookup to done, then confirm to done after actual button clicks. Screenshots repeatedly remained at the previous 390-width done view; visual layout and screenshot consistency remain unverified.",
+      "readonlyRetryFoundOriginalAx": true,
+      "confirmOriginalInputClickedAx": true,
+      "lostCreateResponseRecoveredOriginalAx": true,
+      "screenshotsMatchedStates": false
     },
     {
       "width": 390,
@@ -51,7 +55,20 @@
   },
   "remaining": [
     "320 lower submit reachability and retry flow",
-    "375 both recovery flows",
+    "375 visual layout and screenshot consistency for both recovery flows",
     "real account/device acceptance under separate scope"
-  ]
+  ],
+  "latestRecheck": {
+    "date": "2026-11-25",
+    "sourceCommit": "d3cad5e",
+    "creationPass": 24,
+    "recoveryPass": 20,
+    "syntheticFailures": 0,
+    "qa137": {
+      "pass": 16,
+      "fail": 11,
+      "approvedForFix": false
+    },
+    "realCloudWrites": 0
+  }
 }
