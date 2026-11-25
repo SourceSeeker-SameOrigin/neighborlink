@@ -18,11 +18,15 @@
     {
       "width": 375,
       "verified": false,
-      "note": "375-width accessibility state changed lookup to done, then confirm to done after actual button clicks. Screenshots repeatedly remained at the previous 390-width done view; visual layout and screenshot consistency remain unverified.",
+      "note": "On 2026-11-25 the 375-width confirm form and done result screenshots matched accessibility state. The real confirmation button recovered qa133-synthetic-batch after a synthetic lost response. Scroll still returned noWindowsAvailable. A subsequent ordinary compile did not yield a fresh lookup-failure screen during this run; full visual/scroll acceptance remains pending.",
       "readonlyRetryFoundOriginalAx": true,
       "confirmOriginalInputClickedAx": true,
       "lostCreateResponseRecoveredOriginalAx": true,
-      "screenshotsMatchedStates": false
+      "screenshotsMatchedStates": false,
+      "confirmOriginalInputClicked": true,
+      "lostCreateResponseRecoveredOriginal": true,
+      "confirmFormScreenshotConfirmed": true,
+      "recoveredResultScreenshotConfirmed": true
     },
     {
       "width": 390,
@@ -55,19 +59,20 @@
   },
   "remaining": [
     "320 lower submit reachability and retry flow",
-    "375 visual layout and screenshot consistency for both recovery flows",
+    "375 lookup-failure visual recheck and normal scrolling",
     "real account/device acceptance under separate scope"
   ],
   "latestRecheck": {
     "date": "2026-11-25",
-    "sourceCommit": "d3cad5e",
+    "sourceCommit": "1ace196",
     "creationPass": 24,
     "recoveryPass": 20,
     "syntheticFailures": 0,
     "qa137": {
-      "pass": 16,
-      "fail": 11,
-      "approvedForFix": false
+      "pass": 74,
+      "fail": 0,
+      "approvedForFix": true,
+      "cloudDeploymentAuthorized": false
     },
     "realCloudWrites": 0
   }
