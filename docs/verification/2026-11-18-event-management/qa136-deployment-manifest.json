@@ -11,8 +11,8 @@
   ],
   "baselineMatched": 72,
   "plannedMethod": "official WeChat CLI inc-deploy index.js; preserve SDK 4.0.2 and configuration; independent full source readback",
-  "deploymentAuthorized": false,
-  "deployed": false,
+  "deploymentAuthorized": true,
+  "deployed": true,
   "files": [
     {
       "file": "index.js",
@@ -374,5 +374,6 @@
       "baselineSHA256": "dabbf46eb89f42fded9f20004bb8fa6b58d2858249695c84f8b01369151e970f",
       "sha256": "dabbf46eb89f42fded9f20004bb8fa6b58d2858249695c84f8b01369151e970f"
     }
-  ]
+  ],
+  "temporaryPackageCleaned": true
 }
