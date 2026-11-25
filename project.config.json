@@ -4,7 +4,7 @@
   "cloudfunctionRoot": "cloudfunctions/",
   "compileType": "miniprogram",
   "appid": "wx2908c7661d0ed153",
-  "projectname": "jinlin",
+  "projectname": "neighborlink",
   "setting": {
     "es6": true,
     "minified": true,
