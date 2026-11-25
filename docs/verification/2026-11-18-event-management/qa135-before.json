@@ -1,0 +1,217 @@
+{
+  "baseline": "6362916",
+  "repeatMatches": true,
+  "scope": "actual page; all cloud calls intercepted; no real acceptance or navigation",
+  "pass": 4,
+  "fail": 18,
+  "results": [
+    {
+      "name": "normal-read",
+      "pass": true,
+      "evidence": {
+        "count": 20
+      }
+    },
+    {
+      "name": "normal-next-page",
+      "pass": true,
+      "evidence": {
+        "count": 21,
+        "offsets": [
+          0,
+          20
+        ]
+      }
+    },
+    {
+      "name": "normal-accept",
+      "pass": true,
+      "evidence": {
+        "accepts": [
+          {
+            "action": "acceptBatch",
+            "data": {
+              "batchId": "A-0"
+            }
+          }
+        ],
+        "navigation": [
+          [
+            "navigateTo",
+            "/station/batch/batch?id=A-0"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "double-click-accept",
+      "pass": true,
+      "evidence": {
+        "accepts": 1
+      }
+    },
+    {
+      "name": "denied-clears-old-list",
+      "pass": false,
+      "evidence": {
+        "count": 20,
+        "error": "合成读取拒绝"
+      },
+      "error": "Expected values to be strictly equal:\n\n20 !== 0\n"
+    },
+    {
+      "name": "late-read-hide",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-read-unload",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-read-user",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 2
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "return-refreshes-while-old-read-pending",
+      "pass": false,
+      "evidence": {
+        "pendingReads": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 2\n"
+    },
+    {
+      "name": "old-accept-hide",
+      "pass": false,
+      "evidence": {
+        "accepts": 1,
+        "navigation": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-accept-unload",
+      "pass": false,
+      "evidence": {
+        "accepts": 1,
+        "navigation": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-accept-user",
+      "pass": false,
+      "evidence": {
+        "accepts": 1,
+        "navigation": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-accept-denied",
+      "pass": false,
+      "evidence": {
+        "accepts": 1,
+        "navigation": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-accept-success-hide",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 1,
+        "navigation": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-accept-success-unload",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 1,
+        "navigation": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-accept-success-user",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 1,
+        "navigation": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-accept-success-refresh",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 1,
+        "navigation": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-accept-failure-hide",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 2,
+        "navigation": 0
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "late-accept-failure-unload",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 2,
+        "navigation": 0
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "late-accept-failure-user",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 2,
+        "navigation": 0
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "late-accept-failure-refresh",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 2,
+        "navigation": 0
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "next-page-network-retry-keeps-offset",
+      "pass": false,
+      "evidence": {
+        "retainedCount": 20,
+        "offsets": [
+          0,
+          20,
+          0
+        ],
+        "finalCount": 20
+      },
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    0,\n    20,\n+   0\n-   20\n  ]\n"
+    }
+  ]
+}

@@ -43,6 +43,7 @@
     ],
     "sortDropdownOpen": true
   },
-  "blocker": "DOM timeout; native click did not update selected direction",
-  "liveQueryVerified": false
+  "blocker": "DOM snapshot timed out; native screenshot confirms _id ascending; coordinate click on descending returned noWindowsAvailable",
+  "liveQueryVerified": false,
+  "latestAttempt": "2026-11-25 continued QA135 session; did not click confirm"
 }
