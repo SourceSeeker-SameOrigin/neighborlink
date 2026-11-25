@@ -1,1 +1,25 @@
-<view class="page"><view class="page-masthead"><image class="masthead-icon" src="/assets/icons/express.png"/><view class="masthead-copy"><view class="page-title">创建送上门批次</view><view class="masthead-subtitle">送到门口，每一户都记清</view></view></view><view class="card"><view class="field"><view class="label">送上门门牌清单</view><view class="muted">每行一个门牌，格式：楼栋-单元-门牌</view><textarea class="address-list" value="{{lines}}" bindinput="change" maxlength="20000" placeholder="例如：1号楼-1单元-302"/></view><view class="muted">系统仅把已明确开启“快递默认送上门”的住户放进批次；未授权门牌不会加入。</view><button type="primary" bindtap="create" disabled="{{busy || !lines}}" loading="{{busy}}">校验同意状态并创建</button></view><view wx:if="{{error}}" class="error">{{error}}</view><view wx:if="{{result}}" class="card"><view class="section-title">门牌校验结果</view><view>已加入批次：{{result.eligibleCount}} 户</view><view>因未授权、撤回或无法关联跳过：{{result.skippedCount}} 户</view><view wx:if="{{result.batchId}}">批次编号：{{result.batchId}}</view><navigator wx:if="{{result.batchId}}" class="picker" url="/station/workbench/workbench">查看批次进度 ›</navigator></view></view><privacy-popup/>
+<view class="page">
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/express.png"/><view class="masthead-copy"><view class="page-title">创建送上门批次</view><view class="masthead-subtitle">送到门口，每一户都记清</view></view></view>
+  <view wx:if="{{loading}}" class="card">正在核对本人及原批次…</view>
+  <view wx:if="{{error}}" class="error">{{error}}</view>
+  <view wx:if="{{!loading && !ready}}" class="card">
+    <view class="section-title">创建结果待核对</view>
+    <view>先读取本人原批次，不会重新创建。</view>
+    <button bindtap="load">重新核对</button>
+    <navigator class="picker" url="/station/workbench/workbench">查看批次进度 ›</navigator>
+  </view>
+  <view wx:if="{{ready && recovery !== 'done'}}" class="card">
+    <view wx:if="{{recovery === 'confirm'}}" class="recovery-note">暂未查到原批次。请重新填写或核对原门牌清单，确认后使用原请求编号提交。本机不会保存完整门牌清单。</view>
+    <view class="field"><view class="label">送上门门牌清单</view><view class="muted">每行一个门牌，格式：楼栋-单元-门牌</view><textarea class="address-list" value="{{lines}}" bindinput="change" maxlength="20000" disabled="{{busy}}" placeholder="例如：1号楼-1单元-302"/></view>
+    <view class="muted">系统仅把已明确开启“快递默认送上门”的住户放进批次；未授权门牌不会加入。</view>
+    <button type="primary" bindtap="create" disabled="{{busy || !lines}}" loading="{{busy}}">{{recovery === 'confirm' ? '确认原清单并重试' : '校验同意状态并创建'}}</button>
+  </view>
+  <view wx:if="{{ready && result}}" class="card">
+    <view class="section-title">门牌校验结果</view><view>已加入批次：{{result.eligibleCount}} 户</view>
+    <view>因未授权、撤回或无法关联跳过：{{result.skippedCount}} 户</view>
+    <view wx:if="{{result.batchId}}">批次编号：{{result.batchId}}</view>
+    <navigator wx:if="{{result.batchId}}" class="picker" url="/station/workbench/workbench">查看批次进度 ›</navigator>
+    <button bindtap="nextBatch" disabled="{{busy}}">创建下一批</button>
+  </view>
+</view>
+<privacy-popup/>

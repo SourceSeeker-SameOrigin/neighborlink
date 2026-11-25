@@ -28,5 +28,13 @@
     390,
     430
   ],
-  "blocker": "Native AX showed station route and iPhone 5, but screenshot remained on previous merchant page. Failure-button attempt had no matching recorded result. No visual or interaction pass claimed."
+  "blocker": "Failure button click now produced AX rows=0, export disabled and retry control. Screenshot still showed previous merchant page; retry attempt had no corresponding observed transition.",
+  "latest320": {
+    "source": "native accessibility state after actual failure button click",
+    "rows": 0,
+    "exportDisabled": true,
+    "retryVisible": true,
+    "visualVerified": false,
+    "retryVerified": false
+  }
 }

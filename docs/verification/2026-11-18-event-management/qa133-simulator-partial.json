@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-25",
+  "width": 320,
+  "page": "station/create/create",
+  "observed": [
+    "synthetic lookup failure",
+    "creation result pending verification",
+    "read-only retry button"
+  ],
+  "interactionPassed": false,
+  "otherWidthsVerified": [],
+  "blocker": "touristappid modal remains after AX click; coordinate click returned noWindowsAvailable",
+  "realCloudWrites": 0
+}

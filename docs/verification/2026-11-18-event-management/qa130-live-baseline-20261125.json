@@ -1,0 +1,467 @@
+{
+  "function": "merchant",
+  "compared": 76,
+  "baselineMismatches": [],
+  "changes": [
+    "index.js"
+  ],
+  "sdk": "4.0.2",
+  "files": [
+    {
+      "name": "config.json",
+      "hash": "7e7accef4ebbafb13546f55792a2e75415c1e6dec945aca203aae50085925d57",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "index.js",
+      "hash": "c95f4c3f8957308a48824344173274afaf6ac5524be0da329bef0042cb0d851a",
+      "matchesBaseline": true,
+      "matchesNew": false
+    },
+    {
+      "name": "lib/shared/adRevenue.js",
+      "hash": "4eed195387e78f034ebd132e6aac416681c0c2bbd865ef42e2cdbcce492ed0c1",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/adminDashboard.js",
+      "hash": "9ae18e1e3d58f96e750d48d1965d49112e2b32ccf37c71fa14478f22c50a0287",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/adminOrders.js",
+      "hash": "9554434367684bf47e3e6a80609f518973a6ed5f607ced9f2e593eff3ea5bbb3",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/adminProviders.js",
+      "hash": "b39fb0e4d2f8338249331487688fb477767c565cc4fb81414b60ceca6ebe96f9",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/adminSettlements.js",
+      "hash": "f642ecab34293469449e3573f36147897763532175aa47f169010dc87ead8022",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/auth.js",
+      "hash": "3e243f53c292593c2478d1911e7a51f68640a5725f2aa9c4b6dae4d29e5b6641",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/blacklist.js",
+      "hash": "b095d7d95bf0f5ace7589b99661cbb7eb49784d0a1c149695b539f87a2810fe2",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/boardData.js",
+      "hash": "b2d34f8619527c96069dc6c0de39d8c2417f7dc703799e3072bfa604d0267700",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/chatData.js",
+      "hash": "6e2e907dd4dfa3b9e8a00840c2e5d3fe1dc5a91f8bf23aeefb60c3e5e07ec9df",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/chatFlow.js",
+      "hash": "15c6589e486177b5724883aad3a0eaf8c7e6767e14fdd84b5ea3d30293460f90",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/communityConfig.js",
+      "hash": "76178cd0515d66e50b34eda281acf9aff1b90231fd49a091cfab72e6ea2d84e0",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/contentSafety.js",
+      "hash": "e32b68e0f0d52f46f7849c6b0d33a0ea902b2fe9c42247c1a9582d542eda67e7",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/couponData.js",
+      "hash": "f8b9b7ddfd12c75af321a17cbce85ecd841dd4e5b3ce661540611185fad15a9d",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/couponFlow.js",
+      "hash": "25a19538c02d31ae4a1545945e9478e1d20a1a074fda0fd2c4e78dfcbfb72519",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/crypto.js",
+      "hash": "90d5f6e9a3c9a213ff23dd8da4721aeee36d7a35993348ffe35fd962b4193a61",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/dashboardMetrics.js",
+      "hash": "5364c03b4d244dd3fddd5598131daa665c73572f8be5aea01b215d7f9554ab6d",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/dispatch.js",
+      "hash": "41288df756efe4cb7027c7df31efea8d9bb7c1ef455891d0e1ab5c64855b4f6a",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/errors.js",
+      "hash": "8d1f0f4ae8ab810bb6dce81403cf6e78874c4cf7f21fbeb557c74a732556f712",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/eventCancellation.js",
+      "hash": "a30eb42b5404190112c1e14fa3277358823c83a9a4d8e397540a3ba8e3d2bee7",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/eventData.js",
+      "hash": "93e18abe4f9f6f527a6f6690c0635506527359bebb3d9da122fe9939608025c8",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/eventFlow.js",
+      "hash": "ca86f1e52a39a09a7e3e0a1490174137f7a6fcc7d6ec3d629d4795e301f1aabb",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/features.js",
+      "hash": "a52af1de923650b9353f3875c3b1bc7f9a13c818c004055ba29fe09c39560d39",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/geo.js",
+      "hash": "15b661729321f0ad9ef085e750dd1197765dfa815b47731e5cdb31ed6a84d73e",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/helpPricing.js",
+      "hash": "d0f9e164c6641841f330f9443e7b8e975d286aef2288bf172527456df30656aa",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/idleData.js",
+      "hash": "501fbb878950e2164525515e2194881610d11a4aa586f26d1ed6f96351653d74",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/ids.js",
+      "hash": "a82fe12b9eb753d737de5b9ad2c908000726dd131d98f54c052f3c7a536ccd5c",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/ledgerFlow.js",
+      "hash": "899bb4154dae4968d30acd42ba037a15356634e88922f74bb0ca62e2a3a1b3f5",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/mediaAccess.js",
+      "hash": "981f7a3da415397ada342d263a6471415c40bf60b38f3216c4b1bb6374a34802",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/membershipData.js",
+      "hash": "9ccb015e9884ff25e6715122094c136e0e6a1dd3644c4473e2a084850473696c",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/membershipFlow.js",
+      "hash": "96a158fb2fe12336c842a8caa73fa5ef77a03d5fb176d9e068290f24c51fd529",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/membershipRevision.js",
+      "hash": "5d742d4bad4a19f73265d341b5465b2d47b3030fd1c12be873da7983ca99445a",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/merchant.js",
+      "hash": "91d81d716c837eccc8d6c991494a9c65237d9cae4f7a1fbf4dc002a9e239809f",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/money.js",
+      "hash": "35bdd8c236d06346573ed3655db224e36da1ef411beaf397e37316cffea969d8",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/notificationData.js",
+      "hash": "2daa449ff78202ced87cb8c7283978b761bef94a5f519b85eb0be238f1874ab3",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/notify.js",
+      "hash": "25016163850bcea722b5710872094b3c6631e6e588d00212c53dbd02dbaab5b7",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/orderContext.js",
+      "hash": "59f900bc7fc9549b2098f61993d62518a2c46e6faca9261d0b8decebe815bfec",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/orderData.js",
+      "hash": "95b6202d84eb467f8d4cbe5da74094d684e6cde9452c95d735a0e70eecc652f6",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/orderFeatures.js",
+      "hash": "0385254e55b48dd1a3dd739afc83c2119859895dd6647ad95bb24308ffc2b80b",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/orderLifecycle.js",
+      "hash": "7f9a62fefd241d9b5529cedcb5cfeb027acd0e7737d18ca7936e210950834993",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/orderStore.js",
+      "hash": "1a67464fe7e3ea748eb571b1a99ea27b48bf8a7681cce6e8900812d95c24aa32",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/orderWrite.js",
+      "hash": "44ab2b13cc25b1a89c1b2f947a5bc62414cd802550c5b81414ab97df54e85687",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/payConfig.js",
+      "hash": "37e6a1f2b7da8de8ddde5cb77fa744ada438951c4654b5087a1122f60de7a878",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/payFlow.js",
+      "hash": "19e040b685bdfd10521bce39645b64bcff61b32fee8e785f1d22d2264eed6861",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/paymentState.js",
+      "hash": "82fb33790212e132edd25f4343e9a187a585952aceb1a1889faabef2f421b9bf",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/payout.js",
+      "hash": "1ac754e401815d79983e0c249b0fa8a6d4dc496638afb3980b12204b925509c3",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/payoutFlow.js",
+      "hash": "d15b6cc43162bcb5fa484b4d16de17bf29c51f60c298ffa42c2595a14073a6ef",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/pet.js",
+      "hash": "3c01c1f89e2bd99195a38720208ad9887b73891430b9106ad334c5377301e20c",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/petFlow.js",
+      "hash": "914f5cf28b9c645512c1db2865b6db3eaa96bd5705a61bb5f487b3e38abb62d9",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/pricing.js",
+      "hash": "fb7bf4234791912ac370b77d0318059663d953c583cc06d8be50bc8c0f55e369",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/profile.js",
+      "hash": "ae49946d299b7d847874a512ea1c031abfd7a50228cfa0e5c063e686ae530fb9",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/providerData.js",
+      "hash": "83927ed6696850b120007764dc1f7e3ba0658f94610771e4b0efbb53024c0d71",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/recycle.js",
+      "hash": "ea0f1d38a3737d47840258c5a923ba5ebaccdea2728818913adb3b9954f4b3d1",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/recycleFlow.js",
+      "hash": "da0db92029f698fe62093fb770f3cbd73a18abf124b490f8fc2c93a74aae784e",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/refundState.js",
+      "hash": "bf5184d873895877a7933f885e4d7d87e9eddb7c51faa9c97d063bdf31202bb3",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/reportAccess.js",
+      "hash": "c3c2ebe5f4050dd06700bce85b278c50e75db31b9ae954ee68008cd3bbc5172b",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/residentOrders.js",
+      "hash": "2cddc1e76f5b7a298bbeeeffa17660070d4736dd3d35e90a7bea24fe1529587d",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/schedule.js",
+      "hash": "d682de85ffb1611f9d55aa4f9590913f36570978a3e3c1333adef3674bcd8fbc",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/server.js",
+      "hash": "cc9b5fef19b2aaf109212a908fd677b0775a64a59a41096c427730984d250b79",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/services/elder.js",
+      "hash": "7ad8574f397340bb8262f8e1ad1a92b9e7515ef75eed01f7829eac0ef74b9905",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/settlementData.js",
+      "hash": "12e45fec0d9d7f9dead8b995ba7a5871909b686f9d866618789e78324b3ed0de",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/split.js",
+      "hash": "a604c6a81ea0ab7f2b6fea25bfc3c2f97531ee729ca183dd685e9da3d65415e3",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/stateMachine.js",
+      "hash": "cbf21befdabbb2cfcb8f0728201d70d0103baf7c4be893d3d79707d17c21d56c",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/station.js",
+      "hash": "9f22710735cde0a4bb568469f18770d538e11b36d552504c037101ad7225c21e",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/stationApplications.js",
+      "hash": "86e13e8f1feea7c679e50d799d5ec9cd21e9227651829811960f977b025f59ba",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/subsidyExport.js",
+      "hash": "98961c54f62d4065169f1ce96c6c603b45afe2519ca44161af52ee380f54f663",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/time.js",
+      "hash": "9ce25cab45cb11d124471412fdfc83b1fe1d4e7193b37ea906241255c49a5347",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/transaction.js",
+      "hash": "4a04386386f5540aa5e23ad5945c54dba741a7511b63040b225df5e81205f865",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/ugc.js",
+      "hash": "5833dab41dd10eda93b5c874866e6c248dbbeabbf744c87f1a9f5a514fe1d28e",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/vacant.js",
+      "hash": "8891369b668a92f8712f5ec9626a5f44da56942e62df5780f5312998119b9442",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/validate.js",
+      "hash": "60d218be945022bf8e0e56f36004df312a24fb2f31e27ccce774701148b03e62",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/views.js",
+      "hash": "10b88a8e111e885e9b5a6c0caeb0b424af863f4db81ba7dca0c7d4afb0d301ea",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/visibility.js",
+      "hash": "687f5697c9f4fdca42fd6ba2d28d23ecd8df981cc9980d4a19236259a63ed7e8",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "lib/shared/wxpayV3.js",
+      "hash": "dabbf46eb89f42fded9f20004bb8fa6b58d2858249695c84f8b01369151e970f",
+      "matchesBaseline": true,
+      "matchesNew": true
+    },
+    {
+      "name": "package.json",
+      "hash": "053b0a8684f569198fa7c512d5502c69212ba065c47d92f4de68dda4ba03cd22",
+      "matchesBaseline": true,
+      "matchesNew": true
+    }
+  ]
+}

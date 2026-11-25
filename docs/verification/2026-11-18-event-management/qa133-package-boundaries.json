@@ -1,0 +1,210 @@
+{
+  "scope": "actual P63 page; cloud-labelled cases execute actual station entry against synthetic database; no real cloud or native notifications",
+  "pass": 24,
+  "fail": 0,
+  "results": [
+    {
+      "name": "normal-create",
+      "pass": true,
+      "evidence": {
+        "calls": 1,
+        "result": "synthetic-batch"
+      }
+    },
+    {
+      "name": "busy-double-submit",
+      "pass": true,
+      "evidence": {
+        "calls": 1
+      }
+    },
+    {
+      "name": "same-page-response-loss-reuses-id",
+      "pass": true,
+      "evidence": {
+        "sameId": true
+      }
+    },
+    {
+      "name": "response-loss-reentry-keeps-original-id",
+      "pass": true,
+      "evidence": {
+        "sameId": true,
+        "calls": 2
+      }
+    },
+    {
+      "name": "old-submit-hide",
+      "pass": true,
+      "evidence": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "late-success-hide",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "notices": 0
+      }
+    },
+    {
+      "name": "late-error-hide",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "notices": 0
+      }
+    },
+    {
+      "name": "old-submit-unload",
+      "pass": true,
+      "evidence": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "late-success-unload",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "notices": 0
+      }
+    },
+    {
+      "name": "late-error-unload",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "notices": 0
+      }
+    },
+    {
+      "name": "old-submit-user",
+      "pass": true,
+      "evidence": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "late-success-user",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "notices": 0
+      }
+    },
+    {
+      "name": "late-error-user",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "notices": 0
+      }
+    },
+    {
+      "name": "old-submit-station",
+      "pass": true,
+      "evidence": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "late-success-station",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "notices": 0
+      }
+    },
+    {
+      "name": "late-error-station",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "notices": 0
+      }
+    },
+    {
+      "name": "unknown-result-unchanged-input-event-keeps-id",
+      "pass": true,
+      "evidence": {
+        "sameId": true
+      }
+    },
+    {
+      "name": "no-eligible-residents-no-batch-result",
+      "pass": true,
+      "evidence": {
+        "batchId": null,
+        "notices": 1
+      }
+    },
+    {
+      "name": "actual-cloud-synthetic-db-normal",
+      "pass": true,
+      "evidence": {
+        "firstCount": 1,
+        "finalCount": 1,
+        "calls": 1,
+        "uniqueRequestIds": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "actual-cloud-synthetic-db-same-page",
+      "pass": true,
+      "evidence": {
+        "firstCount": 1,
+        "finalCount": 1,
+        "calls": 2,
+        "uniqueRequestIds": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "actual-cloud-synthetic-db-reentry",
+      "pass": true,
+      "evidence": {
+        "firstCount": 1,
+        "finalCount": 1,
+        "calls": 2,
+        "uniqueRequestIds": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "actual-cloud-synthetic-db-unchanged-input",
+      "pass": true,
+      "evidence": {
+        "firstCount": 1,
+        "finalCount": 1,
+        "calls": 2,
+        "uniqueRequestIds": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "actual-cloud-synthetic-db-saved-address",
+      "pass": true,
+      "evidence": {
+        "firstCount": 1,
+        "finalCount": 1,
+        "calls": 1,
+        "uniqueRequestIds": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "actual-cloud-synthetic-db-no-consent",
+      "pass": true,
+      "evidence": {
+        "firstCount": 0,
+        "finalCount": 0,
+        "calls": 1,
+        "uniqueRequestIds": 1,
+        "error": ""
+      }
+    }
+  ]
+}

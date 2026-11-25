@@ -129,11 +129,47 @@ function addressMatches(user, address, buildingId, communityId) {
   return primary || saved;
 }
 
+function creationBatchId(stationCode, requestId) {
+  text(requestId, '请求编号', 80);
+  ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(requestId), '请求编号不正确');
+  return 'station_' + crypto.createHash('sha256').update(stationCode + ':' + requestId).digest('hex').slice(0, 32);
+}
+
+function batchCreationResult(batch, inputCount = batch.inputCount) {
+  return { batchId: batch._id, eligibleCount: batch.items.length,
+    skippedCount: Math.max(0, inputCount - batch.items.length), repeated: true };
+}
+
+function sameBatchCreator(batch, user) {
+  ensure(batch.stationCode === user.stationCode && batch.communityId === (user.stationCommunityId || user.communityId) &&
+    (!batch.creationOwnerId || batch.creationOwnerId === user._id), '无权读取该批次创建结果', 'E_FORBIDDEN');
+}
+
+async function lookupBatchCreation(event, { user }) {
+  requireRole(user, ['station']);
+  text(user.stationCommunityId || user.communityId, '小区');
+  text(user.stationCode, '驿站');
+  const batch = await server.get('deliveryBatches', creationBatchId(user.stationCode, event.requestId));
+  if (!batch) return { batchId: null };
+  sameBatchCreator(batch, user);
+  ensure(batch.creationOwnerId === user._id && Number.isSafeInteger(batch.inputCount),
+    '历史批次缺少本人创建凭据，请到工作台核对', 'E_FORBIDDEN');
+  return batchCreationResult(batch);
+}
+
 async function createBatch(event, { user }) {
   const { community, stationCode } = await stationContext(user);
-  text(event.requestId, '请求编号', 80);
-  ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
+  const batchId = creationBatchId(stationCode, event.requestId);
   const addresses = parseAddressLines(event.lines);
+  const inputHash = crypto.createHash('sha256').update(JSON.stringify(addresses)).digest('hex');
+  const checkPrevious = previous => {
+    sameBatchCreator(previous, user);
+    ensure(!previous.creationInputHash || previous.creationInputHash === inputHash,
+      '请求编号已用于不同门牌清单，请先核对原批次', 'E_CONFLICT');
+    return batchCreationResult(previous, previous.inputCount ?? addresses.length);
+  };
+  const existing = await server.get('deliveryBatches', batchId);
+  if (existing) return checkPrevious(existing);
   const buildings = await server.all('buildings', { communityId: community._id });
   const byName = new Map(buildings.map(building => [building.name, building]));
   const resolved = addresses.map(address => {
@@ -162,13 +198,13 @@ async function createBatch(event, { user }) {
     }));
     candidates.push(...results.filter(Boolean));
   }
-  const batchId = 'station_' + crypto.createHash('sha256').update(stationCode + ':' + event.requestId).digest('hex').slice(0, 32);
   const result = await atomic(db, async transaction => {
+    const actor = await read(transaction, 'users', user._id);
+    ensure(actor && !actor.blocked && actor.openid === user.openid && actor.roles?.includes('station') &&
+      actor.stationCode === stationCode && (actor.stationCommunityId || actor.communityId) === community._id,
+    '驿站身份已变化，请重新核对', 'E_FORBIDDEN');
     const previous = await read(transaction, 'deliveryBatches', batchId);
-    if (previous) {
-      ensure(previous.stationCode === stationCode && previous.communityId === community._id, '请求编号已用于其他批次', 'E_CONFLICT');
-      return { batchId, eligibleCount: previous.items.length, skippedCount: addresses.length - previous.items.length, repeated: true };
-    }
+    if (previous) return checkPrevious(previous);
     const items = [];
     for (const candidate of candidates) {
       const currentResident = await read(transaction, 'users', candidate.userId);
@@ -181,6 +217,7 @@ async function createBatch(event, { user }) {
     if (!items.length) return { batchId: null, eligibleCount: 0, skippedCount: addresses.length, repeated: false };
     const now = new Date();
     await insert(transaction, 'deliveryBatches', { _id: batchId, communityId: community._id, stationCode,
+      creationOwnerId: user._id, creationInputHash: inputHash, inputCount: addresses.length,
       items, providerId: null, providerOpenid: null, status: 'open', createdAt: now, updatedAt: now,
       priceSnapshot: community.prices && community.prices.stationDelivery || {} });
     return { batchId, eligibleCount: items.length, skippedCount: addresses.length - items.length, repeated: false };
@@ -383,6 +420,6 @@ async function recordDelivery(event, { openid }) {
   });
 }
 
-exports.main = server.entry({ setDoorDelivery, listMyBatches, exportStatement, providerHall, acceptBatch, providerBatch,
+exports.main = server.entry({ setDoorDelivery, listMyBatches, exportStatement, lookupBatchCreation, providerHall, acceptBatch, providerBatch,
   createBatch, startBatch, checkDoorDeliveryConsent, recordDelivery, applicationOptions, myApplication, apply,
   listApplications, reviewApplication }, ['resident', 'admin', 'station', 'provider'], 'station');
