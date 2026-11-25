@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-25",
+  "scope": "extracted fixed ZIP actual station entry and bundled libraries; synthetic database only",
+  "results": [
+    {
+      "test": "station-delivery-identity-boundaries",
+      "pass": 74,
+      "fail": 0
+    },
+    {
+      "test": "station-delivery-cloud",
+      "pass": 28,
+      "fail": 0
+    }
+  ]
+}
