@@ -1,0 +1,246 @@
+{
+  "baseline": "32e8886",
+  "repeatMatches": true,
+  "scope": "actual station entry, synthetic database only; no cloud writes, native calls or uploaded photos",
+  "pass": 15,
+  "fail": 4,
+  "results": [
+    {
+      "name": "hall-hides-addresses-before-accept",
+      "pass": true,
+      "evidence": {
+        "list": [
+          {
+            "_id": "batch-A",
+            "stationCode": "A",
+            "status": "open",
+            "createdAt": "2026-11-25T00:00:00.000Z",
+            "itemCount": 2,
+            "pendingCount": 2,
+            "deliveredCount": 0,
+            "skippedCount": 0,
+            "estimatedIncome": 80
+          }
+        ]
+      }
+    },
+    {
+      "name": "normal-delivery-bills-once",
+      "pass": true,
+      "evidence": {
+        "afterFirst": {
+          "status": "assigned",
+          "ledger": 0
+        },
+        "final": {
+          "status": "done",
+          "ledger": 1,
+          "amounts": {
+            "gross": 100,
+            "provider": 80,
+            "property": 0,
+            "platform": 20,
+            "goods": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "duplicate-start-no-new-write",
+      "pass": true,
+      "evidence": {
+        "ok": true,
+        "writes": 0
+      }
+    },
+    {
+      "name": "duplicate-record-pending-batch",
+      "pass": true,
+      "evidence": {
+        "code": "E_CONFLICT",
+        "writes": 0,
+        "unchanged": true
+      }
+    },
+    {
+      "name": "duplicate-record-completed-batch",
+      "pass": true,
+      "evidence": {
+        "code": "E_BAD_STATE",
+        "writes": 0,
+        "unchanged": true
+      }
+    },
+    {
+      "name": "withdrawn-consent-checkDoorDeliveryConsent",
+      "pass": true,
+      "evidence": {
+        "status": "skipped",
+        "amounts": {
+          "gross": 50,
+          "provider": 40,
+          "property": 0,
+          "platform": 10,
+          "goods": 0
+        },
+        "ledger": 1
+      }
+    },
+    {
+      "name": "withdrawn-consent-recordDelivery",
+      "pass": true,
+      "evidence": {
+        "status": "skipped",
+        "amounts": {
+          "gross": 50,
+          "provider": 40,
+          "property": 0,
+          "platform": 10,
+          "goods": 0
+        },
+        "ledger": 1
+      }
+    },
+    {
+      "name": "repeat-delivered-after-consent-withdrawn-keeps-record",
+      "pass": true,
+      "evidence": {
+        "code": "E_CONFLICT",
+        "itemStatus": "delivered",
+        "gross": 50
+      }
+    },
+    {
+      "name": "all-failed-no-ledger",
+      "pass": true,
+      "evidence": {
+        "status": "done",
+        "ledger": 0,
+        "gross": 0
+      }
+    },
+    {
+      "name": "wrong-photo-folder-rejected",
+      "pass": true,
+      "evidence": {
+        "ok": false,
+        "status": "pending"
+      }
+    },
+    {
+      "name": "other-provider-rejected",
+      "pass": true,
+      "evidence": {
+        "code": "E_FORBIDDEN"
+      }
+    },
+    {
+      "name": "accept-eligibility-status-before",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "ok": false,
+          "code": "E_FORBIDDEN",
+          "message": "暂无权限执行此操作"
+        },
+        "batchStatus": "open"
+      }
+    },
+    {
+      "name": "accept-eligibility-status-transaction",
+      "pass": false,
+      "evidence": {
+        "result": {
+          "ok": true,
+          "data": {
+            "batchId": "batch-A",
+            "status": "assigned"
+          }
+        },
+        "batchStatus": "assigned"
+      },
+      "error": "Expected values to be strictly equal:\n\ntrue !== false\n"
+    },
+    {
+      "name": "accept-eligibility-community-before",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "ok": false,
+          "code": "E_FORBIDDEN",
+          "message": "批次不存在或不属于当前小区"
+        },
+        "batchStatus": "open"
+      }
+    },
+    {
+      "name": "accept-eligibility-community-transaction",
+      "pass": false,
+      "evidence": {
+        "result": {
+          "ok": true,
+          "data": {
+            "batchId": "batch-A",
+            "status": "assigned"
+          }
+        },
+        "batchStatus": "assigned"
+      },
+      "error": "Expected values to be strictly equal:\n\ntrue !== false\n"
+    },
+    {
+      "name": "accept-eligibility-duty-before",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "ok": false,
+          "code": "E_BAD_STATE",
+          "message": "请先上线值班"
+        },
+        "batchStatus": "open"
+      }
+    },
+    {
+      "name": "accept-eligibility-duty-transaction",
+      "pass": false,
+      "evidence": {
+        "result": {
+          "ok": true,
+          "data": {
+            "batchId": "batch-A",
+            "status": "assigned"
+          }
+        },
+        "batchStatus": "assigned"
+      },
+      "error": "Expected values to be strictly equal:\n\ntrue !== false\n"
+    },
+    {
+      "name": "accept-eligibility-insurance-before",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "ok": false,
+          "code": "E_INSURANCE",
+          "message": "保险已到期或未登记，请联系管理员"
+        },
+        "batchStatus": "open"
+      }
+    },
+    {
+      "name": "accept-eligibility-insurance-transaction",
+      "pass": false,
+      "evidence": {
+        "result": {
+          "ok": true,
+          "data": {
+            "batchId": "batch-A",
+            "status": "assigned"
+          }
+        },
+        "batchStatus": "assigned"
+      },
+      "error": "Expected values to be strictly equal:\n\ntrue !== false\n"
+    }
+  ]
+}

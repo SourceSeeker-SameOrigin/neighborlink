@@ -284,12 +284,17 @@ async function acceptBatch(event, { openid }) {
   await server.feature('stationDelivery', batch.communityId);
   return atomic(db, async transaction => {
     const current = await read(transaction, 'deliveryBatches', batch._id);
+    const currentProvider = await read(transaction, 'providers', provider._id);
+    ensure(currentProvider && currentProvider.openid === openid &&
+      currentProvider.communityId === provider.communityId && current && current.communityId === currentProvider.communityId,
+    '服务员或批次归属已变化，请刷新后重试', 'E_FORBIDDEN');
+    const now = new Date();
+    canWork(currentProvider, now, 1, true);
     ensure(current && current.status === 'open', '批次已被其他服务员接走', 'E_CONFLICT');
     const eligible = (current.items || []).filter(item => item.consented === true && item.status === 'pending');
     ensure(eligible.length > 0, '批次没有可配送的住户');
-    const now = new Date();
     await transaction.collection('deliveryBatches').doc(current._id).update({ data: {
-      status: 'assigned', providerId: provider._id, providerOpenid: openid, acceptedAt: now, updatedAt: now
+      status: 'assigned', providerId: currentProvider._id, providerOpenid: openid, acceptedAt: now, updatedAt: now
     } });
     return { batchId: current._id, status: 'assigned' };
   });
