@@ -1,0 +1,297 @@
+{
+  "date": "2026-11-25",
+  "sourceCommit": "13850d9",
+  "scope": "actual station.createBatch with synthetic database; no network or real records",
+  "pass": 21,
+  "fail": 0,
+  "results": [
+    {
+      "name": "primary-unchanged-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": "station_8b237b5bc661f1840cbcc53bdbda356d",
+          "eligibleCount": 1,
+          "skippedCount": 0,
+          "repeated": false
+        },
+        "batches": 1,
+        "writes": 1
+      }
+    },
+    {
+      "name": "primary-consent-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "primary-blocked-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "primary-removed-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "primary-communityId-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "primary-buildingId-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "primary-unit-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "primary-room-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "primary-address-removed-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "primary-original-address-still-linked",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": "station_8b237b5bc661f1840cbcc53bdbda356d",
+          "eligibleCount": 1,
+          "skippedCount": 0,
+          "repeated": false
+        }
+      }
+    },
+    {
+      "name": "saved-unchanged-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": "station_8b237b5bc661f1840cbcc53bdbda356d",
+          "eligibleCount": 1,
+          "skippedCount": 0,
+          "repeated": false
+        },
+        "batches": 1,
+        "writes": 1
+      }
+    },
+    {
+      "name": "saved-consent-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "saved-blocked-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "saved-removed-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "saved-communityId-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "saved-buildingId-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "saved-unit-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "saved-room-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "saved-address-removed-before-write",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": null,
+          "eligibleCount": 0,
+          "skippedCount": 1,
+          "repeated": false
+        },
+        "batches": 0,
+        "writes": 0
+      }
+    },
+    {
+      "name": "saved-original-address-still-linked",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": "station_8b237b5bc661f1840cbcc53bdbda356d",
+          "eligibleCount": 1,
+          "skippedCount": 0,
+          "repeated": false
+        }
+      }
+    },
+    {
+      "name": "mixed-list-skips-revoked-resident-without-retaining-address",
+      "pass": true,
+      "evidence": {
+        "result": {
+          "batchId": "station_8b237b5bc661f1840cbcc53bdbda356d",
+          "eligibleCount": 1,
+          "skippedCount": 1,
+          "repeated": false
+        }
+      }
+    }
+  ]
+}

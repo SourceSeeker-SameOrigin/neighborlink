@@ -18,7 +18,7 @@
     {
       "width": 375,
       "verified": false,
-      "note": "On 2026-11-25 the 375-width confirm form and done result screenshots matched accessibility state. The real confirmation button recovered qa133-synthetic-batch after a synthetic lost response. Scroll still returned noWindowsAvailable. A subsequent ordinary compile did not yield a fresh lookup-failure screen during this run; full visual/scroll acceptance remains pending.",
+      "note": "On 2026-11-25 a normal CLI close/open and compile restored a matching 375-width lookup-failure screenshot and accessibility tree: synthetic query error, read-only retry, no create submission. Prior confirm/done screenshots remain recorded. The touristappid dialog remained after AX click and Return; coordinate click returned noWindowsAvailable. No further interaction behind the dialog was credited. Normal scroll acceptance remains pending.",
       "readonlyRetryFoundOriginalAx": true,
       "confirmOriginalInputClickedAx": true,
       "lostCreateResponseRecoveredOriginalAx": true,
@@ -26,7 +26,9 @@
       "confirmOriginalInputClicked": true,
       "lostCreateResponseRecoveredOriginal": true,
       "confirmFormScreenshotConfirmed": true,
-      "recoveredResultScreenshotConfirmed": true
+      "recoveredResultScreenshotConfirmed": true,
+      "lookupFailureVisible": true,
+      "lookupFailureScreenshotConfirmed": true
     },
     {
       "width": 390,
@@ -59,7 +61,7 @@
   },
   "remaining": [
     "320 lower submit reachability and retry flow",
-    "375 lookup-failure visual recheck and normal scrolling",
+    "375 normal scrolling and fresh retry interaction after lookup failure",
     "real account/device acceptance under separate scope"
   ],
   "latestRecheck": {
@@ -74,6 +76,15 @@
       "approvedForFix": true,
       "cloudDeploymentAuthorized": false
     },
+    "realCloudWrites": 0
+  },
+  "latestVisualRecheck": {
+    "date": "2026-11-25",
+    "sourceCommit": "13850d9",
+    "width": 375,
+    "lookupFailureScreenshotMatched": true,
+    "nativeDialogBlockedFurtherClicks": true,
+    "reportedLocked": false,
     "realCloudWrites": 0
   }
 }
