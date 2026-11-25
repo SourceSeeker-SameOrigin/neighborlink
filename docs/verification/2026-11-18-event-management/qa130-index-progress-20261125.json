@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-25",
+  "collection": "merchantServices",
+  "observedExistingIndexes": [
+    "merchant_status_title",
+    "_openid_1",
+    "_id_"
+  ],
+  "desired": {
+    "name": "merchant_created_id",
+    "unique": false,
+    "fields": [
+      [
+        "merchantId",
+        "asc"
+      ],
+      [
+        "createdAt",
+        "desc"
+      ],
+      [
+        "_id",
+        "desc"
+      ]
+    ]
+  },
+  "submitted": false,
+  "created": false,
+  "lastObservedDraft": {
+    "fields": [
+      [
+        "merchantId",
+        "asc"
+      ],
+      [
+        "createdAt",
+        "desc"
+      ],
+      [
+        "_id",
+        "asc"
+      ]
+    ],
+    "sortDropdownOpen": true
+  },
+  "blocker": "DOM timeout; native click did not update selected direction",
+  "liveQueryVerified": false
+}

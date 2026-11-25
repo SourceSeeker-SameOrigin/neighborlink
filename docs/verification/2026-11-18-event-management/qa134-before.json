@@ -1,0 +1,374 @@
+{
+  "scope": "actual page, synthetic responses; zero real cloud or native calls",
+  "pass": 5,
+  "fail": 21,
+  "results": [
+    {
+      "name": "normal-read",
+      "pass": true,
+      "evidence": {
+        "batchId": "batch-A"
+      }
+    },
+    {
+      "name": "normal-start",
+      "pass": true,
+      "evidence": {
+        "writes": [
+          {
+            "action": "startBatch",
+            "data": {
+              "batchId": "batch-A"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "normal-delivered",
+      "pass": true,
+      "evidence": {
+        "writes": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "delivered",
+              "photoFileId": "cloud://synthetic/station/batch-A/photo.jpg"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "normal-failed",
+      "pass": true,
+      "evidence": {
+        "writes": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "failed",
+              "reason": "合成原因"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "normal-cancel",
+      "pass": true,
+      "evidence": {
+        "writes": []
+      }
+    },
+    {
+      "name": "denied-clears-previous-addresses",
+      "pass": false,
+      "evidence": {
+        "oldBatchRetained": true,
+        "error": "合成无权访问"
+      },
+      "error": "Expected values to be strictly equal:\n\ntrue !== false\n"
+    },
+    {
+      "name": "read-order-newest-wins",
+      "pass": false,
+      "evidence": {
+        "revision": "old"
+      },
+      "error": "Expected values to be strictly equal:\n\n'old' !== 'new'\n"
+    },
+    {
+      "name": "late-read-hide",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-read-unload",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-read-user",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 2
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "late-read-batch",
+      "pass": false,
+      "evidence": {
+        "uiWrites": 2
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "old-start-hide",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "startBatch",
+            "data": {
+              "batchId": "batch-A"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-start-unload",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "startBatch",
+            "data": {
+              "batchId": "batch-A"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-start-user",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "startBatch",
+            "data": {
+              "batchId": "batch-A"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-start-batch",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "startBatch",
+            "data": {
+              "batchId": "batch-B"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-start-denied",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "startBatch",
+            "data": {
+              "batchId": "batch-A"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-confirm-hide",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "failed",
+              "reason": "合成原因"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-confirm-unload",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "failed",
+              "reason": "合成原因"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-confirm-user",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "failed",
+              "reason": "合成原因"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-confirm-batch",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-B",
+              "itemId": "item-A",
+              "status": "failed",
+              "reason": "合成原因"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "old-confirm-refresh",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "failed",
+              "reason": "合成原因"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-upload-hide",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "delivered",
+              "photoFileId": "cloud://synthetic/station/batch-A/photo.jpg"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-upload-unload",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "delivered",
+              "photoFileId": "cloud://synthetic/station/batch-A/photo.jpg"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-upload-user",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "delivered",
+              "photoFileId": "cloud://synthetic/station/batch-A/photo.jpg"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-upload-batch",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-B",
+              "itemId": "item-A",
+              "status": "delivered",
+              "photoFileId": "cloud://synthetic/station/batch-A/photo.jpg"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-upload-refresh",
+      "pass": false,
+      "evidence": {
+        "calls": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "delivered",
+              "photoFileId": "cloud://synthetic/station/batch-A/photo.jpg"
+            }
+          }
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    }
+  ],
+  "sourceCommit": "f243114"
+}

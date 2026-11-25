@@ -1,0 +1,217 @@
+{
+  "scope": "actual page, synthetic responses; zero real cloud or native calls",
+  "pass": 26,
+  "fail": 0,
+  "results": [
+    {
+      "name": "normal-read",
+      "pass": true,
+      "evidence": {
+        "batchId": "batch-A"
+      }
+    },
+    {
+      "name": "normal-start",
+      "pass": true,
+      "evidence": {
+        "writes": [
+          {
+            "action": "startBatch",
+            "data": {
+              "batchId": "batch-A"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "normal-delivered",
+      "pass": true,
+      "evidence": {
+        "writes": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "delivered",
+              "photoFileId": "cloud://synthetic/station/batch-A/photo.jpg"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "normal-failed",
+      "pass": true,
+      "evidence": {
+        "writes": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "failed",
+              "reason": "合成原因"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "normal-cancel",
+      "pass": true,
+      "evidence": {
+        "writes": []
+      }
+    },
+    {
+      "name": "denied-clears-previous-addresses",
+      "pass": true,
+      "evidence": {
+        "oldBatchRetained": false,
+        "error": "合成无权访问"
+      }
+    },
+    {
+      "name": "read-order-newest-wins",
+      "pass": true,
+      "evidence": {
+        "revision": "new"
+      }
+    },
+    {
+      "name": "late-read-hide",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0
+      }
+    },
+    {
+      "name": "late-read-unload",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0
+      }
+    },
+    {
+      "name": "late-read-user",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0
+      }
+    },
+    {
+      "name": "late-read-batch",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0
+      }
+    },
+    {
+      "name": "old-start-hide",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "old-start-unload",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "old-start-user",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "old-start-batch",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "old-start-denied",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "old-confirm-hide",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "old-confirm-unload",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "old-confirm-user",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "old-confirm-batch",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "old-confirm-refresh",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "late-upload-hide",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "late-upload-unload",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "late-upload-user",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "late-upload-batch",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    },
+    {
+      "name": "late-upload-refresh",
+      "pass": true,
+      "evidence": {
+        "calls": []
+      }
+    }
+  ]
+}
