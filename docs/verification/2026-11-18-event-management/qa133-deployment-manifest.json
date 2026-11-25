@@ -12,8 +12,8 @@
   "baselineMatched": 72,
   "plannedMethod": "official WeChat CLI incremental index.js update, preserving dependencies and configuration; full source download readback",
   "dependency": "existing wx-server-sdk 4.0.2",
-  "deploymentAuthorized": false,
-  "deployed": false,
+  "deploymentAuthorized": true,
+  "deployed": true,
   "files": [
     {
       "file": "index.js",
@@ -447,5 +447,6 @@
       "sha256": "dabbf46eb89f42fded9f20004bb8fa6b58d2858249695c84f8b01369151e970f",
       "previousSHA256": "dabbf46eb89f42fded9f20004bb8fa6b58d2858249695c84f8b01369151e970f"
     }
-  ]
+  ],
+  "temporaryPackageCleaned": true
 }
