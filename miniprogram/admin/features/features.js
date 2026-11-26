@@ -22,51 +22,132 @@ const INFO = {
 const LABELS = { board:'需求广场',idle:'闲置交易',idleEscrow:'闲置担保',events:'社区活动',chat:'站内聊天',location:'地图定位',coupons:'优惠券',points:'环保积分',autoPayout:'自动打款',elder:'助老服务',pet:'上门喂宠',stationDelivery:'驿站送上门',recycle:'回收上门',merchants:'商家预约',vacantHome:'空置房巡检',travelCarry:'出行帮带',federation:'联合社区',ads:'广告位',notices:'物业公告' };
 Page({
   data: { loading: true, ready: false, saving: false, error: '', items: [], communities: [], communityIndex: 0, scope: 'community' },
-  onLoad() { this.load(); },
+  onLoad() { this._visible = true; return this.load(); },
+  onShow() { this._visible = true; return this.load(); },
+  onHide() {
+    this._visible = false;
+    this._loadVersion = (this._loadVersion || 0) + 1;
+    this._refreshVersion = (this._refreshVersion || 0) + 1;
+    this.readContext = null;
+    this.operation = null;
+    this.communityFeatures = null;
+    this.setData({ loading: false, ready: false, saving: false, items: [], communities: [], global: {}, error: '' });
+  },
+  onUnload() { this._closed = true; this.onHide(); },
+  contextCurrent(context) {
+    const user = getApp().globalData.user;
+    return Boolean(context && this.readContext === context && this._visible !== false && !this._closed &&
+      user && user._id === context.userId && Array.isArray(user.roles) && user.roles.includes('admin'));
+  },
+  currentRead() { return this.data.ready && this.contextCurrent(this.readContext); },
+  clearOld(message = '登录身份已变化，请重新加载') {
+    this._refreshVersion = (this._refreshVersion || 0) + 1;
+    this.readContext = null;
+    this.operation = null;
+    this.communityFeatures = null;
+    this.setData({ ready: false, saving: false, items: [], communities: [], global: {}, error: message });
+  },
   async load() {
-    this.setData({ loading: true, ready: false, error: '' });
+    if (this._closed || this._visible === false ||
+        (this._loadingVersion && this._loadingVersion === this._loadVersion)) return;
+    const version = this._loadVersion = (this._loadVersion || 0) + 1;
+    this._loadingVersion = version;
+    this._refreshVersion = (this._refreshVersion || 0) + 1;
+    this.readContext = null;
+    this.operation = null;
+    this.communityFeatures = null;
+    this.setData({ loading: true, ready: false, saving: false, error: '', items: [], communities: [], global: {} });
+    let userId;
+    const current = () => version === this._loadVersion && this._visible !== false && !this._closed &&
+      (!userId || getApp().globalData.user?._id === userId);
     try {
       const user = await getApp().ensureSession();
+      if (!current()) return;
+      userId = user?._id;
+      if (!userId) throw new Error('登录资料暂不可用，请重试');
       if (!user.roles.includes('admin')) throw new Error('只有运营管理员可配置扩展功能');
       const communities = await listAll('catalog', 'listCommunities');
+      if (!current()) return;
       this.setData({ communities, communityIndex: Math.max(0, communities.findIndex(item => item._id === user.communityId)) });
+      this.readContext = { userId, version };
       await this.refresh();
-    } catch (error) { this.setData({ error: error.message || '加载失败' }); }
-    finally { this.setData({ loading: false }); }
+    } catch (error) { if (current()) this.setData({ error: error.message || '加载失败' }); }
+    finally {
+      if (this._loadingVersion === version) this._loadingVersion = null;
+      if (current()) this.setData({ loading: false });
+      else if (version === this._loadVersion && this._visible !== false && !this._closed) this.clearOld();
+    }
   },
   async refresh() {
-    this.setData({ ready: false });
+    const context = this.readContext;
+    if (!this.contextCurrent(context)) { if (this._visible !== false) this.clearOld(); return; }
+    const version = this._refreshVersion = (this._refreshVersion || 0) + 1;
     const community = this.data.communities[this.data.communityIndex];
-    const result = await api.call('admin', 'getFeatures', { communityId: community && community._id }, { loading: false, silent: true });
-    this.setData({ ready: true, communityId: result.communityId, global: result.global,
-      items: Object.keys(LABELS).map(key => ({ key, label: LABELS[key], info: INFO[key], global: result.global[key] === true,
-        community: Object.prototype.hasOwnProperty.call(result.community, key) ? result.community[key] === true : null,
-        enabled: this.data.scope === 'global' ? result.global[key] === true :
-          Object.prototype.hasOwnProperty.call(result.community, key) ? result.community[key] === true : result.global[key] === true })) });
-    this.communityFeatures = result.community;
+    const communityId = community?._id, scope = this.data.scope;
+    const current = () => version === this._refreshVersion && this.contextCurrent(context) &&
+      this.data.scope === scope && this.data.communities[this.data.communityIndex]?._id === communityId;
+    this.setData({ ready: false, items: [], error: '' });
+    try {
+      const result = await api.call('admin', 'getFeatures', { communityId },
+        { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
+      if (!current()) return;
+      if (communityId && result.communityId !== communityId) throw new Error('小区资料已变化，请重新加载');
+      const global = result.global || {}, local = result.community || {};
+      this.communityFeatures = local;
+      this.setData({ ready: true, communityId: result.communityId, global,
+        items: Object.keys(LABELS).map(key => ({ key, label: LABELS[key], info: INFO[key], global: global[key] === true,
+          community: Object.prototype.hasOwnProperty.call(local, key) ? local[key] === true : null,
+          enabled: scope === 'global' ? global[key] === true :
+            Object.prototype.hasOwnProperty.call(local, key) ? local[key] === true : global[key] === true })) });
+    } catch (error) { if (current()) this.setData({ error: error.message || '开关读取失败，请重试' }); }
+    finally { if (!current() && this.readContext === context && !this.contextCurrent(context)) this.clearOld(); }
   },
-  choose(event) { if (!this.data.ready || this.data.saving) return; this.setData({ communityIndex: Number(event.detail.value) }); this.refresh().catch(error => this.setData({ error: error.message })); },
-  scope(event) { if (!this.data.ready || this.data.saving) return; this.setData({ scope: event.currentTarget.dataset.scope }); this.refresh().catch(error => this.setData({ error: error.message })); },
-  async toggle(event) {
+  choose(event) {
     if (!this.data.ready || this.data.saving) return;
+    if (!this.currentRead()) { this.clearOld(); return; }
+    const index = Number(event.detail.value);
+    if (!Number.isInteger(index) || !this.data.communities[index]) return;
+    this.setData({ communityIndex: index }); return this.refresh();
+  },
+  scope(event) {
+    if (!this.data.ready || this.data.saving) return;
+    if (!this.currentRead()) { this.clearOld(); return; }
+    const scope = event.currentTarget.dataset.scope;
+    if (!['global', 'community'].includes(scope)) return;
+    this.setData({ scope }); return this.refresh();
+  },
+  async toggle(event) {
+    if (this._closed || this._visible === false || !this.data.ready || this.data.saving) return;
+    if (!this.currentRead()) { this.clearOld(); return; }
     const key = event.currentTarget.dataset.key;
+    if (!Object.prototype.hasOwnProperty.call(LABELS, key)) return;
     const community = this.data.communities[this.data.communityIndex];
+    const context = this.readContext, scope = this.data.scope;
     const enabled = event.detail.value === true;
+    const operation = this.operation = { context, scope, communityId: community?._id };
+    const current = () => this.operation === operation && this.contextCurrent(context) &&
+      this.data.scope === scope && this.data.communities[this.data.communityIndex]?._id === operation.communityId;
     this.setData({ saving: true, error: '' });
     try {
-      if (this.data.scope === 'global') {
+      if (scope === 'global') {
         const features = { ...(this.data.global || {}), [key]: enabled };
-        await api.call('admin', 'updateConfig', { features });
+        await api.call('admin', 'updateConfig', { features },
+          { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
       } else {
         if (!community) throw new Error('请先选择小区');
         const features = { ...(this.communityFeatures || {}), [key]: enabled };
-        await api.call('admin', 'updateCommunity', { communityId: community._id, features });
-        community.features = features;
-        this.communityFeatures = features;
-        this.setData({ communities: this.data.communities });
+        await api.call('admin', 'updateCommunity', { communityId: community._id, features },
+          { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
       }
+      if (!current()) return;
+      this.operation = null;
+      this.setData({ saving: false });
       await this.refresh();
-    } catch (error) { this.setData({ error: error.message || '依赖未满足，开关未保存' }); }
-    finally { this.setData({ saving: false }); }
+    } catch (error) {
+      if (current()) this.clearOld('开关保存结果待核对，请重新加载');
+    } finally {
+      if (this.operation === operation) { this.operation = null; this.setData({ saving: false }); }
+      if (this.readContext === context && !this.contextCurrent(context) && this._visible !== false) this.clearOld();
+    }
   }
 });

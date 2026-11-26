@@ -1,0 +1,55 @@
+{
+  "scope": "Actual P25 page, synthetic identities and intercepted actions; no cloud writes",
+  "total": 12,
+  "passed": 12,
+  "cases": [
+    {
+      "name": "current admin loads and toggles selected community once",
+      "pass": true
+    },
+    {
+      "name": "current admin may update global default once",
+      "pass": true
+    },
+    {
+      "name": "different admin cannot submit old community switch",
+      "pass": true
+    },
+    {
+      "name": "resident cannot submit stale admin switch",
+      "pass": true
+    },
+    {
+      "name": "identity change clears old options before scope switch",
+      "pass": true
+    },
+    {
+      "name": "community switch reads only selected community before write",
+      "pass": true
+    },
+    {
+      "name": "hidden page clears data and rejects stale switch",
+      "pass": true
+    },
+    {
+      "name": "double switch sends one update",
+      "pass": true
+    },
+    {
+      "name": "late read after hide does not restore old switches",
+      "pass": true
+    },
+    {
+      "name": "late write result after identity change does not repopulate old page",
+      "pass": true
+    },
+    {
+      "name": "failed refresh does not retain previously authorized switches",
+      "pass": true
+    },
+    {
+      "name": "failed update leaves read-only retry instead of re-sending write",
+      "pass": true
+    }
+  ]
+}

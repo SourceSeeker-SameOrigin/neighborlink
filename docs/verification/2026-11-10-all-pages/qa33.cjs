@@ -19,12 +19,12 @@ function setup(name,control={}){
   if(action==='listSettlements')return {list:[]};
   if(action==='notificationTemplates')return{};
   throw Error('意外业务调用 '+action);
- });r.app.globalData.user={roles:['admin'],communityId:'c100'};
+ });r.app.globalData.user={_id:'fixture',roles:['admin'],communityId:'c100'};
  return {r,p:r.instance(`miniprogram/admin/${name}/${name}.js`)};
 }
 async function dependencyActions(name,p){
  const e={detail:{value:0},currentTarget:{dataset:{field:'communityIndex',scope:'global',key:'location',type:'provider',id:'fake'}}};
- const methods={dashboard:['chooseCommunity','chooseDate','chooseScope'],features:['choose','scope','toggle'],recycle:['select','exportStatement'],posters:['generate'],settlements:['select','preview','create','markPaid','exportCsv']};
+ const methods={dashboard:['chooseCommunity','chooseDate','chooseScope'],features:['choose','scope','toggle'],recycle:['select','openExports'],posters:['generate'],settlements:['select','preview','create','markPaid','exportCsv']};
  for(const method of methods[name])await p[method](e);
 }
 (async()=>{
