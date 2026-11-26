@@ -4,6 +4,7 @@ async function uploadPhotos(folder, count = 1, options = {}) {
   await privacy.authorize();
   const result = await new Promise((resolve, reject) => wx.chooseMedia({ count, mediaType: ['image'],
     sourceType: ['camera'], sizeType: ['compressed'], success: resolve, fail: reject }));
+  if (typeof options.onChosen === 'function') options.onChosen();
   const files = [];
   const loading = options.loading !== false;
   if (loading) wx.showLoading({ title: '正在上传照片', mask: true });

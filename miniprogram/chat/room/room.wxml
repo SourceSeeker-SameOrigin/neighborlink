@@ -13,5 +13,5 @@
     <view wx:if="{{loading}}" class="muted">正在加载消息…</view>
     <view wx:if="{{readOnly}}" class="muted notice">会话已关闭，只能查看历史消息</view>
   </scroll-view>
-  <view wx:if="{{!readOnly}}" class="composer"><textarea class="ui-textarea" value="{{content}}" maxlength="500" auto-height placeholder="最多 500 字" bindinput="input"/><button class="ui-button" bindtap="image" disabled="{{!ready || loading || sending}}">图片</button><button class="ui-button" type="primary" bindtap="send" loading="{{sending}}" disabled="{{!ready || loading || sending}}">发送</button></view>
+  <view wx:if="{{ready && !readOnly}}" class="composer"><textarea class="ui-textarea" value="{{content}}" maxlength="500" auto-height placeholder="最多 500 字" bindinput="input"/><button class="ui-button" bindtap="image" disabled="{{loading || sending}}">图片</button><button class="ui-button" type="primary" bindtap="send" loading="{{sending}}" disabled="{{loading || sending}}">发送</button></view>
 </view>
