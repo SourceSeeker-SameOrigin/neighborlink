@@ -10,6 +10,9 @@ function setup(control = {}) {
     return { rows: [{ providerId: data.providerId, total: 123, ledgerIds: ['synthetic-ledger'] }] };
   });
   const p = r.instance('miniprogram/admin/settlements/settlements.js');
+  r.app.globalData.user = { _id: 'fixture', roles: ['admin'] };
+  p.visible = true; p._loadVersion = 1;
+  p.readContext = { userId: 'fixture', isAdmin: true, version: 1 };
   p.setData({ ready: true, loading: false, authorized: true, isAdmin: true,
     communities: [{ _id: 'c1', name: '合成小区一' }, { _id: 'c2', name: '合成小区二' }],
     providers: [{ _id: 'p1' }, { _id: 'p2' }], merchants: [{ _id: 'm1' }, { _id: 'm2' }],

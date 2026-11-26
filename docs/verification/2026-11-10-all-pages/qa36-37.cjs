@@ -26,7 +26,7 @@ function setup(control = {}) {
     }
     throw Error('Unexpected action ' + action);
   });
-  r.app.globalData.user = { roles: control.roles || ['admin'], communityId: 'c1' };
+  r.app.globalData.user = { _id: 'fixture', roles: control.roles || ['admin'], communityId: 'c1' };
   r.wx.downloadFile = options => { downloads.push(options); if (!control.holdDownload) options.success({ statusCode: 200, tempFilePath: 'synthetic.csv' }); };
   r.wx.openDocument = options => opened.push(options);
   const p = r.instance('miniprogram/admin/exports/exports.js');
@@ -134,6 +134,9 @@ async function test(name, fn) {
       { payee: 'seller', communityId: 'c2', providerId: null, sellerOpenid: 'same' }
     ].map(x => ({ ...x, total: 123, ledgerIds: ['fixture_ledger'] }));
     const r = runtime(async () => ({ rows })), p = r.instance('miniprogram/admin/settlements/settlements.js');
+    r.app.globalData.user = { _id: 'fixture', roles: ['admin'] };
+    p.visible = true; p._loadVersion = 1;
+    p.readContext = { userId: 'fixture', isAdmin: true, version: 1 };
     p.setData({ ready: true, authorized: true, isAdmin: true, communities: [{ _id: 'c1', name: '合成小区' }], payeeIndex: 3 });
     await p.preview(); const first = p.data.preview.map(x => x.previewKey);
     assert.equal(new Set(first).size, rows.length); assert(p.data.preview.every(x => x.total === 123 && x.totalText === '1.23'));

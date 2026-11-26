@@ -1,0 +1,80 @@
+{
+  "scope": "actual P24 page, synthetic identities and intercepted actions; no cloud writes or files",
+  "total": 18,
+  "passed": 18,
+  "cases": [
+    {
+      "name": "current admin reads and previews",
+      "pass": true
+    },
+    {
+      "name": "current admin creates once and verifies by reading",
+      "pass": true
+    },
+    {
+      "name": "current admin marks a displayed draft paid and reads again",
+      "pass": true
+    },
+    {
+      "name": "property can preview but cannot create or mark paid",
+      "pass": true
+    },
+    {
+      "name": "identity change blocks old mark-paid button",
+      "pass": true
+    },
+    {
+      "name": "role change blocks old create button",
+      "pass": true
+    },
+    {
+      "name": "unload blocks old mark-paid button",
+      "pass": true
+    },
+    {
+      "name": "double mark-paid sends once",
+      "pass": true
+    },
+    {
+      "name": "double create sends once",
+      "pass": true
+    },
+    {
+      "name": "late loaded settlement does not cross identities",
+      "pass": true
+    },
+    {
+      "name": "hide clears records and old read result",
+      "pass": true
+    },
+    {
+      "name": "late create result does not toast or change hidden page",
+      "pass": true
+    },
+    {
+      "name": "unknown mark-paid result requires read before another write",
+      "pass": true
+    },
+    {
+      "name": "unknown create result requires read before another write",
+      "pass": true
+    },
+    {
+      "name": "hidden mark-paid result does not reload old page",
+      "pass": true
+    },
+    {
+      "name": "late CSV download cannot open after unload",
+      "pass": true
+    },
+    {
+      "name": "late CSV download cannot open after identity change",
+      "pass": true
+    },
+    {
+      "name": "current CSV download opens once",
+      "pass": true
+    }
+  ],
+  "failed": []
+}

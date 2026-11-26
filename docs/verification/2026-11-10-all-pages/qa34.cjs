@@ -15,7 +15,7 @@ function setup(control={}){
    const source=control.empty?[]:rows;
    return {list:source.slice(offset,offset+20),hasMore:offset+20<source.length};
   }throw Error('Unexpected business action '+action);
- });r.app.globalData.user={roles:control.roles||['admin'],communityId:'c'};
+ });r.app.globalData.user={_id:'fixture',roles:control.roles||['admin'],communityId:'c'};
  return {r,p:r.instance('miniprogram/admin/settlements/settlements.js')};
 }
 async function test(name,run){try{await run();results.push({name,status:'PASS'});}catch(e){results.push({name,status:'FAIL',error:e.message});}}
