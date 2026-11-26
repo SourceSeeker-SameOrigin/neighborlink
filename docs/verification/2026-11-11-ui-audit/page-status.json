@@ -1862,11 +1862,13 @@
     "route": "station/workbench/workbench",
     "staticReferences": "2026-11-13当前源码静态引用/组件检查通过（69页、77页面/组件模板；不代表视觉或真实业务通过）",
     "isolatedLifecycle": "2026-11-13重跑3组失败/关闭/未绑定加载，共69页207组，无未捕获异常；非成功业务验收",
-    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过",
+    "liveUIThisRun": "QA132：320宽合成首批20条已取得运行回执；点击读取拒绝后，AX读到列表清空、导出禁用和重试可见，但截图不同步，完整视觉与重试未通过。",
     "successFlowThisRun": "未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF",
-    "newFindings": [],
+    "newFindings": [
+      "QA132隔离读取、分页原偏移重试及过期导出保护已修；QA138默认月份跨时区偏差待决；QA139 CSV表头本地修复已通过，开发云待部署。"
+    ],
     "userAcceptance": "待用户逐项签收；不因本轮技术检查自动通过",
-    "remaining": "驿站资格、真实批次/对账；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
+    "remaining": "320/375/390/430完整截图及交互、真实驿站批次/导出、QA138选择、QA139云部署和用户视觉签收待验",
     "criteria": {
       "U1": "部分核对，未完整通过；见liveUIThisRun",
       "U2": "部分核对，未完整通过；见liveUIThisRun",
@@ -1890,11 +1892,13 @@
     "route": "station/create/create",
     "staticReferences": "2026-11-13当前源码静态引用/组件检查通过（69页、77页面/组件模板；不代表视觉或真实业务通过）",
     "isolatedLifecycle": "2026-11-13重跑3组失败/关闭/未绑定加载，共69页207组，无未捕获异常；非成功业务验收",
-    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过",
+    "liveUIThisRun": "QA133：320宽查询失败及只读找回原批次截图同步，下方确认提交未实际触达；375宽查询失败截图同步，确认/找回曾有实点及截图，正常滚动未验；390和430宽两条合成恢复路径实际点击与截图一致。均不算整页通过。",
     "successFlowThisRun": "未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF",
-    "newFindings": [],
+    "newFindings": [
+      "QA133创建结果找回与请求去重已本地回归，并已云端72/72源码回读；补测写入前住户同意和门牌变更21/21通过。"
+    ],
     "userAcceptance": "待用户逐项签收；不因本轮技术检查自动通过",
-    "remaining": "驿站资格、有效门牌批次/校验/重复提交；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
+    "remaining": "320下方确认提交可达、375正常滚动与失败后重试、真实驿站账号有效门牌创建和用户视觉签收待验",
     "criteria": {
       "U1": "部分核对，未完整通过；见liveUIThisRun",
       "U2": "部分核对，未完整通过；见liveUIThisRun",
@@ -1918,11 +1922,13 @@
     "route": "station/worker/worker",
     "staticReferences": "2026-11-13当前源码静态引用/组件检查通过（69页、77页面/组件模板；不代表视觉或真实业务通过）",
     "isolatedLifecycle": "2026-11-13重跑3组失败/关闭/未绑定加载，共69页207组，无未捕获异常；非成功业务验收",
-    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过",
+    "liveUIThisRun": "QA135四宽实际页面点击均未取得本轮同步截图，完整视觉仍待验。",
     "successFlowThisRun": "未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF",
-    "newFindings": [],
+    "newFindings": [
+      "QA135任务大厅读取、接单保护及分页重试40/40隔离通过；QA136事务内接单资格复核已部署并云端72/72源码回读。"
+    ],
     "userAcceptance": "待用户逐项签收；不因本轮技术检查自动通过",
-    "remaining": "服务员/配送资格、非空批次接单；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
+    "remaining": "320/375/390/430完整交互、真实服务员非空批次接单及并发和用户视觉签收待验",
     "criteria": {
       "U1": "部分核对，未完整通过；见liveUIThisRun",
       "U2": "部分核对，未完整通过；见liveUIThisRun",
@@ -1946,13 +1952,14 @@
     "route": "station/batch/batch",
     "staticReferences": "2026-11-13当前源码静态引用/组件检查通过（69页、77页面/组件模板；不代表视觉或真实业务通过）",
     "isolatedLifecycle": "2026-11-13重跑3组失败/关闭/未绑定加载，共69页207组，无未捕获异常；非成功业务验收",
-    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过",
+    "liveUIThisRun": "QA134四宽实际页面点击及原生相机仍待验。",
     "successFlowThisRun": "未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF",
     "newFindings": [
-      "QA25已批准并修复"
+      "QA25已批准并修复",
+      "QA134批次详情读取及操作保护26/26隔离通过；QA137配送事务资格与归属复核云端72/72回读，下载源码102/102合成回归通过。"
     ],
     "userAcceptance": "待用户逐项签收；不因本轮技术检查自动通过",
-    "remaining": "合法配送批次、开始/送达/失败及住户隐私授权；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
+    "remaining": "320/375/390/430完整交互、原生相机、真实批次开始/逐户配送/撤回授权/结算与用户视觉签收待验",
     "criteria": {
       "U1": "部分核对，未完整通过；见liveUIThisRun",
       "U2": "部分核对，未完整通过；见liveUIThisRun",
