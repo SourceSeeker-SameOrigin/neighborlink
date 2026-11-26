@@ -1,0 +1,68 @@
+{
+  "scope": "actual P23 page, synthetic identities and intercepted native APIs; no real cloud or album write",
+  "total": 15,
+  "passed": 15,
+  "cases": [
+    {
+      "name": "current admin can generate and save after native callback",
+      "pass": true
+    },
+    {
+      "name": "identity change blocks old generate action",
+      "pass": true
+    },
+    {
+      "name": "malformed poster result cannot be saved",
+      "pass": true
+    },
+    {
+      "name": "identity change rejects late generated poster",
+      "pass": true
+    },
+    {
+      "name": "hide rejects late generated poster",
+      "pass": true
+    },
+    {
+      "name": "target change releases busy state and ignores old result",
+      "pass": true
+    },
+    {
+      "name": "identity change during generation allows fresh read",
+      "pass": true
+    },
+    {
+      "name": "current preview opens only while still visible",
+      "pass": true
+    },
+    {
+      "name": "identity change clears old poster before save",
+      "pass": true
+    },
+    {
+      "name": "unload blocks direct save and preview",
+      "pass": true
+    },
+    {
+      "name": "hide rejects late download before album save",
+      "pass": true
+    },
+    {
+      "name": "identity rejects late download before album save",
+      "pass": true
+    },
+    {
+      "name": "target rejects late download before album save",
+      "pass": true
+    },
+    {
+      "name": "unload ignores late album result",
+      "pass": true
+    },
+    {
+      "name": "target change ignores late album failure",
+      "pass": true
+    }
+  ],
+  "failed": []
+}

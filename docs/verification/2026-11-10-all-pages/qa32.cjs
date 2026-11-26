@@ -18,7 +18,9 @@ function setup(call = async (name, action, data) => {
   const r = runtime(call); r.app.globalData.user.roles = ['admin'];
   return { r, p: r.instance(source) };
 }
-function ready(p) { p.setData({ ready: true, loading: false, communityReady: true,
+function ready(p) { p.visible = true; p.ownerId = 'fixture'; p._loadVersion ||= 1;
+  p._targetVersion = p._targetVersion || 0;
+  p.setData({ ready: true, loading: false, communityReady: true,
   communities, providers, buildings: [{ _id: 'a_building' }] }); }
 async function test(name, run) { try { await run(); results.push({ name, status: 'PASS' }); }
   catch (error) { results.push({ name, status: 'FAIL', error: error.message }); } }
@@ -81,7 +83,8 @@ async function test(name, run) { try { await run(); results.push({ name, status:
     assert.equal(r.requests.at(-1)[2].providerId, 'p2'); assert.equal(p.data.busy, false);
   });
   await test('生成失败可见，明确重试后恢复，旧海报清除', async () => {
-    let fail = true; const { p } = setup(async () => { if (fail) throw Error('合成生成失败'); return { scene: 'new' }; }); ready(p);
+    let fail = true; const { p } = setup(async () => { if (fail) throw Error('合成生成失败');
+      return { scene: 'new', tempFileURL: 'https://example.invalid/new.png' }; }); ready(p);
     p.data.poster = { scene: 'old' }; await p.generate(event('provider'));
     assert.equal(p.data.error, '合成生成失败'); assert.equal(p.data.poster, null); assert.equal(p.data.busy, false);
     fail = false; await p.generate(event('provider')); assert.equal(p.data.poster.scene, 'new'); assert.equal(p.data.error, '');
