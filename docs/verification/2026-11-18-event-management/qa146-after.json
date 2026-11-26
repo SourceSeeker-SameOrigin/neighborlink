@@ -1,0 +1,47 @@
+{
+  "scope": "Actual P29 page, synthetic image callbacks and identities; no cloud files",
+  "total": 10,
+  "passed": 10,
+  "cases": [
+    {
+      "name": "same user image selection fills original ad field",
+      "pass": true
+    },
+    {
+      "name": "picker hide then upload result before return waits for readback",
+      "pass": true
+    },
+    {
+      "name": "picker return before selection result still accepts same user",
+      "pass": true
+    },
+    {
+      "name": "another user cannot receive old upload result",
+      "pass": true
+    },
+    {
+      "name": "real page hide during upload discards old result",
+      "pass": true
+    },
+    {
+      "name": "unload discards picker callback and skips upload",
+      "pass": true
+    },
+    {
+      "name": "community change discards old image result",
+      "pass": true
+    },
+    {
+      "name": "ad target change discards old image result",
+      "pass": true
+    },
+    {
+      "name": "cancelled picker keeps previous image and releases busy state",
+      "pass": true
+    },
+    {
+      "name": "second tap while picker active opens only one picker",
+      "pass": true
+    }
+  ]
+}

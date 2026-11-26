@@ -7,7 +7,7 @@ function amountFen(value) {
   return amount;
 }
 Page({
-  data: { loading: true, saving: false, noticeReady: false, adReady: false,
+  data: { loading: true, saving: false, uploadingImage: false, noticeReady: false, adReady: false,
     error: '', noticeError: '', adError: '', authorized: false, isAdmin: false,
     user: null, communityId: '', communities: [], communityIndex: 0, notices: [], ads: [], title: '', body: '', imageFileId: '', endAt: '', pinned: false,
     adTitle: '', adImage: '', adSlot: 'home_banner', adSlots: ['home_banner', 'board_top', 'shops_top'], adPath: '/shops/list/list', adStart: '', adEnd: '', adTargetType: 'page', adTargetId: '', adPrice: '0.00', adStatus: 'draft',
@@ -19,10 +19,18 @@ Page({
     adPathLabels: ['社区商家列表', '商家详情', '社区活动列表', '活动详情'],
     adPaths: ['/shops/list/list', '/shops/detail/detail', '/events/list/list', '/events/detail/detail'] },
   onLoad() { this._visible = true; return this.load(); },
-  onShow() { if (this._wasHidden) { this._visible = true; return this.load(); } },
+  onShow() {
+    if (this._wasHidden) {
+      this._visible = true;
+      this.setData({ uploadingImage: Boolean(this.imageToken && this.imageToken.stage !== 'settled') });
+      return this.load(true);
+    }
+  },
   onHide() {
     this._visible = false;
     this._wasHidden = true;
+    // The native picker may temporarily hide the page before returning its image.
+    if (this.imageToken && this.imageToken.stage !== 'choosing') this.imageToken = null;
     this.loadSequence = (this.loadSequence || 0) + 1;
     this.noticeSequence = (this.noticeSequence || 0) + 1;
     this.adSequence = (this.adSequence || 0) + 1;
@@ -31,7 +39,7 @@ Page({
     this.setData({ loading: false, saving: false, authorized: false, isAdmin: false,
       noticeReady: false, adReady: false, user: null, communities: [], notices: [], ads: [] });
   },
-  onUnload() { this._closed = true; this.onHide(); },
+  onUnload() { this._closed = true; this.imageToken = null; this.onHide(); },
   contextCurrent(context) {
     const user = getApp().globalData.user;
     return Boolean(context && this.readContext === context && this._visible !== false && !this._closed &&
@@ -57,14 +65,17 @@ Page({
       noticeReady: false, adReady: false, user: null, communities: [], notices: [], ads: [],
       communityId: '', error: message });
   },
-  async load() {
+  async load(resumeImage = false) {
     if (this._closed || this._visible === false) return;
+    if (resumeImage !== true) this.imageToken = null;
     const sequence = this.loadSequence = (this.loadSequence || 0) + 1;
     this.noticeSequence = (this.noticeSequence || 0) + 1;
     this.adSequence = (this.adSequence || 0) + 1;
     this.readContext = null;
     this.operation = null;
-    this.setData({ loading: true, saving: false, noticeReady: false, adReady: false,
+    this.setData({ loading: true, saving: false,
+      uploadingImage: Boolean(this.imageToken && this.imageToken.stage !== 'settled'),
+      noticeReady: false, adReady: false,
       error: '', noticeError: '', adError: '', authorized: false, isAdmin: false,
       user: null, communities: [], notices: [], ads: [] });
     let userId;
@@ -86,7 +97,7 @@ Page({
       await Promise.all([this.prepareNotices(user, context), isAdmin ? this.loadAds(context) : Promise.resolve()]);
     } catch (error) { if (current()) this.setData({ error: error.message || '加载失败' }); }
     finally {
-      if (current()) this.setData({ loading: false });
+      if (current()) { this.setData({ loading: false }); this.applyImageResult(); }
       else if (sequence === this.loadSequence && this._visible !== false && !this._closed) this.invalidateIdentity();
     }
   },
@@ -121,7 +132,7 @@ Page({
       if (!communityId) throw new Error('请先配置并选择管理小区');
       const result = await api.call('content', 'listNotices', { communityId },
         { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
-      if (current()) this.setData({ noticeReady: true, notices: result.list || [] });
+      if (current()) { this.setData({ noticeReady: true, notices: result.list || [] }); this.applyImageResult(); }
     } catch (error) { if (current()) this.setData({ noticeError: error.message || '公告加载失败' }); }
     finally { if (!current() && this.readContext === context && !this.contextCurrent(context)) this.invalidateIdentity(); }
   },
@@ -133,7 +144,7 @@ Page({
     try {
       const result = await api.call('content', 'listAds', {},
         { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
-      if (current()) this.setData({ adReady: true, ads: result.list || [] });
+      if (current()) { this.setData({ adReady: true, ads: result.list || [] }); this.applyImageResult(); }
     } catch (error) { if (current()) this.setData({ adError: error.message || '广告加载失败' }); }
     finally { if (!current() && this.readContext === context && !this.contextCurrent(context)) this.invalidateIdentity(); }
   },
@@ -146,19 +157,54 @@ Page({
     await this.loadNotices();
   },
   input(event) { this.setData({ [event.currentTarget.dataset.field]: event.detail.value }); },
+  imageTarget(field) {
+    return JSON.stringify(field === 'adImage'
+      ? [this.data.communityId, this.data.adSlot, this.data.adTargetType, this.data.adTargetId, this.data.adPath]
+      : [this.data.communityId]);
+  },
+  applyImageResult() {
+    const token = this.imageToken;
+    if (!token || token.stage !== 'settled' || this._visible === false || this._closed) return;
+    const user = getApp().globalData.user;
+    if (!user || user._id !== token.userId || this.imageTarget(token.field) !== token.target) {
+      this.imageToken = null;
+      this.setData({ uploadingImage: false });
+      if (!this.currentRead()) this.invalidateIdentity();
+      return;
+    }
+    if (!this.currentRead() || !(token.field === 'adImage' ? this.data.adReady : this.data.noticeReady)) return;
+    this.imageToken = null;
+    this.setData({ uploadingImage: false,
+      ...(token.fileId ? { [token.field]: token.fileId } : {}),
+      ...(token.error ? { error: token.error } : {}) });
+  },
   async chooseImage(event) {
     const field = event.currentTarget.dataset.field;
+    if (!['imageFileId', 'adImage'].includes(field)) return this.setData({ error: '图片用途不正确' });
+    if (this.data.saving || this.data.uploadingImage || !this.currentRead() ||
+        !(field === 'adImage' ? this.data.adReady && this.data.isAdmin : this.data.noticeReady)) return;
+    const token = this.imageToken = { field, userId: this.readContext.userId,
+      target: this.imageTarget(field), stage: 'choosing' };
+    this.setData({ uploadingImage: true, error: '' });
     try {
-      if (!['imageFileId', 'adImage'].includes(field)) throw new Error('图片用途不正确');
-      const user = await getApp().ensureSession();
       await require('../../utils/privacy').authorize();
+      if (this.imageToken !== token || getApp().globalData.user?._id !== token.userId) return;
       const chosen = await new Promise((resolve, reject) => wx.chooseMedia({ count: 1, mediaType: ['image'], success: resolve, fail: reject }));
+      if (this.imageToken !== token || getApp().globalData.user?._id !== token.userId) return;
       const file = chosen.tempFiles && chosen.tempFiles[0];
       if (!file || !file.tempFilePath) throw new Error('没有选择图片');
       const folder = field === 'adImage' ? 'ads' : 'notices';
-      const uploaded = await wx.cloud.uploadFile({ cloudPath: folder + '/' + user._id + '/' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.jpg', filePath: file.tempFilePath });
-      this.setData({ [field]: uploaded.fileID });
-    } catch (error) { this.setData({ error: error.errMsg ? '图片选择或上传失败' : error.message || '图片上传失败' }); }
+      token.stage = 'uploading';
+      const uploaded = await wx.cloud.uploadFile({ cloudPath: folder + '/' + token.userId + '/' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.jpg', filePath: file.tempFilePath });
+      token.fileId = uploaded.fileID;
+    } catch (error) {
+      if (!/cancel/i.test(error.errMsg || '')) token.error = error.errMsg ? '图片选择或上传失败' : error.message || '图片上传失败';
+    } finally {
+      if (this.imageToken === token) {
+        token.stage = 'settled';
+        this.applyImageResult();
+      }
+    }
   },
   adTargetTypeChange(event) {
     const index = Number(event.detail.value); if (!this.data.adTargetTypes[index]) return;
@@ -178,7 +224,7 @@ Page({
   },
   togglePinned(event) { this.setData({ pinned: event.detail.value }); },
   beginWrite() {
-    if (this.data.saving || this.data.loading || this._visible === false || this._closed) return null;
+    if (this.data.saving || this.data.uploadingImage || this.data.loading || this._visible === false || this._closed) return null;
     if (!this.currentRead()) { this.invalidateIdentity(); return null; }
     const operation = this.operation = { context: this.readContext, communityId: this.data.communityId };
     this.setData({ saving: true, error: '' });
