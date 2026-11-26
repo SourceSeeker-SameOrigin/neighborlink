@@ -80,7 +80,7 @@ function statement(batches, from, to) {
 }
 
 function statementCsv(result) {
-  const header = ['批次编号', '驿站编号', '服务员编号', '完成时间', '批次数', '送达件数', '未送达件数', '撤回授权跳过数', '驿站应付（分）', '服务员计件（分）'];
+  const header = ['批次编号', '驿站编号', '服务员编号', '完成时间', '纳入门牌数', '送达件数', '未送达件数', '撤回授权跳过数', '驿站应付（分）', '服务员计件（分）'];
   const rows = result.rows.map(row => [row.batchId, row.stationCode, row.providerId, row.completedAt.toISOString(),
     row.totalItems, row.delivered, row.failed, row.skipped, row.gross, row.provider]);
   return '\uFEFF' + [header, ...rows].map(row => row.map(csvCell).join(',')).join('\r\n');
