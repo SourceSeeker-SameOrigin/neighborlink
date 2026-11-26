@@ -1,0 +1,87 @@
+{
+  "scope": "Actual P29 page with synthetic identities and intercepted actions; no cloud or file writes",
+  "total": 20,
+  "passed": 20,
+  "cases": [
+    {
+      "name": "current admin confirms one ad receipt and reads back",
+      "pass": true
+    },
+    {
+      "name": "cancelled receipt confirmation sends no write",
+      "pass": true
+    },
+    {
+      "name": "failed receipt dialog releases busy state",
+      "pass": true
+    },
+    {
+      "name": "another admin cannot confirm old receipt modal",
+      "pass": true
+    },
+    {
+      "name": "hidden page cannot confirm old receipt modal",
+      "pass": true
+    },
+    {
+      "name": "reload invalidates old receipt confirmation",
+      "pass": true
+    },
+    {
+      "name": "double receipt click opens one modal and sends one write",
+      "pass": true
+    },
+    {
+      "name": "late receipt response does not reload hidden page",
+      "pass": true
+    },
+    {
+      "name": "unknown receipt result blocks retry until readback",
+      "pass": true
+    },
+    {
+      "name": "property publishes only own community notice",
+      "pass": true
+    },
+    {
+      "name": "invalid notice date releases busy state without writing",
+      "pass": true
+    },
+    {
+      "name": "another admin cannot save old notice draft",
+      "pass": true
+    },
+    {
+      "name": "another admin cannot end old notice",
+      "pass": true
+    },
+    {
+      "name": "another admin cannot save old ad draft",
+      "pass": true
+    },
+    {
+      "name": "another admin cannot end old ad",
+      "pass": true
+    },
+    {
+      "name": "double notice publish sends once",
+      "pass": true
+    },
+    {
+      "name": "double ad save sends once",
+      "pass": true
+    },
+    {
+      "name": "late ad read after hide cannot restore old card",
+      "pass": true
+    },
+    {
+      "name": "ad read failure does not suppress notice management",
+      "pass": true
+    },
+    {
+      "name": "same admin retains draft when switching community",
+      "pass": true
+    }
+  ]
+}

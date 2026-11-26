@@ -14,11 +14,11 @@
     <button size="mini" data-field="imageFileId" bindtap="chooseImage">选择公告图片（选填）</button><view wx:if="{{imageFileId}}" class="muted">已上传，发布后异步审核</view>
     <picker mode="date" data-field="endAt" bindchange="input"><view class="picker">有效期至：{{endAt || '请选择日期'}}</view></picker>
     <view class="row"><text>置顶</text><switch checked="{{pinned}}" bindchange="togglePinned" /></view>
-    <button loading="{{saving}}" disabled="{{saving || loading}}" bindtap="saveNotice">发布公告</button>
+    <button loading="{{saving}}" disabled="{{saving || loading || !noticeReady}}" bindtap="saveNotice">发布公告</button>
   </view>
   <view wx:if="{{authorized && communityId}}" class="card">
     <view class="section-title">当前公告</view>
-    <view wx:for="{{notices}}" wx:key="_id" class="row"><text>{{item.title}}</text><button size="mini" data-id="{{item._id}}" bindtap="endNotice">结束</button></view>
+    <view wx:for="{{notices}}" wx:key="_id" class="row"><text>{{item.title}}</text><button size="mini" disabled="{{saving || !noticeReady}}" data-id="{{item._id}}" bindtap="endNotice">结束</button></view>
   </view>
   <view wx:if="{{isAdmin}}" class="card">
     <view wx:if="{{adError}}" class="error">{{adError}}<button bindtap="loadAds">重新加载广告</button></view>
@@ -37,7 +37,7 @@
     <view class="muted">最多两位小数；保存或上线不记收入，确认已收款后才记账。</view>
     <input class="ui-input" type="digit" placeholder="广告金额（元）" data-field="adPrice" value="{{adPrice}}" bindinput="input" />
     <picker range="{{adStatusLabels}}" value="{{adStatusIndex}}" bindchange="adStatusChange"><view class="picker">状态：{{adStatusLabels[adStatusIndex]}}</view></picker>
-    <button loading="{{saving}}" disabled="{{saving || loading || !communityId}}" bindtap="saveAd">保存广告</button>
-    <view wx:for="{{ads}}" wx:key="_id" class="row">{{item.title}} · {{adStatusNames[item.status] || '未知状态'}} · ¥{{item.priceYuan}} · {{item.paymentReceivedAt ? '已确认收款' : '未确认收款'}}<button wx:if="{{!item.paymentReceivedAt && item.price > 0}}" size="mini" data-id="{{item._id}}" bindtap="confirmAdReceived">确认已收款</button><button wx:if="{{item.status === 'live'}}" size="mini" data-id="{{item._id}}" bindtap="endAd">结束</button></view>
+    <button loading="{{saving}}" disabled="{{saving || loading || !communityId || !adReady}}" bindtap="saveAd">保存广告</button>
+    <view wx:for="{{ads}}" wx:key="_id" class="row">{{item.title}} · {{adStatusNames[item.status] || '未知状态'}} · ¥{{item.priceYuan}} · {{item.paymentReceivedAt ? '已确认收款' : '未确认收款'}}<button wx:if="{{!item.paymentReceivedAt && item.price > 0}}" size="mini" disabled="{{saving || !adReady}}" data-id="{{item._id}}" bindtap="confirmAdReceived">确认已收款</button><button wx:if="{{item.status === 'live'}}" size="mini" disabled="{{saving || !adReady}}" data-id="{{item._id}}" bindtap="endAd">结束</button></view>
   </view>
 </view>
