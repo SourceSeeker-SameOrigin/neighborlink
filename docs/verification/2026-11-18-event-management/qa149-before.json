@@ -1,0 +1,14 @@
+{
+  "case": "QA149",
+  "page": "admin/exports/exports",
+  "method": "Actual page JavaScript in an isolated Node VM with synthetic identities and intercepted API/download callbacks",
+  "scenario": "Admin A loads the export page; the global identity changes to resident B before the old export handler is invoked",
+  "observed": {
+    "readyAfterSwitch": true,
+    "exportSubsidyOrdersCallsUnderResidentB": 1,
+    "openDocumentCallsAfterSyntheticDownload": 1,
+    "onHideHandler": false
+  },
+  "scope": "No CloudBase request, real CSV, document download, or business write occurred",
+  "status": "Reproduced; front-end remediation awaits user decision"
+}

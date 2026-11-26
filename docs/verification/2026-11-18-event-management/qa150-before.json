@@ -1,0 +1,13 @@
+{
+  "case": "QA150",
+  "page": "admin/stations/stations",
+  "method": "Actual page JavaScript in an isolated Node VM with synthetic identities, application and intercepted API calls",
+  "scenario": "Admin A loads one pending station application; the global identity changes to resident B; the old review handler confirms approval",
+  "observed": {
+    "oldRowsAfterSwitch": 1,
+    "reviewApplicationCallsUnderResidentB": 1,
+    "applicationIdSent": "application-A"
+  },
+  "scope": "No CloudBase request, real station application, role grant, or business write occurred",
+  "status": "Reproduced; front-end remediation awaits user decision"
+}
