@@ -1,0 +1,67 @@
+{
+  "scope": "Actual P30 handlers, synthetic identities and intercepted writes; no cloud changes",
+  "total": 15,
+  "passed": 15,
+  "cases": [
+    {
+      "name": "current admin reviews once and reads back",
+      "pass": true
+    },
+    {
+      "name": "cancelled review sends no write",
+      "pass": true
+    },
+    {
+      "name": "other admin cannot confirm old review modal",
+      "pass": true
+    },
+    {
+      "name": "hidden page cannot confirm old review modal",
+      "pass": true
+    },
+    {
+      "name": "old review modal does not clear newer refreshed page",
+      "pass": true
+    },
+    {
+      "name": "double review click opens one modal and writes once",
+      "pass": true
+    },
+    {
+      "name": "failed review dialog releases busy state",
+      "pass": true
+    },
+    {
+      "name": "unknown review result requires readback before another write",
+      "pass": true
+    },
+    {
+      "name": "current admin changes displayed service status once",
+      "pass": true
+    },
+    {
+      "name": "other admin cannot use old service status button",
+      "pass": true
+    },
+    {
+      "name": "hidden page cannot use old service status button",
+      "pass": true
+    },
+    {
+      "name": "double service status tap sends only one write",
+      "pass": true
+    },
+    {
+      "name": "late service status result after hide does not read or write page",
+      "pass": true
+    },
+    {
+      "name": "late service failure after identity change clears old merchant",
+      "pass": true
+    },
+    {
+      "name": "non-admin identity cannot read or write old merchant data",
+      "pass": true
+    }
+  ]
+}
