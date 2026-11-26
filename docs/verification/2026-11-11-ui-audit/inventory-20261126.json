@@ -1,11 +1,28 @@
 {
   "date": "2026-11-26",
   "sourceCommit": "7cfc0fd",
-  "scope": "read-only current source inventory; not simulator, official compiler, visual or business acceptance",
+  "scope": "current source inventory, official WXML/WXSS compiler, isolated page lifecycle and Jest; not simulator, visual or real business acceptance",
   "registeredPages": 69,
   "sourceFilesChecked": 276,
   "javascriptSyntaxChecked": 69,
   "customComponentReferences": 72,
+  "compiler": {
+    "wxmlFiles": 77,
+    "wxssFiles": 78,
+    "exitStatus": 0,
+    "stderr": ""
+  },
+  "isolatedLifecycle": {
+    "pages": 69,
+    "scenarios": 207,
+    "referenceFailures": 0,
+    "uncaught": 0,
+    "unhandled": 0
+  },
+  "jest": {
+    "suitesPassed": 55,
+    "testsPassed": 652
+  },
   "problems": [],
   "routes": [
     "pages/index/index",
