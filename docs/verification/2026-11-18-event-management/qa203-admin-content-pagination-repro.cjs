@@ -4,6 +4,7 @@ const { fixture } = require('../2026-11-09-remediation/cloud-fixture.cjs');
 const { runtime } = require('../2026-11-09-remediation/page-fixture.cjs');
 
 async function run(expireFirstTwenty) {
+  let failNoticeMore = !expireFirstTwenty, failAdMore = !expireFirstTwenty;
   const now = Date.now();
   const notices = Array.from({ length: 21 }, (_, index) => ({
     _id: `notice-${String(index + 1).padStart(2, '0')}`, communityId: 'c', status: 'live',
@@ -16,6 +17,12 @@ async function run(expireFirstTwenty) {
   }));
   const backend = fixture({ roles: ['admin'], records: { notices, ads }, orderedQueries: true });
   const ui = runtime(async (name, action, input) => {
+    if (name === 'content' && action === 'listNotices' && input.offset === 20 && failNoticeMore) {
+      failNoticeMore = false; throw Error('合成公告续页失败');
+    }
+    if (name === 'content' && action === 'listAds' && input.offset === 20 && failAdMore) {
+      failAdMore = false; throw Error('合成广告续页失败');
+    }
     if (name === 'catalog' && action === 'listCommunities')
       return { list: [{ _id: 'c', name: '合成小区' }], hasMore: false };
     const result = await backend.call(name, action, input);
@@ -25,6 +32,16 @@ async function run(expireFirstTwenty) {
   ui.app.globalData.user = { _id: 'u', roles: ['admin'], communityId: 'c' };
   const page = ui.instance('miniprogram/admin/content/content.js');
   await page.onLoad();
+  if (!expireFirstTwenty) {
+    await page.moreNotices();
+    await page.moreAds();
+    assert.equal(page.data.notices.length, 20);
+    assert.equal(page.data.ads.length, 20);
+    assert.match(page.data.noticeMoreError, /续页失败/);
+    assert.match(page.data.adMoreError, /续页失败/);
+  }
+  await page.moreNotices();
+  await page.moreAds();
   const noticePage2 = await backend.call('content', 'listNotices', { communityId: 'c', offset: 20 });
   const adPage2 = await backend.call('content', 'listAds', { offset: 20 });
   assert.strictEqual(noticePage2.ok, true);
@@ -40,13 +57,13 @@ async function run(expireFirstTwenty) {
 (async () => {
   const allVisible = await run(false);
   const expiredFirstTwenty = await run(true);
-  assert.strictEqual(allVisible.pageNoticeIds.length, 20);
-  assert.strictEqual(allVisible.pageAdIds.length, 20);
+  assert.strictEqual(allVisible.pageNoticeIds.length, 21);
+  assert.strictEqual(allVisible.pageAdIds.length, 21);
   assert.deepStrictEqual(allVisible.secondNoticeIds, ['notice-21']);
   assert.deepStrictEqual(allVisible.secondAdIds, ['ad-21']);
-  assert.strictEqual(expiredFirstTwenty.pageNoticeIds.length, 0);
+  assert.strictEqual(expiredFirstTwenty.pageNoticeIds.length, 1);
   assert.deepStrictEqual(expiredFirstTwenty.secondNoticeIds, ['notice-21']);
-  assert.deepStrictEqual(expiredFirstTwenty.requests.map(item => item[2]), [0, null, null]);
+  assert.deepStrictEqual(expiredFirstTwenty.requests.filter(item => item[0] === 'content' && item[1] === 'listNotices').map(item => item[2]), [0, 20]);
   console.log(JSON.stringify({ scope: 'actual P29 page and content endpoints, synthetic records only',
     allVisible: { pageNoticeCount: allVisible.pageNoticeIds.length, pageAdCount: allVisible.pageAdIds.length,
       secondNoticeIds: allVisible.secondNoticeIds, secondAdIds: allVisible.secondAdIds },

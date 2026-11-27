@@ -78,9 +78,10 @@ async function list(event, { user, openid }) {
     communityIds = enabled.map(item => item._id);
     communityNames = new Map(enabled.map(item => [item._id, item.name || '']));
   }
+  const pageOffset = offset(event);
   const result = await db.collection('posts').where({ communityId: command.in(communityIds), scope,
     type, status: 'open', expireAt: command.gt(new Date()) }).orderBy('createdAt', 'desc')
-    .skip(offset(event)).limit(20).get();
+    .skip(pageOffset).limit(20).get();
   const taskPosts = result.data.filter(post => post.type === 'task' && post.orderId);
   const taskOrders = taskPosts.length ? await db.collection('orders').where({ _id: command.in(taskPosts.map(post => post.orderId)) }).get() : { data: [] };
   const orderById = new Map(taskOrders.data.map(order => [order._id, order]));
@@ -90,7 +91,7 @@ async function list(event, { user, openid }) {
     if (post.type === 'task' && (!orderById.has(post.orderId) || orderById.get(post.orderId).status !== 'paid')) continue;
     rows.push(postView(post, openid, false, post.communityId === community._id ? '' : communityNames.get(post.communityId) || ''));
   }
-  return { list: rows, hasMore: result.data.length === 20 };
+  return { list: rows, hasMore: result.data.length === 20, nextOffset: pageOffset + result.data.length };
 }
 
 async function detail(event, { user, openid }) {

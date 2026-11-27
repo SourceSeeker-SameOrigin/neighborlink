@@ -20,6 +20,8 @@
   <view wx:if="{{authorized && communityId}}" class="card">
     <view class="section-title">当前公告</view>
     <view wx:for="{{notices}}" wx:key="_id" class="row"><text>{{item.title}}</text><button size="mini" disabled="{{saving || uploadingImage || !noticeReady}}" data-id="{{item._id}}" bindtap="endNotice">结束</button></view>
+    <view wx:if="{{noticeMoreError}}" class="error">{{noticeMoreError}}</view>
+    <button wx:if="{{noticeHasMore}}" disabled="{{noticePaging}}" loading="{{noticePaging}}" bindtap="moreNotices">{{noticeMoreError ? '重试加载公告' : '加载更多公告'}}</button>
   </view>
   <view wx:if="{{isAdmin}}" class="card">
     <view wx:if="{{adError}}" class="error">{{adError}}<button bindtap="loadAds">重新加载广告</button></view>
@@ -41,5 +43,7 @@
     <picker range="{{adStatusLabels}}" value="{{adStatusIndex}}" bindchange="adStatusChange"><view class="picker">状态：{{adStatusLabels[adStatusIndex]}}</view></picker>
     <button loading="{{saving}}" disabled="{{saving || uploadingImage || loading || !communityId || !adReady || adLookupError || createdAdId}}" bindtap="saveAd">{{adRecoveryHint ? '确认并用原编号保存' : '保存广告'}}</button>
     <view wx:for="{{ads}}" wx:key="_id" class="row">{{item.title}} · {{adStatusNames[item.status] || '未知状态'}} · ¥{{item.priceYuan}} · {{item.paymentReceivedAt ? '已确认收款' : '未确认收款'}}<button wx:if="{{!item.paymentReceivedAt && item.price > 0}}" size="mini" disabled="{{saving || uploadingImage || !adReady}}" data-id="{{item._id}}" bindtap="confirmAdReceived">确认已收款</button><button wx:if="{{item.status === 'live'}}" size="mini" disabled="{{saving || uploadingImage || !adReady}}" data-id="{{item._id}}" bindtap="endAd">结束</button></view>
+    <view wx:if="{{adMoreError}}" class="error">{{adMoreError}}</view>
+    <button wx:if="{{adHasMore}}" disabled="{{adPaging}}" loading="{{adPaging}}" bindtap="moreAds">{{adMoreError ? '重试加载广告' : '加载更多广告'}}</button>
   </view>
 </view>

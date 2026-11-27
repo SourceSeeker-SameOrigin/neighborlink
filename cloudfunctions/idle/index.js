@@ -61,12 +61,13 @@ async function list(event, { user, openid }) {
     communityIds = enabled.map(item => item._id);
     names = new Map(enabled.map(item => [item._id, item.name || '']));
   }
+  const pageOffset = offset(event);
   const filter = { communityId: command.in(communityIds), scope, status: 'on_sale' };
   const result = await db.collection('idleItems').where(filter).orderBy('createdAt', 'desc')
-    .skip(offset(event)).limit(20).get();
+    .skip(pageOffset).limit(20).get();
   const rows = result.data.filter(item => !item.moderationHidden || item.sellerOpenid === openid)
     .map(item => view(item, openid, item.communityId === community._id ? '' : names.get(item.communityId) || ''));
-  return { list: rows, hasMore: result.data.length === 20 };
+  return { list: rows, hasMore: result.data.length === 20, nextOffset: pageOffset + result.data.length };
 }
 async function detail(event, { user, openid }) {
   const community = await context(user, false);

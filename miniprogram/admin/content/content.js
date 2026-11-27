@@ -12,7 +12,9 @@ Page({
     error: '', noticeError: '', adError: '', authorized: false, isAdmin: false,
     noticeRecoveryHint: '', adRecoveryHint: '', noticeLookupError: false, adLookupError: false,
     createdNoticeId: '', createdAdId: '',
-    user: null, communityId: '', communities: [], communityIndex: 0, notices: [], ads: [], title: '', body: '', imageFileId: '', endAt: '', pinned: false,
+    user: null, communityId: '', communities: [], communityIndex: 0, notices: [], ads: [], noticeHasMore: false,
+    adHasMore: false, noticePaging: false, adPaging: false, noticeMoreError: '', adMoreError: '',
+    title: '', body: '', imageFileId: '', endAt: '', pinned: false,
     adTitle: '', adImage: '', adSlot: 'home_banner', adSlots: ['home_banner', 'board_top', 'shops_top'], adPath: '/shops/list/list', adStart: '', adEnd: '', adTargetType: 'page', adTargetId: '', adPrice: '0.00', adStatus: 'draft',
     adTargetTypes: ['page', 'merchant', 'event'], adStatuses: ['draft', 'live'],
     adSlotIndex: 0, adTargetTypeIndex: 0, adStatusIndex: 0, adPathIndex: 0,
@@ -40,7 +42,8 @@ Page({
     this.readContext = null;
     this.operation = null;
     this.setData({ loading: false, saving: false, authorized: false, isAdmin: false,
-      noticeReady: false, adReady: false, user: null, communities: [], notices: [], ads: [] });
+      noticeReady: false, adReady: false, user: null, communities: [], notices: [], ads: [],
+      noticeHasMore: false, adHasMore: false, noticePaging: false, adPaging: false });
   },
   onUnload() { this._closed = true; this.imageToken = null; this.onHide(); },
   contextCurrent(context) {
@@ -120,6 +123,7 @@ Page({
     this.operation = null;
     this.setData({ loading: false, saving: false, authorized: false, isAdmin: false,
       noticeReady: false, adReady: false, user: null, communities: [], notices: [], ads: [],
+      noticeHasMore: false, adHasMore: false, noticePaging: false, adPaging: false,
       communityId: '', error: message });
   },
   async load(resumeImage = false) {
@@ -134,7 +138,8 @@ Page({
       uploadingImage: Boolean(this.imageToken && this.imageToken.stage !== 'settled'),
       noticeReady: false, adReady: false,
       error: '', noticeError: '', adError: '', authorized: false, isAdmin: false,
-      user: null, communities: [], notices: [], ads: [] });
+      user: null, communities: [], notices: [], ads: [], noticeHasMore: false, adHasMore: false,
+      noticePaging: false, adPaging: false });
     let userId;
     const current = () => sequence === this.loadSequence && this._visible !== false && !this._closed &&
       (!userId || getApp().globalData.user?._id === userId);
@@ -188,12 +193,25 @@ Page({
     const sequence = this.noticeSequence = (this.noticeSequence || 0) + 1;
     const communityId = this.data.communityId;
     const current = () => sequence === this.noticeSequence && this.contextCurrent(context) && this.data.communityId === communityId;
-    this.setData({ noticeReady: false, noticeError: '', notices: [] });
+    this.noticeOffset = 0;
+    this.setData({ noticeReady: false, noticeError: '', noticeMoreError: '', noticeHasMore: false,
+      noticePaging: false, notices: [] });
     try {
       if (!communityId) throw new Error('请先配置并选择管理小区');
-      const result = await api.call('content', 'listNotices', { communityId },
-        { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
-      if (current()) { this.setData({ noticeReady: true, notices: result.list || [] }); this.applyImageResult(); }
+      let nextOffset = 0, hasMore = true;
+      const found = [];
+      for (let scan = 0; scan < 5 && hasMore && !found.length; scan++) {
+        const result = await api.call('content', 'listNotices', { communityId, offset: nextOffset },
+          { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
+        if (!current()) return;
+        found.push(...(result.list || []));
+        const after = Number.isInteger(result.nextOffset) ? result.nextOffset : nextOffset + (result.list || []).length;
+        if (after <= nextOffset && result.hasMore) throw Error('公告分页结果异常，请重试');
+        nextOffset = after;
+        hasMore = !!result.hasMore;
+      }
+      if (current()) { this.noticeOffset = nextOffset; this.setData({ noticeReady: true,
+        notices: found, noticeHasMore: hasMore }); this.applyImageResult(); }
     } catch (error) { if (current()) this.setData({ noticeError: error.message || '公告加载失败' }); }
     finally { if (!current() && this.readContext === context && !this.contextCurrent(context)) this.invalidateIdentity(); }
   },
@@ -201,13 +219,60 @@ Page({
     if (!this.contextCurrent(context) || !context.isAdmin) { this.invalidateIdentity(); return; }
     const sequence = this.adSequence = (this.adSequence || 0) + 1;
     const current = () => sequence === this.adSequence && this.contextCurrent(context);
-    this.setData({ adReady: false, adError: '', ads: [] });
+    this.adOffset = 0;
+    this.setData({ adReady: false, adError: '', adMoreError: '', adHasMore: false, adPaging: false, ads: [] });
     try {
-      const result = await api.call('content', 'listAds', {},
+      const result = await api.call('content', 'listAds', { offset: 0 },
         { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
-      if (current()) { this.setData({ adReady: true, ads: result.list || [] }); this.applyImageResult(); }
+      if (current()) { this.adOffset = (result.list || []).length;
+        this.setData({ adReady: true, ads: result.list || [], adHasMore: !!result.hasMore }); this.applyImageResult(); }
     } catch (error) { if (current()) this.setData({ adError: error.message || '广告加载失败' }); }
     finally { if (!current() && this.readContext === context && !this.contextCurrent(context)) this.invalidateIdentity(); }
+  },
+  async moreNotices() {
+    const context = this.readContext, sequence = this.noticeSequence, communityId = this.data.communityId;
+    const current = () => sequence === this.noticeSequence && this.contextCurrent(context) &&
+      this.data.communityId === communityId;
+    if (!current() || !this.data.noticeReady || !this.data.noticeHasMore || this.data.noticePaging) return;
+    const offset = this.noticeOffset;
+    this.setData({ noticePaging: true, noticeMoreError: '' });
+    try {
+      const result = await api.call('content', 'listNotices', { communityId, offset },
+        { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
+      if (!current()) return;
+      const after = Number.isInteger(result.nextOffset) ? result.nextOffset : offset + (result.list || []).length;
+      if (after <= offset && result.hasMore) throw Error('公告分页结果异常，请重试');
+      const seen = new Set(this.data.notices.map(item => item._id));
+      this.noticeOffset = after;
+      this.setData({ notices: [...this.data.notices, ...(result.list || []).filter(item => !seen.has(item._id))],
+        noticeHasMore: !!result.hasMore });
+    } catch (error) {
+      if (current()) this.setData(error.code === 'E_FORBIDDEN'
+        ? { notices: [], noticeReady: false, noticeHasMore: false, noticeError: error.message || '无权查看公告' }
+        : { noticeMoreError: error.message || '后续公告加载失败' });
+    }
+    finally { if (current()) this.setData({ noticePaging: false }); }
+  },
+  async moreAds() {
+    const context = this.readContext, sequence = this.adSequence;
+    const current = () => sequence === this.adSequence && this.contextCurrent(context);
+    if (!current() || !this.data.adReady || !this.data.adHasMore || this.data.adPaging) return;
+    const offset = this.adOffset;
+    this.setData({ adPaging: true, adMoreError: '' });
+    try {
+      const result = await api.call('content', 'listAds', { offset },
+        { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
+      if (!current()) return;
+      const seen = new Set(this.data.ads.map(item => item._id));
+      this.adOffset = offset + (result.list || []).length;
+      this.setData({ ads: [...this.data.ads, ...(result.list || []).filter(item => !seen.has(item._id))],
+        adHasMore: !!result.hasMore });
+    } catch (error) {
+      if (current()) this.setData(error.code === 'E_FORBIDDEN'
+        ? { ads: [], adReady: false, adHasMore: false, adError: error.message || '无权查看广告' }
+        : { adMoreError: error.message || '后续广告加载失败' });
+    }
+    finally { if (current()) this.setData({ adPaging: false }); }
   },
   async chooseCommunity(event) {
     if (!this.data.isAdmin || this.data.saving || this.data.loading) return;

@@ -3,10 +3,10 @@ const assert = require('node:assert/strict');
 const { fixture } = require('../2026-11-09-remediation/cloud-fixture.cjs');
 const { runtime } = require('../2026-11-09-remediation/page-fixture.cjs');
 
-async function run(visibleIndexes, turns) {
+async function run(visibleIndexes, turns, count = 21) {
   const now = Date.now();
-  const posts = Array.from({ length: 21 }, (_, index) => ({
-    _id: `post-${String(index + 1).padStart(2, '0')}`,
+  const posts = Array.from({ length: count }, (_, index) => ({
+    _id: `post-${String(index + 1).padStart(3, '0')}`,
     communityId: 'c', scope: 'community', type: 'ask', status: 'open',
     expireAt: new Date(now + 86400000), createdAt: new Date(now - index * 1000),
     title: `合成求助${index + 1}`, content: '合成正文', authorOpenid: 'other',
@@ -36,13 +36,16 @@ async function run(visibleIndexes, turns) {
   const normal = await run(Array.from({ length: 21 }, (_, index) => index), 2);
   const hiddenFirstPage = await run([20], 2);
   const partlyVisible = await run([0, 20], 3);
+  const deepHidden = await run([100], 2, 101);
   assert.deepEqual(normal.offsets, [0, 20]);
   assert.equal(normal.postIds.length, 21);
-  assert.deepEqual(hiddenFirstPage.offsets, [0, 0]);
-  assert.deepEqual(hiddenFirstPage.postIds, []);
-  assert.deepEqual(hiddenFirstPage.secondPageIds, ['post-21']);
-  assert.deepEqual(partlyVisible.offsets, [0, 1, 2]);
-  assert.deepEqual(partlyVisible.postIds, ['post-01', 'post-21', 'post-21']);
+  assert.deepEqual(hiddenFirstPage.offsets, [0, 20]);
+  assert.deepEqual(hiddenFirstPage.postIds, ['post-021']);
+  assert.deepEqual(hiddenFirstPage.secondPageIds, ['post-021']);
+  assert.deepEqual(partlyVisible.offsets, [0, 20]);
+  assert.deepEqual(partlyVisible.postIds, ['post-001', 'post-021']);
+  assert.deepEqual(deepHidden.offsets, [0, 20, 40, 60, 80, 100]);
+  assert.deepEqual(deepHidden.postIds, ['post-101']);
   console.log(JSON.stringify({ scope: 'actual P38 page and board.list; synthetic posts; zero cloud writes',
-    normal, hiddenFirstPage, partlyVisible }, null, 2));
+    normal, hiddenFirstPage, partlyVisible, deepHidden }, null, 2));
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });
