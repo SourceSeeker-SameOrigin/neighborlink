@@ -1,0 +1,26 @@
+{
+  "scope": "actual provider review page; synthetic admin/provider; cloud writes intercepted",
+  "pass": 1,
+  "fail": 1,
+  "results": [
+    {
+      "case": "initial-certificates-match-server",
+      "pass": true,
+      "observed": {
+        "escortCert": false
+      }
+    },
+    {
+      "case": "failed-save-does-not-claim-certificate-active",
+      "pass": false,
+      "observed": {
+        "escortCert": true,
+        "certs": [
+          "escort"
+        ],
+        "error": "合成网络失败，证书未保存",
+        "saveCalls": 1
+      }
+    }
+  ]
+}
