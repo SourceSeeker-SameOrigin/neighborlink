@@ -38,6 +38,7 @@ Page({
       this.setData(result.commentId ? { commentRecovery: 'found',
         commentRecoveryHint: '已找到上次评论，请查看原评论；如需另发一条，请主动开始新评论。', error: '' } :
         { commentRecovery: 'confirm', commentRecoveryHint: '未查到上次评论。请重新输入原内容，确认后沿用原编号提交。', error: '' });
+      return Boolean(result.commentId);
     } catch (error) {
       if (this.currentDetail(sequence)) this.setData({ commentRecovery: 'lookup',
         commentRecoveryHint: '评论结果待核对，请先重试读取。', error: error.message || '评论结果核对失败' });
@@ -122,7 +123,9 @@ Page({
       this.setData({ commentText: '', commentRecovery: 'found',
         commentRecoveryHint: '评论已提交；如需另发一条，请主动开始新评论。' });
       await this.load();
-    } catch (error) { if (this.currentDetail(sequence)) await this.checkOriginalComment(sequence); }
+    } catch (error) {
+      if (this.currentDetail(sequence) && await this.checkOriginalComment(sequence)) await this.load();
+    }
     finally { if (this.currentDetail()) this.setData({ busy: false }); }
   },
   async report() {

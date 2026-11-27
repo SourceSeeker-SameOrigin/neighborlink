@@ -16,6 +16,7 @@ function setup() {
   const ui = runtime(async (name, action, input) => {
     const result = await backend.call(name, action, input);
     if (!result.ok) throw Object.assign(Error(result.message), { code: result.code });
+    if (name === 'board' && action === 'comment') backend.data.posts[0].commentsCount = backend.data.comments.length;
     if (name === 'board' && action === 'comment' && loseFirstResponse) {
       loseFirstResponse = false;
       throw Error('合成评论响应丢失');
@@ -40,10 +41,9 @@ function setup() {
   const original = await same.page();
   await original.comment();
   assert.equal(same.backend.data.comments.length, 1);
-  // The fixture stores command.inc as a sentinel; emulate the database's increment.
-  same.backend.data.posts[0].commentsCount = 1;
   const firstRequestId = original.commentRequestId;
   assert.equal(original.data.commentRecovery, 'found');
+  assert.equal(original.data.comments.some(item => item.content === '合成评论正文'), true);
   await original.comment();
   assert.equal(same.backend.data.comments.length, 1);
   assert.equal(original.commentRequestId, firstRequestId);
@@ -52,7 +52,6 @@ function setup() {
   const first = await reentry.page();
   await first.comment();
   assert.equal(reentry.backend.data.comments.length, 1);
-  reentry.backend.data.posts[0].commentsCount = 1;
   const lostRequestId = first.commentRequestId;
   assert.equal(first.data.commentRecovery, 'found');
   first.onUnload();
