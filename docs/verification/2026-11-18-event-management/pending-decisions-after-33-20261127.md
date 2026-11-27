@@ -4,7 +4,7 @@
 
 ## 既有待决项目汇总（不重复编号）
 
-QA138 已在 `docs/TASKS.md` 和 `docs/TEST_HANDOFF.md` 登记，2026-11-27 复跑 `node docs/verification/2026-11-18-event-management/station-statement-month-boundary.cjs` 结果仍为 6 组中 2 组正确、4 组跨时区默认月份偏差。它早于本表的 QA184–QA188，不计入“33 项后新问题”数量。
+QA138 已在 `docs/TASKS.md` 和 `docs/TEST_HANDOFF.md` 登记。下表保留修前基线：6 组中 2 组正确、4 组跨时区默认月份偏差。用户已批准推荐 A；2026-11-27 对当前源码复跑 `node docs/verification/2026-11-18-event-management/station-statement-month-boundary.cjs` 为 12/12 匹配、云调用 0，体验版实景仍待验。它早于本表的 QA184–QA188，不计入“33 项后新问题”数量。
 
 | 编号 | What（做什么） | Why（事实与未知） | Who（谁负责） | When（何时） | Where（在哪里） | How（方案与验收） | How much（估算） |
 | --- | --- | --- | --- | --- | --- | --- | --- |
