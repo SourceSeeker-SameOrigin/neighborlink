@@ -1,0 +1,10 @@
+# QA198 后的新待决事项（2026-11-27）
+
+以下只记录本地源码和页面方法的核对结果；没有生成、扫描真实小程序码，没有更新开发云或体验版。推荐方案尚未获用户统一决策，不计作已实施或验收通过。
+
+| 编号 | What（做什么） | Why（事实与未知） | Who（谁负责） | When（何时） | Where（在哪里） | How（选项、影响和验收） | How much（估算） |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| QA199 | 明确海报、推荐码和活动签到码应打开的小程序版本，并处理已生成图片。 | 三处实际云函数分别在 `adminDashboard.genPoster`、`provider.referralPoster`、`event.detail` 中把 `wxacode.getUnlimited` 的 `envVersion` 固定为 `develop`。腾讯云开发文档列出 `release`、`trial`、`develop`，其中 `trial` 为体验版。由此推断体验成员扫码可能进入开发版或打不开；**真实扫码结果、现有已生成图片数量未知**。签到码一旦有 `checkinQrFileId`，详情读取不再生成新图。 | 用户最后统一决定版本策略；Codex 获批准后修改、回归、准备固定云包并验证。 | 建议在体验版二维码全流程及正式版制作宣传物料前处理；目前继续做其他只读验收。 | P23 管理员海报码、P14 服务员推荐码、P49 活动签到码；三个云函数入口与云存储图片。 | **推荐 A**：由受控环境配置决定 `trial` 或 `release`，限制为官方允许值；生成时记录图片所对应版本，版本变化时允许本人主动重生成，避免复用旧图。验证三类码的参数、缓存、权限和体验成员手机扫码。B：体验阶段继续使用 `develop`，将三类扫码列为体验版未通过；正式版前另行改造。 | A 估计 1–2 小时本地修改与隔离回归，固定云包部署和真机扫码另计；可能重生成现有图片，具体数量需先只读核对。B 无立即代码量。 |
+| QA200 | 决定活动签到码由微信扫码打开时的落地行为。 | 当前生成码指向 `events/detail/detail`，场景值为 `e=签到码`；实际详情页 `onLoad` 只读取 `options.id`。本地调用 `onLoad({scene:'e=ABCDEF'})` 得到 `eventId=''`、`missingRecord=true`；`miniprogram/utils/scene.js` 只接受 `b=`、`r=`，对该 `e=` 返回 `null`。管理页原生 `wx.scanCode` 可解析 `e=` 交给签到接口，**普通微信扫码打开页面的真实行为及业务预期未知**。 | 用户最后统一决定扫码落地规则；Codex 获批准后修复并验证。 | 建议与 QA199 同批确定，再安排真实报名和签到码手机验收。 | P49 活动详情、P50 扫码签到及 `event.detail` 生成的码。 | **推荐 A**：签到码仅用于组织者在管理页扫码签到；微信直接扫码进入时显示专门的“请由组织者扫码签到”说明，不加载无 ID 的活动详情。保持签到码不授予权限，服务端仍核对组织者及报名。B：让住户扫码进入对应活动详情，需生成可解析且不泄露签到凭据的活动定位参数；现有图片需重新生成。两案都验证有权管理页扫码、无权扫码、普通微信扫码和过期码。 | A 估计 30–60 分钟前端与隔离回归，真机另计；B 估计 1–2 小时且涉及云函数和旧码处理。本轮真实签到 0 次。 |
+
+核对依据：`cloudfunctions/_shared/adminDashboard.js:245`、`cloudfunctions/provider/index.js:85`、`cloudfunctions/event/index.js:94`、`miniprogram/events/detail/detail.js:10-12`、`miniprogram/utils/scene.js:1-13`。版本参数说明见[腾讯云开发 CloudBase 带参小程序码文档](https://docs.cloudbase.net/recipes/add-share-with-params-miniprogram)。本地页面方法输出为 `{"qrSceneAcceptedByApp":null,"detailEventId":"","missingRecord":true,"loading":false}`；这不能替代真实手机扫码。
