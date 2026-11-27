@@ -1,0 +1,18 @@
+{
+  "case": "QA163",
+  "page": "admin/orders/orders",
+  "method": "Actual page JavaScript in isolated Node VM with synthetic administrator A, resident B and one order; all CloudBase and navigation calls intercepted",
+  "passed": 2,
+  "failed": 3,
+  "results": [
+    "Normal administrator list read displays the synthetic order",
+    "A's late order list fills B's page after identity change",
+    "Late list after page hide is correctly ignored",
+    "Old order card navigates after switching to resident B",
+    "The administrator-only export navigator remains visible after switching to resident B"
+  ],
+  "cloudCalls": 0,
+  "realExports": 0,
+  "limits": "The detail page and cloud function may independently reject an unauthorized user; online incidence is unknown",
+  "status": "Reproduced in isolation; remediation recorded for unified user decision"
+}
