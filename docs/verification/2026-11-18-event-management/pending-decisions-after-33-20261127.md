@@ -16,7 +16,7 @@ QA185 的可复跑证据：`node docs/verification/2026-11-18-event-management/q
 
 QA186 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa186-chat-audit-identity-repro.cjs`，当前输出换人后旧图片预览 1 次、旧审计续页读取 1 次，旧合成正文仍显示。脚本只留存当前缺陷；方案获批后补当前身份、授权状态与迟到结果的回归断言。
 
-QA187 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa187-report-queue-action-identity-repro.cjs`，当前输出换人后旧审核、内容隐藏、用户禁言各 1 次，旧聊天审计导航 1 次；隐藏后旧审核仍调用 1 次；换人后的迟到读取回填旧行。全部接口拦截，无真实审核。
+QA187 的原始缺陷基线：换人后旧审核、内容隐藏、用户禁言各 1 次，旧聊天审计导航 1 次；隐藏后旧审核仍调用 1 次；换人后的迟到读取回填旧行。当前源码已在 94ac836 修复。2026-11-27 复跑 `node docs/verification/2026-11-18-event-management/qa187-report-queue-action-identity-repro.cjs` 通过：上述旧请求和导航均为 0，旧行未保留或迟到回填。全部为合成身份与拦截接口，体验版实景仍待验。
 
 QA188 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa188-merchant-price-precision-repro.cjs`，固定价输入 `1.005` 时页面发送 100 分，预约报价输入 `1.999` 时发送 200 分；既有严格 `toFen` 均拒绝原输入。全部 API 拦截，真机原生键盘是否允许第三位小数尚未验。
 
