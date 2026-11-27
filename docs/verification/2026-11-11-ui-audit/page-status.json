@@ -1435,14 +1435,14 @@
     "route": "idle/sale/sale",
     "staticReferences": "2026-11-13当前源码静态引用/组件检查通过（69页、77页面/组件模板；不代表视觉或真实业务通过）",
     "isolatedLifecycle": "2026-11-13重跑3组失败/关闭/未绑定加载，共69页207组，无未捕获异常；非成功业务验收",
-    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过",
+    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过 QA212：实际页面与 idle 云函数、共用状态机接合成订单，付款及卖家接单成功；accepted 状态提交一张合成照片返回 E_BAD_STATE，订单仍 accepted、交付记录为空。无开发云写入或真实照片。",
     "successFlowThisRun": "未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF",
     "newFindings": [
       "QA25已批准并修复",
       "2026-11-27 当前代码合成身份回归：卖家交付详情正常读取，换人后旧接单阻断，同人系统拍照返回仍能接纳；无真实履约或上传。"
     ],
     "userAcceptance": "待用户逐项签收；不因本轮技术检查自动通过",
-    "remaining": "有效编号非空详情、已删除/越权记录、相关业务状态操作与刷新；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
+    "remaining": "QA212 担保交付状态机阻塞待统一决策；有效编号非空详情、已删除/越权记录、相关业务状态操作与刷新；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
     "criteria": {
       "U1": "部分核对，未完整通过；见liveUIThisRun",
       "U2": "部分核对，未完整通过；见liveUIThisRun",

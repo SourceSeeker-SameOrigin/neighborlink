@@ -19,6 +19,8 @@
 
 | QA211 | 找回闲置担保购买已建成但响应丢失的原订单。 | 实际 P42 页面与 `idle.buy` 接合成数据库：首笔 5 元订单已建成、商品变为 `reserved`，页面未收到响应。同页再点购买会生成新请求编号并得到“商品已被购买”；即使用原编号调用，云函数也在查原订单前因商品已锁定返回 `E_BAD_STATE`。重进后详情显示“担保交易进行中”，购买按钮隐藏，页面没有原订单入口。合成库始终只有 1 笔订单；真实住户是否遇到、是否有待付款原单未知，本轮没有真实付款。 | 用户最后统一决定弱网找回范围；Codex 获批准后修复前后端并回归。 | 建议在闲置担保真机创建、支付和断网重试验收前处理；其他只读测试继续。 | P42 `idle/detail/detail` 与 `cloudfunctions/idle/index.js` 的 `buy` 和本人原购买请求查询；订单详情沿用现有支付流程。 | **推荐 A**：购买前按本人、商品保存最少请求编号；结果未知先只读查询本人原单，查到则打开原订单；查询失败仅重试读取，未查到经本人确认后沿用原编号提交。服务端先按本人和编号查已建订单，核对原商品和购买意图后返回原单，再对新购买检查可售状态；不重复创建或自动支付。商品被他人锁定时明确提示。B：维持现状，让用户自行从“我的订单”查找原单，详情页的弱网恢复不计通过。验收覆盖同编号、重进、换人、商品价格变化、取消释放及功能关闭后原单读取。 | A 估计 1–2 小时前后端修改及隔离回归，云函数固定包部署、四宽与真机另计；本轮合成订单 1 笔、开发云订单 0 笔、真实扣款 0 元。 |
 
+| QA212 | 修复闲置担保卖家提交交付凭证被状态机拒绝。 | P46 只在担保订单 `accepted` 时显示“提交交付”；实际 `idle.deliverSale` 也要求 `accepted`，随后调用共用 `transitionPatch(current, 'delivered')`。共用状态机不允许 `accepted → delivered`，仅允许先到 `in_service`。实际页面、云函数与合成 5 元订单联调：购买、模拟付款、卖家确认接单均成功；卖家提交一张格式合规的合成照片得到 `E_BAD_STATE`，订单仍为 `accepted`、交付记录为空。真实卖家遇到次数未知，本轮无真实上传或云写入。 | 用户最后统一决定状态流转方案；Codex 获批准后修改、回归并准备固定云包。 | 建议在任何真实闲置担保交付和整链体验版验收前优先处理；其他只读测试继续。 | P46 `idle/sale/sale`、`cloudfunctions/idle/index.js` 的 `deliverSale` 和共用订单状态机；不改变其他服务员订单的状态边。 | **推荐 A**：在状态机中只为 `idle_purchase` 允许 `accepted → delivered`，`idle.deliverSale` 仍在同一事务核对卖家、订单、照片与原状态并追加一次交付时间线；普通服务订单不得跳过 `in_service`。验证卖家接单、1–3 张凭证、重复提交、买家确认、72 小时自动完成、取消/退款和账本。B：增加独立的“开始交付”步骤，使担保订单先进入 `in_service` 再提交凭证；需新增界面按钮和流程验收。 | A 估计 45–90 分钟本地修复与隔离回归，固定云包部署及真机原生相机另计；本轮开发云订单、照片、结算和费用均为 0。 |
+
 核对依据：`cloudfunctions/_shared/adminDashboard.js:245`、`cloudfunctions/provider/index.js:85`、`cloudfunctions/event/index.js:94`、`miniprogram/events/detail/detail.js:10-12`、`miniprogram/utils/scene.js:1-13`。版本参数说明见[腾讯云开发 CloudBase 带参小程序码文档](https://docs.cloudbase.net/recipes/add-share-with-params-miniprogram)。本地页面方法输出为 `{"qrSceneAcceptedByApp":null,"detailEventId":"","missingRecord":true,"loading":false}`；这不能替代真实手机扫码。
 
 QA201 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa201-provider-hall-filter-pagination-repro.cjs`。脚本同时运行真实云函数入口与实际 P15 页面，数据库与用户身份均为合成，云写入 0 次。当前断言用于保留修复前缺陷；选择方案并修复后须改为成功分页及查询上限的回归断言。
@@ -42,3 +44,5 @@ QA209 的可复跑证据：`node docs/verification/2026-11-18-event-management/q
 QA210 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa210-detail-late-error-navigation-repro.cjs`。脚本运行实际 P39/P42 页面和共用 API；两页原页拒绝与离页迟到拒绝均弹错并跳首页。使用合成接口响应，不触达开发云。
 
 QA211 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa211-idle-purchase-response-recovery-repro.cjs`。脚本运行实际 P42 页面与 `idle.buy`，使用合成数据库和模拟支付模式；首笔写入后丢响应，同页新编号和服务端原编号重试均未返回原单，重进商品为锁定态。没有开发云请求或真实支付。
+
+QA212 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa212-idle-delivery-state-repro.cjs`。脚本运行实际 P46 页面、购买/模拟付款/确认接单/交付云入口及共用状态机；合成订单在 `accepted` 提交凭证被拒，交付记录为空。脚本仅使用合成数据库和符合路径格式的假照片，不上传文件或调用开发云。
