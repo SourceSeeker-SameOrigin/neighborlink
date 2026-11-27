@@ -28,7 +28,8 @@ async function issueOne(server, { openid, templateId, mode, communityId, determi
     ensure(count < template.perUserLimit, '已达到每人领取上限');
     const now = new Date();
     const coupon = { _id: id, templateId, openid, status: 'unused', validFrom: now,
-      validTo: addDays(now, template.validDays), orderId: null, createdAt: now };
+      validTo: addDays(now, template.validDays), orderId: null, createdAt: now,
+      ...(mode === 'manual' && claimRequestId ? { manualRequestId: claimRequestId } : {}) };
     await insert(transaction, 'coupons', coupon);
     await transaction.collection('couponTemplates').doc(templateId).update({ data: { issued: issued + 1, updatedAt: now } });
     await transaction.collection('users').doc(user._id).update({ data: { couponCounts: { ...counts, [templateId]: count + 1 } } });

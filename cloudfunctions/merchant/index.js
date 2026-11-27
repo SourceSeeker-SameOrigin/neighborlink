@@ -136,6 +136,20 @@ async function review(event, { user, openid }) {
 }
 
 async function upsertService(event, { openid }) {
+  let replayId = null, requestHash = null;
+  if (!event.serviceId && event.requestId) {
+    text(event.requestId, '请求编号', 80);
+    ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
+    replayId = 'ms_' + crypto.createHash('sha256').update(openid + ':' + event.requestId).digest('hex').slice(0, 36);
+    requestHash = crypto.createHash('sha256').update(JSON.stringify({ communityId: event.communityId || '',
+      fields: service(event) })).digest('hex');
+    const replay = await server.get('merchantServices', replayId);
+    if (replay) {
+      ensure(replay.ownerOpenid === openid && replay.requestHash === requestHash,
+        '请求编号已用于其他服务', 'E_CONFLICT');
+      return { serviceId: replay._id, replayed: true };
+    }
+  }
   const merchant = await mine(openid);
   const communityId = text(event.communityId || merchant.communityIds[0], '小区');
   ensure(merchant.communityIds.includes(communityId), '无权管理该小区的商家服务', 'E_FORBIDDEN');
@@ -157,12 +171,31 @@ async function upsertService(event, { openid }) {
       targetId: current._id, authorOpenid: openid, communityId });
     return { serviceId: current._id };
   }
-  const result = await db.collection('merchantServices').add({ data: { ...fields, merchantId: merchant._id,
+  const record = { ...fields, merchantId: merchant._id,
     communityId, ownerOpenid: openid, moderationApprovedFileIds: [], moderationPendingFileIds: fields.images.slice(),
-    createdAt: new Date(), updatedAt: new Date() } });
+    ...(replayId ? { requestHash } : {}), createdAt: new Date(), updatedAt: new Date() };
+  const result = replayId ? await atomic(db, async transaction => {
+    const existing = await read(transaction, 'merchantServices', replayId);
+    if (existing) {
+      ensure(existing.ownerOpenid === openid && existing.requestHash === requestHash,
+        '请求编号已用于其他服务', 'E_CONFLICT');
+      return { _id: replayId, replayed: true };
+    }
+    await insert(transaction, 'merchantServices', { _id: replayId, ...record });
+    return { _id: replayId };
+  }) : await db.collection('merchantServices').add({ data: record });
+  if (result.replayed) return { serviceId: result._id, replayed: true };
   for (const fileId of fields.images) await requestMediaCheck(cloud, db, { fileId, targetType: 'merchantService',
     targetId: result._id, authorOpenid: openid, communityId });
   return { serviceId: result._id };
+}
+
+async function lookupService(event, { openid }) {
+  text(event.requestId, '请求编号', 80);
+  ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
+  const id = 'ms_' + crypto.createHash('sha256').update(openid + ':' + event.requestId).digest('hex').slice(0, 36);
+  const item = await server.get('merchantServices', id);
+  return { serviceId: item && item.ownerOpenid === openid ? id : null };
 }
 
 async function myServices(event, { openid }) {
@@ -356,5 +389,5 @@ async function adminServices(event, { user }) {
 }
 
 exports.main = server.entry({ apply, myApplication, listForCommunity, servicesForMerchant, adminList, review,
-  upsertService, myServices, setServiceStatus, adminServices, lookupBooking, createBooking, quoteBooking, merchantOrders, merchantTransition,
+  upsertService, lookupService, myServices, setServiceStatus, adminServices, lookupBooking, createBooking, quoteBooking, merchantOrders, merchantTransition,
   completeBooking }, ['resident', 'merchant', 'admin'], 'merchant');

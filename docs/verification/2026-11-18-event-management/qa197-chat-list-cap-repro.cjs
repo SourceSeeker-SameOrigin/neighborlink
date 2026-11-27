@@ -18,21 +18,27 @@ async function scenario(hiddenPrefix) {
   const orders = (hiddenPrefix ? ['visible'] : Array.from({ length: 101 }, (_, i) => i))
     .map(value => ({ _id: `order-${value}`, userOpenid: 'actor', communityId: 'c', serviceCode: 'trash', status: 'paid' }));
   const cloud = fixture({ local: true, global: true, records: { conversations, orders } });
-  const response = await cloud.call('chat', 'list');
-  assert.equal(response.ok, true, JSON.stringify(response));
-  const env = runtime(async (name, action) => {
-    assert.equal(name, 'chat'); assert.equal(action, 'list'); return response.data;
+  const env = runtime(async (name, action, input) => {
+    assert.equal(name, 'chat'); assert.equal(action, 'list');
+    const response = await cloud.call('chat', action, input);
+    assert.equal(response.ok, true, JSON.stringify(response));
+    return response.data;
   });
   env.app.globalData.user = { _id: 'u', openid: 'actor', communityId: 'c', roles: ['resident'] };
   const page = env.instance('miniprogram/chat/list/list.js');
   await page.onShow();
-  assert.equal(typeof page.loadMore, 'undefined');
+  assert.equal(typeof page.loadMore, 'function');
+  assert.equal(page.data.unreadTotal, hiddenPrefix ? 7 : 101);
+  if (!hiddenPrefix) {
+    assert.equal(page.data.list.length, 20);
+    while (page.data.hasMore) await page.loadMore();
+  }
   const expected = hiddenPrefix ? 1 : 101;
   const observed = page.data.list.length;
-  assert.equal(observed, hiddenPrefix ? 0 : 100);
+  assert.equal(observed, expected);
   return { case: hiddenPrefix ? '100-inaccessible-before-one-visible' : '101-visible',
     expectedVisible: expected, displayed: observed, expectedUnread: hiddenPrefix ? 7 : 101,
-    displayedUnread: page.data.unreadTotal, paginationEntry: false, realCloudWrites: cloud.writes.length };
+    displayedUnread: page.data.unreadTotal, paginationEntry: true, realCloudWrites: cloud.writes.length };
 }
 
 (async () => {

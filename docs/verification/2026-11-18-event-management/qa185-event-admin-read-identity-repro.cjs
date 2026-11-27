@@ -1,4 +1,4 @@
-// Reproduce pending QA185 with the actual P50 page and intercepted CloudBase calls.
+// Verify QA185 with the actual P50 page and intercepted CloudBase calls.
 const assert = require('node:assert/strict');
 const { runtime } = require('../2026-11-09-remediation/page-fixture.cjs');
 
@@ -28,7 +28,8 @@ const env = runtime(async (_name, action, data) => {
     oldPageAppended: page.data.list.some(item => item._id === 'older-event'),
     oldRosterVisible: page.data.attendees.some(item => item._id === 'signup-a') };
   console.log(JSON.stringify(report, null, 2));
-  assert.deepEqual(staleCalls, ['adminList', 'listSignups']);
-  assert.equal(report.oldPageAppended, true);
-  assert.equal(report.oldRosterVisible, true);
+  assert.deepEqual(staleCalls, []);
+  assert.equal(report.oldListStillVisible, false);
+  assert.equal(report.oldPageAppended, false);
+  assert.equal(report.oldRosterVisible, false);
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });

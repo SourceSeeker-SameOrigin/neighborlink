@@ -17,7 +17,8 @@ Page({
   },
   visible() { return !this.closed && !this.hidden; },
   currentUser() { const user = getApp().globalData.user; return !!this.userId && user?._id === this.userId && user?.communityId === this.userCommunityId; },
-  canEdit() { return this.visible() && this.currentUser() && this.data.ready && !this.data.loading && !this.submitting; },
+  canEdit() { return this.visible() && this.currentUser() && this.data.ready && !this.data.loading && !this.submitting &&
+    (!this.data.application || this.data.application.status === 'rejected'); },
   async load() {
     if (!this.visible() || this.loadInFlight || this.submitting) return;
     const sequence = this.loadSequence = (this.loadSequence || 0) + 1;
@@ -77,7 +78,17 @@ Page({
       await api.call('station', 'apply', { communityId: community._id, stationCode: station.code }, { loading: false, silent: true, isActive: current });
       submitted = true;
       if (current()) wx.showToast({ title: '申请已提交', icon: 'success' });
-    } catch (error) { if (current()) this.setData({ error: error.message || '申请提交失败' }); }
+    } catch (error) {
+      if (current()) {
+        try {
+          const mine = await api.call('station', 'myApplication', {},
+            { loading: false, silent: true, isActive: current, redirectOnForbidden: false });
+          if (current()) this.setData(mine.application
+            ? { application: mine.application, error: '', loadError: false }
+            : { error: error.message || '申请提交失败', loadError: false });
+        } catch (_) { if (current()) this.setData({ error: '提交结果待核对，请重新加载申请状态', loadError: true, ready: false }); }
+      }
+    }
     finally {
       this.submitting = false;
       if (this.visible()) {

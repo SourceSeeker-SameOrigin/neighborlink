@@ -1,4 +1,6 @@
 <view class="page">
+<view wx:if="{{recoveredServiceId}}" class="card"><view class="section-title">服务已保存</view><view class="muted">原服务编号：{{recoveredServiceId}}。可在下方服务列表查看，无需重复提交。</view><button bindtap="startNewService" disabled="{{loading || busy}}">开始新增下一项服务</button></view>
+<view wx:if="{{recoveryHint}}" class="card muted">{{recoveryHint}}<button wx:if="{{!recoveryError}}" bindtap="startNewService" disabled="{{loading || busy}}">放弃原编号，开始新服务</button></view>
 <view class="page-masthead">
 <image class="masthead-icon" src="/assets/icons/shop.png"/>
 <view class="masthead-copy">
@@ -26,7 +28,7 @@
 </view>
 <button bindtap="photos" disabled="{{!ready || loading || busy || images.length >= 9}}">上传服务图片（最多 9 张）</button>
 <private-media wx:for="{{images}}" wx:key="*this" src="{{item}}" media-class="photo"/>
-<button type="primary" bindtap="save" loading="{{busy}}" disabled="{{!ready || loading || busy}}">保存为待审核服务</button>
+<button type="primary" bindtap="save" loading="{{busy}}" disabled="{{!ready || loading || busy || recoveredServiceId || recoveryError}}">{{recoveryHint ? '确认并用原编号保存' : '保存为待审核服务'}}</button>
 <view class="muted">新服务默认下架；图片通过内容安全审核后，管理员才能上架。</view>
 </view>
 <view wx:if="{{error && !pageError}}" class="error">{{error}}<button wx:if="{{loadError}}" bindtap="retry" disabled="{{loading}}">重新加载</button></view>

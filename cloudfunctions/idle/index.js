@@ -148,6 +148,15 @@ async function create(event, { user, openid }) {
   }
   return { itemId: item._id, status: item.status, imageWarnings };
 }
+async function lookupRequest(event, { user, openid }) {
+  text(event.requestId, '请求编号', 80);
+  ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
+  const item = await server.get('idleItems', itemId(openid, event.requestId));
+  if (!item) return { itemId: null };
+  ensure(item.sellerOpenid === openid && item.communityId === user.communityId,
+    '无权查看此发布结果', 'E_FORBIDDEN');
+  return { itemId: item._id };
+}
 async function update(event, { user, openid }) {
   const community = await context(user, false);
   ensureCanPublish(user);
@@ -352,6 +361,6 @@ async function report(event, { user, openid }) {
   });
 }
 
-exports.main = server.entry({ list, detail, contact, create, update, mine, report, buy, sales, earnings, acceptSale, deliverSale,
+exports.main = server.entry({ list, detail, contact, create, lookupRequest, update, mine, report, buy, sales, earnings, acceptSale, deliverSale,
   markSold: (event, contextValue) => changeStatus(event, contextValue, 'sold'),
   remove: (event, contextValue) => changeStatus(event, contextValue, 'removed') }, ['resident', 'admin', 'property'], 'idle');

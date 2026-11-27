@@ -32,6 +32,7 @@ const env = runtime(async (name, action, data) => {
   if (!r.ok) throw Object.assign(Error(r.message), { code: r.code });
   return r.data;
 });
+env.app.globalData.user = { _id: 'admin', roles: ['admin'], communityId: 'c' };
 const page = env.instance('miniprogram/' + folder + '.js');
 const view = () => strings(render(page.data));
 const checks = [];

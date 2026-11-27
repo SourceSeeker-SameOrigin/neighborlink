@@ -1,9 +1,11 @@
 const api = require('../../utils/api');
 const { uploadPhotos } = require('../../utils/media');
-const { yuan } = require('../../utils/money');
+const { yuan, toFen } = require('../../utils/money');
+const { fingerprint } = require('../../utils/intent-fingerprint');
 const emptyDraft = () => ({ title: '', desc: '', priceTypeIndex: 0, price: '', unit: '次', images: [] });
 Page({
   data: { ready: false, loadError: false, loading: true, busy: false, error: '', pageError: false,
+    recoveredServiceId: '', recoveryHint: '', recoveryError: false,
     list: [], hasMore: false, types: ['固定价', '预约后报价'], ...emptyDraft() },
   onShow() { this.visible = true; return this.load({ preserveMedia: true }); },
   clearContext() {
@@ -42,9 +44,32 @@ Page({
       if (!current()) return;
       if (this.draftOwner && (this.draftOwner.userId !== userId || this.draftOwner.merchantId !== merchantId)) {
         this.operation = null;
-        this.setData(emptyDraft());
+        this.pendingSave = null; this.lookupChecked = false;
+        this.setData({ ...emptyDraft(), recoveredServiceId: '', recoveryHint: '', recoveryError: false });
       }
       this.draftOwner = { userId, merchantId };
+      this.requestKey = 'merchantServiceRequest:' + userId + ':' + merchantId;
+      if (!this.pendingSave) {
+        try {
+          const saved = wx.getStorageSync(this.requestKey);
+          if (saved?.userId === userId && saved?.merchantId === merchantId &&
+              typeof saved.requestId === 'string' && typeof saved.intentHash === 'string') {
+            this.pendingSave = saved; this.lookupChecked = false;
+          }
+        } catch (_) {}
+      }
+      if (this.pendingSave && !this.lookupChecked) {
+        const found = await api.call('merchant', 'lookupService', { requestId: this.pendingSave.requestId },
+          { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
+        if (!current()) return;
+        if (!found || !Object.prototype.hasOwnProperty.call(found, 'serviceId')) throw Error('未能核实上次保存，请重新查询');
+        this.lookupChecked = true;
+        if (found.serviceId) {
+          this.setData({ recoveredServiceId: found.serviceId, recoveryHint: '', recoveryError: false });
+          try { wx.removeStorageSync(this.requestKey); } catch (_) {}
+          this.pendingSave = null;
+        } else this.setData({ recoveryHint: '暂未查到上次服务。请重填并核对内容，再用原编号提交。', recoveryError: false });
+      }
       const result = await api.call('merchant', 'myServices', { offset: append ? this.offset : 0 },
         { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
       if (!current()) return;
@@ -64,7 +89,8 @@ Page({
         this.operation = null;
         if (!retain) this.clearContext();
         else this.context = { userId, merchantId, read };
-        this.setData({ ready: false, loading: false, busy: false, loadError: true, pageError: retain, error: error.message || '服务加载失败' });
+        this.setData({ ready: false, loading: false, busy: false, loadError: true, pageError: retain,
+          recoveryError: Boolean(this.pendingSave && !this.lookupChecked), error: error.message || '服务加载失败' });
       }
     } finally {
       if (current()) { this.setData({ loading: false }); this.finishMedia(); }
@@ -72,6 +98,14 @@ Page({
   },
   more() { return this.load({ append: true }); },
   retry() { return this.load({ append: this.data.pageError }); },
+  startNewService() {
+    if (!this.canEdit() || this.data.busy || this.pendingSave && !this.lookupChecked) return;
+    const requestId = this.pendingSave?.requestId;
+    this.pendingSave = null; this.lookupChecked = false;
+    if (requestId) try { const saved = wx.getStorageSync(this.requestKey);
+      if (saved?.requestId === requestId) wx.removeStorageSync(this.requestKey); } catch (_) {}
+    this.setData({ ...emptyDraft(), recoveredServiceId: '', recoveryHint: '', recoveryError: false, error: '' });
+  },
   canEdit() { return this.current(this.context) && this.data.ready && !this.data.loading && !this.data.busy; },
   input(event) {
     if (!this.canEdit()) return;
@@ -122,18 +156,48 @@ Page({
     if (this.visible) await this.load({ preserveMedia: true });
   },
   async save() {
+    if (this.data.recoveredServiceId || this.data.recoveryError) return;
     const request = this.begin('save');
     if (!request) return;
-    const type = this.data.priceTypeIndex ? 'quote' : 'fixed';
-    const data = { title: this.data.title, desc: this.data.desc, priceType: type,
-      price: type === 'fixed' ? Math.round(Number(this.data.price) * 100) : 0, unit: this.data.unit, status: 'off', images: this.data.images.slice() };
     try {
-      await api.call('merchant', 'upsertService', data,
+      const type = this.data.priceTypeIndex ? 'quote' : 'fixed';
+      const price = type === 'fixed' ? toFen(this.data.price) : 0;
+      if (price === null) throw Error('价格最多保留两位小数');
+      const data = { title: this.data.title, desc: this.data.desc, priceType: type,
+        price, unit: this.data.unit, status: 'off', images: this.data.images.slice() };
+      const intentHash = fingerprint(data);
+      if (this.pendingSave && !this.lookupChecked) throw Error('请先核对上次服务保存结果');
+      if (this.pendingSave && this.pendingSave.intentHash !== intentHash)
+        throw Error('内容与上次保存不同。请恢复原内容，或明确开始新服务。');
+      if (!this.pendingSave) this.pendingSave = { userId: request.userId, merchantId: request.merchantId,
+        requestId: Date.now().toString(36) + '_' + Math.random().toString(36).slice(2), intentHash };
+      this.lookupChecked = true;
+      try { wx.setStorageSync(this.requestKey, this.pendingSave); } catch (_) {}
+      const result = await api.call('merchant', 'upsertService', { ...data, requestId: this.pendingSave.requestId },
         { loading: false, silent: true, redirectOnForbidden: false, isActive: () => this.active(request) });
       if (!this.active(request)) return;
-      this.setData({ title: '', desc: '', price: '', images: [] });
+      try { const saved = wx.getStorageSync(this.requestKey);
+        if (saved?.requestId === this.pendingSave.requestId) wx.removeStorageSync(this.requestKey); } catch (_) {}
+      this.pendingSave = null;
+      this.setData({ ...emptyDraft(), recoveredServiceId: result.serviceId, recoveryHint: '', recoveryError: false });
       await this.load();
-    } catch (error) { if (this.active(request)) this.setData({ error: error.message || '服务保存失败' }); }
+    } catch (error) {
+      if (this.active(request)) {
+        if (this.pendingSave) {
+          try {
+            const found = await api.call('merchant', 'lookupService', { requestId: this.pendingSave.requestId },
+              { loading: false, silent: true, redirectOnForbidden: false, isActive: () => this.active(request) });
+            if (!this.active(request)) return;
+            this.lookupChecked = true;
+            if (found?.serviceId) {
+              this.setData({ recoveredServiceId: found.serviceId, recoveryHint: '', recoveryError: false, error: '' });
+              try { wx.removeStorageSync(this.requestKey); } catch (_) {}
+              this.pendingSave = null;
+            } else this.setData({ error: error.message || '服务保存失败', recoveryHint: '暂未查到上次服务，请核对内容后重试。' });
+          } catch (_) { if (this.active(request)) this.setData({ error: '保存结果待核对，请重新加载', recoveryError: true }); }
+        } else this.setData({ error: error.message || '服务保存失败' });
+      }
+    }
     finally { this.release(request); }
   }
 });

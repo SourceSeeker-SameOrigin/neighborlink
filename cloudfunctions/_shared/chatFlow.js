@@ -113,12 +113,23 @@ function createChatFlow(cloud, server) {
     const isReadOnly = conversation.type === 'idle' ? idleReadOnly(reference, conversation) : readOnly(reference, conversation, config, now);
     if (isReadOnly && !conversation.closedAt) await db.collection('conversations').doc(conversation._id)
       .update({ data: { closedAt: now, updatedAt: now } });
+    const mode = review ? 'legacy' : event.mode || 'legacy';
+    ensure(['legacy', 'latest', 'older', 'newer'].includes(mode), '消息读取方式不正确');
     const afterId = !event.afterId ? '' : text(event.afterId, '消息游标', 100);
+    const beforeId = !event.beforeId ? '' : text(event.beforeId, '消息游标', 100);
+    if (mode === 'older') ensure(beforeId, '缺少较早消息游标');
     const filter = { convId: conversation._id };
-    if (afterId) filter._id = command.gt(afterId);
-    const result = await db.collection('messages').where(filter).orderBy('_id', 'asc').limit(50).get();
-    return { conversationId: conversation._id, list: result.data.map(item => messageView(item, openid, review)), hasMore: result.data.length === 50,
-      lastId: result.data.length ? result.data[result.data.length - 1]._id : afterId,
+    if (mode === 'older') filter._id = command.lt(beforeId);
+    else if (afterId) filter._id = command.gt(afterId);
+    const descending = mode === 'latest' || mode === 'older';
+    const result = await db.collection('messages').where(filter).orderBy('_id', descending ? 'desc' : 'asc')
+      .limit(mode === 'legacy' ? 50 : 51).get();
+    const rows = result.data.slice(0, 50);
+    if (descending) rows.reverse();
+    return { conversationId: conversation._id, list: rows.map(item => messageView(item, openid, review)),
+      hasMore: mode === 'legacy' ? result.data.length === 50 : result.data.length > 50,
+      firstId: rows.length ? rows[0]._id : beforeId,
+      lastId: rows.length ? rows[rows.length - 1]._id : afterId,
       readOnly: isReadOnly, unread: conversation.unread && conversation.unread[openid] || 0 };
   }
 
@@ -198,25 +209,40 @@ function createChatFlow(cloud, server) {
 
   async function list(event, { openid }) {
     await server.featureEntry('chat', await server.user(openid));
-    const result = await db.collection('conversations').where({ members: openid })
-      .orderBy('lastAt', 'desc').limit(100).get();
+    const pageSize = event.limit === undefined ? 100 : integer(event.limit, '每页会话数', 1, 100);
+    const cursor = event.cursor || null;
+    if (cursor) {
+      ensure(typeof cursor === 'object' && !Array.isArray(cursor) &&
+        typeof cursor.id === 'string' && cursor.id.length > 0 && cursor.id.length <= 100 &&
+        typeof cursor.lastAt === 'string' && Number.isFinite(Date.parse(cursor.lastAt)),
+      '会话分页位置不正确');
+    }
+    const cursorTime = cursor ? Date.parse(cursor.lastAt) : 0;
+    const afterCursor = conversation => !cursor ||
+      new Date(conversation.lastAt).getTime() < cursorTime ||
+      new Date(conversation.lastAt).getTime() === cursorTime && conversation._id < cursor.id;
     const list = [];
     const config = await server.config();
     const idleCache = { config, buyer: null, communities: new Map() };
-    for (const conversation of result.data) {
+    const communityCache = new Map();
+    const communityFor = id => {
+      if (!communityCache.has(id)) communityCache.set(id, server.get('communities', id));
+      return communityCache.get(id);
+    };
+    async function view(conversation) {
       if (conversation.type === 'order') {
         const order = await server.get('orders', conversation.refId);
-        if (!order || (order.userOpenid !== openid && order.providerOpenid !== openid)) continue;
-        const community = await server.get('communities', order.communityId);
-        if (!isEnabled('chat', config, community)) continue;
-        list.push({ conversationId: conversation._id, type: conversation.type, refId: conversation.refId,
+        if (!order || (order.userOpenid !== openid && order.providerOpenid !== openid)) return null;
+        const community = await communityFor(order.communityId);
+        if (!isEnabled('chat', config, community)) return null;
+        return { conversationId: conversation._id, type: conversation.type, refId: conversation.refId,
           serviceName: ({ express: '代取快递', trash: '代扔垃圾', buy: '周边代买', help: '帮把手' })[order.serviceCode] || '订单',
           lastMessage: conversation.lastMessage || '', lastAt: conversation.lastAt,
           unread: conversation.unread && conversation.unread[openid] || 0,
-          readOnly: readOnly(order, conversation, config) });
+          readOnly: readOnly(order, conversation, config) };
       } else if (conversation.type === 'idle') {
         const item = await server.get('idleItems', conversation.refId);
-        if (!item || !conversation.members.includes(openid)) continue;
+        if (!item || !conversation.members.includes(openid)) return null;
         try {
           if (!idleCache.buyerLoaded) {
             idleCache.buyer = await server.one('users', { openid });
@@ -225,20 +251,50 @@ function createChatFlow(cloud, server) {
           await ensureIdleAccess(item, openid, idleCache);
         }
         catch (error) {
-          if (['E_FORBIDDEN', 'E_FEATURE_OFF'].includes(error.code)) continue;
+          if (['E_FORBIDDEN', 'E_FEATURE_OFF'].includes(error.code)) return null;
           throw error;
         }
-        list.push({ conversationId: conversation._id, type: conversation.type, refId: conversation.refId,
+        return { conversationId: conversation._id, type: conversation.type, refId: conversation.refId,
           serviceName: item.title, lastMessage: conversation.lastMessage || '', lastAt: conversation.lastAt,
           unread: conversation.unread && conversation.unread[openid] || 0,
-          readOnly: idleReadOnly(item, conversation) });
+          readOnly: idleReadOnly(item, conversation) };
       }
+      return null;
     }
-    return { list, unreadTotal: list.reduce((sum, item) => sum + item.unread, 0) };
+    let rawOffset = 0, unreadTotal = 0, hasMore = false, nextCursor = null;
+    while (true) {
+      const result = await db.collection('conversations').where({ members: openid })
+        .orderBy('lastAt', 'desc').orderBy('_id', 'desc').skip(rawOffset).limit(100).get();
+      const rows = result.data;
+      rawOffset += rows.length;
+      for (let start = 0; start < rows.length; start += 8) {
+        const group = rows.slice(start, start + 8);
+        const visible = await Promise.all(group.map(view));
+        for (let index = 0; index < group.length; index++) {
+          const item = visible[index];
+          if (!item) continue;
+          unreadTotal += item.unread;
+          const conversation = group[index];
+          if (!afterCursor(conversation)) continue;
+          if (list.length >= pageSize) { hasMore = true; continue; }
+          list.push(item);
+          nextCursor = { lastAt: new Date(conversation.lastAt).toISOString(), id: conversation._id };
+        }
+      }
+      if (rows.length < 100) break;
+    }
+    return { list, unreadTotal, hasMore, nextCursor: hasMore ? nextCursor : null };
   }
 
   async function markRead(event, { openid }) {
     text(event.conversationId, '会话');
+    let seenSequence = null;
+    if (event.seenMessageId !== undefined) {
+      const id = text(event.seenMessageId, '已显示的消息', 100);
+      ensure(id.startsWith(event.conversationId + '_') && /^\d{12}$/.test(id.slice(event.conversationId.length + 1)),
+        '已显示的消息编号不正确');
+      seenSequence = Number(id.slice(event.conversationId.length + 1));
+    }
     const initial = await server.get('conversations', event.conversationId);
     const reference = initial && initial.type === 'idle'
       ? await idleForMember(initial, openid) : await orderForMember(initial, openid);
@@ -246,6 +302,8 @@ function createChatFlow(cloud, server) {
     await atomic(db, async transaction => {
       const conversation = await read(transaction, 'conversations', initial._id);
       ensure(conversation && conversation.members.includes(openid), '无权访问此会话', 'E_FORBIDDEN');
+      if (seenSequence !== null) ensure((conversation.messageSeq || 0) <= seenSequence,
+        '会话有新消息，请先读取', 'E_CONFLICT');
       await transaction.collection('conversations').doc(conversation._id)
         .update({ data: { ['unread.' + openid]: 0, updatedAt: new Date() } });
     });

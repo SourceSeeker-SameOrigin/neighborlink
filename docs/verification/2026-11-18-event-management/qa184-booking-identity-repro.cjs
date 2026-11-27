@@ -1,4 +1,4 @@
-// Reproduce the pending QA184 boundary with actual P60 page code and isolated data.
+// Verify QA184 with actual P60 page code and isolated data.
 const assert = require('node:assert/strict');
 const { runtime } = require('../2026-11-09-remediation/page-fixture.cjs');
 const { setup } = require('../2026-11-16-escort/resident-shops.cjs');
@@ -31,9 +31,17 @@ async function fixture() {
   const staleOrderNavigations = navigate.env.navigation.filter(([, url]) =>
     url === '/pages/orders/detail?id=synthetic-old-order').length;
 
+  const normal = await fixture();
+  normal.page.input({ detail: { value: '本人预约需求' } });
+  await normal.page.submit();
+  const normalCreateCalls = normal.env.requests.filter(request => request[1] === 'createBooking').length;
+
   const report = { scope: 'actual P60 page, synthetic users and isolated database; no CloudBase call',
-    staleCreateCalls, staleOrderNavigations, isolatedOrders: submit.db.data.orders.length };
+    staleCreateCalls, staleOrderNavigations, stalePageRequirement: submit.page.data.requirement,
+    normalCreateCalls, isolatedOrders: submit.db.data.orders?.length || 0 };
   console.log(JSON.stringify(report, null, 2));
-  assert.equal(staleCreateCalls, 1);
-  assert.equal(staleOrderNavigations, 1);
+  assert.equal(staleCreateCalls, 0);
+  assert.equal(staleOrderNavigations, 0);
+  assert.equal(submit.page.data.requirement, '');
+  assert.equal(normalCreateCalls, 1);
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });

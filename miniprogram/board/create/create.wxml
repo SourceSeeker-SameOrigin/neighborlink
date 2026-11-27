@@ -1,6 +1,11 @@
 <view class="page">
   <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/board.png"/><view class="masthead-copy"><view class="page-title">发布{{type === 'task' ? '悬赏任务' : type === 'carry' ? '出行帮带' : '求助'}}</view><view class="masthead-subtitle">邻里互助，让小事有回应</view></view></view>
   <view wx:if="{{error}}" class="error">{{error}}<button wx:if="{{loadError}}" bindtap="load" disabled="{{loading}}">重新加载</button></view>
+  <view wx:if="{{recoveryHint}}" class="card muted">{{recoveryHint}}
+    <button wx:if="{{createdPostId}}" bindtap="openCreated">前往已有记录</button>
+    <button wx:if="{{lookupError}}" bindtap="load" disabled="{{loading}}">重试核对原发布</button>
+    <button wx:if="{{!lookupError}}" bindtap="startNewRequest" disabled="{{busy || loading}}">放弃原编号，开始新发布</button>
+  </view>
   <view class="card">
   <view class="field"><view class="label">标题</view><input class="ui-input" placeholder="标题" maxlength="100" value="{{title}}" data-field="title" bindinput="field"/></view>
   <view class="field"><view class="label">具体情况</view><textarea class="ui-textarea" placeholder="说说具体情况" maxlength="2000" value="{{content}}" data-field="content" bindinput="field"/></view>
@@ -24,5 +29,5 @@
   </block>
   </view>
   <view wx:if="{{images.length}}">已选择 {{images.length}} 张图片</view><button bindtap="photos" disabled="{{!ready || loading || busy}}">添加图片（最多 3 张）</button>
-  <button type="primary" bindtap="submit" loading="{{busy}}" disabled="{{!ready || loading || busy || loading}}">{{type === 'task' ? '发布并支付悬赏' : '发布'}}</button>
+  <button type="primary" bindtap="submit" loading="{{busy}}" disabled="{{!ready || loading || busy || lookupError}}">{{createdPostId ? '前往已有记录' : recoveryHint ? '确认并用原编号发布' : type === 'task' ? '发布并支付悬赏' : '发布'}}</button>
 </view>

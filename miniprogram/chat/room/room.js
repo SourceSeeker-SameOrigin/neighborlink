@@ -4,12 +4,14 @@ const { uploadPhotos } = require('../../utils/media');
 const { display } = require('../../utils/time');
 
 Page({
-  data: { loading: true, ready: false, loadError: false, sending: false, error: '', messages: [], content: '', readOnly: false },
+  data: { loading: true, ready: false, loadError: false, sending: false, error: '', messages: [],
+    content: '', readOnly: false, hasOlder: false, olderLoading: false, olderError: '' },
   onLoad(options = {}) {
     this.orderId = options.orderId || '';
     this.initialConversationId = options.conversationId || '';
     this.conversationId = this.initialConversationId;
     this.afterId = '';
+    this.oldestId = '';
   },
   onShow() { this.visible = true; return this.start({ preservePhoto: true }); },
   onHide() { this.visible = false; this.reset({ preservePhoto: this.photo?.stage === 'choosing' }); },
@@ -24,8 +26,10 @@ Page({
     this.reportOperation = null;
     if (!preservePhoto) this.photo = null;
     this.afterId = '';
+    this.oldestId = '';
     this.setData({ loading: false, ready: false, loadError: false, sending: false,
-      error: '', messages: [], content: '', readOnly: false, scrollTarget: '' });
+      error: '', messages: [], content: '', readOnly: false, scrollTarget: '',
+      hasOlder: false, olderLoading: false, olderError: '' });
   },
   active(context) {
     return Boolean(context && this.visible && !this.closed && context.generation === this.generation &&
@@ -74,23 +78,52 @@ Page({
     this.polling = true;
     const active = () => this.active(context);
     try {
-      const result = await api.call('chat', 'pull', { conversationId: context.conversationId, afterId: this.afterId },
+      const initial = !this.afterId;
+      const result = await api.call('chat', 'pull', { conversationId: context.conversationId,
+        mode: initial ? 'latest' : 'newer', afterId: this.afterId },
         { loading: false, silent: true, redirectOnForbidden: false, mediaRedirectOnForbidden: false, isActive: active });
       if (!active()) { if (this.visible) this.invalidate(); return false; }
-      if (result.unread > 0) {
-        await api.call('chat', 'markRead', { conversationId: context.conversationId },
-          { loading: false, silent: true, redirectOnForbidden: false, isActive: active });
-        if (!active()) { if (this.visible) this.invalidate(); return false; }
-      }
       const messages = [...new Map([...this.data.messages, ...(result.list || [])]
         .map(item => [item._id, { ...item, timeText: display(item.createdAt) }])).values()];
+      if (initial) this.oldestId = result.firstId || '';
       if (result.lastId) this.afterId = result.lastId;
       this.context = context;
       this.setData({ messages, ...(messages.length ? { scrollTarget: 'message-' + messages[messages.length - 1]._id } : {}),
-        ready: true, loadError: false, readOnly: result.readOnly, unread: result.unread, error: '' });
+        ready: true, loadError: false, readOnly: result.readOnly, unread: result.unread, error: '',
+        ...(initial ? { hasOlder: Boolean(result.hasMore) } : {}) });
+      if (result.unread > 0 && this.afterId && (initial || !result.hasMore)) {
+        try {
+          await api.call('chat', 'markRead', { conversationId: context.conversationId,
+            seenMessageId: this.afterId },
+          { loading: false, silent: true, redirectOnForbidden: false, isActive: active });
+        } catch (error) {
+          if (error.code !== 'E_CONFLICT') throw error;
+        }
+        if (!active()) { if (this.visible) this.invalidate(); return false; }
+      }
       return true;
     } catch (error) { if (active()) this.invalidate(error.message || '消息刷新失败'); return false; }
     finally { if (this.generation === context.generation) this.polling = false; }
+  },
+  async loadOlder() {
+    const context = this.context;
+    if (!this.current(context) || !this.data.hasOlder || this.data.olderLoading || !this.oldestId) return;
+    const beforeId = this.oldestId;
+    const active = () => this.current(context) && this.oldestId === beforeId;
+    this.setData({ olderLoading: true, olderError: '' });
+    try {
+      const result = await api.call('chat', 'pull', { conversationId: context.conversationId,
+        mode: 'older', beforeId },
+      { loading: false, silent: true, redirectOnForbidden: false, isActive: active });
+      if (!active()) return;
+      const seen = new Set(this.data.messages.map(item => item._id));
+      const older = (result.list || []).filter(item => !seen.has(item._id))
+        .map(item => ({ ...item, timeText: display(item.createdAt) }));
+      if (result.firstId) this.oldestId = result.firstId;
+      this.setData({ messages: [...older, ...this.data.messages], hasOlder: Boolean(result.hasMore),
+        scrollTarget: 'message-' + beforeId });
+    } catch (error) { if (active()) this.setData({ olderError: error.message || '较早消息加载失败' }); }
+    finally { if (this.current(context)) this.setData({ olderLoading: false }); }
   },
   async reportContent(event) {
     const context = this.context, id = event.currentTarget.dataset.id;

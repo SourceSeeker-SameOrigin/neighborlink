@@ -3,7 +3,7 @@ const {runtime}=require('../2026-11-09-remediation/page-fixture.cjs');
 const results=[];
 const tick=async()=>{for(let i=0;i<8;i++)await Promise.resolve();};
 function gate(){let resolve,reject;const promise=new Promise((a,b)=>{resolve=a;reject=b;});return {promise,resolve,reject};}
-function setup(name){const calls=[];const r=runtime((service,action,params)=>{const g=gate();calls.push({...g,service,action,params});return g.promise;});r.app.globalData.user={roles:['admin']};return {r,p:r.instance(`miniprogram/admin/${name}/${name}.js`),calls};}
+function setup(name){const calls=[];const r=runtime((service,action,params)=>{const g=gate();calls.push({...g,service,action,params});return g.promise;});r.app.globalData.user={_id:'admin',openid:'actor',communityId:'c',roles:['admin']};return {r,p:r.instance(`miniprogram/admin/${name}/${name}.js`),calls};}
 function row(id){return {_id:id,status:'pending',targetType:'post',pricing:{payAmount:100,goodsCap:0},createdAt:'2026-11-01T00:00:00Z',certs:[]};}
 async function check(name,fn){try{const observed=await fn();results.push({name,status:'PASS',observed});}catch(e){results.push({name,status:'FAIL',observed:e.message});}}
 (async()=>{
@@ -18,8 +18,10 @@ await check('reports:快速切换状态，旧成功不得覆盖新状态结果',
  assert.equal(p.data.rows[0]._id,'new_upheld','status='+p.data.status+', row='+p.data.rows[0]._id);
 });
 await check('stations:重新加载后旧分页不得追加进新列表',async()=>{
- const {p,calls}=setup('stations');p.setData({rows:[row('old0')],loading:false});let a=p.load(false);await tick();let b=p.load(true);await tick();
- calls[1].resolve({list:[row('new0')],hasMore:false});await b;calls[0].resolve({list:[row('old_page')],hasMore:false});await a;
+ const {p,calls}=setup('stations');const initial=p.load(true);await tick();
+ calls[0].resolve({list:[row('old0')],hasMore:true});await initial;
+ let a=p.load(false);await tick();let b=p.load(true);await tick();
+ calls[2].resolve({list:[row('new0')],hasMore:false});await b;calls[1].resolve({list:[row('old_page')],hasMore:false});await a;
  assert.deepEqual(p.data.rows.map(x=>x._id),['new0']);
 });
 for(const name of ['orders','providers','reports','merchants','stations'])await check(name+':离页后的读取结果不更新页面',async()=>{

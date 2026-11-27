@@ -16,7 +16,7 @@ function localUgc(value, blacklist) {
   return value;
 }
 function contentInCommunity(targetType, target, communityId) {
-  return ['event','merchant'].includes(targetType)
+  return ['event','merchant','ad'].includes(targetType)
     ? Array.isArray(target && target.communityIds) && target.communityIds.includes(communityId)
     : Boolean(target && target.communityId === communityId);
 }

@@ -52,6 +52,7 @@ Page({
       if (!current()) return;
       if (this.userId && this.userId !== user._id) this.setData({ ...formDefaults, communityId: '' });
       this.userId = user._id;
+      this.ownerCommunityId = user.communityId;
       this.storageKey = 'event-creation:' + encodeURIComponent(user._id);
       this.receipt = wx.getStorageSync(this.storageKey) || null;
       if (this.receipt) this.setData({ ...this.receipt.form, recovery: 'lookup', recoveryTitle: this.receipt.input.title });
@@ -82,22 +83,31 @@ Page({
     } catch (error) { if (current()) this.setData({ error: error.message || '活动管理加载失败' }); }
     finally { if (current()) this.setData({ loading: false }); }
   },
+  readCurrent() {
+    const user = getApp().globalData.user;
+    return !this.inactive && this.data.ready && !this.data.loading &&
+      !!this.userId && user?._id === this.userId && user.communityId === this.ownerCommunityId;
+  },
   async loadMoreEvents() {
     const { ready, communityId, eventOffset, eventMore, eventLoading } = this.data;
     if (this.inactive || !ready || !eventMore || eventLoading) return;
+    if (!this.readCurrent()) return this.load();
     const sequence = this.loadSequence;
+    const current = () => this.readCurrent() && sequence === this.loadSequence &&
+      communityId === this.data.communityId;
     this.setData({ eventLoading: true, eventError: '' });
     try {
-      const result = await api.call('event', 'adminList', { communityId, offset: eventOffset }, { loading: false, silent: true });
-      if (sequence !== this.loadSequence) return;
+      const result = await api.call('event', 'adminList', { communityId, offset: eventOffset },
+        { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
+      if (!current()) return;
       const seen = new Set(this.data.list.map(item => item._id));
       const additions = result.list.filter(item => !seen.has(item._id) && seen.add(item._id));
       this.setData({ list: this.data.list.concat(additions), eventOffset: eventOffset + result.list.length,
         eventMore: result.hasMore === true && result.list.length > 0 });
     } catch (error) {
-      if (sequence === this.loadSequence) this.setData({ eventError: error.message || '活动续页加载失败' });
+      if (current()) this.setData({ eventError: error.message || '活动续页加载失败' });
     } finally {
-      if (sequence === this.loadSequence) this.setData({ eventLoading: false });
+      if (current()) this.setData({ eventLoading: false });
     }
   },
   async chooseCommunity(event) {
@@ -276,6 +286,7 @@ Page({
   },
   async showSignups(event) {
     if (this.inactive || !this.data.ready || this.data.loading) return;
+    if (!this.readCurrent()) return this.load();
     const id = event.currentTarget.dataset.id;
     const activity = this.data.list.find(row => row._id === id && row.status === 'published');
     if (!activity || (id === this.data.rosterId && this.data.rosterLoading)) return;
@@ -293,20 +304,26 @@ Page({
   async readRosterPage() {
     const { rosterId, rosterOffset, rosterLoading, ready } = this.data;
     if (this.inactive || !ready || !rosterId || rosterLoading) return;
+    if (!this.readCurrent()) return this.load();
     const sequence = this.rosterSequence;
+    const loadSequence = this.loadSequence, communityId = this.data.communityId;
+    const current = () => this.readCurrent() && sequence === this.rosterSequence &&
+      loadSequence === this.loadSequence && communityId === this.data.communityId &&
+      rosterId === this.data.rosterId;
     this.setData({ rosterLoading: true, rosterError: '' });
     try {
-      const result = await api.call('event', 'listSignups', { eventId: rosterId, offset: rosterOffset }, { loading: false, silent: true });
-      if (sequence !== this.rosterSequence) return;
+      const result = await api.call('event', 'listSignups', { eventId: rosterId, offset: rosterOffset },
+        { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
+      if (!current()) return;
       const rows = result.list;
       const seen = new Set(this.data.attendees.map(row => row.signupId));
       const additions = rows.filter(row => !seen.has(row.signupId) && seen.add(row.signupId));
       this.setData({ attendees: this.data.attendees.concat(additions), rosterOffset: rosterOffset + rows.length,
         rosterMore: rows.length > 0 && result.hasMore === true });
     } catch (error) {
-      if (sequence === this.rosterSequence) this.setData({ rosterError: error.message || '报名名单加载失败' });
+      if (current()) this.setData({ rosterError: error.message || '报名名单加载失败' });
     } finally {
-      if (sequence === this.rosterSequence) this.setData({ rosterLoading: false });
+      if (current()) this.setData({ rosterLoading: false });
     }
   }
 });

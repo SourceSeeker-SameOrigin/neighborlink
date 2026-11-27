@@ -16,6 +16,8 @@ async function call(name,action,data) {
 }
 function setup(handler) {
   const env=runtime(handler), page=env.instance(route+'.js');
+  env.app.globalData.user={_id:'admin',roles:['admin'],communityId:'c'};
+  page.userId='admin'; page.ownerCommunityId='c'; page.inactive=false;
   page.setData({loading:false,ready:true,isAdmin:true,communityId:'c',list:events});
   return {env,page};
 }
@@ -92,7 +94,7 @@ async function check(name, action) {
       if(a==='adminList') return {list:[]};
       await new Promise(r=>{resume=r;}); return call(n,a,d);
     });
-    env.app.globalData.user={roles:['admin'],communityId:'c'};
+    env.app.globalData.user={_id:'admin',roles:['admin'],communityId:'c'};
     page.setData({communities:zones}); const old=page.showSignups(tap('first'));
     await page.chooseCommunity({detail:{value:1}}); resume(); await old;
     assert.equal(page.data.communityId,'other'); assert.equal(page.data.rosterId,'');

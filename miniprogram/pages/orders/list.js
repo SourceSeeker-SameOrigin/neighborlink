@@ -36,7 +36,7 @@ Page({
       if (!current() || getApp().globalData.user?._id !== user._id) return;
       const active = () => current() && getApp().globalData.user?._id === user._id &&
         getApp().globalData.user?.communityId === user.communityId;
-      const result = await api.call('chat', 'list', {}, { loading: false, silent: true,
+      const result = await api.call('chat', 'list', { limit: 1 }, { loading: false, silent: true,
         redirectOnForbidden: false, isActive: active });
       if (!active()) return;
       if (result.unreadTotal > 0) wx.setTabBarBadge({ index: 1, text: String(Math.min(result.unreadTotal, 99)) });

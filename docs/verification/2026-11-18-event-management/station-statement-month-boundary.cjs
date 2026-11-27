@@ -21,8 +21,14 @@ function run() {
         process.env.TZ = timezone;
         const page = runtime().instance(PAGE);
         page.onLoad();
+        page.visible = true;
         results.push({ instant: item.instant, timezone, expectedBeijingMonth: item.beijingMonth,
           actualDefaultMonth: page.data.month, matches: page.data.month === item.beijingMonth });
+        page.monthChange({ detail: { value: '2026-09' } });
+        page.onHide();
+        results.push({ instant: item.instant, timezone, case: 'manual-month-survives-hide',
+          expectedMonth: '2026-09', actualMonth: page.data.month,
+          matches: page.data.month === '2026-09' });
       }
     }
   } finally {
@@ -35,5 +41,9 @@ function run() {
     mismatched: results.filter(item => !item.matches).length,
     cloudCalls: 0 };
 }
-if (require.main === module) console.log(JSON.stringify(run(), null, 2));
+if (require.main === module) {
+  const report = run();
+  console.log(JSON.stringify(report, null, 2));
+  if (report.mismatched) process.exitCode = 1;
+}
 module.exports = { run };

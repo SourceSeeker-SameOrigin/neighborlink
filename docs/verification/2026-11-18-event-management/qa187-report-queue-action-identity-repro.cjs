@@ -1,4 +1,4 @@
-// Reproduce pending QA187 on the actual P26 page; no real CloudBase calls.
+// Verify QA187 on the actual P26 page; no real CloudBase calls.
 const assert = require('node:assert/strict');
 const { runtime } = require('../2026-11-09-remediation/page-fixture.cjs');
 
@@ -40,6 +40,8 @@ const event = dataset => ({ currentTarget: { dataset } });
   lateEnv.app.globalData.user = admin;
   const latePage = lateEnv.instance('miniprogram/admin/reports/reports.js');
   const pendingRead = latePage.onShow();
+  for (let i = 0; i < 5 && !releaseRead; i++) await Promise.resolve();
+  assert.equal(typeof releaseRead, 'function');
   lateEnv.app.globalData.user = resident;
   releaseRead();
   await pendingRead;
@@ -47,10 +49,9 @@ const event = dataset => ({ currentTarget: { dataset } });
   const report = { scope: 'actual P26 page, synthetic identities and report; API intercepted',
     ...afterSwitch, hiddenActions, oldReadFilledNewIdentity };
   console.log(JSON.stringify(report, null, 2));
-  assert.deepEqual(staleActions.filter(action => action !== 'listReports'),
-    ['resolveReport', 'moderateContent', 'moderateUser']);
-  assert.equal(staleNavigation.length, 1);
-  assert.equal(afterSwitch.oldRowsStillVisible, true);
-  assert.deepEqual(hiddenActions.filter(action => action !== 'listReports'), ['resolveReport']);
-  assert.equal(oldReadFilledNewIdentity, true);
+  assert.deepEqual(staleActions.filter(action => action !== 'listReports'), []);
+  assert.equal(staleNavigation.length, 0);
+  assert.equal(afterSwitch.oldRowsStillVisible, false);
+  assert.deepEqual(hiddenActions.filter(action => action !== 'listReports'), []);
+  assert.equal(oldReadFilledNewIdentity, false);
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });

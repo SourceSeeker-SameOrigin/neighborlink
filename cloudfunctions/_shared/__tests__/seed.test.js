@@ -63,7 +63,7 @@ test('全局配置默认 mock、禁用推荐奖励且不含真实凭据', () => 
 
 test('仅两个公共集合前端可读，所有集合前端不可写', () => {
   const rules = JSON.parse(fs.readFileSync(path.join(root, 'security-rules.json'), 'utf8'));
-  expect(Object.keys(rules).sort()).toEqual(['users', 'communities', 'buildings', 'providers', 'orders', 'memberships', 'ledger', 'settlements', 'payouts', 'events', 'signups', 'eventCancelJobs', 'eventCancelTasks', 'config', 'reports', 'auditLogs', 'mediaChecks', 'conversations', 'messages', 'posts', 'comments', 'couponTemplates', 'coupons', 'pointsLedger', 'idleItems', 'ads', 'notices', 'visits', 'secrets', 'merchants', 'merchantServices', 'deliveryBatches', 'stationApplications'].sort());
+  expect(Object.keys(rules).sort()).toEqual(['users', 'communities', 'buildings', 'providers', 'orders', 'memberships', 'ledger', 'settlements', 'payouts', 'events', 'signups', 'eventCancelJobs', 'eventCancelTasks', 'config', 'reports', 'auditLogs', 'mediaChecks', 'conversations', 'messages', 'posts', 'comments', 'couponTemplates', 'couponIssueBatches', 'coupons', 'pointsLedger', 'idleItems', 'ads', 'notices', 'visits', 'secrets', 'merchants', 'merchantServices', 'deliveryBatches', 'stationApplications'].sort());
   for (const [collection, rule] of Object.entries(rules)) {
     expect(rule).toEqual({ read: ['communities', 'buildings'].includes(collection), write: false });
   }

@@ -95,7 +95,17 @@ Page({
       if (!this.currentOwner(sequence)) return;
       this.setData({ provider });
       wx.showToast({ title: '申请已提交', icon: 'success' });
-    } catch (error) { if (this.currentOwner(sequence)) this.setData({ error: error.message, errorKind: 'operation' }); }
+    } catch (error) {
+      if (this.currentOwner(sequence)) {
+        try {
+          const status = await api.call('provider', 'myStatus', {},
+            { loading: false, silent: true, isActive: () => this.currentOwner(sequence), redirectOnForbidden: false });
+          if (this.currentOwner(sequence)) this.setData(status.provider
+            ? { provider: status.provider, error: '', errorKind: '' }
+            : { error: error.message || '提交失败，请重试', errorKind: 'operation' });
+        } catch (_) { if (this.currentOwner(sequence)) this.setData({ error: '提交结果待核对，请重新加载申请状态', errorKind: 'load', ready: false }); }
+      }
+    }
     finally { if (this.currentOwner(sequence)) this.setData({ busy: false }); }
   }
 });

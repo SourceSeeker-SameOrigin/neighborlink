@@ -21,7 +21,8 @@ Page({
   },
   visible() { return !this.closed && !this.hidden; },
   currentUser() { const user = getApp().globalData.user; return !!this.user && user?._id === this.user._id && user?.communityId === this.user.communityId; },
-  canEdit() { return this.visible() && this.currentUser() && this.data.ready && !this.data.loading && !this.submitting && !this.uploading; },
+  canEdit() { return this.visible() && this.currentUser() && this.data.ready && !this.data.loading && !this.submitting && !this.uploading &&
+    (!this.data.existing || this.data.existing.status === 'rejected'); },
   async load() {
     if (!this.visible() || this.loadInFlight || this.submitting || this.uploading) return;
     const sequence = this.loadSequence = (this.loadSequence || 0) + 1;
@@ -107,7 +108,17 @@ Page({
       if (!current()) return;
       wx.showToast({ title: '入驻申请已提交', icon: 'success' });
       wx.navigateBack();
-    } catch (error) { if (current()) this.setData({ error: error.message || '提交失败，请检查资料' }); }
+    } catch (error) {
+      if (current()) {
+        try {
+          const mine = await api.call('merchant', 'myApplication', {},
+            { loading: false, silent: true, isActive: current, redirectOnForbidden: false });
+          if (current()) this.setData(mine.merchant
+            ? { existing: mine.merchant, error: '', loadError: false }
+            : { error: error.message || '提交失败，请检查资料', loadError: false });
+        } catch (_) { if (current()) this.setData({ error: '提交结果待核对，请重新加载申请状态', loadError: true, ready: false }); }
+      }
+    }
     finally {
       this.submitting = false;
       if (this.visible()) {

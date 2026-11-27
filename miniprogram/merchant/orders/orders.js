@@ -1,6 +1,6 @@
 const api = require('../../utils/api');
 const { uploadPhotos } = require('../../utils/media');
-const { yuan } = require('../../utils/money');
+const { yuan, toFen } = require('../../utils/money');
 Page({
   data: { loading: false, ready: false, busy: false, error: '', pageError: false, list: [], hasMore: false,
     quoteId: '', quoteAmount: '', quoteDetail: '' },
@@ -119,8 +119,9 @@ Page({
     const request = this.begin(this.data.quoteId, 'pending_quote');
     if (!request) return;
     try {
-      const amount = Math.round(Number(this.data.quoteAmount) * 100);
-      if (!Number.isSafeInteger(amount) || amount <= 0) throw Error('请填写大于 0 的报价金额');
+      const amount = toFen(this.data.quoteAmount);
+      if (amount === null) throw Error('报价金额最多保留两位小数');
+      if (amount <= 0) throw Error('请填写大于 0 的报价金额');
       await this.send(request, 'quoteBooking', { amount, detail: this.data.quoteDetail });
     } catch (error) { if (this.active(request)) this.setData({ error: error.message || '报价失败' }); }
     finally { await this.release(request); }

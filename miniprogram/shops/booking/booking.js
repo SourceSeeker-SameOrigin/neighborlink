@@ -20,10 +20,22 @@ Page({
     this.loadSequence = (this.loadSequence || 0) + 1;
     this.initializing = false;
   },
+  ensureOwner() {
+    if (!this.userId) return false;
+    if (this.userId && this.userId === getApp().globalData.user?._id) return true;
+    this.invalidateReads();
+    this.orderId = '';
+    this.receipt = null;
+    this.setData({ ready: false, recovery: '', requirement: '', addresses: [], addressIndex: 0 });
+    this.load();
+    return false;
+  },
   async load() {
     if (!this.serviceId || this.closed || this.hidden || this.initializing || this.submitting) return;
     const sequence = this.loadSequence = (this.loadSequence || 0) + 1;
-    const current = () => !this.closed && !this.hidden && sequence === this.loadSequence;
+    let ownerId = '';
+    const current = () => !this.closed && !this.hidden && sequence === this.loadSequence &&
+      (!ownerId || getApp().globalData.user?._id === ownerId);
     const selected = this.data.addresses[this.data.addressIndex];
     this.initializing = true;
     this.setData({ ready: false, loading: true, loadError: false, error: '', recovery: '' });
@@ -31,6 +43,17 @@ Page({
       const user = await getApp().ensureSession();
       if (!current()) return;
       if (!user || !user._id) throw new Error('登录状态不可用，请重试');
+      if (getApp().globalData.user?._id !== user._id) {
+        this.orderId = '';
+        this.receipt = null;
+        this.userId = '';
+        this.storageKey = '';
+        this.setData({ ready: false, requirement: '', addresses: [], addressIndex: 0, recovery: '',
+          loadError: true, error: '登录身份已变化，请重新加载' });
+        return;
+      }
+      ownerId = user._id;
+      if (!current()) return;
       const changed = this.userId && this.userId !== user._id;
       if (changed) {
         this.orderId = '';
@@ -72,7 +95,7 @@ Page({
     }
   },
   canEdit() {
-    return !this.closed && !this.hidden && this.data.ready && !this.data.loading && !this.data.busy &&
+    return !this.closed && !this.hidden && this.ensureOwner() && this.data.ready && !this.data.loading && !this.data.busy &&
       (!this.data.recovery || this.data.recovery === 'confirm');
   },
   input(event) { if (this.canEdit()) this.setData({ requirement: event.detail.value }); },
@@ -81,7 +104,7 @@ Page({
     if (this.canEdit() && Number.isInteger(addressIndex) && this.data.addresses[addressIndex]) this.setData({ addressIndex });
   },
   openOrder() {
-    if (!this.data.ready || !this.orderId || this.closed || this.hidden || this.navigating) return;
+    if (!this.data.ready || !this.orderId || this.closed || this.hidden || this.navigating || !this.ensureOwner()) return;
     const key = this.storageKey, receipt = this.receipt, version = this.viewVersion;
     this.navigating = true;
     wx.redirectTo({ url: '/pages/orders/detail?id=' + encodeURIComponent(this.orderId),
@@ -96,6 +119,7 @@ Page({
   },
   async submit() {
     if (this.submitting || this.hidden || this.closed) return;
+    if (!this.ensureOwner()) return;
     if (this.data.recovery === 'lookup') return this.load();
     if (this.data.recovery === 'found') return this.openOrder();
     if (!this.serviceId || !this.canEdit()) return;

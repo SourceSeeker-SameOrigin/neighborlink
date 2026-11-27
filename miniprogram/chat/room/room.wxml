@@ -1,6 +1,8 @@
 <view class="page room"><view class="page-masthead"><image class="masthead-icon" src="/assets/icons/chat.png"/><view class="masthead-copy"><view class="page-title">聊天</view><view class="masthead-subtitle">邻里沟通，及时联系</view></view></view>
   <view wx:if="{{error}}" class="error">{{error}}<button class="ui-button" wx:if="{{loadError}}" disabled="{{loading}}" bindtap="start">重试</button></view>
-  <scroll-view class="messages" scroll-y scroll-into-view="{{scrollTarget}}">
+  <scroll-view class="messages" scroll-y scroll-into-view="{{scrollTarget}}" bindscrolltoupper="loadOlder">
+    <view wx:if="{{olderError}}" class="error">{{olderError}}</view>
+    <button wx:if="{{hasOlder}}" class="ui-button" loading="{{olderLoading}}" disabled="{{olderLoading}}" bindtap="loadOlder">{{olderError ? '重试加载较早消息' : '加载较早消息'}}</button>
     <view wx:for="{{messages}}" wx:key="_id" id="message-{{item._id}}" class="message-row {{item.mine ? 'mine' : ''}}">
       <view class="bubble">
         <text wx:if="{{item.type === 'text'}}">{{item.content}}</text>

@@ -7,4 +7,6 @@
   </view>
   <view wx:if="{{loading}}">正在加载…</view>
   <view wx:elif="{{!list.length && !error}}" class="empty">暂无聊天消息</view>
+  <view wx:if="{{moreError}}" class="error">{{moreError}}</view>
+  <button wx:if="{{hasMore}}" class="ui-button" disabled="{{loadingMore}}" loading="{{loadingMore}}" bindtap="loadMore">{{moreError ? '重试加载更多' : '加载更多'}}</button>
 </view>

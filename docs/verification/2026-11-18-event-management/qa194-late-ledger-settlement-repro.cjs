@@ -13,7 +13,11 @@ const records = { ledger: rows, settlements: {}, orders: {
 } };
 const transaction = { collection: table => ({ doc: id => ({
   async get() { return { data: records[table]?.[id] || null }; },
-  async update({ data }) { Object.assign(records[table][id], data); },
+  async update({ data }) { for (const [key, value] of Object.entries(data)) {
+    const parts = key.split('.'); let target = records[table][id];
+    for (const part of parts.slice(0, -1)) target = target[part] ||= {};
+    target[parts.at(-1)] = value;
+  } },
   async set({ data }) { records[table][id] = { _id: id, ...data }; }
 }) }) };
 const command = { gte: () => ({ and: () => ({}) }), lt: () => ({}) };
@@ -34,20 +38,33 @@ const context = { user: { _id: 'admin-1', roles: ['admin'] }, openid: 'admin-ope
   rows.late = { _id: 'late', refType: 'order', refId: 'order-2', communityId: 'community-1',
     amounts: { property: 200 }, settled: { property: false }, settlementIds: {}, createdAt: new Date('2026-11-10') };
   const preview = await api.settlementPreview(input, context);
-  assert.equal(preview.rows[0].total, 300);
+  assert.equal(preview.rows[0].total, 200);
+  assert.equal(preview.rows[0].supplementOf, first.settlements[0]._id);
   const second = await api.settlementCreate(input, context);
-  assert.equal(second.settlements[0]._id, first.settlements[0]._id);
-  assert.deepEqual(second.settlements[0].ledgerIds, ['first']);
-  assert.equal(rows.late.settlementIds.property, undefined);
-  // Once the original period is paid, the newer ledger is the only eligible
-  // preview row, but the same deterministic settlement ID still returns old.
-  rows.first.settled.property = true;
-  records.settlements[first.settlements[0]._id].status = 'paid';
+  assert.notEqual(second.settlements[0]._id, first.settlements[0]._id);
+  assert.deepEqual(second.settlements[0].ledgerIds, ['late']);
+  assert.equal(rows.late.settlementIds.property, second.settlements[0]._id);
+  const marked = await api.settlementMarkPaid({ settlementId: first.settlements[0]._id }, context);
+  assert.equal(marked.status, 'paid');
+  assert.equal(rows.first.settled.property, true);
+  const markedAgain = await api.settlementMarkPaid({ settlementId: first.settlements[0]._id }, context);
+  assert.equal(markedAgain.status, 'paid');
+  assert.equal(rows.late.settled.property, false);
+  // Paying the original period never consumes a supplemental ledger row.
   const laterPreview = await api.settlementPreview(input, context);
-  assert.equal(laterPreview.rows[0].total, 200);
+  assert.equal(laterPreview.rows.length, 0);
   const afterPaid = await api.settlementCreate(input, context);
-  assert.equal(afterPaid.settlements[0].status, 'paid');
-  assert.equal(rows.late.settlementIds.property, undefined);
+  assert.equal(afterPaid.settlements[0]._id, second.settlements[0]._id);
+  assert.equal(rows.late.settlementIds.property, second.settlements[0]._id);
+  rows.lateAfterPayment = { _id: 'lateAfterPayment', refType: 'order', refId: 'order-2', communityId: 'community-1',
+    amounts: { property: 300 }, settled: { property: false }, settlementIds: {}, createdAt: new Date('2026-11-11') };
+  const postPaymentPreview = await api.settlementPreview(input, context);
+  assert.equal(postPaymentPreview.rows[0].total, 300);
+  const postPayment = await api.settlementCreate(input, context);
+  assert.equal(postPayment.settlements[0].supplementOf, first.settlements[0]._id);
+  assert.equal(rows.lateAfterPayment.settlementIds.property, postPayment.settlements[0]._id);
+  assert.equal(records.settlements[first.settlements[0]._id].status, 'paid');
+  assert.equal(records.settlements[first.settlements[0]._id].total, 100);
   const largeLedger = Array.from({ length: 205 }, (_, index) => ({
     _id: `ledger-${String(index).padStart(3, '0')}`, communityId: 'c',
     createdAt: new Date('2026-11-15T00:00:00Z'), amounts: { property: 100 },
@@ -63,8 +80,10 @@ const context = { user: { _id: 'admin-1', roles: ['admin'] }, openid: 'admin-ope
     unchangedRetryReusesSettlement: unchangedRetry.settlements[0]._id === first.settlements[0]._id,
     previewTotalFen: preview.rows[0].total, settlementTotalFen: second.settlements[0].total,
     settlementLedgerIds: second.settlements[0].ledgerIds,
-    laterPreviewFen: laterPreview.rows[0].total, afterPaidReturnedStatus: afterPaid.settlements[0].status,
+    laterPreviewFen: 0, afterPaidReturnedStatus: afterPaid.settlements[0].status,
     lateLedgerAssigned: !!rows.late.settlementIds.property,
+    postPaymentSupplementFen: postPayment.settlements[0].total,
+    originalPaidTwiceWithoutDuplicate: markedAgain.status === 'paid',
     largePreviewCount: largeResult.data.rows[0].ledgerIds.length,
     largePreviewTotalFen: largeResult.data.rows[0].total, realCloudWrites: 0 }, null, 2));
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });

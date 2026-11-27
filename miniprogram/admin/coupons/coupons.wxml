@@ -1,6 +1,8 @@
 <view class="page">
   <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/admin.png"/><view class="masthead-copy"><view class="page-title">优惠券模板</view><view class="masthead-subtitle">社区运营 · 按权限管理</view></view></view>
   <view wx:if="{{error}}" class="error">{{error}}</view>
+  <view wx:if="{{recoveredTemplateId}}" class="card muted">原模板已保存：{{recoveredTemplateId}}。无需重复创建。<button bindtap="startNewTemplate" disabled="{{saving}}">开始新模板</button></view>
+  <view wx:if="{{templateRecoveryHint}}" class="card muted">{{templateRecoveryHint}}<button bindtap="startNewTemplate" disabled="{{saving || templateLookupError}}">放弃原编号，开始新模板</button></view>
   <view class="card">
     <view class="section-title">{{form.templateId ? '编辑模板' : '新建模板'}}</view>
     <view class="field-label">模板名称</view>
@@ -26,10 +28,10 @@
     <view class="field-label">每人限领（张）</view>
     <input class="ui-input" type="number" placeholder="每人限领" value="{{form.perUserLimit}}" data-field="perUserLimit" bindinput="field"/>
     <picker range="{{modeLabels}}" value="{{modeIndex}}" bindchange="chooseMode"><view class="picker">发放方式：{{modeLabels[modeIndex]}}</view></picker>
-    <button class="ui-button" type="primary" bindtap="save" loading="{{saving}}" disabled="{{saving}}">保存模板</button><button class="ui-button" bindtap="reset">清空</button>
+    <button class="ui-button" type="primary" bindtap="save" loading="{{saving}}" disabled="{{saving || templateLookupError || (recoveredTemplateId && !form.templateId)}}">{{templateRecoveryHint ? '确认并用原编号保存' : '保存模板'}}</button><button class="ui-button" bindtap="reset">清空</button>
   </view>
   <view class="section-title">现有模板</view>
   <view class="card" wx:for="{{rows}}" wx:key="_id"><view class="section-title">{{item.name}} · {{kindNames[item.kind] || '未知类型'}}</view><view>已发 {{item.issued}} / {{item.totalLimit}} · {{statusNames[item.status] || '未知状态'}}</view><button class="ui-button" data-index="{{index}}" bindtap="edit">编辑</button><button class="ui-button" data-index="{{index}}" bindtap="toggleStatus">{{item.status === 'active' ? '暂停发放' : '恢复发放'}}</button></view>
-  <view class="card"><view class="section-title">管理员手动发券</view><picker range="{{rows}}" range-key="name" value="{{issueTemplateIndex}}" bindchange="templatePick"><view class="picker">发放模板：{{rows[issueTemplateIndex].name || '暂无模板'}}</view></picker><view class="field-label">联系电话（与用户编号二选一）</view><input class="ui-input" placeholder="手机号（与用户编号二选一）" value="{{form.phone}}" data-field="phone" bindinput="field"/><view class="field-label">用户编号（多个用逗号分隔）</view><input class="ui-input" placeholder="用户编号，多个用逗号分隔" value="{{form.userIdsText}}" data-field="userIdsText" bindinput="field"/><button class="ui-button" type="primary" bindtap="issue" disabled="{{saving}}">发放优惠券</button></view>
+  <view wx:if="{{issueRecoveryHint}}" class="card muted">{{issueRecoveryHint}}<button bindtap="startNewIssue" disabled="{{saving || issueLookupError}}">核对后开始新批次</button></view><view class="card"><view class="section-title">管理员手动发券</view><picker range="{{rows}}" range-key="name" value="{{issueTemplateIndex}}" bindchange="templatePick"><view class="picker">发放模板：{{rows[issueTemplateIndex].name || '暂无模板'}}</view></picker><view class="field-label">联系电话（与用户编号二选一）</view><input class="ui-input" placeholder="手机号（与用户编号二选一）" value="{{form.phone}}" data-field="phone" bindinput="field"/><view class="field-label">用户编号（多个用逗号分隔）</view><input class="ui-input" placeholder="用户编号，多个用逗号分隔" value="{{form.userIdsText}}" data-field="userIdsText" bindinput="field"/><button class="ui-button" type="primary" bindtap="issue" disabled="{{saving || issueLookupError}}">发放优惠券</button></view>
   <view wx:if="{{loading}}">正在加载…</view>
 </view>

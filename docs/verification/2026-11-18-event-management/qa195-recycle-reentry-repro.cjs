@@ -11,6 +11,10 @@ async function scenario(reentry) {
   const env = runtime(async (name, action, payload) => {
     assert.equal(name, 'order');
     if (action === 'quote') return { slots: ['2026-12-01 10:00'], pricing: { total: 0 }, validationMessage: '' };
+    if (action === 'lookupRequest') {
+      const id = 'o_' + crypto.createHash('sha256').update(`openid-a:${payload.requestId}`).digest('hex').slice(0, 40);
+      return { orderId: records.has(id) ? id : null };
+    }
     assert.equal(action, 'create');
     const id = 'o_' + crypto.createHash('sha256').update(`openid-a:${payload.requestId}`).digest('hex').slice(0, 40);
     requests.push({ requestId: payload.requestId, id });
@@ -22,21 +26,26 @@ async function scenario(reentry) {
   async function page() {
     const instance = env.instance('miniprogram/recycle/order/order.js');
     await instance.onLoad();
-    await instance.category({ currentTarget: { dataset: { code: 'paper' } } });
-    assert.equal(instance.data.pricing.total, 0);
+    if (!instance.data.createdOrderId) {
+      await instance.category({ currentTarget: { dataset: { code: 'paper' } } });
+      assert.equal(instance.data.pricing.total, 0);
+    }
     return instance;
   }
   const first = await page();
   await first.create();
   assert.equal(records.size, 1);
   const receiptAfterLostResponse = Boolean(env.store['recycleOrderReceipt:resident-a']);
+  const requestAfterLostResponse = Boolean(env.store['recycleOrderRequest:resident-a:community-a']);
   assert.equal(receiptAfterLostResponse, false);
+  assert.equal(requestAfterLostResponse, true);
   const second = reentry ? (first.onUnload(), await page()) : first;
   await second.create();
-  assert.equal(requests.length, 2);
-  assert.equal(records.size, reentry ? 2 : 1);
-  return { retry: reentry ? 'reentry' : 'same-page', sameRequestId: requests[0].requestId === requests[1].requestId,
-    syntheticOrders: records.size, persistedReceiptAfterLostResponse: receiptAfterLostResponse };
+  assert.equal(requests.length, reentry ? 1 : 2);
+  assert.equal(records.size, 1);
+  return { retry: reentry ? 'reentry' : 'same-page', sameRequestId: reentry ? true : requests[0].requestId === requests[1].requestId,
+    syntheticOrders: records.size, persistedReceiptAfterLostResponse: receiptAfterLostResponse,
+    persistedRequestAfterLostResponse: requestAfterLostResponse };
 }
 
 (async () => {

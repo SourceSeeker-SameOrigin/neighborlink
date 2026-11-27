@@ -1,7 +1,7 @@
 // Executes actual cloud entries against synthetic records; selected cancellation and event creation tests mutate only the local fixture. No network or cloud writes.
 const fs = require('fs'), path = require('path'), vm = require('vm'), assert = require('assert');
 const root = process.cwd();
-function fixture({ bound = true, global = false, local = false, roles = ['resident'], records = {}, allowWrites = false, mockPay = false, paymentEnv, securityResult = null, failBindEvent = false, failCouponRead = false, transactionConflict = false } = {}) {
+function fixture({ bound = true, global = false, local = false, roles = ['resident'], records = {}, allowWrites = false, mockPay = false, paymentEnv, securityResult = null, failBindEvent = false, failCouponRead = false, transactionConflict = false, orderedQueries = false } = {}) {
   const user = { _id: 'u', openid: 'actor', roles, communityId: bound ? 'c' : null };
   const data = { users: [user], config: [{ _id: 'global', complaintWindowHours:24, blacklist:[], features: Object.fromEntries(['board','idle','events','chat','coupons','merchants','stationDelivery','autoPayout','notices','ads'].map(k=>[k, global])) }],
     communities: [{ _id: 'c', status: 'active', features: local === null ? {} : Object.fromEntries(['board','idle','events','chat','coupons','merchants','stationDelivery','autoPayout','notices','ads'].map(k=>[k, local])) }], ...records };
@@ -29,16 +29,16 @@ function fixture({ bound = true, global = false, local = false, roles = ['reside
     try { return await work({collection(table){return {doc:id=>db.collection(table).doc(id)};}}); } catch(error) {
       for(const key of Object.keys(data)) delete data[key]; Object.assign(data,snapshot); writes.length=count; throw error;
     }
-  }, collection(table) { let filter = {}, limit = 100, offset = 0;
+  }, collection(table) { let filter = {}, limit = 100, offset = 0, ordering = [];
     const chain = { doc(id) { return { async get() { if(table==='couponTemplates' && id===faults.failTemplateId) throw Error('synthetic second template failure'); return {data:structuredClone((data[table]||[]).find(row=>row._id===id)||null)}; }, async update(patch) { return update(table,(data[table]||[]).filter(row=>row._id===id),patch); }, async set({data:value}) { if(failBindEvent && table==='events') throw Error('synthetic event write failure'); if(!allowWrites) throw Error('Unexpected write'); const rows=(data[table] ||= []),index=rows.findIndex(r=>r._id===id),row={_id:id,...value};if(index<0)rows.push(row);else rows[index]=row; writes.push({table,id}); } }; }, where(value) { filter = value; return chain; }, limit(value) { limit = value; return chain; },
-      orderBy() { return chain; }, skip(value) { offset=value; return chain; }, async count(){return {total:(data[table]||[]).filter(row=>matches(row,filter)).length};}, async get() { if(faults.failCouponRead && table==='couponTemplates') throw Error('synthetic coupon failure'); return { data: structuredClone((data[table] || []).filter(row=>matches(row, filter)).slice(offset, offset+limit)) }; },
+      orderBy(field,direction) { ordering.push([field,direction]); return chain; }, skip(value) { offset=value; return chain; }, async count(){return {total:(data[table]||[]).filter(row=>matches(row,filter)).length};}, async get() { if(faults.failCouponRead && table==='couponTemplates') throw Error('synthetic coupon failure'); const rows=(data[table] || []).filter(row=>matches(row, filter)); if(orderedQueries) rows.sort((a,b)=>{for(const [field,direction] of ordering){const left=a[field] instanceof Date?a[field].getTime():a[field],right=b[field] instanceof Date?b[field].getTime():b[field];if(left<right)return direction==='desc'?1:-1;if(left>right)return direction==='desc'?-1:1;}return 0;}); return { data: structuredClone(rows.slice(offset, offset+limit)) }; },
       async add({data:value}) { if(failBindEvent && table === 'events' && value.type === 'bind') throw Error('synthetic event write failure'); if(!allowWrites) throw Error('Unexpected write'); (data[table] ||= []).push(value); writes.push({table}); return {_id:'local-event'}; }, async update(patch) { return update(table,(data[table]||[]).filter(row=>matches(row,filter)),patch); } }; return chain;
   }};
   // Database clones and dates created inside a simulated function must share a Date constructor.
   const databaseDate = structuredClone(new Date()).constructor;
   const signed=[];let actor='actor';
   const cloud = { init() {}, database:()=>db, getWXContext:()=>({OPENID:actor}), DYNAMIC_CURRENT_ENV:'offline',
-    getTempFileURL({fileList}) { signed.push(...fileList);return {fileList:fileList.map(item=>({fileID:item.fileID,status:0,tempFileURL:'https://synthetic.invalid/authorized'}))}; }, openapi:{phonenumber:{async getPhoneNumber(){return {phoneInfo:{purePhoneNumber:'13800000000'}};}},security:{async msgSecCheck() { if(!securityResult) throw Error('Unexpected security call'); return securityResult; }}} };
+    getTempFileURL({fileList}) { signed.push(...fileList);return {fileList:fileList.map(item=>({fileID:item.fileID,status:0,tempFileURL:'https://synthetic.invalid/authorized'}))}; }, openapi:{phonenumber:{async getPhoneNumber(){return {phoneInfo:{purePhoneNumber:'13800000000'}};}},security:{async msgSecCheck() { if(!securityResult) throw Error('Unexpected security call'); return securityResult; }, async mediaCheckAsync() { if(!securityResult) throw Error('Unexpected media check'); return { trace_id: 'synthetic-media-check' }; }}} };
   function load(file, cache = new Map()) {
     file = path.resolve(file); if (!path.extname(file)) file += '.js';
     if (cache.has(file)) return cache.get(file).exports;

@@ -27,11 +27,11 @@ async function scenario(kind, path) {
   assert.equal(page.data.ready, true);
   await page.submit();
   assert.equal(application.status, 'pending');
-  assert.equal(kind === 'merchant' ? page.data.existing : page.data.provider, null);
-  assert.equal(statusReads, 1);
+  assert.equal((kind === 'merchant' ? page.data.existing : page.data.provider).status, 'pending');
+  assert.equal(statusReads, 2);
   const firstError = page.data.error;
   await page.submit();
-  assert.equal(applyCalls, 2);
+  assert.equal(applyCalls, 1);
   const retryError = page.data.error;
   await page.load();
   assert.equal((kind === 'merchant' ? page.data.existing : page.data.provider).status, 'pending');

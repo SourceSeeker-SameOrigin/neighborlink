@@ -49,7 +49,7 @@ Page({
   async refreshUnread(sequence) {
     const current = () => this.currentUser(sequence);
     try {
-      const result = await api.call('chat', 'list', {}, { loading: false, silent: true, isActive: current });
+      const result = await api.call('chat', 'list', { limit: 1 }, { loading: false, silent: true, isActive: current });
       if (current()) this.setData({ unreadTotal: result.unreadTotal || 0 });
     } catch (_) { if (current()) this.setData({ unreadTotal: 0 }); }
   },

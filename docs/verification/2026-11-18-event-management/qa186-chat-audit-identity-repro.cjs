@@ -1,4 +1,4 @@
-// Reproduce pending QA186 with the actual P27 page and intercepted CloudBase calls.
+// Verify QA186 with the actual P27 page and intercepted CloudBase calls.
 const assert = require('node:assert/strict');
 const { runtime } = require('../2026-11-09-remediation/page-fixture.cjs');
 
@@ -29,7 +29,7 @@ env.wx.previewImage = options => previews.push(options);
     oldTextStillVisible: page.data.messages.some(item => item.content === '合成审计正文')
   };
   console.log(JSON.stringify(report, null, 2));
-  assert.equal(report.stalePreviewCount, 1);
-  assert.deepEqual(report.staleReadCalls, ['adminPull']);
-  assert.equal(report.oldTextStillVisible, true);
+  assert.equal(report.stalePreviewCount, 0);
+  assert.deepEqual(report.staleReadCalls, []);
+  assert.equal(report.oldTextStillVisible, false);
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });

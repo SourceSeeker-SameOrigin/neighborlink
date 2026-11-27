@@ -84,5 +84,7 @@ test('活动社区数组可用于举报与图片审核归属校验', () => {
   const event = { communityIds: ['c1', 'c2'], ownerOpenid: 'owner' };
   expect(contentInCommunity('event', event, 'c2')).toBe(true);
   expect(contentInCommunity('event', event, 'c3')).toBe(false);
+  expect(contentInCommunity('ad', { communityIds: ['c1', 'c2'] }, 'c2')).toBe(true);
+  expect(contentInCommunity('ad', { communityIds: ['c1', 'c2'] }, 'c3')).toBe(false);
   expect(contentInCommunity('post', { communityId: 'c1' }, 'c1')).toBe(true);
 });

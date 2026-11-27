@@ -181,7 +181,9 @@ Page({
       const result = await api.call('admin', 'settlementPreview', request,
         { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
       if (!current()) return;
-      this.setData({ previewRange, preview: result.rows.map(item => ({ ...item, previewKey: previewKey(item), totalText: yuan(item.total), merchantName: merchantName(this.data.merchants, item.merchantId) })) });
+      this.setData({ previewRange, preview: result.rows.map(item => ({ ...item, previewKey: previewKey(item),
+        totalText: yuan(item.total), originalTotalText: yuan(item.originalTotal || 0),
+        merchantName: merchantName(this.data.merchants, item.merchantId) })) });
     } catch (error) { if (current()) this.setData({ error: error.message || '预览失败' }); }
     finally { if (current()) this.setData({ busy: false }); else this.invalidateIdentity(context); }
   },

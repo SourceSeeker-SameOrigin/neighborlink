@@ -1,4 +1,5 @@
 const api = require('../../utils/api');
+const { fingerprint } = require('../../utils/intent-fingerprint');
 function amountFen(value) {
   const match = /^\s*(\d+)(?:\.(\d{1,2}))?\s*$/.exec(String(value));
   if (!match) throw new Error('广告金额最多保留两位小数');
@@ -9,6 +10,8 @@ function amountFen(value) {
 Page({
   data: { loading: true, saving: false, uploadingImage: false, noticeReady: false, adReady: false,
     error: '', noticeError: '', adError: '', authorized: false, isAdmin: false,
+    noticeRecoveryHint: '', adRecoveryHint: '', noticeLookupError: false, adLookupError: false,
+    createdNoticeId: '', createdAdId: '',
     user: null, communityId: '', communities: [], communityIndex: 0, notices: [], ads: [], title: '', body: '', imageFileId: '', endAt: '', pinned: false,
     adTitle: '', adImage: '', adSlot: 'home_banner', adSlots: ['home_banner', 'board_top', 'shops_top'], adPath: '/shops/list/list', adStart: '', adEnd: '', adTargetType: 'page', adTargetId: '', adPrice: '0.00', adStatus: 'draft',
     adTargetTypes: ['page', 'merchant', 'event'], adStatuses: ['draft', 'live'],
@@ -52,6 +55,60 @@ Page({
     this.setData({ title: '', body: '', imageFileId: '', endAt: '', pinned: false,
       adTitle: '', adImage: '', adTargetId: '', adStart: '', adEnd: '', adPrice: '0.00' });
   },
+  pendingKey(kind, userId) { return 'content_create_' + kind + '_' + userId; },
+  restorePending(user) {
+    this.pendingCreates = this.pendingCreates || {};
+    for (const kind of ['notice', 'ad']) {
+      if (this.pendingCreates[kind]?.userId === user._id) continue;
+      this.pendingCreates[kind] = null;
+      try {
+        const saved = wx.getStorageSync(this.pendingKey(kind, user._id));
+        if (saved?.userId === user._id && saved.kind === kind) this.pendingCreates[kind] = saved;
+      } catch (_) {}
+    }
+  },
+  clearPending(kind) {
+    const pending = this.pendingCreates?.[kind];
+    this.pendingCreates[kind] = null;
+    if (pending) try {
+      const key = this.pendingKey(kind, pending.userId);
+      if (wx.getStorageSync(key)?.requestId === pending.requestId) wx.removeStorageSync(key);
+    } catch (_) {}
+  },
+  async checkPending(kind, context) {
+    const pending = this.pendingCreates?.[kind];
+    if (!pending || !this.contextCurrent(context)) return;
+    const prefix = kind === 'notice' ? 'notice' : 'ad';
+    if (kind === 'notice' && this.data.communityId !== pending.communityId) {
+      this.setData({ noticeLookupError: false,
+        noticeRecoveryHint: '上次公告属于另一小区。请切回原小区核对，或明确开始新公告。' });
+      return;
+    }
+    const active = () => this.contextCurrent(context) &&
+      (kind === 'notice' ? this.data.noticeReady && this.data.communityId === pending.communityId : this.data.adReady);
+    try {
+      const result = await api.call('content', 'lookupCreate', { kind, requestId: pending.requestId },
+        { loading: false, silent: true, redirectOnForbidden: false, isActive: active });
+      if (!active()) return;
+      if (result.recordId) {
+        this.clearPending(kind);
+        this.setData({ [prefix + 'LookupError']: false, ['created' + (kind === 'notice' ? 'Notice' : 'Ad') + 'Id']: result.recordId,
+          [prefix + 'RecoveryHint']: '已找到上次保存的' + (kind === 'notice' ? '公告' : '广告') + '，不会重复创建。' });
+      } else this.setData({ [prefix + 'LookupError']: false,
+        [prefix + 'RecoveryHint']: '暂未查到上次保存的内容。核对原输入后可用原编号重试。' });
+    } catch (error) {
+      if (active()) this.setData({ [prefix + 'LookupError']: true,
+        [prefix + 'RecoveryHint']: '上次保存结果待核对，请先重试读取。' });
+    }
+  },
+  startNewCreate(event) {
+    if (!this.currentRead() || this.data.saving) return;
+    const kind = event.currentTarget.dataset.kind;
+    if (!['notice', 'ad'].includes(kind) || this.data[kind + 'LookupError']) return;
+    this.clearPending(kind);
+    this.setData({ [kind + 'RecoveryHint']: '',
+      ['created' + (kind === 'notice' ? 'Notice' : 'Ad') + 'Id']: '' });
+  },
   invalidateIdentity(message = '登录身份已变化，请重新加载') {
     if (this._visible === false || this._closed) return;
     const userId = getApp().globalData.user?._id;
@@ -89,12 +146,16 @@ Page({
       if (!user.roles.includes('admin') && !user.roles.includes('property')) throw new Error('仅管理员或物业可管理内容');
       const isAdmin = user.roles.includes('admin');
       if (this.draftOwnerId && this.draftOwnerId !== userId) {
-        this.clearDrafts(); this.setData({ communityId: '' });
+        this.clearDrafts(); this.setData({ communityId: '', noticeRecoveryHint: '', adRecoveryHint: '',
+          noticeLookupError: false, adLookupError: false, createdNoticeId: '', createdAdId: '' });
       }
+      this.restorePending(user);
       this.draftOwnerId = userId;
       const context = this.readContext = { userId, isAdmin, communityId: user.communityId, sequence };
       this.setData({ user, isAdmin, authorized: true });
       await Promise.all([this.prepareNotices(user, context), isAdmin ? this.loadAds(context) : Promise.resolve()]);
+      if (this.contextCurrent(context)) await Promise.all([
+        this.checkPending('notice', context), isAdmin ? this.checkPending('ad', context) : Promise.resolve()]);
     } catch (error) { if (current()) this.setData({ error: error.message || '加载失败' }); }
     finally {
       if (current()) { this.setData({ loading: false }); this.applyImageResult(); }
@@ -155,6 +216,7 @@ Page({
     if (!community) return;
     this.setData({ communityIndex, communityId: community._id });
     await this.loadNotices();
+    await this.checkPending('notice', this.readContext);
   },
   input(event) { this.setData({ [event.currentTarget.dataset.field]: event.detail.value }); },
   imageTarget(field) {
@@ -242,13 +304,35 @@ Page({
   },
   async submitWrite(operation, action, payload, clear = {}) {
     if (!this.writeCurrent(operation)) { this.invalidateIdentity(); return; }
+    const kind = action === 'saveNotice' && !payload.noticeId ? 'notice' : action === 'saveAd' && !payload.adId ? 'ad' : null;
+    if (kind) {
+      if (this.data[kind + 'LookupError'] || this.data['created' + (kind === 'notice' ? 'Notice' : 'Ad') + 'Id']) {
+        this.finishWrite(operation); this.setData({ error: '请先核对原记录，或明确开始新建' }); return;
+      }
+      const intentHash = fingerprint(payload);
+      this.pendingCreates = this.pendingCreates || {};
+      const pending = this.pendingCreates[kind];
+      if (pending && (pending.intentHash !== intentHash || pending.communityId !== operation.communityId)) {
+        this.finishWrite(operation); this.setData({ error: '内容与上次提交不同，请核对原输入，或明确开始新建' }); return;
+      }
+      if (!pending) {
+        this.pendingCreates[kind] = { userId: operation.context.userId, communityId: operation.communityId,
+          kind, requestId: Date.now().toString(36) + '_' + Math.random().toString(36).slice(2), intentHash };
+        try { wx.setStorageSync(this.pendingKey(kind, operation.context.userId), this.pendingCreates[kind]); } catch (_) {}
+      }
+      payload = { ...payload, requestId: this.pendingCreates[kind].requestId };
+    }
     try {
-      await api.call('content', action, payload,
+      const result = await api.call('content', action, payload,
         { loading: false, silent: true, redirectOnForbidden: false, isActive: () => this.writeCurrent(operation) });
       if (!this.writeCurrent(operation)) { this.invalidateIdentity(); return; }
+      if (kind) this.clearPending(kind);
       this.setData(clear);
       this.finishWrite(operation);
       await this.load();
+      if (kind && this.currentRead() && getApp().globalData.user?._id === operation.context.userId)
+        this.setData({ ['created' + (kind === 'notice' ? 'Notice' : 'Ad') + 'Id']: result?.noticeId || result?.adId || '',
+          [kind + 'RecoveryHint']: '已保存' + (kind === 'notice' ? '公告' : '广告') + '，如需再次创建请明确开始新建。' });
     } catch (error) {
       if (this.writeCurrent(operation)) this.invalidateIdentity('操作结果待核对，请重新加载');
     } finally {
@@ -258,6 +342,9 @@ Page({
   async saveNotice() {
     const operation = this.beginWrite();
     if (!operation) return;
+    if (this.data.createdNoticeId || this.data.noticeLookupError) {
+      this.finishWrite(operation); this.setData({ error: '请先核对原公告，或明确开始新建' }); return;
+    }
     if (!this.data.noticeReady) { this.finishWrite(operation); return; }
     if (!this.data.communityId) { this.finishWrite(operation); return this.setData({ noticeError: '请先选择管理小区' }); }
     if (!this.data.endAt) { this.finishWrite(operation); return this.setData({ error: '请填写公告有效期' }); }
@@ -312,6 +399,9 @@ Page({
   async saveAd() {
     const operation = this.beginWrite();
     if (!operation) return;
+    if (this.data.createdAdId || this.data.adLookupError) {
+      this.finishWrite(operation); this.setData({ error: '请先核对原广告，或明确开始新建' }); return;
+    }
     if (!this.data.isAdmin || !this.data.adReady) { this.finishWrite(operation); return; }
     if (!this.data.communityId) { this.finishWrite(operation); return this.setData({ adError: '请先选择广告投放小区' }); }
     if (!this.data.adStart || !this.data.adEnd) { this.finishWrite(operation); return this.setData({ error: '请填写广告起止日期' }); }

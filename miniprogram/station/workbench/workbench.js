@@ -1,5 +1,5 @@
 const api = require('../../utils/api');
-const { display } = require('../../utils/time');
+const { display, ymd } = require('../../utils/time');
 function identity(user) {
   return user?._id ? JSON.stringify([user._id, user.stationCommunityId || user.communityId,
     user.stationCode, (user.roles || []).includes('station')]) : '';
@@ -7,7 +7,7 @@ function identity(user) {
 Page({
   data: { loading: true, ready: false, error: '', loadError: false, pageError: false,
     batches: [], hasMore: false, exporting: false },
-  onLoad() { const today = new Date(); this.setData({ month: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}` }); },
+  onLoad() { this.setData({ month: ymd(new Date()).slice(0, 7) }); },
   onShow() { this.visible = true; return this.load(true); },
   invalidate() {
     this.read = (this.read || 0) + 1;

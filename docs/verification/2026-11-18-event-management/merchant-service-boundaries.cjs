@@ -68,6 +68,7 @@ async function check(name, fn) {
   });
   for(const state of ['hidden','unloaded','user','refresh']) for(const fail of [false,true]) await check('late-save-'+state+'-'+fail,async record=>{
     const f=setup(),wait=deferred(); await f.page.load();
+    f.page.setData({ title: '合成服务', desc: '旧保存请求', price: '5' });
     f.use((n,a)=>a==='upsertService'?wait.promise:{list:[service('new')]});
     const op=f.page.save(); await flush();
     if(state==='refresh') await f.page.load(); else change(f,state);
@@ -80,7 +81,7 @@ async function check(name, fn) {
     if(state==='user') assert.equal(f.page.data.title,'');
   });
   await check('save-failure-preserves-draft-and-allows-retry',async record=>{
-    const f=setup();await f.page.load();f.page.setData({title:'本人草稿'});
+    const f=setup();await f.page.load();f.page.setData({title:'本人草稿',desc:'合成需求',price:'5'});
     f.use(async(n,a)=>{if(a==='upsertService')throw Error('合成保存失败');return{list:[]};});await f.page.save();
     record({title:f.page.data.title,ready:f.page.data.ready,busy:f.page.data.busy,error:f.page.data.error});
     assert.equal(f.page.data.title,'本人草稿');assert(f.page.data.ready&&!f.page.data.busy);assert.equal(f.page.data.error,'合成保存失败');

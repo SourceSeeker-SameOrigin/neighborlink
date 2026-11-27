@@ -208,6 +208,14 @@ async function saveNotice(event, { user, openid }) {
     imageFileId: typeof event.imageFileId === 'string' ? event.imageFileId.slice(0, 500) : '',
     pinned: event.pinned === true, pinnedAt: event.pinned === true ? now : null,
     status: 'live', endAt, createdAt: now, createdBy: openid };
+  let requestId = null, requestHash = null;
+  if (!event.noticeId && event.requestId !== undefined) {
+    requestId = text(event.requestId, '请求编号', 80);
+    ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(requestId), '请求编号不正确');
+    requestHash = crypto.createHash('sha256').update(JSON.stringify({ communityId: record.communityId,
+      title: record.title, body: record.body, imageFileId: record.imageFileId, pinned: record.pinned,
+      endAt: endAt.toISOString() })).digest('hex');
+  }
   if (event.noticeId) {
     const old = await server.get('notices', event.noticeId);
     ensure(old && old.communityId === community._id, '公告不存在或不属于该小区');
@@ -218,10 +226,37 @@ async function saveNotice(event, { user, openid }) {
       { fileId: record.imageFileId, targetType: 'notice', targetId: old._id, authorOpenid: openid, communityId: community._id });
     return { noticeId: old._id };
   }
-  const result = await server.db.collection('notices').add({ data: { ...record, images: record.imageFileId ? [record.imageFileId] : [] } });
+  const id = requestId ? 'n_' + crypto.createHash('sha256').update(openid + ':' + requestId).digest('hex').slice(0, 36) : null;
+  const value = { ...record, images: record.imageFileId ? [record.imageFileId] : [],
+    ...(requestHash ? { requestHash } : {}) };
+  const result = id ? await atomic(server.db, async transaction => {
+    const existing = await read(transaction, 'notices', id);
+    if (existing) {
+      ensure(existing.createdBy === openid && existing.requestHash === requestHash,
+        '请求编号已用于其他公告', 'E_CONFLICT');
+      return { _id: id };
+    }
+    await insert(transaction, 'notices', { _id: id, ...value });
+    return { _id: id };
+  }) : await server.db.collection('notices').add({ data: value });
   if (record.imageFileId) await requestMediaCheck(cloud, server.db,
     { fileId: record.imageFileId, targetType: 'notice', targetId: result._id, authorOpenid: openid, communityId: community._id });
   return { noticeId: result._id };
+}
+
+async function lookupCreate(event, { user, openid }) {
+  requireRole(user, ['property', 'admin']);
+  ensure(['notice', 'ad'].includes(event.kind), '内容类型不正确');
+  const requestId = text(event.requestId, '请求编号', 80);
+  ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(requestId), '请求编号不正确');
+  if (event.kind === 'ad') requireRole(user, ['admin']);
+  const id = (event.kind === 'notice' ? 'n_' : 'ad_') +
+    crypto.createHash('sha256').update(openid + ':' + requestId).digest('hex').slice(0, 36);
+  const item = await server.get(event.kind === 'notice' ? 'notices' : 'ads', id);
+  if (!item) return { recordId: null };
+  ensure(item.createdBy === openid && (event.kind === 'ad' || user.roles.includes('admin') ||
+    item.communityId === user.communityId), '无权查看此内容', 'E_FORBIDDEN');
+  return { recordId: id };
 }
 
 async function endNotice(event, { user }) {
@@ -277,6 +312,15 @@ async function saveAd(event, { user, openid }) {
     advertiser: typeof event.advertiser === 'string' ? event.advertiser.slice(0, 100) : '',
     images: [event.imageFileId], moderationPendingFileIds: [event.imageFileId], moderationApprovedFileIds: [],
     status, createdAt: new Date(), createdBy: openid };
+  let requestId = null, requestHash = null;
+  if (!event.adId && event.requestId !== undefined) {
+    requestId = text(event.requestId, '请求编号', 80);
+    ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(requestId), '请求编号不正确');
+    requestHash = crypto.createHash('sha256').update(JSON.stringify({ slot: record.slot, title: record.title,
+      imageFileId: record.imageFileId, target: record.target, communityIds: record.communityIds,
+      startAt: startAt.toISOString(), endAt: endAt.toISOString(), price: record.price,
+      advertiser: record.advertiser, status: record.status })).digest('hex');
+  }
   if (event.adId) {
     const old = await server.get('ads', event.adId); ensure(old, '广告不存在');
     ensure(!old.paymentReceivedAt || old.price === record.price, '广告款已确认收款，不能修改金额', 'E_CONFLICT');
@@ -295,11 +339,21 @@ async function saveAd(event, { user, openid }) {
     return { adId: old._id };
   }
   fileInFolder(record.imageFileId, 'ads/' + user._id);
-  const result = await server.db.collection('ads').add({ data: record });
+  const id = requestId ? 'ad_' + crypto.createHash('sha256').update(openid + ':' + requestId).digest('hex').slice(0, 36) : null;
+  const result = id ? await atomic(server.db, async transaction => {
+    const existing = await read(transaction, 'ads', id);
+    if (existing) {
+      ensure(existing.createdBy === openid && existing.requestHash === requestHash,
+        '请求编号已用于其他广告', 'E_CONFLICT');
+      return { _id: id };
+    }
+    await insert(transaction, 'ads', { _id: id, ...record, requestHash });
+    return { _id: id };
+  }) : await server.db.collection('ads').add({ data: record });
   await requestMediaCheck(cloud, server.db,
     { fileId: record.imageFileId, targetType: 'ad', targetId: result._id, authorOpenid: openid, communityId: communityIds[0] });
   return { adId: result._id };
 }
 
 exports.main = server.entry({ report, listReports, resolveReport, moderateUser, moderateContent,
-  homeContent, adsForSlot, adEvent, listNotices, saveNotice, endNotice, listAds, saveAd, endAd, markAdReceived }, ['resident','admin','property'], 'content');
+  homeContent, adsForSlot, adEvent, listNotices, saveNotice, lookupCreate, endNotice, listAds, saveAd, endAd, markAdReceived }, ['resident','admin','property'], 'content');

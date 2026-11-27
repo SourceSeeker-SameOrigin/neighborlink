@@ -49,6 +49,7 @@
         "load",
         "addressChange",
         "address",
+        "selectPlace",
         "change",
         "slotChange",
         "couponChange",
@@ -225,7 +226,7 @@
       "route": "provider/workbench/workbench",
       "filesComplete": true,
       "handlers": [
-        "load",
+        "retry",
         "duty",
         "subscribeMore",
         "saveReferralPoster",
@@ -258,11 +259,13 @@
         "openChat",
         "openPetTasks",
         "revealEntry",
+        "closeSecret",
         "weight",
         "act",
         "photo",
         "goods",
         "checklist",
+        "removeVacantPhoto",
         "vacantPhoto",
         "vacantNotes",
         "vacantAttention",
@@ -460,6 +463,7 @@
       "route": "admin/coupons/coupons",
       "filesComplete": true,
       "handlers": [
+        "startNewTemplate",
         "field",
         "chooseKind",
         "chooseMode",
@@ -467,6 +471,7 @@
         "reset",
         "edit",
         "toggleStatus",
+        "startNewIssue",
         "templatePick",
         "issue"
       ],
@@ -481,6 +486,7 @@
       "handlers": [
         "load",
         "chooseCommunity",
+        "startNewCreate",
         "input",
         "chooseImage",
         "togglePinned",
@@ -563,7 +569,8 @@
       "filesComplete": true,
       "handlers": [
         "load",
-        "open"
+        "open",
+        "loadMore"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
@@ -575,6 +582,7 @@
       "filesComplete": true,
       "handlers": [
         "start",
+        "loadOlder",
         "reportContent",
         "input",
         "image",
@@ -602,6 +610,7 @@
       "filesComplete": true,
       "handlers": [
         "load",
+        "loadMore",
         "retryWelcome"
       ],
       "missingHandlers": [],
@@ -652,6 +661,8 @@
       "filesComplete": true,
       "handlers": [
         "load",
+        "openCreated",
+        "startNewRequest",
         "field",
         "scope",
         "choose",
@@ -708,6 +719,8 @@
       "filesComplete": true,
       "handlers": [
         "load",
+        "openCreated",
+        "startNewRequest",
         "field",
         "condition",
         "switch",
@@ -808,15 +821,17 @@
       "handlers": [
         "chooseCommunity",
         "load",
+        "createActivity",
+        "newActivity",
         "input",
         "typeChange",
-        "createActivity",
         "scan",
         "publish",
         "showSignups",
         "checkin",
         "cancel",
         "retryCancellation",
+        "loadMoreEvents",
         "retrySignups",
         "loadMoreSignups"
       ],
@@ -832,8 +847,8 @@
         "openCreatedOrder",
         "load",
         "addressChange",
-        "removePetDate",
         "addPetDate",
+        "removePetDate",
         "change",
         "slotChange",
         "retryQuote",
@@ -903,11 +918,13 @@
       "route": "merchant/services/services",
       "filesComplete": true,
       "handlers": [
+        "startNewService",
         "input",
         "chooseType",
         "photos",
         "save",
-        "load"
+        "retry",
+        "more"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
@@ -918,12 +935,13 @@
       "route": "merchant/orders/orders",
       "filesComplete": true,
       "handlers": [
-        "load",
+        "retry",
         "chooseQuote",
         "input",
         "quote",
         "transition",
-        "complete"
+        "complete",
+        "more"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
@@ -938,7 +956,8 @@
         "openAd",
         "recordAd",
         "load",
-        "open"
+        "open",
+        "more"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
@@ -951,6 +970,7 @@
       "handlers": [
         "load",
         "book",
+        "more",
         "reportContent"
       ],
       "missingHandlers": [],
@@ -992,7 +1012,7 @@
       "handlers": [
         "monthChange",
         "exportStatement",
-        "load"
+        "retry"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
@@ -1003,8 +1023,10 @@
       "route": "station/create/create",
       "filesComplete": true,
       "handlers": [
+        "load",
         "change",
-        "create"
+        "create",
+        "nextBatch"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
@@ -1015,7 +1037,7 @@
       "route": "station/worker/worker",
       "filesComplete": true,
       "handlers": [
-        "load",
+        "retry",
         "accept"
       ],
       "missingHandlers": [],
@@ -1044,6 +1066,7 @@
         "openCreatedOrder",
         "load",
         "addressChange",
+        "selectPlace",
         "change",
         "slotChange",
         "submit"
@@ -1078,6 +1101,7 @@
         "note",
         "selectSlot",
         "load",
+        "startNewRequest",
         "create"
       ],
       "missingHandlers": [],
@@ -1377,12 +1401,12 @@
       "scenario": "network_failure",
       "calls": [
         {
-          "name": "chat",
-          "action": "list"
-        },
-        {
           "name": "order",
           "action": "listMine"
+        },
+        {
+          "name": "chat",
+          "action": "list"
         }
       ],
       "errors": {
@@ -1397,12 +1421,12 @@
       "scenario": "feature_off",
       "calls": [
         {
-          "name": "chat",
-          "action": "list"
-        },
-        {
           "name": "order",
           "action": "listMine"
+        },
+        {
+          "name": "chat",
+          "action": "list"
         }
       ],
       "errors": {
@@ -1417,12 +1441,12 @@
       "scenario": "unbound_network_failure",
       "calls": [
         {
-          "name": "chat",
-          "action": "list"
-        },
-        {
           "name": "order",
           "action": "listMine"
+        },
+        {
+          "name": "chat",
+          "action": "list"
         }
       ],
       "errors": {
@@ -2063,6 +2087,10 @@
         {
           "name": "catalog",
           "action": "listCommunities"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
         }
       ],
       "errors": {
@@ -2079,6 +2107,10 @@
         {
           "name": "catalog",
           "action": "listCommunities"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
         }
       ],
       "errors": {
@@ -2092,6 +2124,10 @@
       "route": "admin/posters/posters",
       "scenario": "unbound_network_failure",
       "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
         {
           "name": "catalog",
           "action": "listCommunities"
@@ -2123,6 +2159,22 @@
         {
           "name": "merchant",
           "action": "adminList"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "admin",
+          "action": "listSettlements"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
         }
       ],
       "errors": {
@@ -2151,6 +2203,22 @@
         {
           "name": "merchant",
           "action": "adminList"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "admin",
+          "action": "listSettlements"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
         }
       ],
       "errors": {
@@ -2164,6 +2232,22 @@
       "route": "admin/settlements/settlements",
       "scenario": "unbound_network_failure",
       "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "admin",
+          "action": "listSettlements"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        },
         {
           "name": "catalog",
           "action": "listCommunities"
@@ -2195,6 +2279,10 @@
         {
           "name": "catalog",
           "action": "listCommunities"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
         }
       ],
       "errors": {
@@ -2211,6 +2299,10 @@
         {
           "name": "catalog",
           "action": "listCommunities"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
         }
       ],
       "errors": {
@@ -2224,6 +2316,10 @@
       "route": "admin/features/features",
       "scenario": "unbound_network_failure",
       "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
         {
           "name": "catalog",
           "action": "listCommunities"
@@ -3904,7 +4000,10 @@
       "route": "station/create/create",
       "scenario": "network_failure",
       "calls": [],
-      "errors": {},
+      "errors": {
+        "error": "请先核对驿站账号和小区绑定"
+      },
+      "loading": false,
       "uncaught": null,
       "navigation": []
     },
@@ -3912,7 +4011,10 @@
       "route": "station/create/create",
       "scenario": "feature_off",
       "calls": [],
-      "errors": {},
+      "errors": {
+        "error": "请先核对驿站账号和小区绑定"
+      },
+      "loading": false,
       "uncaught": null,
       "navigation": []
     },
@@ -3920,7 +4022,10 @@
       "route": "station/create/create",
       "scenario": "unbound_network_failure",
       "calls": [],
-      "errors": {},
+      "errors": {
+        "error": "请先核对驿站账号和小区绑定"
+      },
+      "loading": false,
       "uncaught": null,
       "navigation": []
     },

@@ -170,6 +170,16 @@ async function create(event, { user, openid }) {
   return { postId: post._id, status: post.status, imageWarnings };
 }
 
+async function lookupRequest(event, { user, openid }) {
+  text(event.requestId, '请求编号', 80);
+  ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
+  const post = await server.get('posts', postId(openid, event.requestId));
+  if (!post) return { postId: null, orderId: null };
+  ensure(post.authorOpenid === openid && post.communityId === user.communityId,
+    '无权查看此发布结果', 'E_FORBIDDEN');
+  return { postId: post._id, orderId: post.orderId || null, type: post.type };
+}
+
 function taskPostStatus(order, post = null) {
   if (post && post.expireAt <= new Date()) return 'closed';
   if (order.status === 'pending_pay') return 'pending_pay';
@@ -334,4 +344,4 @@ async function report(event, { user, openid }) {
   });
 }
 
-exports.main = server.entry({ list, detail, create, comment, close, report }, ['resident', 'admin', 'property'], 'board');
+exports.main = server.entry({ list, detail, create, lookupRequest, comment, close, report }, ['resident', 'admin', 'property'], 'board');
