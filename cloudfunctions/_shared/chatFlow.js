@@ -217,10 +217,6 @@ function createChatFlow(cloud, server) {
         typeof cursor.lastAt === 'string' && Number.isFinite(Date.parse(cursor.lastAt)),
       '会话分页位置不正确');
     }
-    const cursorTime = cursor ? Date.parse(cursor.lastAt) : 0;
-    const afterCursor = conversation => !cursor ||
-      new Date(conversation.lastAt).getTime() < cursorTime ||
-      new Date(conversation.lastAt).getTime() === cursorTime && conversation._id < cursor.id;
     const list = [];
     const config = await server.config();
     const idleCache = { config, buyer: null, communities: new Map() };
@@ -261,27 +257,33 @@ function createChatFlow(cloud, server) {
       }
       return null;
     }
-    let rawOffset = 0, unreadTotal = 0, hasMore = false, nextCursor = null;
+    let rawCursor = cursor && { lastAt: new Date(cursor.lastAt), id: cursor.id };
+    let unreadTotal = cursor ? null : 0, hasMore = false, nextCursor = null;
     while (true) {
-      const result = await db.collection('conversations').where({ members: openid })
-        .orderBy('lastAt', 'desc').orderBy('_id', 'desc').skip(rawOffset).limit(100).get();
+      const filter = rawCursor ? command.or([
+        { members: openid, lastAt: command.lt(rawCursor.lastAt) },
+        { members: openid, lastAt: rawCursor.lastAt, _id: command.lt(rawCursor.id) }
+      ]) : { members: openid };
+      const result = await db.collection('conversations').where(filter)
+        .orderBy('lastAt', 'desc').orderBy('_id', 'desc').limit(100).get();
       const rows = result.data;
-      rawOffset += rows.length;
       for (let start = 0; start < rows.length; start += 8) {
         const group = rows.slice(start, start + 8);
         const visible = await Promise.all(group.map(view));
         for (let index = 0; index < group.length; index++) {
           const item = visible[index];
           if (!item) continue;
-          unreadTotal += item.unread;
+          if (!cursor) unreadTotal += item.unread;
           const conversation = group[index];
-          if (!afterCursor(conversation)) continue;
           if (list.length >= pageSize) { hasMore = true; continue; }
           list.push(item);
           nextCursor = { lastAt: new Date(conversation.lastAt).toISOString(), id: conversation._id };
         }
+        if (cursor && hasMore) break;
       }
-      if (rows.length < 100) break;
+      if (cursor && hasMore || rows.length < 100) break;
+      const last = rows[rows.length - 1];
+      rawCursor = { lastAt: new Date(last.lastAt), id: last._id };
     }
     return { list, unreadTotal, hasMore, nextCursor: hasMore ? nextCursor : null };
   }

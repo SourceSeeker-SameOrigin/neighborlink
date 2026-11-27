@@ -16,9 +16,10 @@ function fixture({ bound = true, global = false, local = false, roles = ['reside
     if(value && value.op==='lt')return actual<value.value;
     if(value && value.op==='lte')return actual<=value.value;
     if(value && value.op)throw Error('Unsupported predicate '+value.op);
+    if(actual instanceof Date && value instanceof Date)return actual.getTime()===value.getTime();
     return Array.isArray(actual)?actual.includes(value):actual===value;
   }
-  function matches(row,filter){return Object.entries(filter).every(([key,value])=>compare(row[key],value));}
+  function matches(row,filter){if(filter?.op==='or')return filter.value.some(clause=>matches(row,clause));return Object.entries(filter).every(([key,value])=>compare(row[key],value));}
   const writes = [];
   const faults = { failCouponRead, failTemplateId: null };
   function update(table, rows, patch) { if (!allowWrites) throw Error('Unexpected write'); rows.forEach(row=>Object.assign(row, patch.data)); writes.push({table, count:rows.length}); return {stats:{updated:rows.length}}; }

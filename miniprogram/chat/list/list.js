@@ -45,7 +45,8 @@ Page({
       const appended = result.list.filter(item => !seen.has(item.conversationId)).map(item => ({ ...item,
         lastText: item.lastMessage || '开始聊天', timeText: item.lastAt ? display(item.lastAt) : '' }));
       this.cursor = result.nextCursor || null;
-      this.setData({ list: [...this.data.list, ...appended], unreadTotal: result.unreadTotal,
+      this.setData({ list: [...this.data.list, ...appended],
+        unreadTotal: result.unreadTotal === null ? this.data.unreadTotal : result.unreadTotal,
         hasMore: Boolean(result.hasMore) });
     } catch (error) { if (active()) this.setData({ moreError: error.message || '更多会话加载失败' }); }
     finally { if (active() || this._visit === visit) this.setData({ loadingMore: false }); }
