@@ -145,6 +145,17 @@ const meReply = async (name, action) => action === 'list' ? { unreadTotal: 2 } :
       observed: { skips: skips.length } });
   }
   {
+    const { env, page } = fixture(membershipFile, membershipReply);
+    await page.load();
+    env.app.globalData.user = { ...user('a'), communityId: 'community-other' };
+    await page.buy({ currentTarget: { dataset: { code: 'trash_monthly' } } });
+    await page.skip({ currentTarget: { dataset: { id: 'card-a' } } });
+    const writes = env.requests.filter(args => args[0] === 'membership' &&
+      ['buy', 'skipToday'].includes(args[1]));
+    results.push({ case: 'membership-old-actions-after-same-user-community-switch', pass: writes.length === 0,
+      observed: { writes: writes.map(args => args[1]) } });
+  }
+  {
     const { page } = fixture(meFile, meReply);
     await page.load();
     results.push({ case: 'me-normal-load', pass: page.data.user?._id === 'a' });
