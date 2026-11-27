@@ -67,7 +67,7 @@ QA217 的可复跑证据：`node docs/verification/2026-11-18-event-management/q
 
 QA218 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa218-home-content-filter-cap-repro.cjs`。实际 `content.homeContent` 和 P01 页面接 101 条合成公告、101 条合成广告，首批 100 条不可展示时首页两者均为空；放开各自首条后立即显示。同一 helper 的 `board_top`、`shops_top` 两个广告位也各以 101 条合成记录复现，再放开首条后恢复展示；真实广告和手机画面待验，开发云写入 0 次。
 
-P02 的独立通过对照：`node docs/verification/2026-11-18-event-management/bind-community-pagination-positive.cjs`。实际小区列表接口接101条合成小区，绑定页按偏移0、100读全且显示第101个；真实定位、扫码和保存门牌另验。
+P02 的独立通过对照：`node docs/verification/2026-11-18-event-management/bind-community-pagination-positive.cjs`。实际小区列表接口接101条合成小区，绑定页按偏移0、100读全并显示第101个小区；同页经实际 `catalog.getCommunity` 读取并显示第101栋合成楼栋。真实定位、扫码和保存门牌另验。
 
 P48 的独立通过对照：`node docs/verification/2026-11-18-event-management/event-list-pagination-positive.cjs`。实际社区活动列表首批 20 场、触底读到第 21 场、返回后重读首批且无重复。仅合成活动，不代表体验版真机和真实多活动通过。
 
