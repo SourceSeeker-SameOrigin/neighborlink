@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const { validateTaskSlot } = require('../../../cloudfunctions/_shared/boardData');
+const { validateCarry, validateTaskSlot } = require('../../../cloudfunctions/_shared/boardData');
 
 const source = fs.readFileSync(path.resolve(__dirname, '../../../miniprogram/board/create/create.js'), 'utf8');
 const template = fs.readFileSync(path.resolve(__dirname, '../../../miniprogram/board/create/create.wxml'), 'utf8');
@@ -25,6 +25,14 @@ vm.runInNewContext(source, { Date: FixedDate, Math, Page: page => { definition =
 const page = { data: { ...definition.data }, setData(patch) { Object.assign(this.data, patch); } };
 definition.onLoad.call(page, { type: 'task' });
 const initial = { today: page.data.today, slotDate: page.data.slotDate };
+const carry = { data: { ...definition.data }, setData(patch) { Object.assign(this.data, patch); } };
+definition.onLoad.call(carry, { type: 'carry' });
+const carryDefault = { departDate: carry.data.departDate, departTime: carry.data.departTime };
+let carryServerError = '';
+try { validateCarry({ direction: 'request', destination: '合成地点', destinationType: 'domestic',
+  departAt: new Date(carryDefault.departDate + 'T' + carryDefault.departTime + ':00+08:00') },
+new Date(clock)); }
+catch (error) { carryServerError = error.message; }
 clock = afterMidnight;
 definition.onShow.call(page);
 const firstReturn = { today: page.data.today, slotDate: page.data.slotDate };
@@ -38,8 +46,10 @@ catch (error) { serverError = error.message; }
 
 assert.match(template, /start="\{\{today\}\}"/);
 assert.deepEqual(initial, { today: '2026-11-16', slotDate: '2026-11-17' });
+assert.deepEqual(carryDefault, { departDate: '2026-11-16', departTime: '09:00' });
+assert.match(carryServerError, /必须是未来时间/);
 assert.deepEqual(firstReturn, initial);
 assert.deepEqual(secondReturn, initial);
 assert.match(serverError, /必须在未来/);
-console.log(JSON.stringify({ scope: 'actual P40 page and task-slot validator; synthetic clock only',
-  initial, firstReturn, secondReturn, serverError, cloudCalls: 0 }, null, 2));
+console.log(JSON.stringify({ scope: 'actual P40 page and task/carry validators; synthetic clock only',
+  initial, firstReturn, secondReturn, serverError, carryDefault, carryServerError, cloudCalls: 0 }, null, 2));
