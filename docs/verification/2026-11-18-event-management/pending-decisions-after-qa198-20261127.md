@@ -61,3 +61,5 @@ QA214 的可复跑证据：`node docs/verification/2026-11-18-event-management/q
 QA215 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa215-seller-payout-history-repro.cjs`。脚本运行实际 P47、P17 和 `payout.list`；首批被 20 笔同本人服务员打款占满，唯一卖家记录在第二页，P47 过滤后显示 0 笔且无续页；P17 同时展示服务员与卖家打款，卡片没有类型标签。仅合成记录，云端写入 0 次。
 
 P48 的独立通过对照：`node docs/verification/2026-11-18-event-management/event-list-pagination-positive.cjs`。实际社区活动列表首批 20 场、触底读到第 21 场、返回后重读首批且无重复。仅合成活动，不代表体验版真机和真实多活动通过。
+
+P52/P53 的独立通过对照：`node docs/verification/2026-11-18-event-management/pet-max-visits-positive.cjs`。按规格最大 15 天、每天 2 次生成 30 条合成上门记录，实际 `pet.listVisits` 在服务员与住户身份下分别让两页全量按序读取。媒体为空，未上传照片或写入开发云，不代表真实服务员履约、住户私有媒体通过。
