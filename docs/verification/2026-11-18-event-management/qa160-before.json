@@ -1,0 +1,17 @@
+{
+  "case": "QA160",
+  "page": "admin/dashboard/dashboard",
+  "method": "Actual page JavaScript in isolated Node VM with synthetic administrator A and resident B; all CloudBase reads intercepted",
+  "passed": 1,
+  "failed": 3,
+  "results": [
+    "Normal administrator read displays synthetic metrics",
+    "Metrics returned after switching to resident B still set ready=true and authorized=true",
+    "Old refresh after switching to resident B issues a second dashboard read",
+    "Metrics returned after hiding the page still set ready=true and authorized=true"
+  ],
+  "cloudCalls": 0,
+  "realFinancialDataRead": 0,
+  "limits": "The cloud function may independently reject the stale read; online incidence and real device behavior are unknown",
+  "status": "Reproduced in isolation; remediation recorded for unified user decision"
+}
