@@ -74,7 +74,7 @@ function addressSnapshot(user, community, building, selected = null) {
 }
 
 function transitionPatch(order, status, actor, now) {
-  assertTransition(order.status, status);
+  assertTransition(order.status, status, order.kind);
   return { status, alertPriority: status === 'paid' && order.alertedAt ? 1 : 0,
     updatedAt: now, timeline: [...order.timeline, { status, at: now, by: actor }] };
 }

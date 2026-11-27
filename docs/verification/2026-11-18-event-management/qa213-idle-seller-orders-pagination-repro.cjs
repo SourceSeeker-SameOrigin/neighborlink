@@ -14,7 +14,11 @@ const orders = Array.from({ length: 21 }, (_, index) => ({
   status: index === 20 ? 'paid' : 'completed', createdAt: new Date(now - index * 1000)
 }));
 const backend = fixture({ orderedQueries: true, records: { orders } });
+let failNextPage = false;
 const ui = runtime(async (name, action, input) => {
+  if (failNextPage && action === 'sales' && input.offset === 20) {
+    failNextPage = false; throw Error('合成续页断网');
+  }
   const response = await backend.call(name, action, input);
   if (!response.ok) throw Object.assign(Error(response.message), { code: response.code });
   return response.data;
@@ -30,19 +34,31 @@ ui.app.globalData.user = backend.data.users[0];
   assert.equal(first.data.list.length, 20);
   assert.equal(first.data.hasMore, true);
   assert.equal(second.ok, true);
-  assert.deepEqual(second.data.list.map(item => item._id), ['sale-21']);
+  assert.equal(second.data.list.map(item => item._id).join(','), 'sale-21');
   assert.equal(second.data.list[0].status, 'paid');
   assert.equal(page.data.list.length, 20);
-  assert.equal(page.data.list.some(item => item._id === 'sale-21'), false);
+  assert.equal(page.data.hasMore, true);
+  failNextPage = true;
+  await page.more();
+  assert.equal(page.data.list.length, 20);
+  assert.match(page.data.moreError, /断网/);
+  await page.more();
+  assert.equal(page.data.list.length, 21);
+  assert.equal(page.data.list.some(item => item._id === 'sale-21'), true);
+  assert.equal(page.data.hasMore, false);
+  await page.more();
+  assert.equal(page.data.list.length, 21);
   const pageRequests = ui.requests.filter(request => request[0] === 'idle');
-  assert.equal(pageRequests.length, 1);
-  assert.equal(pageRequests[0][2].offset, undefined);
-  assert.equal(typeof page.more, 'undefined');
+  assert.equal(pageRequests.length, 3);
+  assert.equal(pageRequests[0][2].offset, 0);
+  assert.equal(pageRequests[1][2].offset, 20);
+  assert.equal(pageRequests[2][2].offset, 20);
+  assert.equal(typeof page.more, 'function');
   const template = fs.readFileSync(path.resolve(__dirname, '../../../miniprogram/idle/sales/sales.wxml'), 'utf8');
-  assert.doesNotMatch(template, /加载更多/);
+  assert.match(template, /加载更多/);
   assert.equal(backend.writes.length, 0);
   console.log(JSON.stringify({ scope: 'actual P45 page and idle.sales; synthetic orders',
     firstPageCount: page.data.list.length, firstHasMore: first.data.hasMore,
-    hiddenActionableOrder: second.data.list.map(item => ({ id: item._id, status: item.status })),
+    formerlyHiddenActionableOrder: second.data.list.map(item => ({ id: item._id, status: item.status })),
     pageHasMoreAction: typeof page.more !== 'undefined', cloudWrites: backend.writes.length }, null, 2));
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });

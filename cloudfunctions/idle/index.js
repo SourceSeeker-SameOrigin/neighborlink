@@ -278,7 +278,7 @@ async function buy(event, { user, openid }) {
 async function sales(event, { openid, user }) {
   const pageOffset = offset(event);
   const result = await db.collection('orders').where({ kind: 'idle_purchase', sellerOpenid: openid })
-    .orderBy('createdAt', 'desc').skip(pageOffset).limit(20).get();
+    .orderBy('createdAt', 'desc').orderBy('_id', 'desc').skip(pageOffset).limit(20).get();
   return { list: result.data.map(order => ({ _id: order._id, orderNo: order.orderNo, itemId: order.idleItemId,
     title: order.detail.title, price: order.pricing.payAmount, status: order.status, createdAt: order.createdAt,
     deliveredAt: order.deliveredAt, delivery: order.idleDelivery || null })), hasMore: result.data.length === 20 };
@@ -316,7 +316,8 @@ async function deliverSale(event, { user, openid }) {
   ensure(order && order.kind === 'idle_purchase' && order.sellerOpenid === openid, '担保订单不存在', 'E_FORBIDDEN');
   await server.feature('idle', order.communityId);
   await server.feature('idleEscrow', order.communityId);
-  ensure(order.status === 'accepted', '请先确认接单，再提交交付凭证', 'E_BAD_STATE');
+  ensure(order.status === 'accepted' || order.status === 'delivered',
+    '请先确认接单，再提交交付凭证', 'E_BAD_STATE');
   const photos = Array.isArray(event.photos) ? [...new Set(event.photos)] : [];
   ensure(photos.length >= 1 && photos.length <= 3, '请上传 1—3 张交付凭证');
   photos.forEach(fileId => fileInFolder(fileId, 'idle-delivery/' + order._id));
@@ -324,8 +325,16 @@ async function deliverSale(event, { user, openid }) {
   ensure(typeof note === 'string' && [...note].length <= 300, '交付说明不能超过 300 字');
   return atomic(db, async transaction => {
     const current = await read(transaction, 'orders', order._id);
-    ensure(current && current.kind === 'idle_purchase' && current.sellerOpenid === openid && current.status === 'accepted',
+    ensure(current && current.kind === 'idle_purchase' && current.sellerOpenid === openid,
       '订单状态已变化，请刷新后重试', 'E_CONFLICT');
+    if (current.status === 'delivered') {
+      const delivery = current.idleDelivery || {};
+      ensure(Array.isArray(delivery.photos) && delivery.photos.length === photos.length &&
+        delivery.photos.every((fileId, index) => fileId === photos[index]) && delivery.note === note.trim(),
+      '交付凭证已提交，请刷新订单', 'E_CONFLICT');
+      return { orderId: current._id, status: 'delivered' };
+    }
+    ensure(current.status === 'accepted', '订单状态已变化，请刷新后重试', 'E_CONFLICT');
     const now = new Date();
     const patch = { ...transitionPatch(current, 'delivered', openid, now), deliveredAt: now,
       idleDelivery: { photos, note: note.trim(), at: now } };
@@ -336,7 +345,7 @@ async function deliverSale(event, { user, openid }) {
 async function mine(event, { user, openid }) {
   const community = await context(user);
   const result = await db.collection('idleItems').where({ sellerOpenid: openid, communityId: community._id })
-    .orderBy('createdAt', 'desc').skip(offset(event)).limit(20).get();
+    .orderBy('createdAt', 'desc').orderBy('_id', 'desc').skip(offset(event)).limit(20).get();
   return { list: result.data.map(item => view(item, openid)), hasMore: result.data.length === 20 };
 }
 async function report(event, { user, openid }) {

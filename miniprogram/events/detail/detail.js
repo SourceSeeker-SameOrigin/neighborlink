@@ -6,10 +6,13 @@ const { yuan } = require('../../utils/money');
 const { display } = require('../../utils/time');
 const { signupStatusNames } = require('../../utils/status-labels');
 Page({
-  data: { missingRecord: false, loading: true, busy: false, error: '', reportError: '', item: null, signupStatusNames },
+  data: { missingRecord: false, checkinScene: false, loading: true, busy: false, error: '', reportError: '', item: null, signupStatusNames },
   onLoad(options = {}) {
     this.eventId = typeof options.id === 'string' ? options.id.trim() : '';
-    this.setData({ missingRecord: !this.eventId, loading: !!this.eventId });
+    let scene = '';
+    try { scene = decodeURIComponent(options.scene || ''); } catch (_) { /* 无效扫码参数按缺少活动编号处理 */ }
+    const checkinScene = !this.eventId && /^e=/.test(scene);
+    this.setData({ checkinScene, missingRecord: !this.eventId && !checkinScene, loading: !!this.eventId });
   },
   ...lifecycle,
   onShow() {

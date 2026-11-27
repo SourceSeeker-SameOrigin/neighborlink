@@ -273,7 +273,8 @@ async function providerHall(event, { openid }) {
   const offset = integer(event.offset === undefined ? 0 : event.offset, '分页位置', 0, 100000);
   const rows = await db.collection('deliveryBatches').where({ communityId: provider.communityId, status: 'open' })
     .orderBy('createdAt', 'asc').skip(offset).limit(20).get();
-  return { list: rows.data.map(providerBatchView).filter(row => row.itemCount > 0), hasMore: rows.data.length === 20 };
+  return { list: rows.data.map(providerBatchView).filter(row => row.itemCount > 0), hasMore: rows.data.length === 20,
+    nextOffset: offset + rows.data.length };
 }
 
 async function acceptBatch(event, { openid }) {

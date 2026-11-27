@@ -13,6 +13,7 @@ Page({
   },
   clearContext() {
     this.context = null; this.operation = null; this.read = (this.read || 0) + 1;
+    this.nextOffset = 0;
     this.setData({ ready: false, busy: false, tasks: [], hasMore: true, stationDeliveryEnabled: false });
   },
   onHide() { this.visible = false; clearInterval(this.timer); this.clearContext(); },
@@ -21,6 +22,7 @@ Page({
     return Boolean(context && this.visible && this.read === context.read && getApp().globalData.user?._id === context.userId);
   },
   onReachBottom() { if (this.data.hasMore && !this.data.loading) this.load(); },
+  more() { return this.load(); },
   retry() { return this.load(!this.pageError); },
   async load(reset = false) {
     if (!this.visible || (!reset && (this.data.loading || this.data.busy || !this.data.hasMore))) return;
@@ -38,12 +40,27 @@ Page({
       userId = user?._id;
       if (!userId) throw Error('登录资料暂不可用，请重试');
       if (!current()) return;
-      const result = await api.call('provider', 'hall', { offset: reset ? 0 : this.data.tasks.length },
-        { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
+      let nextOffset = reset ? 0 : this.nextOffset;
+      let hasMore = true;
+      const found = [];
+      // 一次页面读取最多扫描 5 个原始批次；仍有后页时保留手动入口。
+      for (let scan = 0; scan < 5 && hasMore && !found.length; scan++) {
+        const result = await api.call('provider', 'hall', { offset: nextOffset },
+          { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
+        if (!current()) return;
+        found.push(...result.list);
+        const after = Number.isInteger(result.nextOffset) ? result.nextOffset : nextOffset + result.list.length;
+        if (after <= nextOffset && result.hasMore) throw Error('任务分页结果异常，请重试');
+        nextOffset = after;
+        hasMore = !!result.hasMore;
+      }
       if (!current()) return;
-      const tasks = result.list.map(item => ({ ...item, income: yuan(item.estimatedIncome), slotText: slotText(item.slot) }));
+      const seen = new Set((reset ? [] : this.data.tasks).map(item => item._id));
+      const tasks = found.filter(item => !seen.has(item._id)).map(item => ({ ...item,
+        income: yuan(item.estimatedIncome), slotText: slotText(item.slot) }));
+      this.nextOffset = nextOffset;
       this.context = { userId, read };
-      this.setData({ tasks: reset ? tasks : [...this.data.tasks, ...tasks], hasMore: result.hasMore, ready: true,
+      this.setData({ tasks: reset ? tasks : [...this.data.tasks, ...tasks], hasMore, ready: true,
         stationDeliveryEnabled: Boolean(getApp().globalData.community?.features?.stationDelivery) });
     } catch (error) {
       if (current()) {

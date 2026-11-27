@@ -23,6 +23,13 @@ test.each([
   expect(() => assertTransition(from, to)).toThrow(expect.objectContaining({ code: 'E_BAD_STATE' }));
 });
 
+test('闲置担保交付可直达待确认，普通订单仍须经过服务中', () => {
+  expect(canTransition('accepted', 'delivered', 'idle_purchase')).toBe(true);
+  expect(() => assertTransition('accepted', 'delivered', 'idle_purchase')).not.toThrow();
+  expect(canTransition('accepted', 'delivered', 'service')).toBe(false);
+  expect(() => assertTransition('accepted', 'delivered', 'service')).toThrow(expect.objectContaining({ code: 'E_BAD_STATE' }));
+});
+
 test('全部状态都有中文名称', () => {
   expect(STATUS_TEXT).toEqual({ pending_quote: '待报价', pending_pay: '待支付', paid: '待接单', accepted: '已接单', in_service: '服务中',
     delivered: '待确认', disputed: '售后处理中', completed: '已完成', cancelled: '已取消', closed: '已关闭', refunded: '已退款' });

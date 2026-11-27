@@ -18,6 +18,7 @@ Page({
     return !!(context && this.visible && context.read === this.read && context.owner === identity(getApp().globalData.user));
   },
   onReachBottom() { if (!this.data.loading && !this.data.busy && !this.data.error && this.data.hasMore) return this.load(); },
+  more() { return this.load(); },
   retry() { return this.load(!this.data.pageError); },
   async load(reset = false) {
     if (!this.visible) return;
@@ -36,18 +37,28 @@ Page({
       owner = identity(user);
       if (!owner) throw Error('登录资料暂不可用，请重试');
       if (!current()) return;
-      const result = await api.call('station', 'providerHall', { offset },
-        { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
+      let nextOffset = offset, hasMore = true;
+      const found = [];
+      for (let scan = 0; scan < 5 && hasMore && !found.length; scan++) {
+        const result = await api.call('station', 'providerHall', { offset: nextOffset },
+          { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
+        if (!current()) return;
+        if (!Array.isArray(result.list)) throw Error('批次分页结果异常，请重试');
+        found.push(...result.list);
+        const after = Number.isInteger(result.nextOffset) ? result.nextOffset : nextOffset + result.list.length;
+        if (after <= nextOffset && result.hasMore) throw Error('批次分页结果异常，请重试');
+        nextOffset = after;
+        hasMore = result.hasMore === true;
+      }
       if (!current()) return;
-      if (!Array.isArray(result.list) || (result.hasMore && !result.list.length)) throw Error('批次分页结果异常，请重试');
       const rows = reset ? [] : this.data.list.slice(), ids = new Set(rows.map(item => item._id));
-      const list = rows.concat(result.list.filter(item => {
+      const list = rows.concat(found.filter(item => {
         if (ids.has(item._id)) return false;
         ids.add(item._id); return true;
       }).map(item => ({ ...item, incomeText: yuan(item.estimatedIncome) })));
-      this.offset = offset + result.list.length;
+      this.offset = nextOffset;
       this.context = { read, owner };
-      this.setData({ list, hasMore: result.hasMore === true, ready: true });
+      this.setData({ list, hasMore, ready: true });
     } catch (error) {
       if (!current()) return;
       const retain = !reset && !denied(error);

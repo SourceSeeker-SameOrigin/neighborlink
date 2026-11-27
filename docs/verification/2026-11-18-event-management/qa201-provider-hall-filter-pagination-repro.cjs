@@ -33,11 +33,11 @@ async function run(visibleIndexes, turns) {
   const partlyVisible = await run([0, 20], 3);
   assert.deepStrictEqual(normal.offsets, [0, 20]);
   assert.strictEqual(normal.taskIds.length, 21);
-  assert.deepStrictEqual(hiddenFirstPage.offsets, [0, 0]);
-  assert.deepStrictEqual(hiddenFirstPage.taskIds, []);
-  assert.strictEqual(hiddenFirstPage.hasMore, true);
-  assert.deepStrictEqual(partlyVisible.offsets, [0, 1, 2]);
-  assert.deepStrictEqual(partlyVisible.taskIds, ['order-01', 'order-21', 'order-21']);
+  assert.deepStrictEqual(hiddenFirstPage.offsets, [0, 20]);
+  assert.deepStrictEqual(hiddenFirstPage.taskIds, ['order-21']);
+  assert.strictEqual(hiddenFirstPage.hasMore, false);
+  assert.deepStrictEqual(partlyVisible.offsets, [0, 20]);
+  assert.deepStrictEqual(partlyVisible.taskIds, ['order-01', 'order-21']);
   console.log(JSON.stringify({ scope: 'actual provider.hall and P15 page, synthetic orders, zero cloud writes',
     normal, hiddenFirstPage, partlyVisible }, null, 2));
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });

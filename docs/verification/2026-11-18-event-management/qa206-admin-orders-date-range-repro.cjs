@@ -28,7 +28,8 @@ for (const moment of moments) {
         require: () => ({}), console }, { filename: 'actual-page.js' });
       return definition;
     }
-    const orders = pageFrom(ordersSource).data;
+    const ordersPage = pageFrom(ordersSource);
+    const orders = ordersPage.data;
     const exportsPage = pageFrom(exportsSource);
     const exportState = { data: { ...exportsPage.data }, setData(patch) { Object.assign(this.data, patch); } };
     exportsPage.onLoad.call(exportState, {});
@@ -40,7 +41,28 @@ for (const moment of moments) {
   }
 }
 
-assert.equal(results.filter(row => row.ordersMatch).length, 2);
-assert.equal(results.filter(row => !row.ordersMatch).length, 4);
+assert.equal(results.filter(row => row.ordersMatch).length, 6);
+assert.equal(results.filter(row => !row.ordersMatch).length, 0);
 assert.equal(results.filter(row => row.exportsMatch).length, 6);
+let clock = Date.parse('2026-11-30T15:55:00Z');
+class MovingDate extends Date {
+  constructor(...args) { super(...(args.length ? args : [clock])); }
+  static now() { return clock; }
+}
+let definition;
+vm.runInNewContext(ordersSource, { Date: MovingDate, Page: page => { definition = page; }, require: () => ({}), console });
+const page = { ...definition, data: { ...definition.data }, setData(patch) { Object.assign(this.data, patch); }, load() {} };
+page.onShow();
+assert.equal(page.data.subsidyTo, '2026-11-30');
+clock = Date.parse('2026-11-30T16:05:00Z');
+page.onShow();
+assert.equal(page.data.subsidyFrom, '2026-12-01');
+assert.equal(page.data.subsidyTo, '2026-12-01');
+page.currentOwner = () => true;
+page.data.isAdmin = true;
+page.date({ currentTarget: { dataset: { field: 'subsidyFrom' } }, detail: { value: '2026-10-01' } });
+clock = Date.parse('2027-01-01T16:05:00Z');
+page.onShow();
+assert.equal(page.data.subsidyFrom, '2026-10-01');
+assert.equal(page.data.subsidyTo, '2026-12-01');
 console.log(JSON.stringify({ scope: 'actual P19 and P32 page initializers; fixed clocks; no cloud calls', results }, null, 2));

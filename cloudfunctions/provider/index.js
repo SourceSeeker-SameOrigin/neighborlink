@@ -93,9 +93,10 @@ async function referralPoster(event, { openid }) {
 async function hall(event, { openid }) {
   const provider = await mine(openid);
   canWork(provider, new Date(), 1, true);
+  const pageOffset = offset(event);
   const result = await db.collection('orders').where({ kind: 'service', communityId: provider.communityId,
     status: 'paid', minLevel: command.lte(provider.level), releasedProviderIds: command.nin([provider._id]) })
-    .orderBy('createdAt', 'asc').skip(offset(event)).limit(20).get();
+    .orderBy('createdAt', 'asc').skip(pageOffset).limit(20).get();
   const tasks = result.data.filter(order => order.taskPostId);
   const posts = tasks.length ? await db.collection('posts').where({ _id: command.in(tasks.map(order => order.taskPostId)) }).get() : { data: [] };
   const postById = new Map(posts.data.map(post => [post._id, post]));
@@ -110,7 +111,8 @@ async function hall(event, { openid }) {
     }
     return !order.requiredCert || (provider.certs || []).includes(order.requiredCert);
   });
-  return { list: visible.map(hallView), hasMore: result.data.length === 20 };
+  return { list: visible.map(hallView), hasMore: result.data.length === 20,
+    nextOffset: pageOffset + result.data.length };
 }
 
 async function assigned(event, openid) {

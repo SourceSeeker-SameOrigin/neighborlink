@@ -1,13 +1,20 @@
 const api = require('../../utils/api');
 const { yuan } = require('../../utils/money');
 const { display } = require('../../utils/time');
-function dateText(date) { return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-'); }
-const today = new Date();
+function beijingToday() { return new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10); }
+const today = beijingToday();
 Page({
   data: { loading: false, exporting: false, error: '', rows: [], hasMore: true, statusIndex: 0,
-    subsidyFrom: dateText(new Date(today.getFullYear(), today.getMonth(), 1)), subsidyTo: dateText(today),
+    subsidyFrom: today.slice(0, 8) + '01', subsidyTo: today,
     statuses: ['全部', '待报价', '待支付', '待接单', '已接单', '服务中', '待确认', '已完成', '售后处理中', '已退款', '已取消', '已关闭'] },
-  onShow() { this._hidden = false; return this.load(true); },
+  onShow() {
+    this._hidden = false;
+    if (!this._subsidyRangeEdited) {
+      const today = beijingToday();
+      this.setData({ subsidyFrom: today.slice(0, 8) + '01', subsidyTo: today });
+    }
+    return this.load(true);
+  },
   onHide() {
     this._hidden = true;
     this.sequence = (this.sequence || 0) + 1;
@@ -71,7 +78,10 @@ Page({
   date(event) {
     if (!this.currentOwner() || !this.data.isAdmin) return;
     const field = event.currentTarget.dataset.field;
-    if (field === 'subsidyFrom' || field === 'subsidyTo') this.setData({ [field]: event.detail.value });
+    if (field === 'subsidyFrom' || field === 'subsidyTo') {
+      this._subsidyRangeEdited = true;
+      this.setData({ [field]: event.detail.value });
+    }
   },
   async exportSubsidy() {
     if (!this.currentOwner() || !this.data.isAdmin || this.data.exporting) return;

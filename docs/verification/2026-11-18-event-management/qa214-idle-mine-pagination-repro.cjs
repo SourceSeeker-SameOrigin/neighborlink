@@ -15,7 +15,11 @@ const idleItems = Array.from({ length: 21 }, (_, index) => ({
 }));
 const backend = fixture({ global: true, local: true, orderedQueries: true,
   records: { idleItems } });
+let failNextPage = false;
 const ui = runtime(async (name, action, input) => {
+  if (failNextPage && action === 'mine' && input.offset === 20) {
+    failNextPage = false; throw Error('合成续页断网');
+  }
   const response = await backend.call(name, action, input);
   if (!response.ok) throw Object.assign(Error(response.message), { code: response.code });
   return response.data;
@@ -35,13 +39,23 @@ ui.app.globalData.user = backend.data.users[0];
   assert.equal(second.data.list[0]._id, 'mine-21');
   assert.equal(second.data.list[0].status, 'on_sale');
   assert.equal(page.data.list.length, 20);
-  assert.equal(page.data.list.some(item => item._id === 'mine-21'), false);
-  assert.equal(typeof page.more, 'undefined');
+  assert.equal(page.data.hasMore, true);
+  failNextPage = true;
+  await page.more();
+  assert.equal(page.data.list.length, 20);
+  assert.match(page.data.moreError, /断网/);
+  await page.more();
+  assert.equal(page.data.list.length, 21);
+  assert.equal(page.data.list.some(item => item._id === 'mine-21'), true);
+  assert.equal(page.data.hasMore, false);
+  assert.equal(typeof page.more, 'function');
   const requests = ui.requests.filter(request => request[0] === 'idle' && request[1] === 'mine');
-  assert.equal(requests.length, 1);
-  assert.equal(requests[0][2].offset, undefined);
+  assert.equal(requests.length, 3);
+  assert.equal(requests[0][2].offset, 0);
+  assert.equal(requests[1][2].offset, 20);
+  assert.equal(requests[2][2].offset, 20);
   const template = fs.readFileSync(path.resolve(__dirname, '../../../miniprogram/idle/mine/mine.wxml'), 'utf8');
-  assert.doesNotMatch(template, /加载更多/);
+  assert.match(template, /加载更多/);
   assert.equal(backend.writes.length, 0);
   console.log(JSON.stringify({ scope: 'actual P44 page and idle.mine; synthetic items',
     displayed: page.data.list.length, firstHasMore: first.data.hasMore,

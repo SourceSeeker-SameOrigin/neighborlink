@@ -34,11 +34,11 @@ async function run(visibleIndexes, turns) {
   const partlyVisible = await run([0, 20], 3);
   assert.deepEqual(normal.offsets, [0, 20]);
   assert.equal(normal.batchIds.length, 21);
-  assert.deepEqual(hiddenFirstPage.offsets, [0]);
-  assert.deepEqual(hiddenFirstPage.batchIds, []);
+  assert.deepEqual(hiddenFirstPage.offsets, [0, 20]);
+  assert.deepEqual(hiddenFirstPage.batchIds, ['batch-21']);
   assert.equal(hiddenFirstPage.hasMore, false);
-  assert.match(hiddenFirstPage.error, /分页结果异常/);
-  assert.deepEqual(partlyVisible.offsets, [0, 1, 2]);
+  assert.equal(hiddenFirstPage.error, '');
+  assert.deepEqual(partlyVisible.offsets, [0, 20]);
   assert.deepEqual(partlyVisible.batchIds, ['batch-01', 'batch-21']);
   console.log(JSON.stringify({ scope: 'actual station function and P64 page; synthetic batches, zero cloud writes',
     normal, hiddenFirstPage, partlyVisible }, null, 2));

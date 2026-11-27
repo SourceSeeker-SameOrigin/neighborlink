@@ -5,6 +5,8 @@
     <view class="section-title">{{item.title}}</view><view>¥{{item.priceText}} · {{item.statusText}}</view><view class="muted">{{item.desc}}</view>
   </view>
   <view wx:if="{{loading}}" class="muted">正在加载…</view><view wx:elif="{{!list.length && !error}}" class="muted">你还没有发布闲置</view>
+  <view wx:if="{{moreError}}" class="error">{{moreError}}</view>
+  <button wx:if="{{hasMore}}" disabled="{{paging}}" loading="{{paging}}" bindtap="more">{{moreError ? '重试加载更多' : '加载更多闲置'}}</button>
   <button bindtap="sales">担保交易订单</button><button bindtap="income">卖家收入与结算</button>
   <button type="primary" bindtap="create">发布闲置</button>
 </view>

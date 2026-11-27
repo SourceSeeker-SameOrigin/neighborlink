@@ -36,6 +36,8 @@ backend.data.config[0].payMode = 'mock';
     { status: 'pending_pay' }, { status: 'paid' }, { status: 'accepted' }
   ];
   assert.equal(canTransition('accepted', 'delivered'), false);
+  assert.equal(canTransition('accepted', 'delivered', 'idle_purchase'), true);
+  assert.equal(canTransition('accepted', 'delivered', 'service'), false);
   assert.equal(canTransition('accepted', 'in_service'), true);
 
   const ui = runtime(async (name, action, input) => {
@@ -52,13 +54,33 @@ backend.data.config[0].payMode = 'mock';
   assert.match(template, /order\.status === 'accepted'[^>]*>[\s\S]*?bindtap="deliver"/);
   page.setData({ photos: ['cloud://fixture/idle-delivery/' + orderId + '/photo.jpg'], note: '合成交付' });
   await page.deliver();
-  assert.equal(page.data.error, '订单状态已变化，无法执行此操作');
-  assert.equal(backend.data.orders[0].status, 'accepted');
-  assert.equal(backend.data.orders[0].idleDelivery, undefined);
+  assert.equal(page.data.error, '');
+  assert.equal(backend.data.orders[0].status, 'delivered');
+  assert.equal(backend.data.orders[0].idleDelivery.note, '合成交付');
+  assert.equal(backend.data.orders[0].timeline.at(-1).status, 'delivered');
+  const timelineLength = backend.data.orders[0].timeline.length;
+  const repeated = await backend.call('idle', 'deliverSale', { orderId,
+    photos: ['cloud://fixture/idle-delivery/' + orderId + '/photo.jpg'], note: '合成交付' });
+  assert.equal(repeated.ok, true);
+  assert.equal(repeated.data.status, 'delivered');
+  assert.equal(backend.data.orders[0].timeline.length, timelineLength);
+  const changed = await backend.call('idle', 'deliverSale', { orderId,
+    photos: ['cloud://fixture/idle-delivery/' + orderId + '/photo.jpg'], note: '更换说明' });
+  assert.equal(changed.ok, false);
+  assert.equal(changed.code, 'E_CONFLICT');
   assert.equal(backend.data.orders.length, 1);
+  backend.setActor('actor');
+  const confirmed = await backend.call('order', 'confirm', { orderId });
+  assert.equal(confirmed.ok, true);
+  assert.equal(backend.data.orders[0].status, 'completed');
+  assert.equal(backend.data.ledger.filter(row => row.refType === 'idle_sale' && row.refId === orderId).length, 1);
+  const confirmedAgain = await backend.call('order', 'confirm', { orderId });
+  assert.equal(confirmedAgain.ok, true);
+  assert.equal(backend.data.ledger.filter(row => row.refType === 'idle_sale' && row.refId === orderId).length, 1);
 
   console.log(JSON.stringify({ scope: 'actual P46 page, idle.buy/mockPay/acceptSale/deliverSale and state machine',
     orderId, displayedStatus: page.data.order.status, error: page.data.error,
     storedStatus: backend.data.orders[0].status, deliveryStored: Boolean(backend.data.orders[0].idleDelivery),
-    acceptedToDeliveredAllowed: canTransition('accepted', 'delivered') }, null, 2));
+    acceptedToDeliveredAllowed: canTransition('accepted', 'delivered'), repeated: repeated.ok,
+    changedIntentRejected: changed.code, ledgerCount: backend.data.ledger.length }, null, 2));
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });
