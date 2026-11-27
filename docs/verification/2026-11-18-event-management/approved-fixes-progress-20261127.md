@@ -10,8 +10,8 @@
 | 本地通过，界面待验 | QA162、QA183 | 服务员审核 4/4、证书失败回退 2/2 | `provider-review-boundaries.cjs`、`provider-certs-failure-boundaries.cjs` |
 | 本地通过，界面待验 | QA163、QA182、QA164 | 订单列表 5/5、金额 4/4、详情 5/5 | `admin-orders-boundaries.cjs`、`admin-orders-quote-boundaries.cjs`、`admin-order-detail-boundaries.cjs` |
 | 本地通过，界面待验 | QA152–QA156 | 求助和闲置详情、发布草稿、卖家履约的跨身份保护，14/14 | `content-detail-identity-boundaries.cjs` |
-| 本地通过，界面待验 | QA158、QA159 | 优惠券模板 6/6，小区配置 6/6；同管理员返回时保留有效草稿 | `coupon-admin-boundaries.cjs`、`community-config-boundaries.cjs` |
+| 本地通过，界面待验 | QA158、QA159 | 优惠券模板 6/6，小区配置 7/7；同管理员返回时保留有效草稿，换管理员后旧保存回读不能覆盖新资料 | `coupon-admin-boundaries.cjs`、`community-config-boundaries.cjs` |
 | 本地通过，界面待验 | QA165–QA172 | 回收、公告、优惠券、活动、聊天、商家及申请入口的跨身份保护 | `recycle-notice-identity-boundaries.cjs`、`coupon-resident-boundaries.cjs`、`event-list-identity-boundaries.cjs`、`chat-list-boundaries.cjs`、`community-list-identity-boundaries.cjs`、`merchant-list-ad-identity-boundaries.cjs`、`merchant-detail-identity-boundaries.cjs`、`application-identity-boundaries.cjs` |
 | 本地通过，界面待验 | QA173–QA180 | 首页、门牌、七类服务表单、订单、月卡、我的、服务员申请的跨身份保护 | `home-identity-boundaries.cjs`、`binding-identity-boundaries.cjs`、`service-form-identity-boundaries.cjs`、`core-account-identity-boundaries.cjs`、`provider-application-identity-boundaries.cjs` |
 
-33 项均已完成本地修复。26 个直接相关的边界脚本共 185/185 通过；交叉运行本目录全部 52 个边界脚本，退出码均为 0。项目单测 55 套、652/652 通过；改动过的 32 个页面与工具 JS 语法检查通过，`git diff --check` 通过。随后补跑旧 QA15、QA16：旧合成管理员夹具缺少用户 ID，与现在的身份校验不符；补齐夹具后，配置保存失败与已保存刷新共 19/19 通过。69 页静态引用、77 个模板组件和 207 个隔离加载场景均无失败；样式结构检查 69 页无问题，旧基线中四页 `load` 绑定已按此前获批的 `retry` 入口更新。模拟器连接本轮连续超时，不能把上述结果写成实际布局或原生交互通过。业务写入、开发云部署、体验版切换均为 0。新发现的 QA184 单独见 `pending-decisions-after-33-20261127.md`，留待用户统一决策。
+33 项均已完成本地修复。26 个直接相关的边界脚本共 186/186 通过；交叉运行本目录全部 52 个边界脚本，退出码均为 0。项目单测 55 套、652/652 通过；改动过的 32 个页面与工具 JS 语法检查通过，`git diff --check` 通过。随后补跑旧 QA15、QA16：旧合成管理员夹具缺少用户 ID，与现在的身份校验不符；补齐夹具后，配置保存失败与已保存刷新共 19/19 通过。69 页静态引用、77 个模板组件和 207 个隔离加载场景均无失败；样式结构检查 69 页无问题，旧基线中四页 `load` 绑定已按此前获批的 `retry` 入口更新。模拟器连接本轮连续超时，不能把上述结果写成实际布局或原生交互通过。业务写入、开发云部署、体验版切换均为 0。新发现的 QA184 单独见 `pending-decisions-after-33-20261127.md`，留待用户统一决策。

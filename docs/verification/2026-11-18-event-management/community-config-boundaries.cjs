@@ -60,6 +60,27 @@ const fixture = handler => {
     results.push({ case: 'same-admin-return-keeps-community-draft',
       pass: page.data.authorized && page.data.community?._id === community._id && page.data.name === '本人草稿' });
   }
+  {
+    const oldRead = deferred();
+    let reads = 0;
+    const oldCommunity = { ...community, name: '管理员 A 的旧回读' };
+    const newCommunity = { ...community, name: '管理员 B 的当前回读' };
+    const { env, page } = fixture(async (_name, action) => {
+      if (action !== 'managementConfig') return {};
+      reads += 1;
+      if (reads === 2) return oldRead.promise;
+      return { ...reply, community: reads === 1 ? oldCommunity : newCommunity };
+    });
+    await page.load();
+    const pending = page.refreshSavedCommunity(community._id);
+    env.app.globalData.user = { _id: 'admin-b', roles: ['admin'] };
+    await page.load();
+    oldRead.resolve({ ...reply, community: oldCommunity });
+    await pending;
+    results.push({ case: 'old-save-readback-cannot-overwrite-new-admin',
+      pass: page.ownerId === 'admin-b' && page.data.community?.name === newCommunity.name &&
+        page.data.authorized && !page.data.refreshCommunityId });
+  }
   console.log(JSON.stringify({ scope: 'synthetic users; all CloudBase calls intercepted',
     pass: results.filter(result => result.pass).length, fail: results.filter(result => !result.pass).length, results }, null, 2));
   if (results.some(result => !result.pass)) process.exitCode = 1;

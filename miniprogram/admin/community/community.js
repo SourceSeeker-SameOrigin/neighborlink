@@ -12,7 +12,7 @@ Page({
     'priceRows','holidayDates','recycleRows','plans','buildingId','buildingName','buildingUnits','hotline','globalRows','keywordRows'];
     this.editDraft={ownerId:this.ownerId,communityId:this.data.community._id,data:Object.fromEntries(keys.map(key=>[key,this.data[key]]))};},
   clearPrivate(){this.setData({authorized:false,community:null,communities:[],priceRows:[],globalRows:[],keywordRows:[],
-    stations:[],dutyWindows:[],canteens:[],plans:[],recycleRows:[],refreshCommunityId:''});this.ownerId=null;this.globalLoaded=false;},
+    stations:[],dutyWindows:[],canteens:[],plans:[],recycleRows:[],saving:false,refreshCommunityId:'',refreshError:''});this.ownerId=null;this.globalLoaded=false;},
   currentAdmin(sequence=this.sequence){const user=getApp().globalData.user;return !this.hidden&&!this.closed&&
     sequence===this.sequence&&!!this.ownerId&&user?._id===this.ownerId&&user.roles?.includes('admin');},
   async load() {
@@ -59,17 +59,19 @@ Page({
     });
   },
   async refreshSavedCommunity(communityId) {
+    const sequence = this.sequence;
+    if (!this.currentAdmin(sequence)) return;
     this.setData({ refreshCommunityId: communityId, refreshError: '' });
     try {
       const result = await api.call('admin', 'managementConfig', { communityId }, { loading: false, silent: true });
-      if (!this.data.community || this.data.community._id !== communityId) return;
+      if (!this.currentAdmin(sequence) || !this.data.community || this.data.community._id !== communityId) return;
       if (!result.community || result.community._id !== communityId) throw new Error('小区回读结果不匹配');
       // Refresh canonical data only: editable drafts, including other forms, stay intact.
       this.setData({ community: result.community, communities: result.communities,
         communityIndex: Math.max(0, result.communities.findIndex(item => item._id === communityId)),
         refreshCommunityId: '', refreshError: '' });
     } catch (error) {
-      if (!this.data.community || this.data.community._id !== communityId) return;
+      if (!this.currentAdmin(sequence) || !this.data.community || this.data.community._id !== communityId) return;
       this.setData({ refreshError: '已保存，刷新失败，请重试刷新。', canReload: false }, () => {
         wx.pageScrollTo({ scrollTop: 0, duration: 200 });
       });
@@ -77,9 +79,10 @@ Page({
   },
   async retrySavedRefresh() {
     if (!this.currentAdmin() || !this.data.authorized || this.data.saving || !this.data.refreshCommunityId) return;
+    const sequence = this.sequence;
     this.setData({ saving: true });
     try { await this.refreshSavedCommunity(this.data.refreshCommunityId); }
-    finally { this.setData({ saving: false }); }
+    finally { if (this.currentAdmin(sequence)) this.setData({ saving: false }); }
   },
   async saveCommunity(){if(!this.currentAdmin()||!this.data.authorized||this.data.saving||this.data.refreshCommunityId||!this.data.community)return;const sequence=this.sequence;this.setData({saving:true,error:'',canReload:false});try{
     const d=this.data,prices=form.pricePatch(d.community.prices,d.priceRows,d.helpModeIndex===1?'per_visit':'per15min');
