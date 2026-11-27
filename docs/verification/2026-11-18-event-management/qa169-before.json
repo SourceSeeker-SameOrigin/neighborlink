@@ -1,0 +1,41 @@
+{
+  "scope": "synthetic residents/communities; API and navigation intercepted",
+  "pass": 3,
+  "fail": 3,
+  "results": [
+    {
+      "case": "normal-detail-and-service",
+      "pass": true
+    },
+    {
+      "case": "late-detail-after-user-and-community-change",
+      "pass": false,
+      "observed": {
+        "merchant": "synthetic-shop-a",
+        "services": 1
+      }
+    },
+    {
+      "case": "old-service-booking-entry-after-user-change",
+      "pass": false,
+      "observed": {
+        "navigation": 1
+      }
+    },
+    {
+      "case": "old-report-entry-after-user-change",
+      "pass": false,
+      "observed": {
+        "reportCalls": 1
+      }
+    },
+    {
+      "case": "hide-clears-old-detail",
+      "pass": true
+    },
+    {
+      "case": "failed-recheck-clears-old-detail",
+      "pass": true
+    }
+  ]
+}

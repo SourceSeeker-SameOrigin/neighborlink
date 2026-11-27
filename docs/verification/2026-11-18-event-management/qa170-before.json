@@ -1,0 +1,62 @@
+{
+  "scope": "synthetic residents/applications/upload; CloudBase intercepted",
+  "pass": 4,
+  "fail": 5,
+  "results": [
+    {
+      "case": "merchant-normal-read",
+      "pass": true
+    },
+    {
+      "case": "merchant-late-application-after-user-change",
+      "pass": false,
+      "observed": {
+        "ready": true,
+        "application": "application-a"
+      }
+    },
+    {
+      "case": "merchant-old-submit-after-user-change",
+      "pass": false,
+      "observed": {
+        "applyCalls": 1,
+        "communityId": "community-a"
+      }
+    },
+    {
+      "case": "merchant-old-upload-after-user-change",
+      "pass": false,
+      "observed": {
+        "fileId": "synthetic-license-a"
+      }
+    },
+    {
+      "case": "merchant-late-read-after-hide",
+      "pass": true
+    },
+    {
+      "case": "station-normal-read",
+      "pass": true
+    },
+    {
+      "case": "station-late-application-after-user-change",
+      "pass": false,
+      "observed": {
+        "ready": true,
+        "application": "application-a"
+      }
+    },
+    {
+      "case": "station-old-submit-after-user-change",
+      "pass": false,
+      "observed": {
+        "applyCalls": 1,
+        "communityId": "community-a"
+      }
+    },
+    {
+      "case": "station-late-read-after-hide",
+      "pass": true
+    }
+  ]
+}

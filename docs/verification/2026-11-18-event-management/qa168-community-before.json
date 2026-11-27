@@ -1,0 +1,93 @@
+{
+  "scope": "synthetic residents/communities; CloudBase and navigation intercepted",
+  "pass": 4,
+  "fail": 8,
+  "results": [
+    {
+      "case": "board-normal-list",
+      "pass": true
+    },
+    {
+      "case": "board-late-community-a-list-after-switch-to-b",
+      "pass": false,
+      "observed": {
+        "ids": [
+          "a-item"
+        ]
+      }
+    },
+    {
+      "case": "board-old-card-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": 1
+      }
+    },
+    {
+      "case": "board-old-create-entry-after-unbound-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/board/create/create?type=ask"
+        ]
+      }
+    },
+    {
+      "case": "board-same-community-other-user-pagination",
+      "pass": false,
+      "observed": {
+        "ids": [
+          "a-item",
+          "b-item"
+        ]
+      }
+    },
+    {
+      "case": "board-late-list-after-hide",
+      "pass": true
+    },
+    {
+      "case": "idle-normal-list",
+      "pass": true
+    },
+    {
+      "case": "idle-late-community-a-list-after-switch-to-b",
+      "pass": false,
+      "observed": {
+        "ids": [
+          "a-item"
+        ]
+      }
+    },
+    {
+      "case": "idle-old-card-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": 1
+      }
+    },
+    {
+      "case": "idle-old-create-entry-after-unbound-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/idle/create/create"
+        ]
+      }
+    },
+    {
+      "case": "idle-same-community-other-user-pagination",
+      "pass": false,
+      "observed": {
+        "ids": [
+          "a-item",
+          "b-item"
+        ]
+      }
+    },
+    {
+      "case": "idle-late-list-after-hide",
+      "pass": true
+    }
+  ]
+}

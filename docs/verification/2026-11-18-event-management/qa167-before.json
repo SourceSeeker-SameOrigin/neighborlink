@@ -1,0 +1,58 @@
+{
+  "scope": "synthetic residents; CloudBase calls intercepted",
+  "pass": 4,
+  "fail": 4,
+  "results": [
+    {
+      "case": "center-normal-list",
+      "pass": true
+    },
+    {
+      "case": "center-late-list-after-user-change",
+      "pass": false,
+      "observed": {
+        "rows": 1
+      }
+    },
+    {
+      "case": "center-old-claim-after-user-change",
+      "pass": false,
+      "observed": {
+        "claimCalls": 1
+      }
+    },
+    {
+      "case": "center-late-list-after-hide",
+      "pass": true
+    },
+    {
+      "case": "wallet-normal-list",
+      "pass": true
+    },
+    {
+      "case": "wallet-late-list-after-user-change",
+      "pass": false,
+      "observed": {
+        "rows": 1,
+        "ownerId": "resident-a"
+      }
+    },
+    {
+      "case": "wallet-old-welcome-retry-after-user-change",
+      "pass": false,
+      "observed": {
+        "retryCalls": 1
+      }
+    },
+    {
+      "case": "wallet-more-detects-owner-change",
+      "pass": true,
+      "observed": {
+        "offsets": [
+          0,
+          0
+        ]
+      }
+    }
+  ]
+}
