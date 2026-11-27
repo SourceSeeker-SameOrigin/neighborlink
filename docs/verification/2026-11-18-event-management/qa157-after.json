@@ -1,0 +1,21 @@
+{
+  "case": "QA157",
+  "page": "idle/income/income",
+  "authorization": "User chose A: protect seller income and payout by current identity and latest successful read",
+  "method": "Actual page JavaScript in isolated Node VM with synthetic A/B residents; all cloud and native transfer calls intercepted",
+  "passed": 8,
+  "failed": 0,
+  "verified": [
+    "normal read",
+    "late read after identity change",
+    "late read after hide",
+    "failed recheck clears old income",
+    "old withdraw after identity change",
+    "late payout response after identity change",
+    "double click creates once",
+    "native transfer return only rechecks existing payout"
+  ],
+  "cloudCalls": 0,
+  "realTransfers": 0,
+  "remaining": "Four-width UI, native WeChat transfer callback, nonzero real seller income and user visual signoff remain unverified"
+}
