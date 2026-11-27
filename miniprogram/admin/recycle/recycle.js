@@ -11,6 +11,9 @@ Page({
   },
   onShow() {
     this._hidden = false;
+    const userId = getApp().globalData.user?._id;
+    if (userId && this._lastOwnerId && userId !== this._lastOwnerId)
+      this._dateManual = this._drafts?.[userId]?.manual === true;
     const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
     if (this._autoDate && this._autoDate !== today && !this._dateManual) {
       this._defaultRange = { from: today.slice(0, 8) + '01', to: today };
@@ -25,7 +28,7 @@ Page({
     this.sequence = (this.sequence || 0) + 1;
     if (this._ownerId) {
       this._drafts = this._drafts || {};
-      this._drafts[this._ownerId] = { from: this.data.from, to: this.data.to };
+      this._drafts[this._ownerId] = { from: this.data.from, to: this.data.to, manual: this._dateManual === true };
       this._lastOwnerId = this._ownerId;
     }
     this._ownerId = null;
@@ -46,7 +49,7 @@ Page({
     const current = () => !this._hidden && !this._closed && sequence === this.sequence;
     if (this._ownerId) {
       this._drafts = this._drafts || {};
-      this._drafts[this._ownerId] = { from: this.data.from, to: this.data.to };
+      this._drafts[this._ownerId] = { from: this.data.from, to: this.data.to, manual: this._dateManual === true };
     }
     const previousOwner = this._ownerId || this._lastOwnerId;
     this._ownerId = null;
@@ -55,7 +58,13 @@ Page({
       const user = await getApp().ensureSession();
       if (!current()) return;
       if (getApp().globalData.user?._id !== user._id || !user.roles?.includes('admin')) throw new Error('只有运营管理员可以导出回收企业对账');
-      if (previousOwner && previousOwner !== user._id) this.setData(this._drafts?.[user._id] || this._defaultRange || {});
+      if (previousOwner && previousOwner !== user._id) {
+        const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+        this._defaultRange = { from: today.slice(0, 8) + '01', to: today };
+        const draft = this._drafts?.[user._id];
+        this._dateManual = draft?.manual === true;
+        this.setData(draft ? { from: draft.from, to: draft.to } : this._defaultRange);
+      }
       const communities = await listAll('catalog', 'listCommunities', {},
         { redirectOnForbidden: false, isActive: () => current() && getApp().globalData.user?._id === user._id });
       if (!current() || getApp().globalData.user?._id !== user._id) return;

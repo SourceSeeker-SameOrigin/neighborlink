@@ -65,6 +65,8 @@ QA208 的可复跑证据：`node docs/verification/2026-11-18-event-management/q
 
 QA209 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa209-admin-date-return-repro.cjs`。脚本调用实际四页的日期初始化与返回方法，固定北京跨月时刻；四页未修改的默认范围前移至12月1日，手选范围均保留。仅合成时钟，没有云查询、导出或结算。
 
+QA209 后续边界：P31 的管理员 A 手选日期后切到 B，原实现把 A 的手选标记留给 B，导致 B 在北京跨日后仍显示旧默认范围。已把手选标记与本人日期草稿一同隔离；`qa209-recycle-owner-date-regression.cjs` 复跑证明 B 自动更新至 12 月 1 日，A 返回仍保留本人 10 月手选范围。P18/P24/P32 的跨身份日期草稿另行核对，不能据此断言四页都具备此隔离。
+
 QA210 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa210-detail-late-error-navigation-repro.cjs`。脚本运行实际 P39/P42 页面和共用 API；原页有效的拒绝仍按权限规则处理，离页迟到拒绝不再弹错或跳首页。使用合成接口响应，不触达开发云。
 
 QA211 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa211-idle-purchase-response-recovery-repro.cjs`。脚本运行实际 P42 页面与 `idle.buy`，使用合成数据库和模拟支付模式；首笔写入后丢响应，同页与重进均按原编号找回唯一订单，换人不显示前人恢复入口。没有开发云请求或真实支付。
