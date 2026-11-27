@@ -27,12 +27,19 @@ definition.onLoad.call(page, { type: 'task' });
 const initial = { today: page.data.today, slotDate: page.data.slotDate };
 const carry = { data: { ...definition.data }, setData(patch) { Object.assign(this.data, patch); } };
 definition.onLoad.call(carry, { type: 'carry' });
-const carryDefault = { departDate: carry.data.departDate, departTime: carry.data.departTime };
+const carryDefault = { departDate: carry.data.departDate, departTime: carry.data.departTime,
+  returnDate: carry.data.returnDate, returnTime: carry.data.returnTime };
 let carryServerError = '';
 try { validateCarry({ direction: 'request', destination: '合成地点', destinationType: 'domestic',
   departAt: new Date(carryDefault.departDate + 'T' + carryDefault.departTime + ':00+08:00') },
 new Date(clock)); }
 catch (error) { carryServerError = error.message; }
+let adjustedDepartError = '';
+try { validateCarry({ direction: 'request', destination: '合成地点', destinationType: 'domestic',
+  departAt: new Date('2026-11-17T09:00:00+08:00'),
+  returnAt: new Date(carryDefault.returnDate + 'T' + carryDefault.returnTime + ':00+08:00') },
+new Date(clock)); }
+catch (error) { adjustedDepartError = error.message; }
 clock = afterMidnight;
 definition.onShow.call(page);
 const firstReturn = { today: page.data.today, slotDate: page.data.slotDate };
@@ -46,10 +53,13 @@ catch (error) { serverError = error.message; }
 
 assert.match(template, /start="\{\{today\}\}"/);
 assert.deepEqual(initial, { today: '2026-11-16', slotDate: '2026-11-17' });
-assert.deepEqual(carryDefault, { departDate: '2026-11-16', departTime: '09:00' });
+assert.deepEqual(carryDefault, { departDate: '2026-11-16', departTime: '09:00',
+  returnDate: '2026-11-16', returnTime: '18:00' });
 assert.match(carryServerError, /必须是未来时间/);
+assert.match(adjustedDepartError, /返程时间不能早于出发时间/);
 assert.deepEqual(firstReturn, initial);
 assert.deepEqual(secondReturn, initial);
 assert.match(serverError, /必须在未来/);
 console.log(JSON.stringify({ scope: 'actual P40 page and task/carry validators; synthetic clock only',
-  initial, firstReturn, secondReturn, serverError, carryDefault, carryServerError, cloudCalls: 0 }, null, 2));
+  initial, firstReturn, secondReturn, serverError, carryDefault, carryServerError,
+  adjustedDepartError, cloudCalls: 0 }, null, 2));
