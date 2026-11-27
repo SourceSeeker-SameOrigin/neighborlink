@@ -13,7 +13,17 @@
     </view>
     <view class="section-title">评论 {{post.commentsCount}}</view>
     <view wx:for="{{comments}}" wx:key="_id" class="card"><view>{{item.content}}</view><view class="muted">{{item.timeText}}</view><button wx:if="{{!item.mine}}" data-id="{{item._id}}" bindtap="reportComment">举报</button></view>
-    <view wx:if="{{post.status === 'open'}}" class="card"><textarea value="{{commentText}}" maxlength="500" placeholder="写条评论" bindinput="input"/><button type="primary" bindtap="comment" loading="{{busy}}" disabled="{{busy}}">发送评论</button></view>
+    <view wx:if="{{commentsError}}" class="error">{{commentsError}}</view>
+    <button wx:if="{{commentsHasMore}}" bindtap="moreComments" loading="{{commentsPaging}}" disabled="{{commentsPaging}}">{{commentsError ? '重试加载评论' : '加载更多评论'}}</button>
+    <view wx:if="{{post.status === 'open' || commentRecovery}}" class="card">
+      <view wx:if="{{commentRecoveryHint}}" class="notice">{{commentRecoveryHint}}</view>
+      <button wx:if="{{commentRecovery === 'lookup'}}" bindtap="retryOriginalComment">重试核对原评论</button>
+      <button wx:if="{{commentRecovery === 'found'}}" bindtap="startNewComment">开始新评论</button>
+      <block wx:if="{{post.status === 'open' && commentRecovery !== 'found' && commentRecovery !== 'lookup'}}">
+        <textarea value="{{commentText}}" maxlength="500" placeholder="写条评论" bindinput="input"/>
+        <button type="primary" bindtap="comment" loading="{{busy}}" disabled="{{busy}}">{{commentRecovery === 'confirm' ? '确认并重试原评论' : '发送评论'}}</button>
+      </block>
+    </view>
   </block>
   <view wx:if="{{loading}}">正在加载…</view>
 </view>

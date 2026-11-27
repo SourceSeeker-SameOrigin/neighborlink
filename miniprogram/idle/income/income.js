@@ -4,7 +4,8 @@ const { display } = require('../../utils/time');
 
 Page({
   data: { loading: false, ready: false, loadError: false, busy: false, error: '', pending: '0.00', settled: '0.00', available: '0.00',
-    payoutEnabled: false, canWithdraw: false, payouts: [] },
+    payoutEnabled: false, canWithdraw: false, payouts: [], payoutHasMore: false,
+    payoutNextOffset: 0, payoutPaging: false, payoutError: '' },
   onShow() { this.visible = true; return this.load({ preserveNative: true }); },
   onHide() { this.visible = false; this.clearContext(); },
   onUnload() { this.nativePayout = null; this.onHide(); },
@@ -13,7 +14,8 @@ Page({
     this.operation = null;
     this.read = (this.read || 0) + 1;
     this.setData({ ready: false, pending: '0.00', settled: '0.00', available: '0.00',
-      payoutEnabled: false, canWithdraw: false, payouts: [], busy: !!this.nativePayout });
+      payoutEnabled: false, canWithdraw: false, payouts: [], busy: !!this.nativePayout,
+      payoutHasMore: false, payoutNextOffset: 0, payoutPaging: false, payoutError: '' });
   },
   current(context) {
     return Boolean(context && this.visible !== false && context.read === this.read &&
@@ -39,7 +41,7 @@ Page({
       if (this.nativePayout && this.nativePayout.userId !== userId) this.nativePayout = null;
       const [income, payoutResult] = await Promise.all([
         api.call('idle', 'earnings', {}, apiOptions),
-        api.call('payout', 'list', {}, apiOptions)
+        api.call('payout', 'list', { payeeType: 'seller', offset: 0 }, apiOptions)
       ]);
       if (!current()) return;
       const stateText = { created: '处理中', processing: '处理中', wait_user_confirm: '待确认收款',
@@ -49,7 +51,8 @@ Page({
         payoutEnabled: income.payoutEnabled === true, canWithdraw: income.canWithdraw === true,
         payouts: (payoutResult.list || []).filter(item => item.payeeType === 'seller')
           .map(item => ({ ...item, amountText: yuan(item.amount), timeText: display(item.createdAt),
-            stateText: stateText[item.state] || '处理中' })), ready: true, busy: !!this.nativePayout });
+            stateText: stateText[item.state] || '处理中' })), ready: true, busy: !!this.nativePayout,
+        payoutHasMore: payoutResult.hasMore === true, payoutNextOffset: payoutResult.nextOffset ?? (payoutResult.list || []).length });
       return this.context;
     } catch (error) {
       if (current()) {
@@ -62,6 +65,27 @@ Page({
         this.applyPayoutResult();
       }
     }
+  },
+  async morePayouts() {
+    const context = this.context;
+    if (!this.current(context) || !this.data.ready || !this.data.payoutHasMore || this.data.payoutPaging) return;
+    const offset = this.data.payoutNextOffset;
+    this.setData({ payoutPaging: true, payoutError: '' });
+    try {
+      const result = await api.call('payout', 'list', { payeeType: 'seller', offset },
+        { loading: false, silent: true, redirectOnForbidden: false, isActive: () => this.current(context) });
+      if (!this.current(context)) return;
+      const seen = new Set(this.data.payouts.map(item => item.payoutId));
+      const stateText = { created: '处理中', processing: '处理中', wait_user_confirm: '待确认收款',
+        success: '已到账', failed: '失败，收入已解锁', cancelled: '已撤销，收入已解锁' };
+      this.setData({ payouts: [...this.data.payouts, ...(result.list || [])
+        .filter(item => item.payeeType === 'seller' && !seen.has(item.payoutId))
+        .map(item => ({ ...item, amountText: yuan(item.amount), timeText: display(item.createdAt),
+          stateText: stateText[item.state] || '处理中' }))],
+      payoutHasMore: result.hasMore === true, payoutNextOffset: result.nextOffset ?? offset + (result.list || []).length });
+    } catch (error) {
+      if (this.current(context)) this.setData({ payoutError: error.message || '打款记录加载失败' });
+    } finally { if (this.current(context)) this.setData({ payoutPaging: false }); }
   },
   applyPayoutResult() {
     const request = this.nativePayout;

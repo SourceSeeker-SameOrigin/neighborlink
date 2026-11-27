@@ -123,6 +123,17 @@ function safeTarget(target) {
   text(target.id, '广告目标');
   return { type: target.type, id: target.id };
 }
+async function scanVisible(queryAt, eligible, wanted) {
+  const found = [];
+  const batchSize = 50;
+  const maxBatches = 10;
+  for (let batch = 0; batch < maxBatches && found.length < wanted; batch += 1) {
+    const rows = (await queryAt(batch * batchSize, batchSize)).data || [];
+    found.push(...rows.filter(eligible).slice(0, wanted - found.length));
+    if (rows.length < batchSize) break;
+  }
+  return found;
+}
 async function contentForSlot(event, { user }, slot = 'home_banner') {
   if (!user.communityId && !user.roles.includes('admin')) return { notice: null, notices: [], ads: [] };
   text(event.communityId, '小区');
@@ -135,17 +146,19 @@ async function contentForSlot(event, { user }, slot = 'home_banner') {
   const isFeatureOn = key => Object.prototype.hasOwnProperty.call(communityFeatures, key) ? communityFeatures[key] === true : features[key] === true;
   const now = new Date();
   const [notices, ads] = await Promise.all([
-    slot === 'home_banner' && isFeatureOn('notices') ? server.db.collection('notices').where({ communityId: community._id, status: 'live' }).orderBy('pinnedAt', 'desc').orderBy('createdAt', 'desc').limit(100).get() : { data: [] },
-    isFeatureOn('ads') ? server.db.collection('ads').where({ status: 'live', slot,
+    slot === 'home_banner' && isFeatureOn('notices') ? scanVisible((offset, size) => server.db.collection('notices')
+      .where({ communityId: community._id, status: 'live' }).orderBy('pinnedAt', 'desc')
+      .orderBy('createdAt', 'desc').orderBy('_id', 'desc').skip(offset).limit(size).get(),
+    item => item.moderationHidden !== true && (!item.endAt || new Date(item.endAt) > now), 100) : [],
+    isFeatureOn('ads') ? scanVisible((offset, size) => server.db.collection('ads').where({ status: 'live', slot,
       communityIds: server.command.in([community._id]), startAt: server.command.lte(now), endAt: server.command.gt(now) })
-      .orderBy('startAt', 'asc').limit(100).get() : { data: [] }
+      .orderBy('startAt', 'asc').orderBy('_id', 'asc').skip(offset).limit(size).get(),
+    item => item.moderationHidden !== true && (item.moderationApprovedFileIds || []).includes(item.imageFileId), 3) : []
   ]);
-  const list = notices.data.filter(item => item.moderationHidden !== true && (!item.endAt || new Date(item.endAt) > now)).map(item => ({ _id: item._id, title: item.title, body: item.body,
+  const list = notices.map(item => ({ _id: item._id, title: item.title, body: item.body,
     imageFileId: item.imageFileId && (item.moderationApprovedFileIds || []).includes(item.imageFileId) ? item.imageFileId : '',
     pinned: item.pinned === true, createdAt: item.createdAt }));
-  const banner = ads.data.filter(item => item.moderationHidden !== true &&
-    (item.moderationApprovedFileIds || []).includes(item.imageFileId)).slice(0, 3);
-  return { notice: list.find(item => item.pinned) || list[0] || null, notices: list, ads: banner.map(({ _id, title, imageFileId, target }) => ({ _id, title, imageFileId, target })) };
+  return { notice: list.find(item => item.pinned) || list[0] || null, notices: list, ads: ads.map(({ _id, title, imageFileId, target }) => ({ _id, title, imageFileId, target })) };
 }
 
 async function homeContent(event, context) { return contentForSlot(event, context); }

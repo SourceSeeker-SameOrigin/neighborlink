@@ -39,13 +39,22 @@ async function setup(loseFirstResponse) {
   await unknown.page.addBuilding();
   const requests = unknown.ui.requests.filter(request => request[1] === 'upsertBuilding');
   assert.strictEqual(first.records, 1);
-  assert.strictEqual(first.buildingId, '');
-  assert.strictEqual(unknown.backend.data.buildings.length, 2);
+  assert.strictEqual(first.buildingId, unknown.backend.data.buildings[0]._id);
+  assert.strictEqual(unknown.backend.data.buildings.length, 1);
   assert.strictEqual(requests.length, 2);
-  assert(requests.every(request => !request[2].buildingId));
+  assert.strictEqual(requests[0][2].requestId.length > 8, true);
+  assert.strictEqual(requests[1][2].buildingId, first.buildingId);
+  const originalId = first.buildingId;
+  unknown.page.onUnload();
+  const reopened = unknown.ui.instance('miniprogram/admin/community/community.js');
+  reopened.onShow();
+  await reopened.onLoad();
+  assert.strictEqual(reopened.data.buildingId, originalId);
+  assert.strictEqual(unknown.backend.data.buildings.length, 1);
   console.log(JSON.stringify({ scope: 'actual P22 page and admin.upsertBuilding, synthetic database only',
     normal: { records: normal.backend.data.buildings.length, reusedId: normal.page.data.buildingId === normalId },
     unknown: { first, afterRetry: { records: unknown.backend.data.buildings.length,
-      distinctIds: new Set(unknown.backend.data.buildings.map(item => item._id)).size },
+      distinctIds: new Set(unknown.backend.data.buildings.map(item => item._id)).size,
+      reentryRecoveredOriginal: reopened.data.buildingId === originalId },
       requestBuildingIds: requests.map(request => request[2].buildingId || null) } }, null, 2));
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });

@@ -25,9 +25,17 @@ Page({
   onLoad() {
     this.visible = true;
     const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+    this._autoDate = today;
     this.setData({ from: today.slice(0, 8) + '01', to: today }); return this.load();
   },
-  onShow() { this.visible = true; return this.load(); },
+  onShow() {
+    this.visible = true;
+    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+    if (this._autoDate && this._autoDate !== today && !this._dateManual)
+      this.setData({ from: today.slice(0, 8) + '01', to: today });
+    this._autoDate = today;
+    return this.load();
+  },
   currentRead() {
     const context = this.readContext;
     const user = getApp().globalData.user;
@@ -142,6 +150,7 @@ Page({
     if (this._closed || this.visible === false || !this.data.ready || this.data[field] === value) return;
     if (!this.currentRead()) { this.invalidateIdentity(); return; }
     if (this.data.busy && this.operation?.type !== 'preview') return;
+    if (field === 'from' || field === 'to') this._dateManual = true;
     this._previewVersion = (this._previewVersion || 0) + 1;
     if (this.operation?.type === 'preview') this.operation = null;
     this.setData({ [field]: value, preview: [], previewRange: null, busy: false });

@@ -9,6 +9,7 @@ Page({
     stationIndex: 0, sellerOpenid: '', from: '', to: '' },
   onLoad(options = {}) {
     const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+    this._autoDate = today;
     this.setData({ from: today.slice(0, 8) + '01', to: today,
       typeIndex: Math.max(0, TYPES.findIndex(item => item.key === options.type)) });
     if (options.type === 'recycle' && ['communityId', 'from', 'to'].some(key => options[key] !== undefined)) {
@@ -16,11 +17,19 @@ Page({
         this._entryError = '回收对账入口条件无效，请返回重新选择小区和日期';
       } else {
         this._entryCommunity = options.communityId;
+        this._dateManual = true;
         this.setData({ from: options.from, to: options.to });
       }
     }
   },
-  onShow() { this._hidden = false; return this.load(); },
+  onShow() {
+    this._hidden = false;
+    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+    if (this._autoDate && this._autoDate !== today && !this._dateManual)
+      this.setData({ from: today.slice(0, 8) + '01', to: today });
+    this._autoDate = today;
+    return this.load();
+  },
   onHide() {
     this._hidden = true;
     this._loadVersion = (this._loadVersion || 0) + 1;
@@ -118,6 +127,7 @@ Page({
     if (!this.currentAdmin() || !this.data.ready || this.data.loading || this.data.busy) return;
     const field = event.currentTarget.dataset.field;
     if ((field === 'providerIndex' && !this.data.providers.length) || (field === 'merchantIndex' && !this.data.merchants.length)) return;
+    if (field === 'from' || field === 'to') this._dateManual = true;
     const changed = this.changeCondition(field, ['from', 'to'].includes(field) ? event.detail.value : Number(event.detail.value));
     if (changed && field === 'communityIndex') return this.loadCommunity();
   },

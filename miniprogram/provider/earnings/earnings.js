@@ -3,12 +3,14 @@ const { yuan } = require('../../utils/money');
 const { display } = require('../../utils/time');
 Page({
   data: { loading: false, ready: false, loadError: false, creatingPayout: false, error: '', rows: [], payouts: [], pending: '0.00', settled: '0.00',
-    available: '0.00', canWithdraw: false, payoutEnabled: false, hasMore: true },
+    available: '0.00', canWithdraw: false, payoutEnabled: false, hasMore: true,
+    payoutHasMore: false, payoutNextOffset: 0, payoutPaging: false, payoutError: '' },
   onShow() { this.visible = true; return this.load(true, { preserveNative: true }); },
   clearContext() {
     this.context = null; this.operation = null; this.read = (this.read || 0) + 1;
     this.setData({ ready: false, rows: [], payouts: [], pending: '0.00', settled: '0.00', available: '0.00',
-      canWithdraw: false, payoutEnabled: false, hasMore: true, creatingPayout: !!this.nativePayout });
+      canWithdraw: false, payoutEnabled: false, hasMore: true, creatingPayout: !!this.nativePayout,
+      payoutHasMore: false, payoutNextOffset: 0, payoutPaging: false, payoutError: '' });
   },
   onHide() { this.visible = false; this.clearContext(); },
   onUnload() { this.nativePayout = null; this.onHide(); },
@@ -36,16 +38,18 @@ Page({
       if (this.nativePayout && this.nativePayout.userId !== userId) this.nativePayout = null;
       const [result, payoutResult] = await Promise.all([
         api.call('provider', 'earnings', { offset: reset ? 0 : this.data.rows.length }, apiOptions),
-        reset ? api.call('payout', 'list', {}, apiOptions) : Promise.resolve({ list: this.data.payouts })
+        reset ? api.call('payout', 'list', { payeeType: 'provider', offset: 0 }, apiOptions) : Promise.resolve({ list: this.data.payouts })
       ]);
       if (!current()) return;
       const rows = result.list.map(row => ({ ...row, amountText: yuan(row.amount), time: display(row.createdAt) }));
-      const payouts = (payoutResult.list || []).map(item => ({ ...item, amountText: yuan(item.amount),
+      const payouts = (payoutResult.list || []).filter(item => item.payeeType === 'provider').map(item => ({ ...item, amountText: yuan(item.amount),
         time: display(item.createdAt), stateText: this.payoutStateText(item.state) }));
       this.context = { userId, read };
       this.setData({ rows: reset ? rows : [...this.data.rows, ...rows], payouts, pending: yuan(result.pending),
         settled: yuan(result.settled), available: yuan(result.available || 0), canWithdraw: result.canWithdraw === true,
-        payoutEnabled: result.payoutEnabled === true, hasMore: result.hasMore, ready: true, creatingPayout: !!this.nativePayout });
+        payoutEnabled: result.payoutEnabled === true, hasMore: result.hasMore, ready: true, creatingPayout: !!this.nativePayout,
+        ...(reset ? { payoutHasMore: payoutResult.hasMore === true,
+          payoutNextOffset: payoutResult.nextOffset ?? (payoutResult.list || []).length } : {}) });
       return this.context;
     } catch (error) {
       if (current()) {
@@ -59,6 +63,25 @@ Page({
   },
   payoutStateText(state) { return ({ created: '处理中', processing: '处理中', wait_user_confirm: '待确认收款',
     success: '已到账', failed: '失败，收入已解锁', cancelled: '已撤销，收入已解锁' })[state] || '处理中'; },
+  async morePayouts() {
+    const context = this.context;
+    if (!this.current(context) || !this.data.ready || !this.data.payoutHasMore || this.data.payoutPaging) return;
+    const offset = this.data.payoutNextOffset;
+    this.setData({ payoutPaging: true, payoutError: '' });
+    try {
+      const result = await api.call('payout', 'list', { payeeType: 'provider', offset },
+        { loading: false, silent: true, redirectOnForbidden: false, isActive: () => this.current(context) });
+      if (!this.current(context)) return;
+      const seen = new Set(this.data.payouts.map(item => item.payoutId));
+      this.setData({ payouts: [...this.data.payouts, ...(result.list || [])
+        .filter(item => item.payeeType === 'provider' && !seen.has(item.payoutId))
+        .map(item => ({ ...item, amountText: yuan(item.amount), time: display(item.createdAt),
+          stateText: this.payoutStateText(item.state) }))],
+      payoutHasMore: result.hasMore === true, payoutNextOffset: result.nextOffset ?? offset + (result.list || []).length });
+    } catch (error) {
+      if (this.current(context)) this.setData({ payoutError: error.message || '提现记录加载失败' });
+    } finally { if (this.current(context)) this.setData({ payoutPaging: false }); }
+  },
   applyPayoutResult() {
     const request = this.nativePayout;
     if (!request || !request.result || !this.current(this.context) || !this.data.ready || this.data.loading) return;

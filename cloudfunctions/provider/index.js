@@ -5,6 +5,7 @@ const { createServer } = require('./lib/shared/server');
 const { atomic, read, insert } = require('./lib/shared/transaction');
 const { application, canWork, canTake, delivery, providerView, hallView } = require('./lib/shared/providerData');
 const { requireApprovedProvider } = require('./lib/shared/auth');
+const { codeEnvVersion } = require('./lib/shared/qrEnv');
 const { transitionPatch, listView } = require('./lib/shared/orderData');
 const { ensure, integer, text } = require('./lib/shared/validate');
 const { shortCode } = require('./lib/shared/ids');
@@ -81,13 +82,16 @@ async function subscriptionTemplates(event, { user }) {
 async function referralPoster(event, { openid }) {
   const provider = await mine(openid);
   requireApprovedProvider(provider, 1);
+  const envVersion = codeEnvVersion();
   const response = await cloud.openapi.wxacode.getUnlimited({ scene: 'r=' + provider.referralCode,
-    page: 'pages/index/index', checkPath: false, envVersion: 'develop', width: 430 });
+    page: 'pages/index/index', checkPath: false, envVersion, width: 430 });
   ensure(response && response.buffer, '推荐码生成失败', 'E_INTERNAL');
-  const file = await cloud.uploadFile({ cloudPath: 'posters/providers/' + provider._id + '.png', fileContent: response.buffer });
-  await db.collection('providers').doc(provider._id).update({ data: { referralPosterFileId: file.fileID, updatedAt: new Date() } });
+  const file = await cloud.uploadFile({ cloudPath: 'posters/providers/' + provider._id + '/' + envVersion + '-' + Date.now() + '.png', fileContent: response.buffer });
+  await db.collection('providers').doc(provider._id).update({ data: { referralPosterFileId: file.fileID,
+    referralPosterEnvVersion: envVersion, updatedAt: new Date() } });
   const result = await cloud.getTempFileURL({ fileList: [file.fileID] });
-  return { fileId: file.fileID, tempFileURL: result.fileList[0].tempFileURL, referralCode: provider.referralCode };
+  return { fileId: file.fileID, tempFileURL: result.fileList[0].tempFileURL,
+    referralCode: provider.referralCode, envVersion };
 }
 
 async function hall(event, { openid }) {

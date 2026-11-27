@@ -11,25 +11,61 @@ Page({
     federationEnabled: false, scopeOptions: ['本小区', '联合社区'], directionOptions: ['求帮带', '我能帮带'],
     destinationTypes: ['境内', '境外'], direction: 'request', destination: '', destinationType: 'domestic',
     departDate: '', departTime: '09:00', returnDate: '', returnTime: '18:00', disclaimerAgreed: false, images: [],
-    rewardYuan: '3.00', needEnterHome: false, slotDate: '', today: '', slotOptions: [], slotIndex: 0, slotLabel: '' },
+    rewardYuan: '3.00', needEnterHome: false, slotDate: '', today: '', dateError: '', slotOptions: [], slotIndex: 0, slotLabel: '' },
   onLoad(options) { this.requestId = Date.now().toString(36) + '_' + Math.random().toString(36).slice(2);
     const type = ['task', 'carry'].includes(options.type) ? options.type : 'ask';
-    const today = ymd(new Date());
-    this.setData({ type, scope: 'community', departDate: today, returnDate: today,
-      slotDate: type === 'task' ? ymd(addDays(new Date(), 1)) : today, today }); },
+    this.setData({ type, scope: 'community' });
+    this.refreshDateDefaults(); },
   ...lifecycle,
   onShow() {
     if (this._hidden) this.setData({ busy: false });
+    this.refreshDateDefaults();
     return lifecycle.onShow.call(this);
+  },
+  refreshDateDefaults() {
+    const now = new Date();
+    const today = ymd(now);
+    const tomorrow = ymd(addDays(now, 1));
+    const patch = { today, dateError: '' };
+    if (this.data.type === 'task') {
+      if (!this.slotEdited && (!this.data.slotDate || this.autoDay !== today)) patch.slotDate = tomorrow;
+      const selected = patch.slotDate || this.data.slotDate;
+      if (selected < today) patch.dateError = '服务日期已过期，请重新选择';
+      const window = this.data.slotOptions[this.data.slotIndex];
+      if (!patch.dateError && window && new Date(selected + 'T' + window.start + ':00+08:00') <= now)
+        patch.dateError = '服务时段已过期，请重新选择日期或时段';
+    } else if (this.data.type === 'carry') {
+      const beijingClock = new Date(now.getTime() + 8 * 3600000).toISOString().slice(11, 16);
+      if (!this.departEdited && (!this.data.departDate || this.autoDay !== today)) {
+        patch.departDate = beijingClock < '09:00' ? today : tomorrow;
+        patch.departTime = '09:00';
+      }
+      const departDate = patch.departDate || this.data.departDate;
+      const departTime = patch.departTime || this.data.departTime;
+      const departAt = new Date(departDate + 'T' + departTime + ':00+08:00');
+      if (!this.returnEdited) {
+        const sameDayEnd = new Date(departDate + 'T18:00:00+08:00');
+        patch.returnDate = sameDayEnd >= departAt ? departDate : ymd(addDays(departAt, 1));
+        patch.returnTime = '18:00';
+      }
+      const returnAt = new Date((patch.returnDate || this.data.returnDate) + 'T' + (patch.returnTime || this.data.returnTime) + ':00+08:00');
+      if (departAt <= now) patch.dateError = '出发时间已过期，请重新选择';
+      else if (returnAt < departAt) patch.dateError = '返程时间早于出发时间，请重新选择';
+    }
+    this.autoDay = today;
+    this.setData(patch);
+    return !patch.dateError;
   },
   currentCreate() { const user = getApp().globalData.user; return currentVisit(this)() && !!this.user &&
     user?._id === this.user._id && user?.communityId === this.user.communityId && this.data.ready; },
   clearOtherDraft() {
     this.pendingPhotos = null; this.requestId = Date.now().toString(36) + '_' + Math.random().toString(36).slice(2);
     this.pendingRequest = null; this.lookupChecked = false;
+    this.slotEdited = false; this.departEdited = false; this.returnEdited = false;
     this.setData({ title: '', content: '', images: [], scope: 'community', rewardYuan: '3.00',
       destination: '', disclaimerAgreed: false, needEnterHome: false, busy: false,
       recoveryHint: '', lookupError: false, createdPostId: '', createdOrderId: '' });
+    this.refreshDateDefaults();
   },
   storageKey(userId) { return 'board_create_pending_' + this.data.type + '_' + userId; },
   restoreRequest(user) {
@@ -116,8 +152,15 @@ Page({
     else if (field === 'slotIndex') {
       const slotIndex = Number(event.detail.value);
       this.setData({ slotIndex, slotLabel: this.data.slotOptions[slotIndex].label });
+      this.refreshDateDefaults();
     }
-    else this.setData({ [field]: event.detail.value });
+    else {
+      if (field === 'slotDate') this.slotEdited = true;
+      if (field === 'departDate' || field === 'departTime') this.departEdited = true;
+      if (field === 'returnDate' || field === 'returnTime') this.returnEdited = true;
+      this.setData({ [field]: event.detail.value });
+      if (['slotDate', 'departDate', 'departTime', 'returnDate', 'returnTime'].includes(field)) this.refreshDateDefaults();
+    }
   },
   agree(event) { this.setData({ disclaimerAgreed: event.detail.value.includes('agree') }); },
   toggleEnterHome(event) { this.setData({ needEnterHome: event.detail.value.includes('yes') }); },
@@ -134,6 +177,7 @@ Page({
   async submit() {
     if (!this.currentCreate() || this.data.loading || this.data.busy) return;
     if (this.data.createdPostId) { this.openCreated(); return; }
+    if (!this.refreshDateDefaults()) { this.setData({ error: this.data.dateError }); return; }
     if (this.data.lookupError || (this.pendingRequest && !this.lookupChecked)) {
       this.setData({ error: '请先核对上次发布结果' }); return;
     }

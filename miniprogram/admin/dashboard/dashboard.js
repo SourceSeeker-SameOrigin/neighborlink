@@ -5,7 +5,13 @@ const { STATUS_TEXT } = require('../../utils/status');
 const MODULE_LABELS = { express: '代取快递', trash: '代扔垃圾', buy: '周边代买', help: '帮把手', custom: '悬赏任务', meal: '助老送餐', visit: '独居探访', escort: '陪诊', pet: '上门喂宠', vacant: '空置房巡检', recycle: '回收上门', merchant: '商家预约', event_signup: '活动报名', idle_purchase: '闲置担保成交' };
 Page({
   data: { loading: true, ready: false, error: '', metrics: null, communities: [], communityIndex: 0, scope: 'community', canFederate: false, isAdmin: false, authorized: false, from: '', to: '' },
-  onShow() { this._hidden = false; this.load(); },
+  onShow() {
+    this._hidden = false;
+    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+    if (this._autoDate && this._autoDate !== today && !this._dateManual) this.setData({ from: today, to: today });
+    this._autoDate = today;
+    this.load();
+  },
   onHide() { this.invalidate(); },
   onUnload() { this.invalidate(); this._unloaded = true; },
   invalidate() {
@@ -90,6 +96,7 @@ Page({
     if (!this.data.authorized || this._hidden || this._unloaded) return;
     const field = event.currentTarget.dataset.field;
     if (field !== 'from' && field !== 'to') return;
+    this._dateManual = true;
     this.setData({ [field]: event.detail.value });
     this.refresh();
   },

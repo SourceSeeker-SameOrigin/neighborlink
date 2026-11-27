@@ -43,9 +43,10 @@ function setup() {
   // The fixture stores command.inc as a sentinel; emulate the database's increment.
   same.backend.data.posts[0].commentsCount = 1;
   const firstRequestId = original.commentRequestId;
+  assert.equal(original.data.commentRecovery, 'found');
   await original.comment();
   assert.equal(same.backend.data.comments.length, 1);
-  assert.equal(original.commentRequestId, null, original.data.error);
+  assert.equal(original.commentRequestId, firstRequestId);
 
   const reentry = setup();
   const first = await reentry.page();
@@ -53,22 +54,30 @@ function setup() {
   assert.equal(reentry.backend.data.comments.length, 1);
   reentry.backend.data.posts[0].commentsCount = 1;
   const lostRequestId = first.commentRequestId;
+  assert.equal(first.data.commentRecovery, 'found');
   first.onUnload();
   const reopened = await reentry.page();
-  assert.equal(reopened.commentRequestId, undefined);
+  assert.equal(reopened.data.commentRecovery, 'found');
   await reopened.comment();
-  assert.equal(reentry.backend.data.comments.length, 2);
-  reentry.backend.data.posts[0].commentsCount = 2;
-  assert.notEqual(reentry.backend.data.comments[1]._id, reentry.backend.data.comments[0]._id);
+  assert.equal(reentry.backend.data.comments.length, 1);
   const replay = await reentry.backend.call('board', 'comment', { postId: 'post-1',
     requestId: lostRequestId, content: '合成评论正文' });
   assert.equal(replay.ok, true);
   assert.equal(replay.data.duplicate, true);
-  assert.equal(reentry.backend.data.comments.length, 2);
+  assert.equal(reentry.backend.data.comments.length, 1);
+  const conflict = await reentry.backend.call('board', 'comment', { postId: 'post-1',
+    requestId: lostRequestId, content: '不同内容' });
+  assert.equal(conflict.code, 'E_CONFLICT');
+  const otherUser = reentry.backend.data.users[0];
+  reentry.ui.app.globalData.user = { ...otherUser, _id: 'other-user', openid: 'other-openid' };
+  const otherPage = reentry.ui.instance('miniprogram/board/detail/detail.js');
+  otherPage.onLoad({ id: 'post-1' });
+  await otherPage.onShow();
+  assert.equal(otherPage.data.commentRecovery, '');
   console.log(JSON.stringify({ scope: 'actual P39 and board.comment; isolated synthetic database',
     samePageComments: same.backend.data.comments.length,
     reentryComments: reentry.backend.data.comments.length,
-    originalRequestIdLostOnReentry: !reopened.commentRequestId,
+    originalRequestRecoveredOnReentry: reopened.commentReceipt.requestId === lostRequestId,
     serverReplayOfOriginalIsIdempotent: replay.data.duplicate,
     realCloudWrites: 0 }, null, 2));
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });

@@ -1,4 +1,5 @@
 const { isEnabled } = require('./lib/shared/features');
+const { codeEnvVersion } = require('./lib/shared/qrEnv');
 const { fileInFolder } = require('./lib/shared/providerData');
 const cloud = require('wx-server-sdk');
 const crypto = require('crypto');
@@ -87,15 +88,18 @@ async function detail(event, { user }) {
   let signup = await read(db, 'signups', signupId(item._id, user.openid));
   const [settings, community] = await Promise.all([server.config(), server.get('communities', user.communityId)]);
   const featureEnabled = isEnabled('events', settings, community);
+  const envVersion = codeEnvVersion();
   if (!signup) ensure(featureEnabled, '该功能暂未开放', 'E_FEATURE_OFF');
-  if (featureEnabled && signup && signup.status === 'signed' && !signup.checkinQrFileId) {
+  if (featureEnabled && signup && signup.status === 'signed' &&
+      (!signup.checkinQrFileId || signup.checkinQrEnvVersion !== envVersion)) {
     try {
       const qr = await cloud.openapi.wxacode.getUnlimited({ scene: 'e=' + signup.checkinCode,
-        page: 'events/detail/detail', checkPath: false, envVersion: 'develop', width: 430 });
+        page: 'events/detail/detail', checkPath: false, envVersion, width: 430 });
       ensure(qr && qr.buffer, '签到码生成失败', 'E_INTERNAL');
-      const file = await cloud.uploadFile({ cloudPath: 'events/checkin/' + signup._id + '.png', fileContent: qr.buffer });
-      await db.collection('signups').where({ _id: signup._id, status: 'signed', checkinQrFileId: null })
-        .update({ data: { checkinQrFileId: file.fileID, updatedAt: new Date() } });
+      const file = await cloud.uploadFile({ cloudPath: 'events/checkin/' + signup._id + '/' + envVersion + '-' + Date.now() + '.png', fileContent: qr.buffer });
+      await db.collection('signups').where({ _id: signup._id, status: 'signed',
+        checkinQrFileId: signup.checkinQrFileId || null })
+        .update({ data: { checkinQrFileId: file.fileID, checkinQrEnvVersion: envVersion, updatedAt: new Date() } });
       signup = await server.get('signups', signup._id);
     } catch (error) { console.error('活动签到码生成失败', signup._id, error.code || 'E_INTERNAL'); }
   }

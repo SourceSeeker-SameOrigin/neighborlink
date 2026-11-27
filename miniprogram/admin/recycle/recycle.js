@@ -4,11 +4,22 @@ Page({
   data: { loading: true, ready: false, busy: false, error: '', communities: [], communityIndex: 0, from: '', to: '' },
   async onLoad() {
     const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+    this._autoDate = today;
     this._defaultRange = { from: today.slice(0, 8) + '01', to: today };
     this.setData(this._defaultRange);
     await this.load();
   },
-  onShow() { this._hidden = false; if (this._seenShow) return this.load(); this._seenShow = true; },
+  onShow() {
+    this._hidden = false;
+    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+    if (this._autoDate && this._autoDate !== today && !this._dateManual) {
+      this._defaultRange = { from: today.slice(0, 8) + '01', to: today };
+      this.setData(this._defaultRange);
+    }
+    this._autoDate = today;
+    if (this._seenShow) return this.load();
+    this._seenShow = true;
+  },
   onHide() {
     this._hidden = true;
     this.sequence = (this.sequence || 0) + 1;
@@ -57,7 +68,7 @@ Page({
   input(event) {
     if (!this.currentOwner()) return;
     const field = event.currentTarget.dataset.field;
-    if (field === 'from' || field === 'to') this.setData({ [field]: event.detail.value });
+    if (field === 'from' || field === 'to') { this._dateManual = true; this.setData({ [field]: event.detail.value }); }
   },
   select(event) { if (this.currentOwner()) this.setData({ communityIndex: Number(event.detail.value) }); },
   openExports() {

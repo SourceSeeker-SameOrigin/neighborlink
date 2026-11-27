@@ -6,6 +6,9 @@ const { validateFeatures } = require('./features');
 const { visibleCommunityIds } = require('./visibility');
 const { extensionMetrics, revenueMetrics } = require('./dashboardMetrics');
 const { payoutCommunityAmounts } = require('./payout');
+const crypto = require('crypto');
+const { atomic, read, insert } = require('./transaction');
+const { codeEnvVersion } = require('./qrEnv');
 
 function createAdminDashboard(cloud, server) {
   const { db, command } = server;
@@ -181,9 +184,39 @@ function createAdminDashboard(cloud, server) {
       return { buildingId: current._id };
     }
     const { shortCode } = require('./ids');
-    const buildingId = 'b_' + require('crypto').randomBytes(16).toString('hex');
+    if (event.requestId) {
+      const requestId = text(event.requestId, '请求编号', 80);
+      ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(requestId), '请求编号不正确');
+      const buildingId = 'b_' + crypto.createHash('sha256').update(user.openid + ':' + community._id + ':' + requestId)
+        .digest('hex').slice(0, 32);
+      return atomic(db, async transaction => {
+        const existing = await read(transaction, 'buildings', buildingId);
+        if (existing) {
+          ensure(existing.communityId === community._id && existing.name === name &&
+            JSON.stringify(existing.units) === JSON.stringify(data.units), '请求编号已用于其他楼栋', 'E_CONFLICT');
+          return { buildingId, duplicate: true };
+        }
+        await insert(transaction, 'buildings', { _id: buildingId, ...data, shortCode: shortCode(),
+          posterFileId: null, createdAt: new Date() });
+        return { buildingId, duplicate: false };
+      });
+    }
+    const buildingId = 'b_' + crypto.randomBytes(16).toString('hex');
     await db.collection('buildings').add({ data: { _id: buildingId, ...data, shortCode: shortCode(), posterFileId: null, createdAt: new Date() } });
     return { buildingId };
+  }
+
+  async function lookupBuildingCreate(event, { user }) {
+    requireRole(user, ['admin']);
+    const communityId = text(event.communityId, '小区');
+    const requestId = text(event.requestId, '请求编号', 80);
+    ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(requestId), '请求编号不正确');
+    const buildingId = 'b_' + crypto.createHash('sha256').update(user.openid + ':' + communityId + ':' + requestId)
+      .digest('hex').slice(0, 32);
+    const existing = await server.get('buildings', buildingId);
+    if (!existing) return { buildingId: null };
+    ensure(existing.communityId === communityId, '无权查看此创建结果', 'E_FORBIDDEN');
+    return { buildingId, name: existing.name, units: existing.units };
   }
 
   async function updateConfig(event, { user }) {
@@ -242,15 +275,17 @@ function createAdminDashboard(cloud, server) {
       ensure(provider && provider.status === 'approved', '服务员不存在或未通过审核');
       scene = 'r=' + provider.referralCode; page = 'pages/index/index'; collection = 'providers'; id = provider._id;
     } else ensure(false, '请选择楼栋或服务员');
-    const response = await cloud.openapi.wxacode.getUnlimited({ scene, page, checkPath: false, envVersion: 'develop', width: 430 });
+    const envVersion = codeEnvVersion();
+    const response = await cloud.openapi.wxacode.getUnlimited({ scene, page, checkPath: false, envVersion, width: 430 });
     ensure(response && response.buffer, '小程序码生成失败', 'E_INTERNAL');
-    const file = await cloud.uploadFile({ cloudPath: 'posters/' + id + '.png', fileContent: response.buffer });
-    await db.collection(collection).doc(id).update({ data: { posterFileId: file.fileID, posterScene: scene, posterUpdatedAt: new Date() } });
+    const file = await cloud.uploadFile({ cloudPath: 'posters/' + id + '/' + envVersion + '-' + Date.now() + '.png', fileContent: response.buffer });
+    await db.collection(collection).doc(id).update({ data: { posterFileId: file.fileID, posterScene: scene,
+      posterEnvVersion: envVersion, posterUpdatedAt: new Date() } });
     const fresh = await cloud.getTempFileURL({ fileList: [file.fileID] });
-    return { fileId: file.fileID, tempFileURL: fresh.fileList[0].tempFileURL, scene };
+    return { fileId: file.fileID, tempFileURL: fresh.fileList[0].tempFileURL, scene, envVersion };
   }
 
-  return { managementConfig, dashboard, updateCommunity, upsertBuilding, updateConfig, getFeatures, genPoster };
+  return { managementConfig, dashboard, updateCommunity, upsertBuilding, lookupBuildingCreate, updateConfig, getFeatures, genPoster };
 }
 
 module.exports = { createAdminDashboard };

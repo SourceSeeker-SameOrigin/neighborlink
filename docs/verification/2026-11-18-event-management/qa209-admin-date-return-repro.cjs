@@ -45,6 +45,7 @@ for (const [id, relative] of [
   page.onShow();
   const returned = { from: page.data.from, to: page.data.to };
   page.setData({ from: '2026-10-01', to: '2026-10-15' });
+  page._dateManual = true;
   page.onHide();
   page.onShow();
   const manualReturned = { from: page.data.from, to: page.data.to };
@@ -53,7 +54,8 @@ for (const [id, relative] of [
 
 assert.deepEqual(rows[0].initial, { from: '2026-11-30', to: '2026-11-30' });
 for (const row of rows.slice(1)) assert.deepEqual(row.initial, { from: '2026-11-01', to: '2026-11-30' });
-for (const row of rows) assert.deepEqual(row.returned, row.initial);
+assert.deepEqual(rows[0].returned, { from: '2026-12-01', to: '2026-12-01' });
+for (const row of rows.slice(1)) assert.deepEqual(row.returned, { from: '2026-12-01', to: '2026-12-01' });
 for (const row of rows) assert.deepEqual(row.manualReturned, { from: '2026-10-01', to: '2026-10-15' });
 console.log(JSON.stringify({ scope: 'actual P18/P24/P31/P32 page date methods; synthetic Beijing midnight',
   expectedTodayOnReturn: '2026-12-01', rows, cloudCalls: 0 }, null, 2));

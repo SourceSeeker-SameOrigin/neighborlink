@@ -34,9 +34,12 @@ async function scenario(hideFirstHundred) {
   assert.equal(detail.ok, true, JSON.stringify(detail));
   assert.equal(page.data.error, '');
   assert.equal(page.data.post.commentsCount, 101);
-  assert.equal(page.data.comments.length, hideFirstHundred ? 0 : 100);
-  assert.equal(detail.data.comments.some(item => item._id === 'comment-101'), false);
-  assert.equal(typeof page.moreComments, 'undefined');
+  assert.equal(page.data.comments.length, hideFirstHundred ? 1 : 100);
+  assert.equal(detail.data.comments.some(item => item._id === 'comment-101'), hideFirstHundred);
+  assert.equal(typeof page.moreComments, 'function');
+  if (!hideFirstHundred) await page.moreComments();
+  assert.equal(page.data.comments.some(item => item._id === 'comment-101'), true);
+  assert.equal(page.data.comments.length, hideFirstHundred ? 1 : 101);
   assert.equal(backend.writes.length, 0);
   return { hideFirstHundred, totalComments: 101,
     displayed: page.data.comments.length,
@@ -47,7 +50,7 @@ async function scenario(hideFirstHundred) {
 (async () => {
   const template = fs.readFileSync(path.resolve(__dirname,
     '../../../miniprogram/board/detail/detail.wxml'), 'utf8');
-  assert.doesNotMatch(template, /加载更多评论/);
+  assert.match(template, /加载更多评论/);
   const cases = [await scenario(false), await scenario(true)];
   console.log(JSON.stringify({ scope: 'actual P39 page and board.detail; synthetic database only',
     cases, realCloudWrites: 0 }, null, 2));

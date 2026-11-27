@@ -208,9 +208,13 @@ function createPayoutFlow(cloud, server) {
   async function list(event, { openid }) {
     await server.featureEntry('autoPayout', await server.user(openid));
     const offset = integer(event.offset === undefined ? 0 : event.offset, '分页位置', 0, 100000);
-    const rows = await db.collection('payouts').where({ payeeOpenid: openid }).orderBy('createdAt', 'desc')
+    const type = event.payeeType;
+    ensure(type === undefined || ['provider', 'seller'].includes(type), '打款类型不正确');
+    const rows = await db.collection('payouts').where({ payeeOpenid: openid, ...(type ? { payeeType: type } : {}) })
+      .orderBy('createdAt', 'desc').orderBy('_id', 'desc')
       .skip(offset).limit(20).get();
-    return { list: rows.data.map(publicPayout), hasMore: rows.data.length === 20 };
+    return { list: rows.data.map(publicPayout), hasMore: rows.data.length === 20,
+      nextOffset: offset + rows.data.length };
   }
 
   async function runPending() {

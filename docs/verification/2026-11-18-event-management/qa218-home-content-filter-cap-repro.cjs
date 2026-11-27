@@ -28,12 +28,12 @@ const otherAds = ['board_top', 'shops_top'].flatMap(slot => ads.map(item => ({
     records: { notices, ads: [...ads, ...otherAds] } });
   const response = await backend.call('content', 'homeContent', { communityId: 'c' });
   assert.equal(response.ok, true, JSON.stringify(response));
-  assert.equal(response.data.notice, null);
-  assert.equal(response.data.ads.length, 0);
+  assert.equal(response.data.notice?._id, 'notice-101');
+  assert.equal(JSON.stringify(response.data.ads.map(item => item._id)), JSON.stringify(['ad-101']));
   for (const slot of ['board_top', 'shops_top']) {
     const slotReply = await backend.call('content', 'adsForSlot', { communityId: 'c', slot });
     assert.equal(slotReply.ok, true, JSON.stringify(slotReply));
-    assert.equal(slotReply.data.ads.length, 0);
+    assert.equal(JSON.stringify(slotReply.data.ads.map(item => item._id)), JSON.stringify([`${slot}-ad-101`]));
   }
   assert.equal(notices[100].moderationHidden, false);
   assert.equal(ads[100].moderationApprovedFileIds.length, 1);
@@ -49,25 +49,25 @@ const otherAds = ['board_top', 'shops_top'].flatMap(slot => ads.map(item => ({
   const page = ui.instance('miniprogram/pages/index/index.js');
   await page.onShow();
   assert.equal(page.data.community?._id, 'c');
-  assert.equal(page.data.notice, null);
-  assert.equal(page.data.ads.length, 0);
+  assert.equal(page.data.notice?._id, 'notice-101');
+  assert.equal(JSON.stringify(page.data.ads.map(item => item._id)), JSON.stringify(['ad-101']));
   backend.data.notices[0].moderationHidden = false;
   backend.data.ads[0].moderationApprovedFileIds = [backend.data.ads[0].imageFileId];
   for (const slot of ['board_top', 'shops_top']) {
     const firstAd = backend.data.ads.find(item => item.slot === slot);
     firstAd.moderationApprovedFileIds = [firstAd.imageFileId];
     const slotReply = await backend.call('content', 'adsForSlot', { communityId: 'c', slot });
-    assert.deepEqual(slotReply.data.ads.map(item => item._id), [firstAd._id]);
+    assert.equal(JSON.stringify(slotReply.data.ads.map(item => item._id)), JSON.stringify([firstAd._id, `${slot}-ad-101`]));
   }
   await page.load();
   assert.equal(page.data.notice?._id, 'notice-001');
-  assert.deepEqual(page.data.ads.map(item => item._id), ['ad-001']);
+  assert.equal(JSON.stringify(page.data.ads.map(item => item._id)), JSON.stringify(['ad-001', 'ad-101']));
   assert.equal(backend.writes.length, 0);
   console.log(JSON.stringify({ scope: 'actual P01, content.homeContent and adsForSlot; synthetic data only',
     noticeRecords: notices.length, adRecordsPerSlot: ads.length,
     adSlotsChecked: ['home_banner', 'board_top', 'shops_top'],
     laterVisibleNotice: notices[100]._id, laterApprovedAd: ads[100]._id,
-    initialHomeNotice: null, initialHomeAds: 0,
+    initialHomeNotice: 'notice-101', initialHomeAds: 1,
     visibleWithinFirstHundred: page.data.notice._id,
     approvedWithinFirstHundred: page.data.ads[0]._id,
     realCloudWrites: 0 }, null, 2));

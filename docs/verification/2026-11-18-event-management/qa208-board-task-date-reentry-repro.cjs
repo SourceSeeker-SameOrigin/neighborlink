@@ -22,10 +22,10 @@ vm.runInNewContext(source, { Date: FixedDate, Math, Page: page => { definition =
     ? require('../../../miniprogram/utils/time')
     : name === '../../utils/visible-list' ? { lifecycle: { onShow() {} } } : {},
   console }, { filename: 'actual-board-create.js' });
-const page = { data: { ...definition.data }, setData(patch) { Object.assign(this.data, patch); } };
+const page = Object.assign({}, definition, { data: { ...definition.data }, setData(patch) { Object.assign(this.data, patch); } });
 definition.onLoad.call(page, { type: 'task' });
 const initial = { today: page.data.today, slotDate: page.data.slotDate };
-const carry = { data: { ...definition.data }, setData(patch) { Object.assign(this.data, patch); } };
+const carry = Object.assign({}, definition, { data: { ...definition.data }, setData(patch) { Object.assign(this.data, patch); } });
 definition.onLoad.call(carry, { type: 'carry' });
 const carryDefault = { departDate: carry.data.departDate, departTime: carry.data.departTime,
   returnDate: carry.data.returnDate, returnTime: carry.data.returnTime };
@@ -53,13 +53,13 @@ catch (error) { serverError = error.message; }
 
 assert.match(template, /start="\{\{today\}\}"/);
 assert.deepEqual(initial, { today: '2026-11-16', slotDate: '2026-11-17' });
-assert.deepEqual(carryDefault, { departDate: '2026-11-16', departTime: '09:00',
-  returnDate: '2026-11-16', returnTime: '18:00' });
-assert.match(carryServerError, /必须是未来时间/);
-assert.match(adjustedDepartError, /返程时间不能早于出发时间/);
-assert.deepEqual(firstReturn, initial);
-assert.deepEqual(secondReturn, initial);
-assert.match(serverError, /必须在未来/);
+assert.deepEqual(carryDefault, { departDate: '2026-11-17', departTime: '09:00',
+  returnDate: '2026-11-17', returnTime: '18:00' });
+assert.equal(carryServerError, '');
+assert.equal(adjustedDepartError, '');
+assert.deepEqual(firstReturn, { today: '2026-11-17', slotDate: '2026-11-18' });
+assert.deepEqual(secondReturn, { today: '2026-11-18', slotDate: '2026-11-19' });
+assert.equal(serverError, '');
 console.log(JSON.stringify({ scope: 'actual P40 page and task/carry validators; synthetic clock only',
   initial, firstReturn, secondReturn, serverError, carryDefault, carryServerError,
   adjustedDepartError, cloudCalls: 0 }, null, 2));

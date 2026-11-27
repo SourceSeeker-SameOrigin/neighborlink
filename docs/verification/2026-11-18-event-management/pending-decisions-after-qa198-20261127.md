@@ -8,7 +8,9 @@
 | QA203–QA205 | 已完成前后端或页面修改，21 条与前 100 条隐藏后的第 101 条合成场景已通过；公告和广告也能读到第 21 条。开发云、体验版、四宽及真机仍待验。 |
 | QA211 | 已完成本人原购买请求查询、同编号同商品恢复和 P42 跨页提示；合成购买响应丢失后同页及重进均只保留原订单，价格及功能开关变化后仍能找回；其他身份没有恢复入口。开发云、体验版、四宽及真机待验。 |
 | QA210 | 两页迟到权限错误不再触发全局跳转或弹窗；原页仍有效时保留权限处理。合成回归通过，四宽与真机待验。 |
-| QA199、QA202、QA208–QA209、QA215–QA218 | 已授权，待继续实施与验证。 |
+| QA208–QA209 | 发布需求和后台四页的北京时间默认日期已修正；合成跨日、跨月和服务端日期校验通过。四宽与真机待验。 |
+| QA215–QA218 | 打款类型与分页、评论分页与跨页去重、首页内容有界扫描已完成合成回归。云端复合索引、代码部署、四宽与真机仍待核验。 |
+| QA199、QA202 | 三类小程序码目标版本与旧图再生成、楼栋弱网找回和按编号去重已完成合成回归。云端现有图片数量、代码部署、体验成员扫码、四宽与真机待验。 |
 
 | 编号 | What（做什么） | Why（事实与未知） | Who（谁负责） | When（何时） | Where（在哪里） | How（选项、影响和验收） | How much（估算） |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -37,9 +39,11 @@
 
 核对依据：`cloudfunctions/_shared/adminDashboard.js:245`、`cloudfunctions/provider/index.js:85`、`cloudfunctions/event/index.js:94`、`miniprogram/events/detail/detail.js:10-12`、`miniprogram/utils/scene.js:1-13`。版本参数说明见[腾讯云开发 CloudBase 带参小程序码文档](https://docs.cloudbase.net/recipes/add-share-with-params-miniprogram)。本地页面方法输出为 `{"qrSceneAcceptedByApp":null,"detailEventId":"","missingRecord":true,"loading":false}`；这不能替代真实手机扫码。
 
+QA199 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa199-code-env-repro.cjs`。实际三个云函数入口在合成数据与假图片下，`trial` 和 `release` 各生成三类场景码并记录目标版本，重复读取同版本签到码不再生成；真实云图片和手机扫码待验。
+
 QA201 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa201-provider-hall-filter-pagination-repro.cjs`。脚本同时运行真实云函数入口与实际 P15 页面，数据库与用户身份均为合成，云写入 0 次。当前断言用于保留修复前缺陷；选择方案并修复后须改为成功分页及查询上限的回归断言。
 
-QA202 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa202-building-create-response-repro.cjs`。脚本运行实际 P22 页面和 `admin.upsertBuilding`，仅改动合成数据库。当前断言用于保留修复前缺陷；选择方案并修复后须改为找回同一楼栋的回归断言。
+QA202 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa202-building-create-response-repro.cjs`。脚本运行实际 P22 页面和 `admin.upsertBuilding`；创建响应丢失后只保留原楼栋，同页和重进均找回相同编号。仅改动合成数据库，开发云真实新增尚未执行。
 
 QA203 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa203-admin-content-pagination-repro.cjs`。脚本运行实际 P29 页面和两个内容列表入口，使用合成公告、广告；当前断言用于保留修复前缺陷，方案获批后改为第二页及空批次恢复回归断言。
 
@@ -51,9 +55,9 @@ QA206 的可复跑证据：`node docs/verification/2026-11-18-event-management/q
 
 QA207 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa207-station-worker-filter-pagination-repro.cjs`。脚本运行实际 station 云函数入口和 P64 页面，合成 21 个批次；正常读齐，首批全过滤则停止在错误态，部分过滤发生额外扫描。当前断言保留修复前现象，待统一决策后改为成功翻页及查询上限回归。
 
-QA208 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa208-board-task-date-reentry-repro.cjs`。脚本运行实际 P40 页面初始化及悬赏、帮带两种服务端时间校验；合成时钟下悬赏跨两个北京午夜仍保留旧日期，帮带在 23:55 首次打开即默认已过去的 09:00；只改出发到次日，旧返程仍早于出发。无发布、订单、云端或付款调用。
+QA208 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa208-board-task-date-reentry-repro.cjs`。脚本运行实际 P40 页面初始化及悬赏、帮带两种服务端时间校验；跨两个北京午夜的默认服务日随之更新，23:55 打开的帮带默认次日出发及更晚返程，两端时间校验通过。无发布、订单、云端或付款调用。
 
-QA209 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa209-admin-date-return-repro.cjs`。脚本调用实际四页的日期初始化与返回方法，固定北京跨月时刻；四页默认值均未前移，四页手选范围均保留。仅合成时钟，没有云查询、导出或结算。
+QA209 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa209-admin-date-return-repro.cjs`。脚本调用实际四页的日期初始化与返回方法，固定北京跨月时刻；四页未修改的默认范围前移至12月1日，手选范围均保留。仅合成时钟，没有云查询、导出或结算。
 
 QA210 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa210-detail-late-error-navigation-repro.cjs`。脚本运行实际 P39/P42 页面和共用 API；原页有效的拒绝仍按权限规则处理，离页迟到拒绝不再弹错或跳首页。使用合成接口响应，不触达开发云。
 
@@ -67,13 +71,13 @@ QA212 的下游隔离对照：`node docs/verification/2026-11-18-event-managemen
 
 QA214 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa214-idle-mine-pagination-repro.cjs`。脚本运行实际 P44 页面与 `idle.mine`；第 21 件在售商品仅接口第二页可读，页面无续页入口。仅合成商品与本人身份，云端写入 0 次。
 
-QA215 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa215-seller-payout-history-repro.cjs`。脚本运行实际 P47、P17 和 `payout.list`；首批被 20 笔同本人服务员打款占满，唯一卖家记录在第二页，P47 过滤后显示 0 笔且无续页；P17 同时展示服务员与卖家打款，卡片没有类型标签。仅合成记录，云端写入 0 次。
+QA215 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa215-seller-payout-history-repro.cjs`。脚本运行实际 P47、P17 和 `payout.list`；同本人20笔服务员打款与1笔卖家打款分别按类型查询，P47可直接显示卖家记录，P17仅显示服务员记录；两页均提供续页入口。仅合成记录，云端写入0次；真实复合索引尚待核对。
 
-QA216 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa216-board-comments-pagination-repro.cjs`。脚本运行实际 P39 页面和 `board.detail`，两组 101 条合成评论分别得到 100 条和 0 条可见，第 101 条在两组均不可达，云端写入 0 次。真实小程序画面和评论审核数据仍待验。
+QA216 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa216-board-comments-pagination-repro.cjs`。脚本运行实际 P39 页面和 `board.detail`，101条合成评论可续页读全；前100条隐藏时初次读取也能到达第101条。云端写入0次；真实小程序画面和评论索引仍待验。
 
-QA217 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa217-board-comment-response-reentry-repro.cjs`。实际页面与云函数接隔离数据库，首次写入后丢响应；同页重试仍为 1 条，离页重进并重填相同内容后为 2 条；原编号由服务端识别为重复。没有开发云评论或举报写入。
+QA217 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa217-board-comment-response-reentry-repro.cjs`。实际页面与云函数接隔离数据库，首次写入后丢响应；同页和离页重进均找到原评论，仍为1条；不同正文复用编号被拒，换人不显示前人的恢复状态。没有开发云评论或举报写入。
 
-QA218 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa218-home-content-filter-cap-repro.cjs`。实际 `content.homeContent` 和 P01 页面接 101 条合成公告、101 条合成广告，首批 100 条不可展示时首页两者均为空；放开各自首条后立即显示。同一 helper 的 `board_top`、`shops_top` 两个广告位也各以 101 条合成记录复现，再放开首条后恢复展示；真实广告和手机画面待验，开发云写入 0 次。
+QA218 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa218-home-content-filter-cap-repro.cjs`。实际 `content.homeContent` 和 P01 页面接101条合成公告、101条合成广告，前100条不可展示时首页和三个广告位均能找到第101条；扫描按每批50条、最多10批限制。真实广告、索引和手机画面待验，开发云写入0次。
 
 P02 的独立通过对照：`node docs/verification/2026-11-18-event-management/bind-community-pagination-positive.cjs`。实际小区列表接口接101条合成小区，绑定页按偏移0、100读全并显示第101个小区；同页经实际 `catalog.getCommunity` 读取并显示第101栋合成楼栋。真实定位、扫码和保存门牌另验。
 
