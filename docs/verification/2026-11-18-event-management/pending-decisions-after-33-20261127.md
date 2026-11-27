@@ -2,6 +2,8 @@
 
 本表记录修复前的复现事实与原推荐方案。2026-11-27 用户明确要求“待决策的按照推荐进行”，本表 QA138、QA184–QA198 的推荐 A 均获授权。以下复现段落保留缺陷基线，修复后的本地结果见执行台账；本轮尚未据此宣称开发云、体验版或真机通过。
 
+**当前状态复核（2026-11-27）**：本文件下方的 5W2H 行和多数“可复跑证据”段落是修复前基线，不能作为当前失败项计数。已从现行源码复跑 QA138、QA184–QA198 共 17 个隔离脚本，均以退出码 0 完成。重点结果：QA189 的五种发布方式同页及重进均只创建原记录，只有主动开始新发布才创建第二条；QA196 的三种申请在首个响应丢失后均自动读到 `pending`，重复点击不再提交第二次。其余 QA184–QA188、QA190–QA195、QA197–QA198 的当前正向断言也全部通过。**这只是本地合成数据回归**；开发云代码、体验版真机、真实资金和 69 页完整验收须分别核对。当前仍待统一决策的新问题以 `pending-decisions-after-qa198-20261127.md` 为准。
+
 ## 既有待决项目汇总（不重复编号）
 
 QA138 已在 `docs/TASKS.md` 和 `docs/TEST_HANDOFF.md` 登记。下表保留修前基线：6 组中 2 组正确、4 组跨时区默认月份偏差。用户已批准推荐 A；2026-11-27 对当前源码复跑 `node docs/verification/2026-11-18-event-management/station-statement-month-boundary.cjs` 为 12/12 匹配、云调用 0，体验版实景仍待验。它早于本表的 QA184–QA188，不计入“33 项后新问题”数量。
@@ -20,7 +22,7 @@ QA187 的原始缺陷基线：换人后旧审核、内容隐藏、用户禁言�
 
 QA188 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa188-merchant-price-precision-repro.cjs`，固定价输入 `1.005` 时页面发送 100 分，预约报价输入 `1.999` 时发送 200 分；既有严格 `toFen` 均拒绝原输入。全部 API 拦截，真机原生键盘是否允许第三位小数尚未验。
 
-QA189 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa189-publish-reentry-repro.cjs`，实际 P40 求助／出行帮带／悬赏和 P43 线下／担保闲置共 5 种发布表单，在“创建已提交但响应丢失”后同页沿用原编号；退出重进后生成新编号，按当前服务端本人加请求编号的 ID 规则各形成两个不同合成记录。合成接口与本地编号模型代替云端，悬赏样本绕过支付；没有真实内容、悬赏订单或付款写入，真实支付流程待单独验证。
+QA189 的当前可复跑证据：`node docs/verification/2026-11-18-event-management/qa189-publish-reentry-repro.cjs`。实际 P40 求助／出行帮带／悬赏和 P43 线下／担保闲置共 5 种发布表单，在“创建已提交但响应丢失”后同页重试和离页重进均沿用原编号，各只保留 1 条合成记录；主动开始新发布后才形成第二条。服务端同编号返回原记录、改变原意图返回 `E_CONFLICT`。合成接口与隔离数据库代替开发云；悬赏真实支付和真机弱网仍待验，没有真实内容、悬赏订单或付款写入。
 
 QA190 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa190-merchant-service-retry-repro.cjs`，实际 P56 页面在固定价和报价制两种模式下，首次保存已写入但响应丢失；同页重试从 1 条合成服务变成 2 条，离页重进再保存变成 3 条。实际 `merchant.upsertService` 新建分支使用数据库 `add`，请求没有原服务编号或去重编号；本测试拦截接口，未在开发云创建真实服务。既有 QA129 的“重复保存”是同时点击忙碌保护，不覆盖响应丢失后的顺序重试。
 
@@ -34,7 +36,7 @@ QA194 的可复跑证据：`node docs/verification/2026-11-18-event-management/q
 
 QA195 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa195-recycle-reentry-repro.cjs`，实际 P68 回收预约页接合成建单响应和本地确定性订单 ID：首次已建单、响应丢失后，同页重试沿用原 `requestId`，合成订单仍 1 笔；离页重进时本机只保存拿到 `orderId` 后的凭据，结果丢失时没有凭据，新页面生成新 `requestId`，合成订单为 2 笔。现有 order 代码的 `lookupRequest` 本人只读接口接隔离订单可按原编号找回订单且无写入；本轮未调用开发云或创建真实预约。
 
-QA196 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa196-station-apply-result-repro.cjs` 与 `node docs/verification/2026-11-18-event-management/qa196-other-apply-result-repro.cjs`。实际 P61 驿站、P54 商家及 P13 服务员三个申请页接合成单申请服务端模型：首次申请已写入但响应丢失，页面仍显示错误、申请状态为空且没有自动核对；再次提交被“申请已提交，请等待审核”拒绝；只有手动重新读取才显示待审核。三个服务端入口均以本人 openid 固定申请编号并拒绝重复待审申请，本项是结果反馈与重读恢复缺口，未证实真实重复申请。
+QA196 的当前可复跑证据：`node docs/verification/2026-11-18-event-management/qa196-station-apply-result-repro.cjs` 与 `node docs/verification/2026-11-18-event-management/qa196-other-apply-result-repro.cjs`。实际 P61 驿站、P54 商家及 P13 服务员三个申请页接合成单申请服务端模型：首次申请已写入但响应丢失，页面均主动只读核对并显示 `pending`；重复点击后仍各只有 1 次申请调用和 1 份合成申请。没有开发云真实申请，真机状态展示待验。
 
 QA197 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa197-chat-list-cap-repro.cjs`，实际 `chat.list` 云函数与 P34 会话列表页接隔离数据库：101 个有效会话仅显示 100 个，未读总数由 101 漏算为 100；前 100 个已无权访问的会话占据查询结果时，第 101 个有效会话及其 7 条未读均完全不可见。页面没有翻页入口。测试未调用开发云、未发送消息。
 
