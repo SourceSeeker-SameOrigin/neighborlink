@@ -67,7 +67,7 @@
 | idleItems | feed | communityId 升序、scope 升序、status 升序、createdAt 倒序 | 否 |
 | idleItems | seller_created | sellerOpenid 升序、communityId 升序、createdAt 倒序 | 否 |
 | ads | home_banner_active | status 升序、slot 升序、communityIds 升序、startAt 升序、endAt 升序 | 否 |
-| ads | slot_active_start_id | status 升序、slot 升序、communityIds 升序、startAt 升序、endAt 升序、_id 升序（QA218 待云端核对） | 否 |
+| ads | slot_active_start_id | status 升序、slot 升序、startAt 升序、_id 升序（QA218 候选；communityIds 的 `in` 与 endAt 范围条件由查询继续过滤，须在云端验证执行计划后再决定是否创建） | 否 |
 | notices | community_status_pinned_created | communityId 升序、status 升序、pinnedAt 倒序、createdAt 倒序 | 否 |
 | notices | community_status_pinned_created_id | communityId 升序、status 升序、pinnedAt 倒序、createdAt 倒序、_id 倒序（QA218 待云端核对） | 否 |
 | events | community_at_type | communityId 升序、at 升序、type 升序 | 否 |

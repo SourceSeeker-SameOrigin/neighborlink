@@ -4,7 +4,9 @@
 
 本批提交至 `fix/dev-integration` 的 `f72434c`，QA217 的响应丢失后评论列表只读刷新补丁为 `ba8ed7e`。当前重跑 20 个专项脚本均退出 0、Jest 55 套 653 项通过；69 页静态引用与三种失败场景共 207 组无缺项、无未捕获异常或未处理拒绝。本机微信开发者工具编译器对 77 个 WXML、78 个 WXSS 编译成功。上述结果均不构成真实云端、模拟器布局或体验成员手机验收。
 
-部署候选已按当前提交封装为 10 个本地代码包：`admin`、`board`、`content`、`event`、`idle`、`provider`、`station`、`payout`、`order`、`timer`，各 77 个源码及配置文件，包含嵌套的 `services/elder.js`。十个函数的开发云源码已由官方 CLI 只读下载，SDK 均为 4.0.2；现有源码存在早于本轮的差异，但逐个云端文件版本均能在仓库历史中找到，没有发现云端独有源码。候选索引为 `payouts`、`comments`、`ads`、`notices` 四项；索引现状和函数部署后的真实查询仍待核对。具体包哈希与差异见 `qa199-218-cloud-candidates.json`。当前尚未上传这些包、创建索引或切换体验版。
+部署候选已按当前提交封装为 10 个本地代码包：`admin`、`board`、`content`、`event`、`idle`、`provider`、`station`、`payout`、`order`、`timer`，各 77 个源码及配置文件，包含嵌套的 `services/elder.js`。十个函数的开发云源码已由官方 CLI 只读下载，SDK 均为 4.0.2；现有源码存在早于本轮的差异，但逐个云端文件版本均能在仓库历史中找到，没有发现云端独有源码。用户已明确批准这 10 个函数和按需最多 4 个非唯一索引的固定范围。候选索引为 `payouts`、`comments`、`ads`、`notices` 四项；索引现状和函数部署后的真实查询仍待核对。`ads` 原候选把数组 `in` 与多个范围条件排在排序字段前，不符合官方索引优化顺序，已改为 `status,slot,startAt,_id` 候选，并标注须先验证执行计划。具体包哈希与差异见 `qa199-218-cloud-candidates.json`。
+
+本轮开发云更新尝试均失败，不能记为部署：官方 CLI 完整部署 `admin` 在本地准备阶段返回 `EISDIR`；增量部署 `lib/shared` 目录与单个 `qrEnv.js` 文件均在签名阶段返回 `getCloudAPISignedHeader failed`、平台 `ret=40013 system error`。`cli islogin` 返回 `login:true`，函数列表只读查询仍成功；失败后再次下载 `admin`，未发现 `qrEnv.js`，没有成功更新证据。已停止重复使用该通道并转查其他部署方式。本批索引新增 0 项，体验版未切换。失败后的只读下载临时文件仅用于本次核对，随后清理。索引字段调整依据[腾讯云开发组合索引前缀、排序规则](https://docs.cloudbase.net/en/database/data-index)和[等值条件在前、范围条件在后的建议](https://docs.cloudbase.net/en/recipes/optimize-database-query-performance)；这仍不能替代真实执行计划。
 
 | 本轮执行状态 | 结果与下一步 |
 | --- | --- |

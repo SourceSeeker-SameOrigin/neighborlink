@@ -6,7 +6,7 @@
   "candidateIndexes": [
     "payouts.payee_type_created_id",
     "comments.post_status_created_id",
-    "ads.slot_active_start_id",
+    "ads.slot_active_start_id (status, slot, startAt, _id; query-plan verification required)",
     "notices.community_status_pinned_created_id"
   ],
   "functions": [
