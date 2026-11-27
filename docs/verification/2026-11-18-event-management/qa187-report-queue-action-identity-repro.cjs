@@ -33,12 +33,24 @@ const event = dataset => ({ currentTarget: { dataset } });
   const hiddenStart = env.requests.length;
   await hidden.resolve(event({ index: 0, status: 'dismissed' }));
   const hiddenActions = env.requests.slice(hiddenStart).map(request => request[1]);
+
+  let releaseRead;
+  const lateEnv = runtime(async (_name, action) => action === 'listReports' ?
+    new Promise(resolve => { releaseRead = () => resolve({ list: [row], hasMore: false }); }) : {});
+  lateEnv.app.globalData.user = admin;
+  const latePage = lateEnv.instance('miniprogram/admin/reports/reports.js');
+  const pendingRead = latePage.onShow();
+  lateEnv.app.globalData.user = resident;
+  releaseRead();
+  await pendingRead;
+  const oldReadFilledNewIdentity = latePage.data.rows.some(item => item._id === row._id);
   const report = { scope: 'actual P26 page, synthetic identities and report; API intercepted',
-    ...afterSwitch, hiddenActions };
+    ...afterSwitch, hiddenActions, oldReadFilledNewIdentity };
   console.log(JSON.stringify(report, null, 2));
   assert.deepEqual(staleActions.filter(action => action !== 'listReports'),
     ['resolveReport', 'moderateContent', 'moderateUser']);
   assert.equal(staleNavigation.length, 1);
   assert.equal(afterSwitch.oldRowsStillVisible, true);
   assert.deepEqual(hiddenActions.filter(action => action !== 'listReports'), ['resolveReport']);
+  assert.equal(oldReadFilledNewIdentity, true);
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });
