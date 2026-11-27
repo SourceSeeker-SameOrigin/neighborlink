@@ -23,6 +23,8 @@
 | QA215 | 让卖家打款历史不被同一微信的服务员打款挤出首批，并可查看更早记录。 | 实际 P47 与 `payout.list` 接 21 笔合成同本人记录：最新 20 笔均为 `provider`，第 21 笔为 `seller`。接口首批返回 `hasMore=true`，第二页能读到卖家记录；P47 只读首批并在页面过滤类型，结果显示 0 笔卖家打款，也无续页入口。另以实际 P17 页面接同本人服务员与卖家各一笔合成打款，页面两笔都列在服务员“提现记录”且卡片不标类型；真实账号是否兼任角色、超过 20 笔的数量未知，本轮无真实转账。 | 用户最后统一决定打款历史范围；Codex 获批准后修复、回归并准备固定云包。 | 建议在非零卖家收入及服务员提现体验版验收前处理；其他只读测试继续。 | P47 `idle/income/income`、P17 `provider/earnings/earnings` 与共享 `payout.list`；不改提现金额、资格或支付状态。 | **推荐 A**：服务端可选按可信本人及 `payeeType` 过滤后再分页，旧客户端不传类型时保留原首批行为；P47 请求 `seller`，P17 请求 `provider`，各自提供续页与同页失败重试。校验现有索引，缺少等价索引时另列索引变更；覆盖混合类型 20+1、单类型 21/101、末页、换人、权限和同时间稳定排序。B：维持最近 20 笔混合历史，在 P17 标注打款类型；较早卖家打款仍不能保证从 P47 查看。 | A 估计 1–2 小时前后端修改与隔离回归，云函数部署、索引、四宽及真机另计；本轮云端记录和费用均为 0。 |
 | QA216 | 补齐求助详情超过 100 条评论时的历史入口，并避免隐藏评论占满首批。 | 实际 `board.detail` 与 P39 页面接 101 条合成评论：全部可见时只展示最早 100 条，第 101 条不可达；前 100 条审核隐藏时，页面显示 0 条，第 101 条可见评论仍不可达。详情显示 `commentsCount=101`，没有翻页入口。真实帖子评论规模及受影响次数未知，本轮没有开发云读写。 | 用户最后统一决定；Codex 获选后修改、回归并准备固定云包。 | 建议在真实非空求助详情和评论审核验收前处理；其他已授权核验继续。 | P39 `board/detail/detail` 与 `cloudfunctions/board/index.js` 的 `detail` 评论读取；不改变评论发布、举报与审核规则。 | **推荐 A**：服务端按评论创建时间和编号稳定分页，扫描时跳过无权显示的评论并返回下一位置；页面显示“加载更多评论”，续页失败保留已读评论、重试原位置，按编号去重。旧客户端仍能读原详情响应。验收覆盖 101 条、首批 100 条隐藏、同时间评论、审核状态变化、换人、离页及查询上限。B：维持按创建时间最早 100 条的展示限制，并明确标注范围；第 101 条及之后仍无法从页面查看或举报。 | A 估计 1–2 小时前后端修改与隔离回归，云部署、索引核对、四宽与真机另计；本轮真实评论、举报和费用均为 0。 |
 
+| QA217 | 评论写入成功但响应丢失、离页重进后，先找回原评论。 | 实际 P39 页面和 `board.comment` 接合成库：同页重试仍只有 1 条评论；首笔写入后丢响应并离页重进，页面丢失 `commentRequestId`，重填同一正文后生成第二条评论。服务端用原编号重送能返回 `duplicate=true`，证明缺口在跨页恢复；真实用户发生次数未知，没有开发云评论写入。 | 用户最后统一决定；Codex 获选后修复、回归并准备固定云包。 | 建议在真实评论及弱网体验版验收前处理；与 QA216 评论分页可合并核对。 | P39 `board/detail/detail` 和 `board.comment` 的本人原请求查询；不改评论内容审核、举报和可见权限。 | **推荐 A**：提交前按本人和帖子保存最小请求编号，不持久保存评论正文；结果未知及重进后先只读查原编号，找到则提示原评论状态且不再发送。未查到时由本人重新输入，并沿用原编号提交；不同正文由服务端拒绝，主动开始新评论才使用新编号。补帖子关闭、审核隐藏、换人、离页迟到、同页及跨页重试。B：保留同页去重，跨页重复评论由用户自行检查。 | A 估计 45–90 分钟前后端修改与隔离回归，云部署、四宽及真机另计；本轮真实评论与费用均为 0。 |
+
 核对依据：`cloudfunctions/_shared/adminDashboard.js:245`、`cloudfunctions/provider/index.js:85`、`cloudfunctions/event/index.js:94`、`miniprogram/events/detail/detail.js:10-12`、`miniprogram/utils/scene.js:1-13`。版本参数说明见[腾讯云开发 CloudBase 带参小程序码文档](https://docs.cloudbase.net/recipes/add-share-with-params-miniprogram)。本地页面方法输出为 `{"qrSceneAcceptedByApp":null,"detailEventId":"","missingRecord":true,"loading":false}`；这不能替代真实手机扫码。
 
 QA201 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa201-provider-hall-filter-pagination-repro.cjs`。脚本同时运行真实云函数入口与实际 P15 页面，数据库与用户身份均为合成，云写入 0 次。当前断言用于保留修复前缺陷；选择方案并修复后须改为成功分页及查询上限的回归断言。
@@ -58,6 +60,8 @@ QA214 的可复跑证据：`node docs/verification/2026-11-18-event-management/q
 QA215 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa215-seller-payout-history-repro.cjs`。脚本运行实际 P47、P17 和 `payout.list`；首批被 20 笔同本人服务员打款占满，唯一卖家记录在第二页，P47 过滤后显示 0 笔且无续页；P17 同时展示服务员与卖家打款，卡片没有类型标签。仅合成记录，云端写入 0 次。
 
 QA216 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa216-board-comments-pagination-repro.cjs`。脚本运行实际 P39 页面和 `board.detail`，两组 101 条合成评论分别得到 100 条和 0 条可见，第 101 条在两组均不可达，云端写入 0 次。真实小程序画面和评论审核数据仍待验。
+
+QA217 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa217-board-comment-response-reentry-repro.cjs`。实际页面与云函数接隔离数据库，首次写入后丢响应；同页重试仍为 1 条，离页重进并重填相同内容后为 2 条；原编号由服务端识别为重复。没有开发云评论或举报写入。
 
 P48 的独立通过对照：`node docs/verification/2026-11-18-event-management/event-list-pagination-positive.cjs`。实际社区活动列表首批 20 场、触底读到第 21 场、返回后重读首批且无重复。仅合成活动，不代表体验版真机和真实多活动通过。
 
