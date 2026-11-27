@@ -1405,13 +1405,13 @@
     "route": "idle/sales/sales",
     "staticReferences": "2026-11-13当前源码静态引用/组件检查通过（69页、77页面/组件模板；不代表视觉或真实业务通过）",
     "isolatedLifecycle": "2026-11-13重跑3组失败/关闭/未绑定加载，共69页207组，无未捕获异常；非成功业务验收",
-    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过",
+    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过 QA213：P45 实际页面接 idle.sales 的21笔合成卖家订单，只显示首批20笔；接口 offset20 可读第21笔待接单单据，页面无加载更多方法或按钮。未写开发云。",
     "successFlowThisRun": "未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF",
     "newFindings": [
       "2026-11-27 当前代码合成身份回归：换人后旧担保交易卡片不能导航；无真实订单。"
     ],
     "userAcceptance": "待用户逐项签收；不因本轮技术检查自动通过",
-    "remaining": "真实担保订单各状态与账本；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
+    "remaining": "QA213 卖家订单第二页不可达待统一决策；真实担保订单各状态与账本；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
     "criteria": {
       "U1": "部分核对，未完整通过；见liveUIThisRun",
       "U2": "部分核对，未完整通过；见liveUIThisRun",
