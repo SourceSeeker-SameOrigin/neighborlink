@@ -1,6 +1,7 @@
 // Actual admin settlement implementation with synthetic records; no CloudBase calls.
 const assert = require('node:assert/strict');
 const { adminSettlementActions } = require('../../../cloudfunctions/_shared/adminSettlements');
+const { fixture } = require('../2026-11-09-remediation/cloud-fixture.cjs');
 
 const rows = {
   first: { _id: 'first', refType: 'order', refId: 'order-1', communityId: 'community-1',
@@ -47,10 +48,23 @@ const context = { user: { _id: 'admin-1', roles: ['admin'] }, openid: 'admin-ope
   const afterPaid = await api.settlementCreate(input, context);
   assert.equal(afterPaid.settlements[0].status, 'paid');
   assert.equal(rows.late.settlementIds.property, undefined);
+  const largeLedger = Array.from({ length: 205 }, (_, index) => ({
+    _id: `ledger-${String(index).padStart(3, '0')}`, communityId: 'c',
+    createdAt: new Date('2026-11-15T00:00:00Z'), amounts: { property: 100 },
+    settled: { property: false }, settlementIds: {} }));
+  const large = fixture({ roles: ['admin'], records: { ledger: largeLedger } });
+  const largeResult = await large.call('admin', 'settlementPreview',
+    { payee: 'property', communityId: 'c', from: '2026-11-01', to: '2026-11-30' });
+  assert.equal(largeResult.ok, true);
+  assert.equal(largeResult.data.rows[0].ledgerIds.length, 205);
+  assert.equal(largeResult.data.rows[0].total, 20500);
+  assert.equal(large.writes.length, 0);
   console.log(JSON.stringify({ scope: 'actual settlement code; synthetic database only',
     unchangedRetryReusesSettlement: unchangedRetry.settlements[0]._id === first.settlements[0]._id,
     previewTotalFen: preview.rows[0].total, settlementTotalFen: second.settlements[0].total,
     settlementLedgerIds: second.settlements[0].ledgerIds,
     laterPreviewFen: laterPreview.rows[0].total, afterPaidReturnedStatus: afterPaid.settlements[0].status,
-    lateLedgerAssigned: !!rows.late.settlementIds.property, realCloudWrites: 0 }, null, 2));
+    lateLedgerAssigned: !!rows.late.settlementIds.property,
+    largePreviewCount: largeResult.data.rows[0].ledgerIds.length,
+    largePreviewTotalFen: largeResult.data.rows[0].total, realCloudWrites: 0 }, null, 2));
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });
