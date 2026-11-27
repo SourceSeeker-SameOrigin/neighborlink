@@ -6,7 +6,9 @@
 | --- | --- |
 | QA200、QA201、QA206、QA207、QA212、QA213、QA214 | 已完成代码修改及对应合成数据回归；QA212 重复交付相同内容返回原结果，不同内容拒绝。尚未做开发云、体验版、四宽及真机验收。 |
 | QA203–QA205 | 已完成前后端或页面修改，21 条与前 100 条隐藏后的第 101 条合成场景已通过；公告和广告也能读到第 21 条。开发云、体验版、四宽及真机仍待验。 |
-| QA199、QA202、QA208–QA211、QA215–QA218 | 已授权，待继续实施与验证。 |
+| QA211 | 已完成本人原购买请求查询、同编号同商品恢复和 P42 跨页提示；合成购买响应丢失后同页及重进均只保留原订单，价格及功能开关变化后仍能找回；其他身份没有恢复入口。开发云、体验版、四宽及真机待验。 |
+| QA210 | 两页迟到权限错误不再触发全局跳转或弹窗；原页仍有效时保留权限处理。合成回归通过，四宽与真机待验。 |
+| QA199、QA202、QA208–QA209、QA215–QA218 | 已授权，待继续实施与验证。 |
 
 | 编号 | What（做什么） | Why（事实与未知） | Who（谁负责） | When（何时） | Where（在哪里） | How（选项、影响和验收） | How much（估算） |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -53,9 +55,9 @@ QA208 的可复跑证据：`node docs/verification/2026-11-18-event-management/q
 
 QA209 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa209-admin-date-return-repro.cjs`。脚本调用实际四页的日期初始化与返回方法，固定北京跨月时刻；四页默认值均未前移，四页手选范围均保留。仅合成时钟，没有云查询、导出或结算。
 
-QA210 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa210-detail-late-error-navigation-repro.cjs`。脚本运行实际 P39/P42 页面和共用 API；两页原页拒绝与离页迟到拒绝均弹错并跳首页。使用合成接口响应，不触达开发云。
+QA210 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa210-detail-late-error-navigation-repro.cjs`。脚本运行实际 P39/P42 页面和共用 API；原页有效的拒绝仍按权限规则处理，离页迟到拒绝不再弹错或跳首页。使用合成接口响应，不触达开发云。
 
-QA211 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa211-idle-purchase-response-recovery-repro.cjs`。脚本运行实际 P42 页面与 `idle.buy`，使用合成数据库和模拟支付模式；首笔写入后丢响应，同页新编号和服务端原编号重试均未返回原单，重进商品为锁定态。没有开发云请求或真实支付。
+QA211 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa211-idle-purchase-response-recovery-repro.cjs`。脚本运行实际 P42 页面与 `idle.buy`，使用合成数据库和模拟支付模式；首笔写入后丢响应，同页与重进均按原编号找回唯一订单，换人不显示前人恢复入口。没有开发云请求或真实支付。
 
 QA212 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa212-idle-delivery-state-repro.cjs`。脚本运行实际 P46 页面、购买/模拟付款/确认接单/交付云入口及共用状态机；合成订单在 `accepted` 提交凭证被拒，交付记录为空。脚本仅使用合成数据库和符合路径格式的假照片，不上传文件或调用开发云。
 

@@ -218,6 +218,14 @@ async function buy(event, { user, openid }) {
   text(event.requestId, '请求编号', 80);
   ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
   const itemIdValue = text(event.itemId, '闲置商品');
+  const id = 'ip_' + crypto.createHash('sha256').update(openid + ':' + event.requestId).digest('hex').slice(0, 36);
+  const previousOrder = await server.get('orders', id);
+  if (previousOrder) {
+    ensure(previousOrder.kind === 'idle_purchase' && previousOrder.userOpenid === openid &&
+      previousOrder.communityId === community._id && previousOrder.idleItemId === itemIdValue,
+    '请求编号已用于其他订单', 'E_CONFLICT');
+    return { orderId: previousOrder._id, status: previousOrder.status, recovered: true };
+  }
   const item = await server.get('idleItems', itemIdValue);
   ensure(item && item.communityId === community._id && item.scope === 'community' && item.tradeMode === 'escrow',
     '该商品不支持本小区担保交易', 'E_FORBIDDEN');
@@ -230,14 +238,15 @@ async function buy(event, { user, openid }) {
   ensure(buyer && buyer.communityId === community._id, '请先绑定本小区门牌');
   const commissionRate = config.idleCommissionRate === undefined ? 0 : config.idleCommissionRate;
   const commissionFen = commission(item.price, commissionRate);
-  const id = 'ip_' + crypto.createHash('sha256').update(openid + ':' + event.requestId).digest('hex').slice(0, 36);
   const requestHash = crypto.createHash('sha256').update(JSON.stringify({ itemId: item._id, price: item.price,
     commissionRate, communityId: community._id })).digest('hex');
-  const order = await atomic(db, async transaction => {
+  const result = await atomic(db, async transaction => {
     const previous = await read(transaction, 'orders', id);
     if (previous) {
-      ensure(previous.userOpenid === openid && previous.requestHash === requestHash, '请求编号已用于其他订单', 'E_CONFLICT');
-      return previous;
+      ensure(previous.kind === 'idle_purchase' && previous.userOpenid === openid &&
+        previous.communityId === community._id && previous.idleItemId === itemIdValue,
+      '请求编号已用于其他订单', 'E_CONFLICT');
+      return { order: previous, recovered: true };
     }
     const current = await read(transaction, 'idleItems', item._id);
     ensure(current && current.status === 'on_sale' && current.tradeMode === 'escrow' && !current.moderationHidden &&
@@ -270,10 +279,25 @@ async function buy(event, { user, openid }) {
     await transaction.collection('idleItems').doc(item._id).update({ data: { status: 'reserved', purchaseOrderId: id, updatedAt: now } });
     await insert(transaction, 'orders', purchase);
     await transaction.collection('users').doc(currentBuyer._id).update({ data: { orderRevision: (currentBuyer.orderRevision || 0) + 1 } });
-    return purchase;
+    return { order: purchase, recovered: false };
   });
+  if (result.recovered) return { orderId: result.order._id, status: result.order.status, recovered: true };
+  const order = result.order;
   try { return await payments.prepare(order); }
   catch (error) { return { orderId: order._id, paymentError: error.code || 'E_PAYMENT' }; }
+}
+
+async function lookupPurchase(event, { user, openid }) {
+  const community = await context(user, false);
+  text(event.requestId, '请求编号', 80);
+  ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
+  const itemIdValue = text(event.itemId, '闲置商品');
+  const id = 'ip_' + crypto.createHash('sha256').update(openid + ':' + event.requestId).digest('hex').slice(0, 36);
+  const order = await server.get('orders', id);
+  ensure(!order || order.kind === 'idle_purchase' && order.userOpenid === openid &&
+    order.communityId === community._id && order.idleItemId === itemIdValue,
+  '请求编号已用于其他订单', 'E_CONFLICT');
+  return { orderId: order?._id || null, status: order?.status || null };
 }
 
 async function sales(event, { openid, user }) {
@@ -371,6 +395,6 @@ async function report(event, { user, openid }) {
   });
 }
 
-exports.main = server.entry({ list, detail, contact, create, lookupRequest, update, mine, report, buy, sales, earnings, acceptSale, deliverSale,
+exports.main = server.entry({ list, detail, contact, create, lookupRequest, lookupPurchase, update, mine, report, buy, sales, earnings, acceptSale, deliverSale,
   markSold: (event, contextValue) => changeStatus(event, contextValue, 'sold'),
   remove: (event, contextValue) => changeStatus(event, contextValue, 'removed') }, ['resident', 'admin', 'property'], 'idle');

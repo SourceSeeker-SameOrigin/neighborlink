@@ -19,6 +19,11 @@ backend.data.config[0].payMode = 'mock';
 let purchaseCalls = 0;
 const ui = runtime(async (name, action, input) => {
   if (name === 'idle' && action === 'detail') return { item: { ...backend.data.idleItems[0] } };
+  if (name === 'idle' && action === 'lookupPurchase') {
+    const result = await backend.call(name, action, input);
+    if (!result.ok) throw Object.assign(Error(result.message), { code: result.code });
+    return result.data;
+  }
   if (name === 'idle' && action === 'buy') {
     purchaseCalls++;
     const result = await backend.call(name, action, input);
@@ -48,31 +53,49 @@ async function openDetail() {
   assert.equal(backend.data.orders.length, 1);
   assert.equal(backend.data.idleItems[0].status, 'reserved');
 
-  // Even an identical request is rejected before idle.buy checks its existing order.
+  // An identical request finds the original order before checking the reserved item.
   const sameRequest = await backend.call('idle', 'buy', { itemId: 'item', requestId: firstRequestId });
-  assert.equal(sameRequest.code, 'E_BAD_STATE');
+  assert.equal(sameRequest.ok, true);
+  assert.equal(sameRequest.data.recovered, true);
+  assert.equal(sameRequest.data.orderId, backend.data.orders[0]._id);
   assert.equal(backend.data.orders.length, 1);
+  backend.data.idleItems[0].price = 600;
+  backend.data.config[0].features.idleEscrow = false;
+  backend.data.communities[0].features.idleEscrow = false;
+  const afterPriceAndFeatureChange = await backend.call('idle', 'buy', { itemId: 'item', requestId: firstRequestId });
+  assert.equal(afterPriceAndFeatureChange.ok, true);
+  assert.equal(afterPriceAndFeatureChange.data.orderId, backend.data.orders[0]._id);
+  const conflictingItem = await backend.call('idle', 'buy', { itemId: 'different-item', requestId: firstRequestId });
+  assert.equal(conflictingItem.code, 'E_CONFLICT');
+  backend.data.config[0].features.idleEscrow = true;
+  backend.data.communities[0].features.idleEscrow = true;
 
-  // The still-open page retains its on_sale snapshot and offers its old buy button.
+  // The still-open page recovers the original order and never creates a new request.
   assert.equal(firstPage.data.item.status, 'on_sale');
+  assert.equal(firstPage.data.recovery, 'found');
   await firstPage.buy();
   const requestIds = ui.requests.filter(request => request[1] === 'buy').map(request => request[2].requestId);
-  assert.equal(requestIds.length, 2);
-  assert.notEqual(requestIds[0], requestIds[1]);
-  assert.equal(firstPage.data.error, '商品已被购买或暂不可交易');
+  assert.equal(requestIds.length, 1);
+  assert.equal(firstPage.data.error, '');
 
   firstPage.onHide();
   const secondPage = await openDetail();
-  // WXML shows "担保交易进行中" and hides buy for a reserved item, but has no original-order link.
+  // A fresh page uses the per-user receipt to find the same order.
   assert.equal(secondPage.data.item.status, 'reserved');
+  assert.equal(secondPage.data.recovery, 'found');
+  assert.equal(secondPage.orderId, backend.data.orders[0]._id);
+  ui.app.globalData.user = { _id: 'other-user', communityId: 'c', roles: ['resident'] };
+  const otherPage = await openDetail();
+  assert.equal(otherPage.data.recovery, '');
+  assert.equal(otherPage.orderId, undefined);
   const template = fs.readFileSync(path.resolve(__dirname, '../../../miniprogram/idle/detail/detail.wxml'), 'utf8');
-  assert.match(template, /item\.status === 'on_sale'[^>]*bindtap="buy"/);
+  assert.match(template, /bindtap="buy"[^>]*>立即购买/);
   assert.match(template, /item\.status === 'reserved' \? '担保交易进行中'/);
-  assert.doesNotMatch(template, /orders\/detail/);
+  assert.match(template, /前往原订单/);
   assert.equal(backend.data.orders.length, 1);
 
   console.log(JSON.stringify({ scope: 'actual P42 page and idle.buy; synthetic database and lost response',
-    requestIds, sameRequest: { code: sameRequest.code, message: sameRequest.message },
+    requestIds, sameRequest: { recovered: sameRequest.data.recovered, orderId: sameRequest.data.orderId },
     samePageError: firstPage.data.error, reenteredItemStatus: secondPage.data.item.status,
     orderIds: backend.data.orders.map(order => order._id),
     itemStatus: backend.data.idleItems[0].status }, null, 2));

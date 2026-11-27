@@ -50,8 +50,8 @@ async function run(name, leaveBeforeResponse) {
     const current = await run(name, false);
     const late = await run(name, true);
     assert.deepEqual(current.redirects, ['/pages/index/index']);
-    assert.deepEqual(late.redirects, ['/pages/index/index']);
-    assert.deepEqual(late.toasts, ['合成权限拒绝']);
+    assert.deepEqual(late.redirects, []);
+    assert.deepEqual(late.toasts, []);
     results.push(current, late);
   }
   console.log(JSON.stringify({ scope: 'P39/P42 actual pages and shared API; synthetic E_FORBIDDEN', results }, null, 2));

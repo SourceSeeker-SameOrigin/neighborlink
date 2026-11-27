@@ -26,7 +26,10 @@ Page({
       const user = await getApp().ensureSession();
       if (this.hidden || this.closed || sequence !== this.readSequence || getApp().globalData.user?._id !== user._id) return;
       this.ownerId = user._id; this.ownerCommunityId = user.communityId;
-      const result = await api.call('board', 'detail', { postId: this.postId }, { loading: false, silent: true });
+      const active = () => !this.hidden && !this.closed && sequence === this.readSequence &&
+        getApp().globalData.user?._id === user._id && getApp().globalData.user?.communityId === user.communityId;
+      const result = await api.call('board', 'detail', { postId: this.postId },
+        { loading: false, silent: true, isActive: active });
       if (this.hidden || this.closed || sequence !== this.readSequence || getApp().globalData.user?._id !== user._id ||
           getApp().globalData.user?.communityId !== user.communityId) return;
       const post = { ...result.post, timeText: display(result.post.createdAt), imageUrls: result.post.images,
@@ -50,7 +53,8 @@ Page({
     this.setData({ busy: true, error: '' });
     try {
       await api.call('board', 'comment', { postId: this.postId,
-        requestId: this.commentRequestId, content: this.data.commentText });
+        requestId: this.commentRequestId, content: this.data.commentText },
+      { isActive: () => this.currentDetail(sequence) });
       if (!this.currentDetail(sequence)) return;
       this.commentRequestId = null;
       this.setData({ commentText: '' }); await this.load();
@@ -63,7 +67,8 @@ Page({
     const answer = await new Promise(resolve => wx.showModal({ title: '举报内容', content: '确认举报这条内容吗？', success: resolve }));
     if (!answer.confirm || !this.currentDetail(sequence)) return;
     try {
-      await api.call('board', 'report', { targetType: 'post', targetId: this.postId, reason: '不当内容', text: '' });
+      await api.call('board', 'report', { targetType: 'post', targetId: this.postId, reason: '不当内容', text: '' },
+        { isActive: () => this.currentDetail(sequence) });
       if (this.currentDetail(sequence)) wx.showToast({ title: '已提交举报', icon: 'success' });
     } catch (error) { if (this.currentDetail(sequence)) this.setData({ error: error.message || '举报失败' }); }
   },
@@ -75,7 +80,8 @@ Page({
     const answer = await new Promise(resolve => wx.showModal({ title: '举报评论', content: '确认举报这条评论吗？', success: resolve }));
     if (!answer.confirm || !this.currentDetail(sequence)) return;
     try {
-      await api.call('board', 'report', { targetType: 'comment', targetId: commentId, reason: '不当内容', text: '' });
+      await api.call('board', 'report', { targetType: 'comment', targetId: commentId, reason: '不当内容', text: '' },
+        { isActive: () => this.currentDetail(sequence) });
       if (this.currentDetail(sequence)) wx.showToast({ title: '已提交举报', icon: 'success' });
     } catch (error) { if (this.currentDetail(sequence)) this.setData({ error: error.message || '举报失败' }); }
   },
@@ -84,7 +90,8 @@ Page({
     const sequence = this.readSequence;
     const answer = await new Promise(resolve => wx.showModal({ title: '关闭内容', content: '关闭后将不再接受评论。确定吗？', success: resolve }));
     if (!answer.confirm || !this.currentDetail(sequence)) return;
-    try { await api.call('board', 'close', { postId: this.postId }); if (this.currentDetail(sequence)) await this.load(); }
+    try { await api.call('board', 'close', { postId: this.postId },
+      { isActive: () => this.currentDetail(sequence) }); if (this.currentDetail(sequence)) await this.load(); }
     catch (error) { if (this.currentDetail(sequence)) this.setData({ error: error.message || '关闭失败' }); }
   },
   continuePayment() {
