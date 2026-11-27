@@ -1,0 +1,41 @@
+{
+  "scope": "synthetic users; CloudBase and navigation intercepted",
+  "pass": 3,
+  "fail": 3,
+  "results": [
+    {
+      "case": "normal-current-user-list-and-unread",
+      "pass": true
+    },
+    {
+      "case": "older-read-cannot-overwrite-newer",
+      "pass": true
+    },
+    {
+      "case": "late-list-after-hide",
+      "pass": true
+    },
+    {
+      "case": "late-list-after-identity-change",
+      "pass": false,
+      "observed": {
+        "rows": 1,
+        "unreadTotal": 2
+      }
+    },
+    {
+      "case": "old-conversation-card-after-identity-change",
+      "pass": false,
+      "observed": {
+        "navigation": 1
+      }
+    },
+    {
+      "case": "old-conversation-card-after-hide",
+      "pass": false,
+      "observed": {
+        "navigation": 1
+      }
+    }
+  ]
+}
