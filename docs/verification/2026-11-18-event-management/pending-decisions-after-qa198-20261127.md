@@ -25,6 +25,8 @@
 
 | QA217 | 评论写入成功但响应丢失、离页重进后，先找回原评论。 | 实际 P39 页面和 `board.comment` 接合成库：同页重试仍只有 1 条评论；首笔写入后丢响应并离页重进，页面丢失 `commentRequestId`，重填同一正文后生成第二条评论。服务端用原编号重送能返回 `duplicate=true`，证明缺口在跨页恢复；真实用户发生次数未知，没有开发云评论写入。 | 用户最后统一决定；Codex 获选后修复、回归并准备固定云包。 | 建议在真实评论及弱网体验版验收前处理；与 QA216 评论分页可合并核对。 | P39 `board/detail/detail` 和 `board.comment` 的本人原请求查询；不改评论内容审核、举报和可见权限。 | **推荐 A**：提交前按本人和帖子保存最小请求编号，不持久保存评论正文；结果未知及重进后先只读查原编号，找到则提示原评论状态且不再发送。未查到时由本人重新输入，并沿用原编号提交；不同正文由服务端拒绝，主动开始新评论才使用新编号。补帖子关闭、审核隐藏、换人、离页迟到、同页及跨页重试。B：保留同页去重，跨页重复评论由用户自行检查。 | A 估计 45–90 分钟前后端修改与隔离回归，云部署、四宽及真机另计；本轮真实评论与费用均为 0。 |
 
+| QA218 | 防止首页有效公告和广告被前 100 条不可展示记录截断。 | 实际 `content.homeContent` 与 P01 页面各接 101 条合成公告、广告：前 100 条公告被审核隐藏、广告图片未获准，第 101 条公告和广告均可展示；接口先取 100 条再过滤，首页结果却为公告空、广告 0。把首条改为可展示后两者立即出现，定位到过滤顺序。真实环境此类记录数量未知，没有云端读写。 | 用户最后统一决定；Codex 获选后修复、回归并准备固定云包。 | 建议在首页非空公告与广告、其他广告位完整验收前处理；独立页面检查继续。 | P01 首页和 `content.homeContent`；同一 helper 的 `adsForSlot` 已在 `board_top`、`shops_top` 用合成记录核查，真实广告仍待验；保留公告、广告审核及可见权限。 | **推荐 A**：服务端按稳定顺序有界继续扫描，跳过已隐藏、过期或未获准展示的记录，直到找到可展示的置顶/最新公告和最多 3 条广告或确认结束；给扫描次数设上限并核对查询开销。验证 101 条、首批全不可见、三种广告位、状态变化与旧客户端。B：保留只看原始前 100 条，明确首页可能无内容，较旧有效内容仍不可达。 | A 估计 45–90 分钟后端修改与隔离回归，开发云部署、索引及真机另计；本轮真实公告、广告及费用新增均为 0。 |
+
 核对依据：`cloudfunctions/_shared/adminDashboard.js:245`、`cloudfunctions/provider/index.js:85`、`cloudfunctions/event/index.js:94`、`miniprogram/events/detail/detail.js:10-12`、`miniprogram/utils/scene.js:1-13`。版本参数说明见[腾讯云开发 CloudBase 带参小程序码文档](https://docs.cloudbase.net/recipes/add-share-with-params-miniprogram)。本地页面方法输出为 `{"qrSceneAcceptedByApp":null,"detailEventId":"","missingRecord":true,"loading":false}`；这不能替代真实手机扫码。
 
 QA201 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa201-provider-hall-filter-pagination-repro.cjs`。脚本同时运行真实云函数入口与实际 P15 页面，数据库与用户身份均为合成，云写入 0 次。当前断言用于保留修复前缺陷；选择方案并修复后须改为成功分页及查询上限的回归断言。
@@ -62,6 +64,10 @@ QA215 的可复跑证据：`node docs/verification/2026-11-18-event-management/q
 QA216 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa216-board-comments-pagination-repro.cjs`。脚本运行实际 P39 页面和 `board.detail`，两组 101 条合成评论分别得到 100 条和 0 条可见，第 101 条在两组均不可达，云端写入 0 次。真实小程序画面和评论审核数据仍待验。
 
 QA217 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa217-board-comment-response-reentry-repro.cjs`。实际页面与云函数接隔离数据库，首次写入后丢响应；同页重试仍为 1 条，离页重进并重填相同内容后为 2 条；原编号由服务端识别为重复。没有开发云评论或举报写入。
+
+QA218 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa218-home-content-filter-cap-repro.cjs`。实际 `content.homeContent` 和 P01 页面接 101 条合成公告、101 条合成广告，首批 100 条不可展示时首页两者均为空；放开各自首条后立即显示。同一 helper 的 `board_top`、`shops_top` 两个广告位也各以 101 条合成记录复现，再放开首条后恢复展示；真实广告和手机画面待验，开发云写入 0 次。
+
+P02 的独立通过对照：`node docs/verification/2026-11-18-event-management/bind-community-pagination-positive.cjs`。实际小区列表接口接101条合成小区，绑定页按偏移0、100读全且显示第101个；真实定位、扫码和保存门牌另验。
 
 P48 的独立通过对照：`node docs/verification/2026-11-18-event-management/event-list-pagination-positive.cjs`。实际社区活动列表首批 20 场、触底读到第 21 场、返回后重读首批且无重复。仅合成活动，不代表体验版真机和真实多活动通过。
 
