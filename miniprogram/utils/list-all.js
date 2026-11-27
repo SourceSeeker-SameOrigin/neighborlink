@@ -1,11 +1,14 @@
 const api = require('./api');
 
 // Selector options are published only after every page has loaded successfully.
-module.exports = async function listAll(name, action, params = {}) {
+module.exports = async function listAll(name, action, params = {}, options = {}) {
   const list = [], seen = new Set();
   let page;
   do {
-    page = await api.call(name, action, { ...params, offset: list.length }, { loading: false, silent: true });
+    if (options.isActive && !options.isActive()) return [];
+    page = await api.call(name, action, { ...params, offset: list.length },
+      { loading: false, silent: true, ...options });
+    if (options.isActive && !options.isActive()) return [];
     if (!Array.isArray(page?.list) || (page.hasMore && !page.list.length)) {
       throw new Error('选项列表分页异常，请重新加载');
     }

@@ -49,8 +49,11 @@ const fixture = handler => {
     const { env, page } = fixture(async () => ({ list: [order], hasMore: false, readOnly: false }));
     await page.onShow();
     env.app.globalData.user = { _id: 'resident-b', roles: ['resident'] };
-    results.push({ case: 'old-admin-export-link-after-identity-change', pass: page.data.isAdmin !== true,
-      observed: { isAdmin: page.data.isAdmin } });
+    await page.onShow();
+    await page.exportSubsidy();
+    results.push({ case: 'old-admin-export-link-after-identity-change',
+      pass: page.data.isAdmin !== true && !env.requests.some(request => request[1] === 'exportSubsidyOrders'),
+      observed: { isAdmin: page.data.isAdmin, exportCalls: env.requests.filter(request => request[1] === 'exportSubsidyOrders').length } });
   }
   console.log(JSON.stringify({ scope: 'synthetic users; all CloudBase and navigation calls intercepted',
     pass: results.filter(result => result.pass).length, fail: results.filter(result => !result.pass).length, results }, null, 2));

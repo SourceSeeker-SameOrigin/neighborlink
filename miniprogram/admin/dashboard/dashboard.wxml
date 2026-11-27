@@ -17,14 +17,14 @@
   </view>
   <view wx:if="{{loading}}">正在加载数据…</view>
   <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load" disabled="{{loading}}">重新加载</button></view>
-  <picker wx:if="{{communities.length}}" range="{{communities}}" range-key="name" value="{{communityIndex}}" disabled="{{!ready}}" bindchange="chooseCommunity">
+  <picker wx:if="{{communities.length}}" range="{{communities}}" range-key="name" value="{{communityIndex}}" disabled="{{!authorized}}" bindchange="chooseCommunity">
     <view class="picker">{{communities[communityIndex].name}}</view>
   </picker>
   <view wx:if="{{canFederate}}" class="row">
-    <button size="mini" data-scope="community" disabled="{{!ready}}" bindtap="chooseScope">本小区</button>
-    <button size="mini" data-scope="federation" disabled="{{!ready}}" bindtap="chooseScope">联合社区</button>
+    <button size="mini" data-scope="community" disabled="{{!authorized}}" bindtap="chooseScope">本小区</button>
+    <button size="mini" data-scope="federation" disabled="{{!authorized}}" bindtap="chooseScope">联合社区</button>
   </view>
-  <view wx:if="{{authorized}}" class="card"><view class="section-title">统计期间（北京时间）</view><picker mode="date" value="{{from}}" data-field="from" disabled="{{!ready}}" bindchange="chooseDate"><view class="picker">开始：{{from}}</view></picker><picker mode="date" value="{{to}}" data-field="to" disabled="{{!ready}}" bindchange="chooseDate"><view class="picker">结束：{{to}}</view></picker></view>
+  <view wx:if="{{authorized}}" class="card"><view class="section-title">统计期间（北京时间）</view><picker mode="date" value="{{from}}" data-field="from" bindchange="chooseDate"><view class="picker">开始：{{from}}</view></picker><picker mode="date" value="{{to}}" data-field="to" bindchange="chooseDate"><view class="picker">结束：{{to}}</view></picker></view>
   <block wx:if="{{metrics}}">
     <view class="card">
       <view wx:if="{{metrics.scope === 'federation'}}" class="muted">联合社区汇总（{{metrics.communityIds.length}} 个小区）</view>

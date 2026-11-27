@@ -1,6 +1,6 @@
-# 体验版联调待统一决策
+# 体验版联调 33 项已批准整改
 
-以下问题在实际页面代码的隔离运行中复现，均使用合成账号与拦截接口。没有调用开发云、拨真实电话、上传文件或创建交易。服务端可能拒绝过期请求；线上发生次数未知。用户要求集中记录，暂不执行这些新增整改。
+以下问题在实际页面代码的隔离运行中复现，均使用合成账号与拦截接口。没有调用开发云、拨真实电话、上传文件或创建交易。服务端可能拒绝过期请求；线上发生次数未知。2026-11-27 用户已统一批准表中全部 33 项推荐 A 方案；本表保留原复现证据和方案，实施进度见 `approved-fixes-progress-20261127.md`。后续新发现的问题继续单独记录 5W2H，留待用户统一决策。
 
 | 编号 | What（做什么） | Why（证据与影响） | Who（谁负责） | When（何时） | Where（范围） | How（推荐方案 A；备选 B） | How much（估算） |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -38,4 +38,4 @@
 | QA179 | 我的页面换人后清旧工作台权限与送上门开关 | P10 实际页面接合成已审核服务员 A、普通住户 B：换人后旧工作台仍导航，旧送上门开关仍发 1 次拦截的 `setDoorDelivery`；正常加载通过。3 项中 1 通过、2 未通过；服务端是否接受未知，未修改真实同意状态 | 用户统一决策；Codex 实施 | 统一决策后，真实双角色工作台与同意开关验收前 | P10 `pages/me/me` | A：工作台入口、同意开关及返回结果绑定当前本人、小区和最近一次成功读取；换人、刷新或离页清旧角色资料与入口，已发开关请求只读核对、不自动重复切换。保留服务端角色与同意规则。B：暂缓，保留失败 | 估计 45–90 分钟前端修复与回归；真机另计；无计划云部署或真实配置写入 |
 | QA180 | 服务员申请换人后清旧申请与证件、作废手机号回调 | P13 实际页面接合成 A/B 住户：迟到 A 申请把 B 页设为就绪；旧提交用 A 小区发 1 次拦截请求，旧证件上传回填 A 的合成文件，旧手机号授权返回把全局本人从 B 改回 A。6 项中正常读取与卸载迟到 2 通过、4 未通过。没有真实证件、电话授权或申请写入；服务端会否接受未知 | 用户统一决策；Codex 实施 | 统一决策后，真实服务员申请、原生选图和电话授权验收前 | P13 `provider/apply/apply` | A：申请读取、上传、提交及手机号授权绑定发起时本人、小区和当前页面；换人、刷新或离页清旧资料，迟到回调不改页面或全局本人。正常系统选图与手机号授权返回须重新核对同人；已发申请只读核对，不自动重提。B：暂缓，保留失败 | 估计 60–120 分钟前端修复及隔离回归；原生相机、手机号和真机另计；无计划云部署或真实申请 |
 
-证据：`qa149-before.json`、`qa150-before.json`、`qa152-155-before.json`、`qa156-before.json`、`qa158-before.json`、`qa159-before.json`、`qa160-before.json`、`qa161-before.json`、`qa162-before.json`、`qa163-before.json`、`qa164-before.json`、`qa165-before.json`、`qa166-before.json`、`qa167-before.json`、`qa168-community-before.json`、`qa168-merchant-before.json`、`qa169-before.json`、`qa170-before.json`、`qa171-172-before.json`、`qa173-before.json`、`qa174-before.json`、`qa175-before.json`、`qa176-179-before.json`、`qa180-before.json`、`qa181-before.json`、`qa182-before.json`、`qa183-before.json` 及对应边界脚本；页面台账见 `../2026-11-11-ui-audit/pages.md`。所有工时均为估算，尚未执行上述方案。
+证据：`qa149-before.json`、`qa150-before.json`、`qa152-155-before.json`、`qa156-before.json`、`qa158-before.json`、`qa159-before.json`、`qa160-before.json`、`qa161-before.json`、`qa162-before.json`、`qa163-before.json`、`qa164-before.json`、`qa165-before.json`、`qa166-before.json`、`qa167-before.json`、`qa168-community-before.json`、`qa168-merchant-before.json`、`qa169-before.json`、`qa170-before.json`、`qa171-172-before.json`、`qa173-before.json`、`qa174-before.json`、`qa175-before.json`、`qa176-179-before.json`、`qa180-before.json`、`qa181-before.json`、`qa182-before.json`、`qa183-before.json` 及对应边界脚本；页面台账见 `../2026-11-11-ui-audit/pages.md`。所有工时均为原估算，实际进度以执行台账为准。

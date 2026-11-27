@@ -41,10 +41,10 @@ const runDetail = async source => {
   const unquotedDetail = await runDetail(order('quote-detail', 'pending_quote', 0));
   const results = [
     { case: 'fixed-price-still-shows-amount', pass: fixed.amount === '5.00', observed: fixed.amount },
-    { case: 'unquoted-shows-pending-quote-instead-of-zero', pass: unquoted.amount !== '0.00',
-      observed: { status: unquoted.status, amount: unquoted.amount, renderedTemplate: `¥${unquoted.amount}` } },
-    { case: 'unquoted-detail-shows-pending-quote-instead-of-zero', pass: unquotedDetail.amount !== '0.00',
-      observed: { ...unquotedDetail, renderedTemplate: `订单金额 ¥${unquotedDetail.amount}` } },
+    { case: 'unquoted-shows-pending-quote-instead-of-zero', pass: unquoted.amount === '待商家报价',
+      observed: { status: unquoted.status, amount: unquoted.amount } },
+    { case: 'unquoted-detail-shows-pending-quote-instead-of-zero', pass: unquotedDetail.amount === '待商家报价',
+      observed: unquotedDetail },
     { case: 'quoted-shows-actual-amount', pass: quoted.amount === '7.00', observed: quoted.amount }
   ];
   const summary = { scope: 'actual admin list/detail pages and server views; synthetic admin and orders; intercepted cloud reads',
