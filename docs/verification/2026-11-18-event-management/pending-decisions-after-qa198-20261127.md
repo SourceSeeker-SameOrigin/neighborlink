@@ -50,3 +50,5 @@ QA211 的可复跑证据：`node docs/verification/2026-11-18-event-management/q
 QA212 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa212-idle-delivery-state-repro.cjs`。脚本运行实际 P46 页面、购买/模拟付款/确认接单/交付云入口及共用状态机；合成订单在 `accepted` 提交凭证被拒，交付记录为空。脚本仅使用合成数据库和符合路径格式的假照片，不上传文件或调用开发云。
 
 QA213 的可复跑证据：`node docs/verification/2026-11-18-event-management/qa213-idle-seller-orders-pagination-repro.cjs`。脚本运行实际 P45 页面与 `idle.sales`，21 笔合成订单中第 21 笔 `paid` 可由接口第二页读到，却不在页面首批且没有续页方法/按钮。合成数据库只读，云写入 0。
+
+QA212 的下游隔离对照：`node docs/verification/2026-11-18-event-management/idle-completion-idempotency.cjs`。在合成库预置 `delivered` 闲置担保订单后，实际 P08 页面买家确认成功、商品转 `sold`、卖家账 500 分只记一次；重复 `order.confirm` 未增账。另建一笔合成订单预置为交付超过 72 小时，实际 `timer` 首次运行完成订单、商品售出、卖家账新增一笔，第二次运行处理数为 0 且未重复记账。两种完成路径均需预置交付状态，不能替代 QA212 仍被阻断的卖家交付整链或开发云定时触发验收。
