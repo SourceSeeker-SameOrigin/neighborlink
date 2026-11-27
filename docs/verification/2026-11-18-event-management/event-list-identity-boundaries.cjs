@@ -73,8 +73,9 @@ const fixture = handler => {
     env.app.globalData.user = { _id: 'resident-b', communityId: 'community-a', roles: ['resident'] };
     await page.onReachBottom();
     results.push({ case: 'same-community-other-user-pagination-does-not-reuse-old-rows',
-      pass: page.data.list.length === 1 && page.data.list[0]._id === 'event-b',
-      observed: { ids: page.data.list.map(row => row._id) } });
+      pass: page.data.list.length === 1 && page.data.list[0]._id === 'event-a' &&
+        env.requests.at(-1)[2].offset === 0,
+      observed: { ids: page.data.list.map(row => row._id), offset: env.requests.at(-1)[2].offset } });
   }
   console.log(JSON.stringify({ scope: 'synthetic identities/communities; API and navigation intercepted',
     pass: results.filter(result => result.pass).length,

@@ -19,8 +19,22 @@ Page({
     this.quoteSequence = (this.quoteSequence || 0) + 1;
     this.initializing = false;
   },
+  currentOwner() {
+    const user = getApp().globalData.user;
+    if (!this.closed && !this.hidden && this.userId && user?._id === this.userId &&
+        user.communityId === this.communityId) return true;
+    if (this.userId && user?._id !== this.userId) {
+      this.quoteSequence = (this.quoteSequence || 0) + 1;
+      this.request = null;
+      this.receipt = null;
+      this.setData({ createdOrderId: '', categories: this.data.categories.map(item => ({ ...item, selected: false })),
+        note: '', slots: [], slotIndex: 0, pricing: null, quoting: false, navigating: false, navigationError: '' });
+    }
+    return false;
+  },
   async load() {
-    if (this.closed || this.hidden || this.initializing || this.creating) return;
+    if (this.closed || this.hidden || this.initializing ||
+        (this.creating && this.userId === getApp().globalData.user?._id)) return;
     const sequence = this.loadSequence = (this.loadSequence || 0) + 1;
     const current = () => !this.closed && !this.hidden && sequence === this.loadSequence;
     this.quoteSequence = (this.quoteSequence || 0) + 1;
@@ -29,8 +43,18 @@ Page({
     try {
       const user = await getApp().ensureSession();
       if (!current()) return;
-      if (this.userId && this.userId !== user._id) this.request = null;
+      if (getApp().globalData.user?._id !== user._id) return;
+      if (this.userId && (this.userId !== user._id || this.communityId !== user.communityId)) {
+        this.request = null;
+        this.receipt = null;
+        this._createSequence = (this._createSequence || 0) + 1;
+        this.creating = false;
+        this.setData({ categories: this.data.categories.map(item => ({ ...item, selected: false })),
+          note: '', slots: [], slotIndex: 0, pricing: null, quoting: false, busy: false,
+          createdOrderId: '', navigating: false, navigationError: '' });
+      }
       this.userId = user._id;
+      this.communityId = user.communityId;
       this.receiptKey = 'recycleOrderReceipt:' + user._id;
       if (this.receipt && this.receipt.userId !== user._id) this.receipt = null;
       if (!this.receipt) {
@@ -41,22 +65,23 @@ Page({
       }
       this.setData({ createdOrderId: this.receipt ? this.receipt.orderId : '', navigating: false, navigationError: '' });
       if (this.receipt) return;
-      this.communityId = user.communityId;
       await this.refreshQuote();
     } catch (error) { if (current()) this.setData({ error: error.message || '登录状态不可用' }); }
     finally { if (current()) { this.initializing = false; this.setData({ loading: false }); } }
   },
   async category(event) {
-    if (this.closed || this.hidden || this.data.loading || this.data.busy || this.receipt) return;
+    if (!this.currentOwner() || this.data.loading || this.data.busy || this.receipt) return;
     const code = event.currentTarget.dataset.code;
     const categories = this.data.categories.map(item => item.code === code ? { ...item, selected: !item.selected } : item);
     this.setData({ categories, pricing: null, error: '' });
     return this.refreshQuote();
   },
   async refreshQuote() {
-    if (this.closed || this.hidden || this.receipt) return;
+    if (!this.currentOwner() || this.receipt) return;
     const sequence = this.quoteSequence = (this.quoteSequence || 0) + 1;
-    const current = () => !this.closed && !this.hidden && !this.receipt && sequence === this.quoteSequence;
+    const userId = this.userId, communityId = this.communityId;
+    const current = () => !this.closed && !this.hidden && !this.receipt && sequence === this.quoteSequence &&
+      getApp().globalData.user?._id === userId && getApp().globalData.user?.communityId === communityId;
     const categories = this.data.categories;
     this.setData({ pricing: null, slots: [], error: '', quoting: false });
     if (!categories.some(item => item.selected)) return;
@@ -65,7 +90,7 @@ Page({
     try {
       const result = await api.call('order', 'quote', { serviceCode: 'recycle', communityId: this.communityId,
         detail: { categories: categories.filter(item => item.selected).map(item => item.code), note: this.data.note }, metadata: true },
-      { loading: false, silent: true });
+      { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
       if (!current()) return;
       const slotIndex = Math.min(this.data.slotIndex, Math.max(0, result.slots.length - 1));
       this.setData({ slots: result.slots, slotIndex, pricing: result.pricing,
@@ -73,15 +98,15 @@ Page({
     } catch (error) { if (current()) this.setData({ error: error.message || '暂时无法报价' }); }
     finally { if (current()) this.setData({ quoting: false }); }
   },
-  note(event) { if (!this.closed && !this.hidden && !this.data.busy && !this.receipt) this.setData({ note: event.detail.value }); },
-  selectSlot(event) { if (!this.closed && !this.hidden && !this.data.busy && !this.receipt) this.setData({ slotIndex: Number(event.detail.value) }); },
+  note(event) { if (this.currentOwner() && !this.data.busy && !this.receipt) this.setData({ note: event.detail.value }); },
+  selectSlot(event) { if (this.currentOwner() && !this.data.busy && !this.receipt) this.setData({ slotIndex: Number(event.detail.value) }); },
   openCreatedOrder() {
     const receipt = this.receipt;
-    if (!receipt || receipt.userId !== this.userId || this.closed || this.hidden || this.data.navigating) return;
+    if (!this.currentOwner() || !receipt || receipt.userId !== this.userId || this.data.navigating) return;
     const key = 'recycleOrderReceipt:' + receipt.userId;
     this.setData({ navigating: true, navigationError: '' });
     const fail = () => {
-      if (!this.closed && !this.hidden) this.setData({ navigating: false,
+      if (this.currentOwner()) this.setData({ navigating: false,
         navigationError: '预约已创建，暂未打开详情，请点击下方按钮重试。不会重复预约。' });
     };
     try {
@@ -95,13 +120,16 @@ Page({
     } catch (_) { fail(); }
   },
   async create() {
-    if (this.closed || this.hidden || this.data.busy) return;
+    if (!this.currentOwner() || this.data.busy) return;
     if (this.receipt) { this.openCreatedOrder(); return; }
     if (this.data.loading || this.data.quoting || !this.data.pricing || !this.userId) return;
     const categories = this.data.categories.filter(item => item.selected).map(item => item.code);
     const slot = this.data.slots[this.data.slotIndex];
     if (!categories.length || !slot) { this.setData({ error: '请选择回收类别和可预约时段' }); return; }
-    const userId = this.userId, receiptKey = this.receiptKey;
+    const userId = this.userId, communityId = this.communityId, receiptKey = this.receiptKey;
+    const createSequence = this._createSequence = (this._createSequence || 0) + 1;
+    const current = () => !this.closed && !this.hidden && createSequence === this._createSequence &&
+      getApp().globalData.user?._id === userId && getApp().globalData.user?.communityId === communityId;
     this.creating = true;
     this.setData({ busy: true, error: '' });
     try {
@@ -110,16 +138,16 @@ Page({
       const signature = JSON.stringify(payload);
       if (!this.request || this.request.signature !== signature) this.request = {
         signature, requestId: Date.now().toString(36) + '_' + Math.random().toString(36).slice(2) };
-      const result = await api.call('order', 'create', { ...payload, requestId: this.request.requestId });
+      const result = await api.call('order', 'create', { ...payload, requestId: this.request.requestId },
+        { silent: true, redirectOnForbidden: false, isActive: current });
       if (!result || typeof result.orderId !== 'string' || !result.orderId) throw Error('未取得预约编号，请重试');
       const receipt = { userId, orderId: result.orderId };
-      if (this.userId === userId) this.receipt = receipt;
-      this.request = null;
+      if (current()) { this.receipt = receipt; this.request = null; }
       try { wx.setStorageSync(receiptKey, receipt); } catch (_) { /* Keep the in-memory creation lock. */ }
-      if (this.closed || this.hidden || this.userId !== userId) return;
+      if (!current()) return;
       this.setData({ createdOrderId: receipt.orderId, navigationError: '' });
       this.openCreatedOrder();
-    } catch (error) { if (!this.closed && !this.hidden) this.setData({ error: error.message || '预约失败，请重试' }); }
-    finally { this.creating = false; if (!this.closed && !this.hidden) this.setData({ busy: false }); }
+    } catch (error) { if (current()) this.setData({ error: error.message || '预约失败，请重试' }); }
+    finally { if (createSequence === this._createSequence) { this.creating = false; if (current()) this.setData({ busy: false }); } }
   }
 });

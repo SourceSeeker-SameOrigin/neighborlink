@@ -4,9 +4,20 @@ Page({
     stationApplication: null, merchantError: '', stationError: '', merchantLoading: false,
     stationLoading: false, manage: false, doorDeliveryBusy: false },
   onShow() { this._hidden = false; return this.load(); },
-  onHide() { this._hidden = true; this.invalidateReads(); },
-  onUnload() { this._closed = true; this.invalidateReads(); },
+  onHide() {
+    this._hidden = true;
+    this.invalidateReads();
+    this.setData({ user: null, community: null, provider: null, merchant: null, stationApplication: null,
+      unreadTotal: 0, manage: false, canManageEvents: false, isAdmin: false, isProperty: false,
+      isMerchant: false, isStation: false, doorDeliveryBusy: false, loading: false });
+  },
+  onUnload() { this.onHide(); this._closed = true; },
   visible() { return !this._closed && !this._hidden; },
+  currentUser(sequence = this.sequence) {
+    const user = getApp().globalData.user;
+    return this.visible() && this._ready && sequence === this.sequence && this.data.user?._id &&
+      user?._id === this.data.user._id && user.communityId === this.data.user.communityId;
+  },
   invalidateReads() { this.sequence = (this.sequence || 0) + 1; this._ready = false; },
   async load() {
     if (!this.visible()) return;
@@ -14,11 +25,15 @@ Page({
     const current = () => this.visible() && sequence === this.sequence;
     this._ready = false;
     this.setData({ loading: true, error: '', merchantError: '', stationError: '',
-      merchantLoading: false, stationLoading: false });
+      merchantLoading: false, stationLoading: false, doorDeliveryBusy: false,
+      user: null, community: null, provider: null, merchant: null, stationApplication: null,
+      unreadTotal: 0, manage: false, canManageEvents: false, isAdmin: false, isProperty: false,
+      isMerchant: false, isStation: false });
     try {
       const app = getApp();
       const user = await app.ensureSession(true);
       if (!current()) return;
+      if (app.globalData.user?._id !== user._id || app.globalData.user?.communityId !== user.communityId) return;
       const community = app.globalData.community, provider = app.globalData.provider;
       this._ready = true;
       this.setData({ user, community, provider, merchant: null, stationApplication: null, unreadTotal: 0,
@@ -32,7 +47,7 @@ Page({
     finally { if (current()) this.setData({ loading: false }); }
   },
   async refreshUnread(sequence) {
-    const current = () => this.visible() && sequence === this.sequence;
+    const current = () => this.currentUser(sequence);
     try {
       const result = await api.call('chat', 'list', {}, { loading: false, silent: true, isActive: current });
       if (current()) this.setData({ unreadTotal: result.unreadTotal || 0 });
@@ -46,7 +61,7 @@ Page({
     if (!(code === 'merchant' ? features.merchants : features.stationDelivery) ||
       (code === 'station' && this.data.isStation)) return;
     const sequence = this.sequence;
-    const current = () => this.visible() && sequence === this.sequence;
+    const current = () => this.currentUser(sequence);
     this.setData({ [busyKey]: true, [errorKey]: '' });
     try {
       const result = await api.call(code, 'myApplication', {}, { loading: false, silent: true, isActive: current });
@@ -60,7 +75,10 @@ Page({
   openWorkspace(event) {
     const code = event.currentTarget.dataset.code;
     const user = this.data.user;
-    if (!this.visible() || this.data.loading || !user) return;
+    if (!this.currentUser() || this.data.loading || !user) {
+      this.setData({ user: null, provider: null, community: null, manage: false, canManageEvents: false });
+      return;
+    }
     const features = this.data.community && this.data.community.enabledFeatures || {};
     const routes = { provider: '/provider/workbench/workbench', merchant: '/merchant/workbench/workbench', station: '/station/workbench/workbench', admin: '/admin/dashboard/dashboard', property: '/admin/dashboard/dashboard' };
     const permitted = code === 'provider' ? this.data.provider && this.data.provider.status === 'approved' : user.roles.includes(code);
@@ -79,20 +97,27 @@ Page({
     if (apply[code]) wx.navigateTo({ url: apply[code] });
   },
   callHotline() {
+    if (!this.currentUser()) return;
     const phoneNumber = getApp().globalData.community && getApp().globalData.community.hotline;
     if (phoneNumber && phoneNumber !== '400-000-0000') wx.makePhoneCall({ phoneNumber });
     else wx.showToast({ title: '请在首页查看客服电话', icon: 'none' });
   },
   async doorDeliveryChange(event) {
-    if (this.data.doorDeliveryBusy) return;
+    if (!this.currentUser() || this.data.doorDeliveryBusy) return;
+    const sequence = this.sequence, userId = this.data.user._id;
+    const active = () => this.currentUser(sequence) && this.data.user._id === userId;
     this.setData({ doorDeliveryBusy: true, error: '' });
     try {
-      await api.call('station', 'setDoorDelivery', { enabled: event.detail.value === true });
+      await api.call('station', 'setDoorDelivery', { enabled: event.detail.value === true },
+        { silent: true, redirectOnForbidden: false, isActive: active });
+      if (!active()) return;
       const user = await getApp().ensureSession(true);
-      this.setData({ user, doorDelivery: Boolean(user.prefs && user.prefs.doorDelivery) });
+      if (active() && user._id === userId) this.setData({ user, doorDelivery: Boolean(user.prefs && user.prefs.doorDelivery) });
     } catch (error) {
-      this.setData({ error: error.message || '保存失败，请重试' });
-      await this.load();
-    } finally { this.setData({ doorDeliveryBusy: false }); }
+      if (active()) {
+        this.setData({ error: error.message || '保存结果待核对', doorDeliveryBusy: false });
+        await this.load();
+      }
+    } finally { if (active()) this.setData({ doorDeliveryBusy: false }); }
   }
 });

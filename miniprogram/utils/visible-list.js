@@ -21,14 +21,19 @@ function currentVisit(page) {
 
 function currentUserAction(visible) {
   const userId = getApp().globalData.user?._id;
-  return () => Boolean(userId) && getApp().globalData.user?._id === userId && visible();
+  const communityId = getApp().globalData.user?.communityId;
+  return () => Boolean(userId) && getApp().globalData.user?._id === userId &&
+    getApp().globalData.user?.communityId === communityId && visible();
 }
 
-async function readList(page, initial, failureMessage, fetchList, pendingWrite) {
+async function readList(page, initial, failureMessage, fetchList, pendingWrite, scopeReset = initial) {
   const visible = currentVisit(page);
   if (!visible()) return;
   const sequence = page._readSequence = (page._readSequence || 0) + 1;
   const active = () => visible() && page._readSequence === sequence;
+  let userId, communityId;
+  const scopedActive = () => active() && (!userId ||
+    (getApp().globalData.user?._id === userId && getApp().globalData.user?.communityId === communityId));
   page.setData({ ...initial, loading: true, error: '' });
   try {
     // A return during an explicit claim must read the resulting inventory.
@@ -36,12 +41,15 @@ async function readList(page, initial, failureMessage, fetchList, pendingWrite) 
     if (!active()) return;
     const user = await getApp().ensureSession();
     if (!active()) return;
-    const patch = await fetchList(user, { loading: false, silent: true, isActive: active });
-    if (active()) page.setData(patch);
+    userId = user?._id;
+    communityId = user?.communityId;
+    if (!scopedActive()) return;
+    const patch = await fetchList(user, { loading: false, silent: true, isActive: scopedActive });
+    if (scopedActive() && patch) page.setData(patch);
   } catch (error) {
-    if (active()) page.setData({ error: error.message || failureMessage });
+    if (scopedActive()) page.setData({ error: error.message || failureMessage });
   } finally {
-    if (active()) page.setData({ loading: false });
+    if (active()) page.setData({ ...(scopedActive() ? {} : scopeReset), loading: false });
   }
 }
 

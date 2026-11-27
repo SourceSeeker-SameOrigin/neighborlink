@@ -103,8 +103,9 @@ const fixture = (file, handler) => {
     env.app.globalData.user = resident('resident-b');
     await page.loadMore();
     results.push({ case: 'notices-same-community-other-user-pagination',
-      pass: page.data.list.length === 1 && page.data.list[0]._id === 'notice-b',
-      observed: { ids: page.data.list.map(item => item._id), offset: page.data.offset } });
+      pass: page.data.list.length === 1 && page.data.list[0]._id === 'notice-a' &&
+        env.requests.at(-1)[2].offset === 0,
+      observed: { ids: page.data.list.map(item => item._id), offset: env.requests.at(-1)[2].offset } });
   }
   {
     const waiting = deferred();

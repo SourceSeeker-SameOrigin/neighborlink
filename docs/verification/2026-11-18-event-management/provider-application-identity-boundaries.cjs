@@ -65,6 +65,17 @@ const fixture = (handler = reply, overrides = {}) => {
   }
   {
     const waiting = deferred();
+    const { page } = fixture(reply, { media: { uploadPhotos: async () => waiting.promise } });
+    await page.load();
+    const uploading = page.photo({ currentTarget: { dataset: { type: 'kyc' } } });
+    page.onHide();
+    await page.onShow();
+    waiting.resolve(['synthetic-kyc-a']);
+    await uploading;
+    results.push({ case: 'provider-apply-same-user-camera-return', pass: page.data.ready && page.data.kycFileId === 'synthetic-kyc-a' });
+  }
+  {
+    const waiting = deferred();
     const { env, page } = fixture(async (name, action) =>
       name === 'user' && action === 'bindPhone' ? waiting.promise : reply(name, action));
     await page.load();

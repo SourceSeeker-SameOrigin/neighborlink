@@ -25,11 +25,18 @@ Page({
   clearDetail() {
     this.sequence = (this.sequence || 0) + 1;
     this.chatConversationId = null;
+    this.ownerId = null;
+    this.ownerCommunityId = null;
     this.setData({ ...cleared, loading: false, error: '', ratingText: '', complaintText: '', ratingScore: '5', complaintIndex: 0 });
   },
   active(sequence) { return !this.hidden && !this.closed && this.sequence === sequence; },
+  currentOwner(sequence = this.sequence) {
+    const user = getApp().globalData.user;
+    return this.active(sequence) && this.ownerId && user?._id === this.ownerId &&
+      user.communityId === this.ownerCommunityId && this.data.order?._id === this.orderId;
+  },
   actionAllowed(order, flag) {
-    return !!order && !this.hidden && !this.closed && !this.data.loading && !this.data.busy &&
+    return !!order && this.currentOwner() && !this.data.loading && !this.data.busy &&
       order === this.data.order && (!flag || !!order[flag]);
   },
   onPullDownRefresh() { this.load().finally(() => wx.stopPullDownRefresh()); },
@@ -38,21 +45,29 @@ Page({
     this.clearDetail();
     const sequence = this.sequence;
     const current = () => this.active(sequence);
-    const options = { loading: false, silent: true, redirectOnForbidden: false, mediaRedirectOnForbidden: false, isActive: current };
+    let userId, communityId;
+    const scoped = () => current() && (!userId ||
+      (getApp().globalData.user?._id === userId && getApp().globalData.user?.communityId === communityId));
+    const options = { loading: false, silent: true, redirectOnForbidden: false, mediaRedirectOnForbidden: false, isActive: scoped };
     this.setData({ loading: true });
     try {
-      await getApp().ensureSession();
+      const user = await getApp().ensureSession();
       if (!current()) return;
+      userId = user._id;
+      communityId = user.communityId;
+      if (!scoped()) return;
       const order = await api.call('order', 'detail', { orderId: this.orderId }, options);
       if (!current()) return;
+      if (!scoped()) { this.clearDetail(); return; }
       let unread = 0;
       if (order.canChat) {
         try {
           const chat = await api.call('chat', 'open', { orderId: this.orderId }, options);
           if (!current()) return;
+          if (!scoped()) { this.clearDetail(); return; }
           this.chatConversationId = chat.conversationId;
           unread = chat.unread;
-        } catch (_) { if (!current()) return; }
+        } catch (_) { if (!scoped()) { if (current()) this.clearDetail(); return; } }
       }
       const labels = { stationCode: '驿站', pickupCodes: '取件码', largeCount: '大件数', placement: '交付方式', bags: '袋数',
         sorted: '已分类', shop: '店名', canteenName: '合作食堂', items: '清单', goodsCap: '预付金额', category: '类别', desc: '描述', blocks: '时长块数', billingMode: '计价方式', includedMinutes: '包含时长（分钟）', overtimePolicy: '超时规则', merchantName: '商家', unit: '单位', priceType: '计价方式',
@@ -75,6 +90,9 @@ Page({
       const vacantPhotoGroups = Object.entries(order.vacantReport && order.vacantReport.photoByItem || {}).map(([key, photos]) => ({ label: vacantLabels[key] || key, photos }));
       const visitLabels = { mental: '精神状态', diet: '饮食情况', utilities: '水电燃气', doors: '门窗安全', medical: '是否需要就医' };
       const visitReportRows = Object.entries(order.visitReport && order.visitReport.checks || {}).map(([key, value]) => ({ label: visitLabels[key] || key, value: value ? '已检查' : '未检查' }));
+      if (!scoped()) { this.clearDetail(); return; }
+      this.ownerId = userId;
+      this.ownerCommunityId = communityId;
       this.setData({ order, detailRows, unread, amount: yuan(order.pricing.payAmount + order.pricing.goodsCap),
         vacantReportRows, vacantPhotoGroups, visitReportRows,
         couponDiscountText: yuan(order.pricing.couponDiscount || 0), pointsRedeemed: order.pricing.pointsRedeemed || 0,
@@ -83,13 +101,13 @@ Page({
         slotText: slotText(order.slot), timeline: order.timeline.map(item => ({ text: statuses[item.status], time: display(item.at) })),
         refunds: order.refunds.map(item => ({ ...item, amountText: yuan(item.amount),
           statusText: { success: '已退款', processing: '退款处理中', failed: '退款失败，请联系客服' }[item.status] })) });
-    } catch (error) { if (current()) this.setData({ error: error.message || '订单加载失败，请重试' }); }
+    } catch (error) { if (scoped()) this.setData({ error: error.message || '订单加载失败，请重试' }); }
     finally { if (current()) this.setData({ loading: false }); }
   },
   async runAction(order, flag, work) {
     if (!this.actionAllowed(order, flag)) return;
     const sequence = this.sequence;
-    const current = () => this.active(sequence);
+    const current = () => this.currentOwner(sequence);
     const options = { silent: true, redirectOnForbidden: false, isActive: current };
     this.actionPending = true;
     this.setData({ busy: true, error: '' });
@@ -112,7 +130,7 @@ Page({
     const sequence = this.sequence;
     const content = order.status === 'pending_quote' ? '确认取消这条尚未报价的预约吗？' : '确认取消这笔订单吗？已支付且未接单的订单将全额退款。';
     const answer = await new Promise(resolve => wx.showModal({ title: '取消订单', content, success: resolve }));
-    if (answer.confirm && this.active(sequence)) return this.runAction(order, 'canCancel', (_, options) => api.call('order', 'cancel', { orderId: this.orderId }, options));
+    if (answer.confirm && this.currentOwner(sequence)) return this.runAction(order, 'canCancel', (_, options) => api.call('order', 'cancel', { orderId: this.orderId }, options));
   },
   pay() {
     return this.runAction(this.data.order, 'canPay', async (current, options) => {
@@ -121,6 +139,7 @@ Page({
     });
   },
   callProvider() {
+    if (!this.currentOwner()) return;
     const provider = this.data.order && this.data.order.provider;
     if (provider && provider.canCall) wx.makePhoneCall({ phoneNumber: provider.phone });
   },
@@ -128,7 +147,7 @@ Page({
   subscribeVacantReport() { return this.subscribeReport('vacant'); },
   subscribeReport(type) {
     const order = this.data.order;
-    if (!order || order.serviceCode !== type || order.visitReportNotifyAuthorized ||
+    if (!this.currentOwner() || !order || order.serviceCode !== type || order.visitReportNotifyAuthorized ||
       order.visitReport || order.vacantReport || !['paid', 'accepted', 'in_service'].includes(order.status)) return;
     return this.runAction(order, null, async (current, options) => {
       const pendingKey = 'visitReportConsentPending:' + this.orderId;
@@ -148,17 +167,17 @@ Page({
     });
   },
   previewVacant(event) {
-    if (!this.data.order) return;
+    if (!this.currentOwner()) return;
     const urls = this.data.vacantPhotoGroups.flatMap(group => group.photos);
     return this.previewOrderPhoto(event.currentTarget.dataset.url, urls);
   },
   openChat() {
-    if (!this.orderId) return;
+    if (!this.currentOwner()) return;
     if (this.data.order && this.data.order.canChat) wx.navigateTo({ url: '/chat/room/room?conversationId=' + encodeURIComponent(this.chatConversationId || '') +
       '&orderId=' + encodeURIComponent(this.orderId) });
   },
   form(event) {
-    if (!this.data.order) return;
+    if (!this.currentOwner()) return;
     const field = event.currentTarget.dataset.field;
     if (['ratingScore', 'ratingText', 'complaintIndex', 'complaintText'].includes(field)) this.setData({ [field]: event.detail.value });
   },
@@ -170,7 +189,7 @@ Page({
     if (action === 'confirm') {
       const sequence = this.sequence;
       const answer = await new Promise(resolve => wx.showModal({ title: '确认完成', content: '请确认服务已经完成。', success: resolve }));
-      if (!answer.confirm || !this.active(sequence)) return;
+      if (!answer.confirm || !this.currentOwner(sequence)) return;
     }
     return this.runAction(order, flag, (_, options) => api.call('order', action, { orderId: this.orderId,
       score: Number(this.data.ratingScore), text: action === 'rate' ? this.data.ratingText : this.data.complaintText,
@@ -182,10 +201,10 @@ Page({
   },
   previewOrderPhoto(current, urls) {
     const sequence = this.sequence;
-    if (!this.data.order || !this.active(sequence) || !urls || !urls.includes(current)) return;
-    return require('../../utils/media-links').preview({ current, urls }, () => this.active(sequence));
+    if (!this.currentOwner(sequence) || !urls || !urls.includes(current)) return;
+    return require('../../utils/media-links').preview({ current, urls }, () => this.currentOwner(sequence));
   },
   openPetReports() {
-    if (this.data.order && this.data.order.serviceCode === 'pet') wx.navigateTo({ url: '/pet/reports?id=' + encodeURIComponent(this.orderId) });
+    if (this.currentOwner() && this.data.order.serviceCode === 'pet') wx.navigateTo({ url: '/pet/reports?id=' + encodeURIComponent(this.orderId) });
   }
 });

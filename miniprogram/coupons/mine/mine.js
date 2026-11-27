@@ -16,6 +16,12 @@ const firstPage = { offset: 0, hasMore: false, loadingMore: false, moreError: ''
 Page({
   ...lifecycle,
   data: { ...firstPage, loading: true, error: '', list: [], retrying: false, retryError: '', retryMessage: '', canRetry: false },
+  onHide() {
+    lifecycle.onHide.call(this);
+    this.setData({ ...firstPage, list: [], canRetry: false, retrying: false,
+      retryError: '', retryMessage: '', loading: false, error: '' });
+  },
+  onUnload() { this.onHide(); lifecycle.onUnload.call(this); },
   load() {
     return readList(this, { ...firstPage, list: [], canRetry: false, retrying: false }, '优惠券加载失败', async (user, options) => {
       const result = await api.call('coupon', 'mine', { offset: 0 }, options);
@@ -47,11 +53,19 @@ Page({
     }
   },
   async retryWelcome() {
-    const active = currentVisit(this);
-    if (!active() || this._pendingClaim || this.data.retrying || !this.data.canRetry) return;
+    const visible = currentVisit(this);
+    const user = getApp().globalData.user;
+    if (!visible() || !user?._id || user._id !== this.data.ownerId) {
+      this.setData({ ...firstPage, list: [], canRetry: false });
+      return;
+    }
+    const active = () => visible() && getApp().globalData.user?._id === user._id &&
+      getApp().globalData.user?.communityId === user.communityId;
+    if (this._pendingClaim || this.data.retrying || !this.data.canRetry) return;
     this.setData({ retrying: true, retryError: '', retryMessage: '' });
     try {
-      this._pendingClaim = api.call('user', 'retryWelcomeCoupons', {}, { loading: false, silent: true, isActive: active });
+      this._pendingClaim = api.call('user', 'retryWelcomeCoupons', {},
+        { loading: false, silent: true, redirectOnForbidden: false, isActive: active });
       await this._pendingClaim;
       if (active()) {
         this.setData({ retryMessage: '领取检查已完成，可领取的赠券已入账，已领过的不会重复发放。' });

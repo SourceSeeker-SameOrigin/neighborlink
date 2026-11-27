@@ -20,14 +20,26 @@ Page({
     if (this._hidden) this.setData({ busy: false });
     return lifecycle.onShow.call(this);
   },
+  currentCreate() { const user = getApp().globalData.user; return currentVisit(this)() && !!this.user &&
+    user?._id === this.user._id && user?.communityId === this.user.communityId && this.data.ready; },
+  clearOtherDraft() {
+    this.pendingPhotos = null; this.requestId = Date.now().toString(36) + '_' + Math.random().toString(36).slice(2);
+    this.setData({ title: '', content: '', images: [], scope: 'community', rewardYuan: '3.00',
+      destination: '', disclaimerAgreed: false, needEnterHome: false, busy: false });
+  },
   async load() {
     if (this.loadInFlight) return;
+    const sequence = this.readSequence = (this.readSequence || 0) + 1;
     this.loadInFlight = true;
     this.setData({ loading: true, ready: false, loadError: false, error: '' });
     try {
       const user = await getApp().ensureSession();
+      if (!currentVisit(this)() || sequence !== this.readSequence || getApp().globalData.user?._id !== user._id) return;
+      if (this.user && (this.user._id !== user._id || this.user.communityId !== user.communityId)) this.clearOtherDraft();
       this.user = user;
       const community = await api.call('catalog', 'getCommunity', { communityId: user.communityId }, { loading: false, silent: true });
+      if (!currentVisit(this)() || sequence !== this.readSequence || getApp().globalData.user?._id !== user._id ||
+          getApp().globalData.user?.communityId !== user.communityId) return;
       if (!community.enabledFeatures.board || (this.data.type === 'carry' && !community.enabledFeatures.travelCarry)) throw new Error('此功能暂未开放');
       const slotOptions = (community.dutyWindows || []).map(window => ({ ...window, label: window.start + '—' + window.end }));
       if (this.data.type === 'task' && !slotOptions.length) throw new Error('小区尚未配置值班时段，暂不能发布悬赏');
@@ -35,8 +47,11 @@ Page({
         slotOptions, slotLabel: slotOptions[this.data.slotIndex] ? slotOptions[this.data.slotIndex].label : '',
         slotIndex: this.data.slotIndex });
       this.setData({ ready: true });
-    } catch (error) { this.setData({ loadError: true, error: error.message || '页面初始化失败' }); }
-    finally { this.loadInFlight = false; this.setData({ loading: false }); }
+      if (this.pendingPhotos?.userId === user._id && this.pendingPhotos.communityId === user.communityId) {
+        this.setData({ images: this.pendingPhotos.files }); this.pendingPhotos = null;
+      }
+    } catch (error) { if (currentVisit(this)() && sequence === this.readSequence) this.setData({ loadError: true, error: error.message || '页面初始化失败' }); }
+    finally { this.loadInFlight = false; if (currentVisit(this)() && sequence === this.readSequence) this.setData({ loading: false }); }
   },
   field(event) { this.setData({ [event.currentTarget.dataset.field]: event.detail.value }); },
   choose(event) {
@@ -54,13 +69,19 @@ Page({
   toggleEnterHome(event) { this.setData({ needEnterHome: event.detail.value.includes('yes') }); },
   scope(event) { this.setData({ scope: Number(event.detail.value) === 1 ? 'federation' : 'community' }); },
   async photos() {
-    if (!this.data.ready || this.data.loading || this.data.busy) return;
-    try { this.setData({ images: await uploadPhotos('board/' + this.user._id, 3) }); }
-    catch (error) { this.setData({ error: error.message || '图片上传失败' }); }
+    if (!this.currentCreate() || this.data.loading || this.data.busy) return;
+    const userId = this.user._id, communityId = this.user.communityId;
+    try { const files = await uploadPhotos('board/' + userId, 3);
+      if (getApp().globalData.user?._id !== userId || getApp().globalData.user?.communityId !== communityId) return;
+      if (this.currentCreate()) this.setData({ images: files });
+      else if (!this._unloaded) this.pendingPhotos = { userId, communityId, files };
+    } catch (error) { if (this.currentCreate()) this.setData({ error: error.message || '图片上传失败' }); }
   },
   async submit() {
-    if (!this.data.ready || this.data.loading || this.data.busy) return;
-    const current = currentUserAction(currentVisit(this));
+    if (!this.currentCreate() || this.data.loading || this.data.busy) return;
+    const ownerId = this.user._id, communityId = this.user.communityId, sequence = this.readSequence;
+    const current = () => this.currentCreate() && this.readSequence === sequence &&
+      this.user._id === ownerId && this.user.communityId === communityId;
     this.setData({ busy: true, error: '' });
     try {
       const data = { requestId: this.requestId,

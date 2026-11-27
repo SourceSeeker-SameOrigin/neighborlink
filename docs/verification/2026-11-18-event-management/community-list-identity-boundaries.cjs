@@ -77,7 +77,8 @@ const fixture = (config, listResult) => {
         buildingId: 'building-b', roles: ['resident'] };
       await page.more();
       results.push({ case: config.label + '-same-community-other-user-pagination',
-        pass: page.data[config.key].length === 1 && page.data[config.key][0]._id === 'b-item',
+        pass: page.data[config.key].length === 1 && page.data[config.key][0]._id === 'a-item' &&
+          env.requests.filter(args => args[0] === config.label && args[1] === 'list').at(-1)[2].offset === 0,
         observed: { ids: page.data[config.key].map(item => item._id) } });
     }
     {

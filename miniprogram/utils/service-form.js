@@ -56,13 +56,26 @@ module.exports = function serviceForm(serviceCode, escortStartHint) {
     },
     onHide() { this.hidden = true; this.invalidateRequests(); },
     onUnload() { this.unloaded = true; this.invalidateRequests(); },
+    currentOwner() {
+      const user = getApp().globalData.user;
+      return !this.hidden && !this.unloaded && !!this.ownerId && user?._id === this.ownerId &&
+        user?.communityId === this.ownerCommunityId;
+    },
     async load() {
       this.invalidateRequests();
       const sequence = this.loadSequence;
+      if (this.ownerId && (getApp().globalData.user?._id !== this.ownerId ||
+          getApp().globalData.user?.communityId !== this.ownerCommunityId)) {
+        this.createdOrderId = ''; this.request = null; this.pendingSlot = null; this.draftPlace = undefined;
+        this.setData({ createdOrderId: '', form: { ...defaults[serviceCode], note: '' }, addresses: [],
+          recoveryHint: '', restoredDraft: false, couponChoice: '__auto', pointsToUse: 0,
+          ...(serviceCode === 'pet' ? { taskChoices: petTaskChoices(defaults.pet.tasks) } : {}) });
+      }
       this.setData({ loading: true, error: '', community: null, quote: null, amount: '--' });
       try {
         const user = await getApp().ensureSession();
-        if (sequence !== this.loadSequence || this.hidden || this.unloaded) return;
+        if (sequence !== this.loadSequence || this.hidden || this.unloaded ||
+            getApp().globalData.user?._id !== user._id || getApp().globalData.user?.communityId !== user.communityId) return;
         const key = 'orderDraft:' + user._id + ':' + serviceCode;
         if (this.draftKey && key !== this.draftKey) {
           this.createdOrderId = ''; this.request = null; this.pendingSlot = null; this.draftPlace = undefined;
@@ -72,11 +85,12 @@ module.exports = function serviceForm(serviceCode, escortStartHint) {
         }
         this.draftKey = key;
         this.ownerId = user._id;
+        this.ownerCommunityId = user.communityId;
         const selection = this.restoreDraft(user);
         if (this.createdOrderId) return;
         if (this.request) {
           const result = await api.call('order', 'lookupRequest', { requestId: this.request.id }, { loading: false, silent: true, redirectOnForbidden: false });
-          if (sequence !== this.loadSequence || this.hidden || this.unloaded) return;
+          if (sequence !== this.loadSequence || !this.currentOwner()) return;
           if (this.createdOrderId) return;
           if (!result || !Object.prototype.hasOwnProperty.call(result, 'orderId') ||
               (result.orderId !== null && (typeof result.orderId !== 'string' || !result.orderId))) throw Error('未能核实上次提交，请重新查询');
@@ -103,8 +117,8 @@ module.exports = function serviceForm(serviceCode, escortStartHint) {
         this.setData({ addresses, addressIndex });
         if (this.request && selected && previousIndex < 0) this.setData({ recoveryHint: '原服务地址已不可用，请核对当前地址后再提交。' });
         await this.addressChange({ detail: { value: addressIndex } });
-      } catch (error) { if (sequence === this.loadSequence && !this.hidden && !this.unloaded) this.setData({ error: error.message || '加载失败，请重试' }); }
-      finally { if (sequence === this.loadSequence && !this.hidden && !this.unloaded) this.setData({ loading: false }); }
+      } catch (error) { if (sequence === this.loadSequence && this.currentOwner()) this.setData({ error: error.message || '加载失败，请重试' }); }
+      finally { if (sequence === this.loadSequence && this.currentOwner()) this.setData({ loading: false }); }
     },
     restoreDraft(user) {
       if (this.createdOrderId) { this.setData({ createdOrderId: this.createdOrderId, navigating: false }); return; }
@@ -143,7 +157,8 @@ module.exports = function serviceForm(serviceCode, escortStartHint) {
     },
     saveDraft() {
       const user = getApp().globalData.user;
-      if (!this.draftKey || !user || !user._id || (this.ownerId && this.ownerId !== user._id)) return;
+      if (!this.draftKey || !user || !user._id || (this.ownerId && this.ownerId !== user._id) ||
+          (this.ownerCommunityId && this.ownerCommunityId !== user.communityId)) return;
       if (this.createdOrderId) {
         wx.setStorageSync(this.draftKey, { userId: user._id, createdOrderId: this.createdOrderId });
         return;
@@ -332,7 +347,7 @@ module.exports = function serviceForm(serviceCode, escortStartHint) {
       return params;
     },
     async refreshQuote() {
-      if (!this.data.community || this.hidden || this.unloaded) return;
+      if (!this.data.community || !this.currentOwner()) return;
       if (!this.checkBookingDates()) return;
       const sequence = (this.quoteSequence || 0) + 1;
       this.quoteSequence = sequence;
@@ -340,7 +355,7 @@ module.exports = function serviceForm(serviceCode, escortStartHint) {
       try {
         // metadata 模式允许未填完表单时先取得有效时段及月卡提示，不生成订单。
         const result = await api.call('order', 'quote', { ...this.params(), metadata: true }, { loading: false, silent: true });
-        if (sequence !== this.quoteSequence || this.unloaded) return;
+        if (sequence !== this.quoteSequence || !this.currentOwner()) return;
         const selected = this.data.slots[this.data.slotIndex];
         const slots = (result.onDutyCount > 0 ? [{ label: '尽快上门', value: null }] : [])
           .concat(result.slots.map(value => ({ label: slotText(value), value })));
@@ -362,17 +377,17 @@ module.exports = function serviceForm(serviceCode, escortStartHint) {
           if (restoredIndex < 0 && this.request) this.setData({ recoveryHint: this.data.recoveryHint + ' 原时段已不可用，请核对新的时段。' });
         }
       } catch (error) {
-        if (sequence === this.quoteSequence && !this.unloaded) this.setData({ quote: null, amount: '--', quoteError: error.message || '报价失败，请重试' });
-      } finally { if (sequence === this.quoteSequence && !this.unloaded) this.setData({ quoteLoading: false }); }
+        if (sequence === this.quoteSequence && this.currentOwner()) this.setData({ quote: null, amount: '--', quoteError: error.message || '报价失败，请重试' });
+      } finally { if (sequence === this.quoteSequence && this.currentOwner()) this.setData({ quoteLoading: false }); }
     },
     retryQuote() { return this.data.community ? this.refreshQuote() : this.addressChange({ detail: { value: this.data.addressIndex } }); },
     openCreatedOrder() {
-      if (!this.createdOrderId || this.data.navigating || this.hidden || this.unloaded) return;
+      if (!this.createdOrderId || this.data.navigating || !this.currentOwner()) return;
       this.setData({ navigating: true, navigationError: '' });
       const key = this.draftKey;
       const orderId = this.createdOrderId;
       const failed = () => {
-        if (!this.hidden && !this.unloaded) this.setData({ navigating: false,
+        if (this.currentOwner()) this.setData({ navigating: false,
           navigationError: '订单已创建，暂未打开详情，请点击下方按钮重试。不会重复下单。' });
       };
       try {
@@ -394,8 +409,10 @@ module.exports = function serviceForm(serviceCode, escortStartHint) {
       if (!this.data.community || this.data.loading || this.data.placeNeedsSelection || !this.data.quote || this.data.quoteLoading) return;
       const user = getApp().globalData.user;
       const key = this.draftKey;
-      if (!key || !user || !user._id || (this.ownerId && this.ownerId !== user._id)) return;
-      const sameSession = () => this.draftKey === key && getApp().globalData.user?._id === user._id;
+      if (!key || !user || !user._id || (this.ownerId && this.ownerId !== user._id) ||
+          (this.ownerCommunityId && this.ownerCommunityId !== user.communityId)) return;
+      const sameSession = () => this.draftKey === key && getApp().globalData.user?._id === user._id &&
+        getApp().globalData.user?.communityId === user.communityId;
       const sequence = this.loadSequence;
       const visible = () => sameSession() && !this.hidden && !this.unloaded && sequence === this.loadSequence;
       this.setData({ saving: true, error: '' });

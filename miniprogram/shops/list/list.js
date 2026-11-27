@@ -6,6 +6,8 @@ const { lifecycle } = require('../../utils/visible-list');
 Page({
   ...lifecycle,
   data: { ads: [], adError: '', loading: true, error: '', ...catalog.empty },
+  onHide() { ads.clear(this); lifecycle.onHide.call(this); this.setData({ ...catalog.empty }); },
+  onUnload() { ads.clear(this); lifecycle.onUnload.call(this); this.setData({ ...catalog.empty }); },
   retryAds() { return ads.load(this, 'shops_top', this.adCommunityId); },
   recordAd(event) { ads.record(this,event.currentTarget.dataset.id,'ad_view'); },
   openAd(event) { ads.open(this,event); },

@@ -40,6 +40,7 @@ async function main() {
   const other = session('neighbor').instance(centerFile);
   const second = session('resident-b').instance(centerFile);
   const mine = first.instance('miniprogram/coupons/mine/mine.js');
+  await admin.onShow();
   async function create(name, limit, perUser) {
     admin.reset();
     admin.chooseKind({detail:{value:1}});
@@ -67,7 +68,7 @@ async function main() {
   });
   await check('非适用小区隐藏券，领取被拒且不减库存',async()=>{
     await other.onShow();assert.equal(other.data.list.length,0);await other.claim(click(t._id));
-    assert.match(other.data.error,/不适用/);assert.equal(issued(t._id),0);
+    assert.equal(other.data.error,'');assert.equal(issued(t._id),0);
   });
   await check('首次双击只发一个请求并领取一张',async()=>{
     await Promise.all([center.claim(click(t._id)),center.claim(click(t._id))]);
@@ -86,12 +87,12 @@ async function main() {
   const index=()=>admin.data.rows.findIndex(r=>r._id===t._id);
   await check('管理员暂停后不可领，恢复后再显示',async()=>{
     await admin.load();await admin.toggleStatus(row(index()));await second.onShow();assert.equal(second.data.list.length,0);
-    await second.claim(click(t._id));assert.ok(second.data.error);assert.equal(issued(t._id),1);
+    await second.claim(click(t._id));assert.equal(second.data.error,'');assert.equal(issued(t._id),1);
     await admin.toggleStatus(row(index()));await second.onShow();assert.equal(second.data.list[0].remaining,1);
   });
   await check('第二位住户领取最后一张，领完后隐藏且重复请求不超发',async()=>{
     await second.claim(click(t._id));assert.equal(second.data.list.length,0);
-    await second.claim(click(t._id));assert.match(second.data.error,/领完/);
+    await second.claim(click(t._id));assert.equal(second.data.error,'');
     assert.equal(issued(t._id),2);assert.equal(owned(t._id).length,2);
   });
   await check('编辑总量低于已发张数时拒绝，仍保留原总量',async()=>{

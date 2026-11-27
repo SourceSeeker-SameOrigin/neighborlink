@@ -52,6 +52,14 @@ const fixture = handler => {
     results.push({ case: 'old-community-save-after-identity-change', pass: !env.requests.some(request => request[1] === 'updateCommunity'),
       observed: { updateCalls: env.requests.filter(request => request[1] === 'updateCommunity').length } });
   }
+  {
+    const { page } = fixture(async () => reply);
+    await page.load();
+    page.input({ currentTarget: { dataset: { field: 'name' } }, detail: { value: '本人草稿' } });
+    page.onHide(); await page.onShow();
+    results.push({ case: 'same-admin-return-keeps-community-draft',
+      pass: page.data.authorized && page.data.community?._id === community._id && page.data.name === '本人草稿' });
+  }
   console.log(JSON.stringify({ scope: 'synthetic users; all CloudBase calls intercepted',
     pass: results.filter(result => result.pass).length, fail: results.filter(result => !result.pass).length, results }, null, 2));
   if (results.some(result => !result.pass)) process.exitCode = 1;

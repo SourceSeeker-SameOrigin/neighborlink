@@ -18,27 +18,44 @@ function finishClaim(key, templateId, requestId) {
 Page({
   ...lifecycle,
   data: { loading: true, busy: false, error: '', list: [], pending: [] },
+  onHide() {
+    lifecycle.onHide.call(this);
+    this._listOwnerId = null;
+    this.setData({ list: [], pending: [], busy: false, loading: false, error: '' });
+  },
+  onUnload() { this.onHide(); lifecycle.onUnload.call(this); },
   load() {
-    return readList(this, { busy: false, pending: [] }, '优惠券加载失败', async (user, options) => {
+    this._listOwnerId = null;
+    return readList(this, { list: [], busy: false, pending: [] }, '优惠券加载失败', async (user, options) => {
       const { list } = await api.call('coupon', 'center', {}, options);
+      if (!options.isActive()) return;
+      this._listOwnerId = user._id;
       return { pending: Object.values(pendingClaims('couponClaim:' + user._id)), list: list.map(item => ({
         ...item, discountText: discountText(item),
         thresholdText: item.threshold ? '满 ' + yuan(item.threshold) + ' 元可用' : '无门槛'
       })) };
-    }, this._pendingClaim);
+    }, this._pendingClaim, { list: [], pending: [], busy: false });
   },
   async claim(event) {
-    const active = currentVisit(this);
-    if (!active() || this.data.loading || this._pendingClaim || this.data.busy) return;
-    const templateId = event.currentTarget.dataset.id;
+    const visible = currentVisit(this);
     const user = getApp().globalData.user;
-    if (!user || !user._id || !templateId) return;
+    if (!visible() || !user?._id || user._id !== this._listOwnerId) {
+      this._listOwnerId = null;
+      this.setData({ list: [], pending: [], busy: false });
+      return;
+    }
+    const active = () => visible() && getApp().globalData.user?._id === user._id &&
+      getApp().globalData.user?.communityId === user.communityId;
+    if (this.data.loading || this._pendingClaim || this.data.busy) return;
+    const templateId = event.currentTarget.dataset.id;
+    if (!templateId) return;
     const key = 'couponClaim:' + user._id;
     let receipt;
     let pending;
     this.setData({ busy: true, error: '' });
     try {
       pending = pendingClaims(key);
+      if (!this.data.list.some(item => item._id === templateId) && !pending[templateId]) return;
       receipt = pending[templateId];
       if (!receipt) {
         const template = this.data.list.find(item => item._id === templateId);
@@ -48,7 +65,7 @@ Page({
         pending[templateId] = receipt;
       }
       const request = api.call('coupon', 'claim', { templateId, requestId: receipt.id },
-        { loading: false, silent: true, isActive: active });
+        { loading: false, silent: true, redirectOnForbidden: false, isActive: active });
       this._pendingClaim = request;
       await request;
       finishClaim(key, templateId, receipt.id);

@@ -26,9 +26,13 @@ Page({
     });
   },
   async reportContent() {
-    if (!this.data.merchant || this.reporting) return;
+    if (!this.data.merchant || this.reporting ||
+        this.catalogScope !== JSON.stringify([getApp().globalData.user?._id, getApp().globalData.user?.communityId, this.merchantId])) return;
     const visible = currentVisit(this);
-    const active = () => visible() && this.data.merchant && this.data.merchant._id === this.merchantId;
+    const scope = this.catalogScope;
+    const active = () => visible() && this.catalogScope === scope &&
+      scope === JSON.stringify([getApp().globalData.user?._id, getApp().globalData.user?.communityId, this.merchantId]) &&
+      this.data.merchant && this.data.merchant._id === this.merchantId;
     this.reporting = true;
     this.setData({ reportError: '' });
     try { await reportAction.submit('merchant', this.merchantId, active); }

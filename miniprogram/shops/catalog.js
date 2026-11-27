@@ -12,7 +12,9 @@ function read(page, append, failure, fetch) {
   const offset = append ? page.data.nextOffset : 0;
   const reset = { ...empty, merchant: null, reportError: '' };
   const visible = currentVisit(page);
-  const pending = readList(page, append ? { moreError: '' } : reset, failure, async (user, options) => {
+  const owner = getApp().globalData.user;
+  const scopeChanged = page.catalogScope && page.catalogScope !== JSON.stringify([owner?._id, owner?.communityId, page.merchantId]);
+  const pending = readList(page, append && !scopeChanged ? { moreError: '' } : reset, failure, async (user, options) => {
     const scope = JSON.stringify([user._id, user.communityId, page.merchantId]);
     if (append && scope !== page.catalogScope) { page.load(); return; }
     try {
@@ -30,7 +32,7 @@ function read(page, append, failure, fetch) {
       }
       return { moreError: e.message || failure };
     }
-  });
+  }, null, reset);
   const sequence = page._readSequence;
   return pending.then(() => {
     // Session lookup can fail before the page fetch runs; an unknown identity cannot reuse a prior catalog.
@@ -39,6 +41,8 @@ function read(page, append, failure, fetch) {
 }
 
 function canOpen(page, id) {
-  return currentVisit(page)() && !page.data.error && page.data.list.some(item => item._id === id);
+  const user = getApp().globalData.user;
+  return currentVisit(page)() && page.catalogScope === JSON.stringify([user?._id, user?.communityId, page.merchantId]) &&
+    !page.data.error && page.data.list.some(item => item._id === id);
 }
 module.exports = { empty, rating, read, canOpen };
