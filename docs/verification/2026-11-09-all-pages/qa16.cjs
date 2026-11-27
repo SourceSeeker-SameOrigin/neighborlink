@@ -26,7 +26,7 @@ async function setup() {
     }
     return { communityId: c._id };
   });
-  r.app.globalData.user = { roles: ['admin'] };
+  r.app.globalData.user = { _id: 'synthetic-admin', roles: ['admin'] };
   const p = r.instance('miniprogram/admin/community/community.js'), scrolls = [];
   const setData = p.setData;
   p.setData = function (patch, done) { setData.call(this, patch); if (done) done(); };

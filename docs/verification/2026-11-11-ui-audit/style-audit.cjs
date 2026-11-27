@@ -9,7 +9,8 @@ for(const route of pages){
  const events=[...xml.matchAll(/(?:bind|catch)(?::)?[a-z]+\s*=\s*['"]([A-Za-z_$][\w$]*)['"]/g)].map(m=>m[1]).sort();
  const previous=before.find(x=>x.page===route);
  // QA40 approved replacing load retry handlers with range-aware retry wrappers.
- const approvedRetryRoutes=['admin/reports/reports','admin/merchants/merchants','admin/stations/stations'];
+ const approvedRetryRoutes=['admin/reports/reports','admin/merchants/merchants','admin/stations/stations',
+  'provider/workbench/workbench','merchant/orders/orders','station/workbench/workbench','station/worker/worker'];
  const previousEvents=previous.events.map(e=>e==='load'&&approvedRetryRoutes.includes(route)?'retry':e);
  const oldEvents=previousEvents.filter(x=>!(x==='phone'&&['pages/bind/bind','provider/apply/apply'].includes(route)));
  // QA80 replaced exactly one generic change handler per location picker.

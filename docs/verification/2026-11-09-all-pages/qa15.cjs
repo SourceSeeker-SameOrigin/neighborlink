@@ -18,7 +18,7 @@ async function setup() {
     if (writeFails) throw Error('合成保存失败');
     return {};
   });
-  r.app.globalData.user = { roles: ['admin'] };
+  r.app.globalData.user = { _id: 'synthetic-admin', roles: ['admin'] };
   const p = r.instance('miniprogram/admin/community/community.js'), scrolls = [];
   const setData = p.setData;
   p.setData = function (patch, done) { setData.call(this, patch); if (done) done(); };

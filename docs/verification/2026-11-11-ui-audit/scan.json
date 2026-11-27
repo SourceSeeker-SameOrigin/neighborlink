@@ -1390,12 +1390,12 @@
       "scenario": "network_failure",
       "calls": [
         {
-          "name": "chat",
-          "action": "list"
-        },
-        {
           "name": "order",
           "action": "listMine"
+        },
+        {
+          "name": "chat",
+          "action": "list"
         }
       ],
       "errors": {
@@ -1410,12 +1410,12 @@
       "scenario": "feature_off",
       "calls": [
         {
-          "name": "chat",
-          "action": "list"
-        },
-        {
           "name": "order",
           "action": "listMine"
+        },
+        {
+          "name": "chat",
+          "action": "list"
         }
       ],
       "errors": {
@@ -1430,12 +1430,12 @@
       "scenario": "unbound_network_failure",
       "calls": [
         {
-          "name": "chat",
-          "action": "list"
-        },
-        {
           "name": "order",
           "action": "listMine"
+        },
+        {
+          "name": "chat",
+          "action": "list"
         }
       ],
       "errors": {
