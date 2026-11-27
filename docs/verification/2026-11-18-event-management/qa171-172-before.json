@@ -1,0 +1,78 @@
+{
+  "scope": "actual P68/P69 pages, synthetic residents; CloudBase and navigation intercepted",
+  "pass": 4,
+  "fail": 6,
+  "results": [
+    {
+      "case": "recycle-normal-quote",
+      "pass": true
+    },
+    {
+      "case": "recycle-old-quote-after-user-switch",
+      "pass": false,
+      "observed": {
+        "quoted": true,
+        "slots": 1
+      }
+    },
+    {
+      "case": "recycle-old-create-after-user-switch",
+      "pass": false,
+      "observed": {
+        "calls": 1,
+        "communityId": "community-a"
+      }
+    },
+    {
+      "case": "recycle-old-order-entry-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/pages/orders/detail?id=order-a"
+        ]
+      }
+    },
+    {
+      "case": "recycle-new-user-load-clears-old-draft",
+      "pass": false,
+      "observed": {
+        "note": "A 的合成备注",
+        "selected": [
+          "paper"
+        ]
+      }
+    },
+    {
+      "case": "recycle-old-quote-after-hide",
+      "pass": true
+    },
+    {
+      "case": "notices-normal-list",
+      "pass": true
+    },
+    {
+      "case": "notices-old-community-list-after-user-switch",
+      "pass": false,
+      "observed": {
+        "ids": [
+          "notice-a"
+        ]
+      }
+    },
+    {
+      "case": "notices-same-community-other-user-pagination",
+      "pass": false,
+      "observed": {
+        "ids": [
+          "notice-a",
+          "notice-b"
+        ],
+        "offset": 2
+      }
+    },
+    {
+      "case": "notices-old-list-after-hide",
+      "pass": true
+    }
+  ]
+}

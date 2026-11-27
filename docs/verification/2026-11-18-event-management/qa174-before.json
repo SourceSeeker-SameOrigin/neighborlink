@@ -1,0 +1,39 @@
+{
+  "scope": "actual P02 page; synthetic residents/phone/address, user API intercepted",
+  "pass": 2,
+  "fail": 3,
+  "results": [
+    {
+      "case": "binding-normal-load",
+      "pass": true
+    },
+    {
+      "case": "binding-old-resident-load-after-user-switch",
+      "pass": false,
+      "observed": {
+        "room": "101-a",
+        "communityId": "community-a"
+      }
+    },
+    {
+      "case": "binding-old-address-submit-after-user-switch",
+      "pass": false,
+      "observed": {
+        "writes": 1,
+        "communityId": "community-a"
+      }
+    },
+    {
+      "case": "binding-old-phone-return-overwrites-current-user",
+      "pass": false,
+      "observed": {
+        "currentUser": "a",
+        "phoneVerified": false
+      }
+    },
+    {
+      "case": "binding-new-resident-explicit-reload",
+      "pass": true
+    }
+  ]
+}
