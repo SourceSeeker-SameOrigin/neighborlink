@@ -1220,14 +1220,14 @@
     "route": "board/detail/detail",
     "staticReferences": "2026-11-13当前源码静态引用/组件检查通过（69页、77页面/组件模板；不代表视觉或真实业务通过）",
     "isolatedLifecycle": "2026-11-13重跑3组失败/关闭/未绑定加载，共69页207组，无未捕获异常；非成功业务验收",
-    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过",
+    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过 QA210 实际页面与共用 API 的合成拒绝响应：举报请求发出后离页，迟到 E_FORBIDDEN 仍弹错并切首页；原页拒绝对照同样切首页。未调用开发云。",
     "successFlowThisRun": "未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF",
     "newFindings": [
       "QA25已批准并修复",
       "2026-11-27 当前代码合成身份回归：求助详情正常读取、换人旧评论与关闭阻断、拒绝重读清除旧帖和评论，3项通过；无真实评论或云写入。"
     ],
     "userAcceptance": "待用户逐项签收；不因本轮技术检查自动通过",
-    "remaining": "有效编号非空详情、已删除/越权记录、相关业务状态操作与刷新；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
+    "remaining": "QA210 离页迟到拒绝弹错并跳首页待统一决策；有效编号非空详情、已删除/越权记录、相关业务状态操作与刷新；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
     "criteria": {
       "U1": "部分核对，未完整通过；见liveUIThisRun",
       "U2": "部分核对，未完整通过；见liveUIThisRun",
@@ -1314,14 +1314,14 @@
     "route": "idle/detail/detail",
     "staticReferences": "2026-11-13当前源码静态引用/组件检查通过（69页、77页面/组件模板；不代表视觉或真实业务通过）",
     "isolatedLifecycle": "2026-11-13重跑3组失败/关闭/未绑定加载，共69页207组，无未捕获异常；非成功业务验收",
-    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过",
+    "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过 QA210 实际页面与共用 API 的合成拒绝响应：举报请求发出后离页，迟到 E_FORBIDDEN 仍弹错并切首页；原页拒绝对照同样切首页。未调用开发云。",
     "successFlowThisRun": "未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF",
     "newFindings": [
       "QA25已批准并修复",
       "2026-11-27 当前代码合成身份回归：闲置详情正常读取，换人后旧联系入口不请求电话；无真实拨号。"
     ],
     "userAcceptance": "待用户逐项签收；不因本轮技术检查自动通过",
-    "remaining": "有效编号非空详情、已删除/越权记录、相关业务状态操作与刷新；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
+    "remaining": "QA210 离页迟到拒绝弹错并跳首页待统一决策；有效编号非空详情、已删除/越权记录、相关业务状态操作与刷新；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
     "criteria": {
       "U1": "部分核对，未完整通过；见liveUIThisRun",
       "U2": "部分核对，未完整通过；见liveUIThisRun",
