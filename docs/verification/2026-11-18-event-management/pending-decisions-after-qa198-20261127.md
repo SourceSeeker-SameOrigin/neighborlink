@@ -4,7 +4,7 @@
 
 本批提交至 `fix/dev-integration` 的 `f72434c`，QA217 的响应丢失后评论列表只读刷新补丁为 `ba8ed7e`。当前重跑 20 个专项脚本均退出 0、Jest 55 套 653 项通过；69 页静态引用与三种失败场景共 207 组无缺项、无未捕获异常或未处理拒绝。这些结果均不构成真实云端、模拟器布局或体验成员手机验收。
 
-部署候选已按当前提交封装为 10 个本地代码包：`admin`、`board`、`content`、`event`、`idle`、`provider`、`station`、`payout`、`order`、`timer`，各 76 个源码及配置文件。候选索引为 `payouts`、`comments`、`ads`、`notices` 四项；须先回读开发云现有代码、索引和函数配置，按真实差异确定最终更新范围。当前尚未上传这些包、创建索引或切换体验版。
+部署候选已按当前提交封装为 10 个本地代码包：`admin`、`board`、`content`、`event`、`idle`、`provider`、`station`、`payout`、`order`、`timer`，各 77 个源码及配置文件，包含嵌套的 `services/elder.js`。十个函数的开发云源码已由官方 CLI 只读下载，SDK 均为 4.0.2；现有源码存在早于本轮的差异，但逐个云端文件版本均能在仓库历史中找到，没有发现云端独有源码。候选索引为 `payouts`、`comments`、`ads`、`notices` 四项；索引现状和函数部署后的真实查询仍待核对。具体包哈希与差异见 `qa199-218-cloud-candidates.json`。当前尚未上传这些包、创建索引或切换体验版。
 
 | 本轮执行状态 | 结果与下一步 |
 | --- | --- |
