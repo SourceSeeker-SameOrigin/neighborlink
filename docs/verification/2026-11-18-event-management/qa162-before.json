@@ -1,0 +1,17 @@
+{
+  "case": "QA162",
+  "page": "admin/providers/providers",
+  "method": "Actual page JavaScript in isolated Node VM with synthetic administrator A and resident B; all admin calls intercepted",
+  "passed": 2,
+  "failed": 2,
+  "results": [
+    "Normal administrator list read displays the synthetic application",
+    "Old review action after switching to resident B sends one reviewProvider request",
+    "A's late list read fills B's page",
+    "Late list read after hide is correctly ignored"
+  ],
+  "cloudCalls": 0,
+  "realApplicationsReviewed": 0,
+  "limits": "The cloud function may independently reject unauthorized review; online incidence and real device behavior are unknown",
+  "status": "Reproduced in isolation; remediation recorded for unified user decision"
+}
