@@ -10,6 +10,7 @@ function fixture({ bound = true, global = false, local = false, roles = ['reside
   function compare(actual,value) {
     if(value && value.op==='and')return value.value.every(v=>compare(actual,v));
     if(value && value.op==='in')return Array.isArray(actual)?actual.some(v=>value.value.includes(v)):value.value.includes(actual);
+    if(value && value.op==='nin')return Array.isArray(actual)?actual.every(v=>!value.value.includes(v)):!value.value.includes(actual);
     if(value && value.op==='neq')return actual!==value.value;
     if(value && value.op==='gt')return actual>value.value;
     if(value && value.op==='gte')return actual>=value.value;
