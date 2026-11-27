@@ -502,7 +502,9 @@
     "isolatedLifecycle": "2026-11-13重跑3组失败/关闭/未绑定加载，共69页207组，无未捕获异常；非成功业务验收",
     "liveUIThisRun": "本轮未重复实景；历史证据见historicalLiveUI，不能据此标新版整页通过",
     "successFlowThisRun": "未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF",
-    "newFindings": [],
+    "newFindings": [
+      "2026-11-27 本地联调：实际 provider.earnings 云函数接101笔合成账本，偏移0至100共6页返回20/20/20/20/20/1，待结算与可提现均10100分；实际P17页接41笔账本连续3页读取41条、去重41条、显示¥41.00。未发起提现或读取真实账本。"
+    ],
     "userAcceptance": "待用户逐项签收；不因本轮技术检查自动通过",
     "remaining": "服务员资格、非零账本、结算/提现；未完成的多尺寸/大字体/键盘及用户视觉签收另列",
     "criteria": {
