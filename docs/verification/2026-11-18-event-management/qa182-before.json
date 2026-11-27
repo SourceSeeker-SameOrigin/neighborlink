@@ -1,0 +1,26 @@
+{
+  "scope": "actual page and listView; synthetic admin and orders; intercepted cloud reads",
+  "pass": 2,
+  "fail": 1,
+  "results": [
+    {
+      "case": "fixed-price-still-shows-amount",
+      "pass": true,
+      "observed": "5.00"
+    },
+    {
+      "case": "unquoted-shows-pending-quote-instead-of-zero",
+      "pass": false,
+      "observed": {
+        "status": "pending_quote",
+        "amount": "0.00",
+        "renderedTemplate": "¥0.00"
+      }
+    },
+    {
+      "case": "quoted-shows-actual-amount",
+      "pass": true,
+      "observed": "7.00"
+    }
+  ]
+}
