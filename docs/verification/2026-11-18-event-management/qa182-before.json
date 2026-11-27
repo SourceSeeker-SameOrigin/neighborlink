@@ -1,7 +1,7 @@
 {
-  "scope": "actual page and listView; synthetic admin and orders; intercepted cloud reads",
+  "scope": "actual admin list/detail pages and server views; synthetic admin and orders; intercepted cloud reads",
   "pass": 2,
-  "fail": 1,
+  "fail": 2,
   "results": [
     {
       "case": "fixed-price-still-shows-amount",
@@ -15,6 +15,15 @@
         "status": "pending_quote",
         "amount": "0.00",
         "renderedTemplate": "¥0.00"
+      }
+    },
+    {
+      "case": "unquoted-detail-shows-pending-quote-instead-of-zero",
+      "pass": false,
+      "observed": {
+        "status": "pending_quote",
+        "amount": "0.00",
+        "renderedTemplate": "订单金额 ¥0.00"
       }
     },
     {
