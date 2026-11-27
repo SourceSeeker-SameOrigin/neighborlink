@@ -111,6 +111,9 @@ function dateValue(value, label) {
   ensure(Number.isFinite(date.getTime()), label + '格式不正确');
   return date;
 }
+function mayResumeMediaReview(user) {
+  return user.blocked !== true && (!user.mutedUntil || new Date(user.mutedUntil) <= new Date());
+}
 function safeTarget(target) {
   ensure(target && ['merchant','event','page'].includes(target.type), '广告链接类型不正确');
   if (target.type === 'page') {
@@ -189,9 +192,44 @@ async function listNotices(event, { user }) {
   return { list, hasMore: result.data.length === 20, nextOffset: offset + result.data.length };
 }
 
+async function resumeMediaReview(collection, id, fileId, authorOpenid, communityId, targetType) {
+  if (!fileId) return;
+  const claimed = await atomic(server.db, async transaction => {
+    const item = await read(transaction, collection, id);
+    if (!item || item.imageFileId !== fileId ||
+      (item.moderationPendingFileIds || []).includes(fileId) ||
+      (item.moderationApprovedFileIds || []).includes(fileId)) return false;
+    await transaction.collection(collection).doc(id).update({ data: {
+      moderationPendingFileIds: [...new Set([...(item.moderationPendingFileIds || []), fileId])] } });
+    return true;
+  });
+  if (claimed) await requestMediaCheck(cloud, server.db,
+    { fileId, targetType, targetId: id, authorOpenid, communityId });
+}
+
 async function saveNotice(event, { user, openid }) {
   requireRole(user, ['property','admin']);
   text(event.communityId, '小区'); text(event.title, '公告标题', 80); text(event.body, '公告正文', 2000);
+  const endAt = dateValue(event.endAt, '有效期');
+  const imageFileId = typeof event.imageFileId === 'string' ? event.imageFileId.slice(0, 500) : '';
+  let requestId = null, requestHash = null;
+  if (!event.noticeId && event.requestId !== undefined) {
+    requestId = text(event.requestId, '请求编号', 80);
+    ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(requestId), '请求编号不正确');
+    requestHash = crypto.createHash('sha256').update(JSON.stringify({ communityId: event.communityId,
+      title: event.title.trim(), body: event.body.trim(), imageFileId, pinned: event.pinned === true,
+      endAt: endAt.toISOString() })).digest('hex');
+    const originalId = 'n_' + crypto.createHash('sha256').update(openid + ':' + requestId).digest('hex').slice(0, 36);
+    const original = await server.get('notices', originalId);
+    if (original) {
+      ensure(original.createdBy === openid && original.requestHash === requestHash,
+        '请求编号已用于其他公告', 'E_CONFLICT');
+      ensure(user.roles.includes('admin') || original.communityId === user.communityId,
+        '物业只能管理本小区公告', 'E_FORBIDDEN');
+      if (mayResumeMediaReview(user)) await resumeMediaReview('notices', originalId, imageFileId, openid, original.communityId, 'notice');
+      return { noticeId: originalId };
+    }
+  }
   ensureCanPublish(user);
   const community = await server.get('communities', event.communityId);
   ensure(community && community.status === 'active', '小区不存在或已停用');
@@ -201,21 +239,12 @@ async function saveNotice(event, { user, openid }) {
   const cleanTitle = await checkText(cloud, event.title, { blacklist: config.contentBlacklist || [], type: 'notice', openid });
   const cleanBody = await checkText(cloud, event.body, { blacklist: config.contentBlacklist || [], type: 'notice', openid });
   const now = new Date();
-  const endAt = dateValue(event.endAt, '有效期');
   ensure(endAt > now && endAt <= new Date(now.getTime() + 366 * 86400000), '公告有效期须在未来一年内');
   if (event.imageFileId) fileInFolder(event.imageFileId, 'notices/' + user._id);
   const record = { communityId: community._id, title: cleanTitle, body: cleanBody,
-    imageFileId: typeof event.imageFileId === 'string' ? event.imageFileId.slice(0, 500) : '',
+    imageFileId,
     pinned: event.pinned === true, pinnedAt: event.pinned === true ? now : null,
     status: 'live', endAt, createdAt: now, createdBy: openid };
-  let requestId = null, requestHash = null;
-  if (!event.noticeId && event.requestId !== undefined) {
-    requestId = text(event.requestId, '请求编号', 80);
-    ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(requestId), '请求编号不正确');
-    requestHash = crypto.createHash('sha256').update(JSON.stringify({ communityId: record.communityId,
-      title: record.title, body: record.body, imageFileId: record.imageFileId, pinned: record.pinned,
-      endAt: endAt.toISOString() })).digest('hex');
-  }
   if (event.noticeId) {
     const old = await server.get('notices', event.noticeId);
     ensure(old && old.communityId === community._id, '公告不存在或不属于该小区');
@@ -228,19 +257,21 @@ async function saveNotice(event, { user, openid }) {
   }
   const id = requestId ? 'n_' + crypto.createHash('sha256').update(openid + ':' + requestId).digest('hex').slice(0, 36) : null;
   const value = { ...record, images: record.imageFileId ? [record.imageFileId] : [],
+    moderationPendingFileIds: record.imageFileId ? [record.imageFileId] : [],
     ...(requestHash ? { requestHash } : {}) };
   const result = id ? await atomic(server.db, async transaction => {
     const existing = await read(transaction, 'notices', id);
     if (existing) {
       ensure(existing.createdBy === openid && existing.requestHash === requestHash,
         '请求编号已用于其他公告', 'E_CONFLICT');
-      return { _id: id };
+      return { _id: id, duplicate: true };
     }
     await insert(transaction, 'notices', { _id: id, ...value });
     return { _id: id };
   }) : await server.db.collection('notices').add({ data: value });
-  if (record.imageFileId) await requestMediaCheck(cloud, server.db,
+  if (record.imageFileId && !result.duplicate) await requestMediaCheck(cloud, server.db,
     { fileId: record.imageFileId, targetType: 'notice', targetId: result._id, authorOpenid: openid, communityId: community._id });
+  if (result.duplicate) await resumeMediaReview('notices', result._id, imageFileId, openid, community._id, 'notice');
   return { noticeId: result._id };
 }
 
@@ -301,26 +332,36 @@ async function saveAd(event, { user, openid }) {
   ensure(['draft','live'].includes(status), '广告状态不正确');
   ensure(Array.isArray(event.communityIds) && event.communityIds.length > 0 && event.communityIds.length <= 100, '请选择投放小区');
   text(event.imageFileId, '广告图片', 500);
-  const config = await server.config();
-  const title = await checkText(cloud, event.title, { blacklist: config.contentBlacklist || [], type: 'ad', openid });
   const startAt = dateValue(event.startAt, '开始时间'); const endAt = dateValue(event.endAt, '结束时间');
   ensure(endAt > startAt, '广告结束时间必须晚于开始时间');
   const communityIds = [...new Set(event.communityIds.map(id => text(id, '小区 ID', 100)))];
-  for (const id of communityIds) ensure(await server.get('communities', id), '投放小区不存在');
-  const record = { slot: event.slot, title, imageFileId: event.imageFileId, target: safeTarget(event.target),
-    communityIds, startAt, endAt, price: integer(event.price || 0, '广告金额', 0, 100000000),
-    advertiser: typeof event.advertiser === 'string' ? event.advertiser.slice(0, 100) : '',
-    images: [event.imageFileId], moderationPendingFileIds: [event.imageFileId], moderationApprovedFileIds: [],
-    status, createdAt: new Date(), createdBy: openid };
+  const target = safeTarget(event.target);
+  const price = integer(event.price || 0, '广告金额', 0, 100000000);
+  const advertiser = typeof event.advertiser === 'string' ? event.advertiser.slice(0, 100) : '';
   let requestId = null, requestHash = null;
   if (!event.adId && event.requestId !== undefined) {
     requestId = text(event.requestId, '请求编号', 80);
     ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(requestId), '请求编号不正确');
-    requestHash = crypto.createHash('sha256').update(JSON.stringify({ slot: record.slot, title: record.title,
-      imageFileId: record.imageFileId, target: record.target, communityIds: record.communityIds,
-      startAt: startAt.toISOString(), endAt: endAt.toISOString(), price: record.price,
-      advertiser: record.advertiser, status: record.status })).digest('hex');
+    requestHash = crypto.createHash('sha256').update(JSON.stringify({ slot: event.slot, title: event.title.trim(),
+      imageFileId: event.imageFileId, target, communityIds,
+      startAt: startAt.toISOString(), endAt: endAt.toISOString(), price,
+      advertiser, status })).digest('hex');
+    const originalId = 'ad_' + crypto.createHash('sha256').update(openid + ':' + requestId).digest('hex').slice(0, 36);
+    const original = await server.get('ads', originalId);
+    if (original) {
+      ensure(original.createdBy === openid && original.requestHash === requestHash,
+        '请求编号已用于其他广告', 'E_CONFLICT');
+      if (mayResumeMediaReview(user)) await resumeMediaReview('ads', originalId, event.imageFileId, openid, original.communityIds[0], 'ad');
+      return { adId: originalId };
+    }
   }
+  const config = await server.config();
+  const title = await checkText(cloud, event.title, { blacklist: config.contentBlacklist || [], type: 'ad', openid });
+  for (const id of communityIds) ensure(await server.get('communities', id), '投放小区不存在');
+  const record = { slot: event.slot, title, imageFileId: event.imageFileId, target,
+    communityIds, startAt, endAt, price, advertiser,
+    images: [event.imageFileId], moderationPendingFileIds: [event.imageFileId], moderationApprovedFileIds: [],
+    status, createdAt: new Date(), createdBy: openid };
   if (event.adId) {
     const old = await server.get('ads', event.adId); ensure(old, '广告不存在');
     ensure(!old.paymentReceivedAt || old.price === record.price, '广告款已确认收款，不能修改金额', 'E_CONFLICT');
@@ -345,13 +386,14 @@ async function saveAd(event, { user, openid }) {
     if (existing) {
       ensure(existing.createdBy === openid && existing.requestHash === requestHash,
         '请求编号已用于其他广告', 'E_CONFLICT');
-      return { _id: id };
+      return { _id: id, duplicate: true };
     }
     await insert(transaction, 'ads', { _id: id, ...record, requestHash });
     return { _id: id };
   }) : await server.db.collection('ads').add({ data: record });
-  await requestMediaCheck(cloud, server.db,
+  if (!result.duplicate) await requestMediaCheck(cloud, server.db,
     { fileId: record.imageFileId, targetType: 'ad', targetId: result._id, authorOpenid: openid, communityId: communityIds[0] });
+  if (result.duplicate) await resumeMediaReview('ads', result._id, record.imageFileId, openid, communityIds[0], 'ad');
   return { adId: result._id };
 }
 
