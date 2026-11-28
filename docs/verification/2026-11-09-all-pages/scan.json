@@ -162,6 +162,7 @@
       "handlers": [
         "openCreatedOrder",
         "load",
+        "retryPending",
         "addressChange",
         "slot",
         "entry",
@@ -243,7 +244,8 @@
       "filesComplete": true,
       "handlers": [
         "retry",
-        "accept"
+        "accept",
+        "more"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
@@ -284,7 +286,8 @@
       "filesComplete": true,
       "handlers": [
         "retry",
-        "createPayout"
+        "createPayout",
+        "morePayouts"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
@@ -367,6 +370,7 @@
         "chooseCommunity",
         "input",
         "chooseLocation",
+        "checkOriginalBuilding",
         "editBuilding",
         "newBuilding",
         "addBuilding",
@@ -492,6 +496,7 @@
         "togglePinned",
         "saveNotice",
         "endNotice",
+        "moreNotices",
         "loadAds",
         "adSlotChange",
         "adTargetTypeChange",
@@ -499,7 +504,8 @@
         "adStatusChange",
         "saveAd",
         "confirmAdReceived",
-        "endAd"
+        "endAd",
+        "moreAds"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
@@ -628,7 +634,7 @@
         "retryAds",
         "openAd",
         "recordAd",
-        "load",
+        "retry",
         "open",
         "create",
         "more"
@@ -648,6 +654,9 @@
         "close",
         "report",
         "reportComment",
+        "moreComments",
+        "retryOriginalComment",
+        "startNewComment",
         "input",
         "comment"
       ],
@@ -682,7 +691,7 @@
       "handlers": [
         "bindAddress",
         "scope",
-        "load",
+        "retry",
         "open",
         "more",
         "create",
@@ -698,12 +707,14 @@
       "filesComplete": true,
       "handlers": [
         "load",
+        "openOriginal",
+        "buy",
+        "startNewPurchase",
         "preview",
         "edit",
         "markSold",
         "sales",
         "remove",
-        "buy",
         "contact",
         "want",
         "carry",
@@ -740,6 +751,7 @@
       "handlers": [
         "load",
         "open",
+        "more",
         "sales",
         "income",
         "create"
@@ -754,7 +766,8 @@
       "filesComplete": true,
       "handlers": [
         "load",
-        "open"
+        "open",
+        "more"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
@@ -782,7 +795,8 @@
       "filesComplete": true,
       "handlers": [
         "load",
-        "withdraw"
+        "withdraw",
+        "morePayouts"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
@@ -985,6 +999,7 @@
         "address",
         "input",
         "load",
+        "startNewBooking",
         "submit"
       ],
       "missingHandlers": [],
@@ -1038,7 +1053,8 @@
       "filesComplete": true,
       "handlers": [
         "retry",
-        "accept"
+        "accept",
+        "more"
       ],
       "missingHandlers": [],
       "missingRoutes": [],
