@@ -14,25 +14,33 @@ Page({
     this.editDraft={ownerId:this.ownerId,communityId:this.data.community._id,data:Object.fromEntries(keys.map(key=>[key,this.data[key]]))};},
   clearPrivate(){this.setData({authorized:false,community:null,communities:[],priceRows:[],globalRows:[],keywordRows:[],
     stations:[],dutyWindows:[],canteens:[],plans:[],recycleRows:[],saving:false,refreshCommunityId:'',refreshError:'',
-    buildingId:'',buildingName:'',buildingUnits:'',buildingRecovery:'',buildingRecoveryHint:''});this.ownerId=null;this.globalLoaded=false;this.buildingRequest=null;},
+    buildingId:'',buildingName:'',buildingUnits:'',buildingRecovery:'',buildingRecoveryHint:''});this.ownerId=null;this.ownerCommunityId=null;this.globalLoaded=false;this.buildingRequest=null;},
   currentAdmin(sequence=this.sequence){const user=getApp().globalData.user;return !this.hidden&&!this.closed&&
-    sequence===this.sequence&&!!this.ownerId&&user?._id===this.ownerId&&user.roles?.includes('admin');},
+    sequence===this.sequence&&!!this.ownerId&&user?._id===this.ownerId&&
+    user.communityId===this.ownerCommunityId&&user.roles?.includes('admin');},
   async load() {
     const sequence=this.loadSequence=(this.loadSequence||0)+1;
     if(this.ownerId&&getApp().globalData.user?._id!==this.ownerId)this.clearPrivate();
     this.setData({loading:true,error:'',canReload:false,authorized:false});
-    try { const user=await getApp().ensureSession();if(this.hidden||this.closed||sequence!==this.loadSequence||getApp().globalData.user?._id!==user._id)return;
-      if(!user.roles.includes('admin'))throw new Error('只有运营管理员可以修改配置');
-      this.ownerId=user._id;await this.selectCommunity(this.data.communityIndex);if(sequence===this.loadSequence&&this.currentAdmin()&&this.data.community){this.setData({authorized:true});this.restoreBuildingRequest();await this.checkOriginalBuilding();} }
+    try { const user=await getApp().ensureSession();if(this.hidden||this.closed||sequence!==this.loadSequence)return;
+      if(!user?._id||getApp().globalData.user?._id!==user._id||
+        getApp().globalData.user?.communityId!==user.communityId)throw new Error('登录身份已变化，请重新加载');
+      if(!user.roles?.includes('admin')||!getApp().globalData.user?.roles?.includes('admin'))throw new Error('只有运营管理员可以修改配置');
+      this.ownerId=user._id;this.ownerCommunityId=user.communityId;await this.selectCommunity(this.data.communityIndex);
+      if(this.hidden||this.closed||sequence!==this.loadSequence)return;
+      if(getApp().globalData.user?._id!==user._id||getApp().globalData.user?.communityId!==user.communityId||
+        !getApp().globalData.user?.roles?.includes('admin'))throw new Error('登录身份已变化，请重新加载');
+      if(this.currentAdmin()&&this.data.community){this.setData({authorized:true});this.restoreBuildingRequest();await this.checkOriginalBuilding();} }
     catch(error){if(!this.hidden&&!this.closed&&sequence===this.loadSequence){this.clearPrivate();this.setData({error:error.message || '配置加载失败',canReload:true});}}
     finally{if(!this.hidden&&!this.closed&&sequence===this.loadSequence)this.setData({loading:false});}
   },
   async selectCommunity(index) {
     const sequence=(this.sequence||0)+1;this.sequence=sequence;
-    const ownerId=this.ownerId;
+    const ownerId=this.ownerId,ownerCommunityId=this.ownerCommunityId;
     const result=await api.call('admin','managementConfig',{communityId:(this.data.communities[index]||{})._id||
       (this.editDraft?.ownerId===ownerId?this.editDraft.communityId:undefined)},{loading:false,silent:true});
-    if(sequence!==this.sequence||this.hidden||this.closed||getApp().globalData.user?._id!==ownerId)return;
+    if(sequence!==this.sequence||this.hidden||this.closed||getApp().globalData.user?._id!==ownerId||
+      getApp().globalData.user?.communityId!==ownerCommunityId)return;
     const c=result.community,g=result.global;
     this.setData({refreshCommunityId:'',refreshError:'',communities:result.communities,community:c,communityIndex:Math.max(0,result.communities.findIndex(v=>c&&v._id===c._id))});
     if(!this.globalLoaded){this.globalLoaded=true;this.setData({hotline:g.hotline||'',globalRows:form.fields(form.GLOBAL_FIELDS,g),keywordRows:form.KEYWORDS.map(([key,label])=>({key,label,value:(g[key]||[]).join('\n')}))});}
