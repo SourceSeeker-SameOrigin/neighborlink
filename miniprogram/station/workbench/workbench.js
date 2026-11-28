@@ -32,23 +32,29 @@ Page({
     if (!this.visible) return;
     if (!reset && (this.data.loading || this.data.exporting || !this.data.hasMore)) return;
     if (!reset && !this.current(this.context)) return this.load(true);
+    const hadVerifiedContext = !!this.context;
     this.invalidate();
     if (reset) this.offset = 0;
     const read = this.read, app = getApp();
     let owner = identity(app.globalData.user);
-    const current = () => this.visible && this.read === read && (!owner || owner === identity(app.globalData.user));
+    const hadKnownOwner = !!owner;
+    const live = () => this.visible && this.read === read;
+    const current = () => live() && (!owner || owner === identity(app.globalData.user));
     const offset = reset ? 0 : this.offset;
     this.setData({ loading: true, ready: false, exporting: false, error: '', loadError: false, pageError: false,
       ...(reset ? { batches: [], hasMore: false } : {}) });
     try {
       const user = await app.ensureSession();
-      if (!current()) return;
-      owner = identity(user);
-      if (!owner) throw Error('登录资料暂不可用，请重试');
-      if (!current()) return;
+      if (!live()) return;
+      const resolvedOwner = identity(user);
+      if (!resolvedOwner) throw Error('登录资料暂不可用，请重试');
+      if (identity(app.globalData.user) !== resolvedOwner || (owner && owner !== resolvedOwner))
+        throw Error('登录身份已变化，请重新加载');
+      owner = resolvedOwner;
       const result = await api.call('station', 'listMyBatches', { offset },
         { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
-      if (!current()) return;
+      if (!live()) return;
+      if (!current()) throw Error('登录身份已变化，请重新加载');
       if (!Array.isArray(result.list) || (result.hasMore && !result.list.length)) throw Error('批次分页结果异常，请重试');
       const rows = reset ? [] : this.data.batches.slice(), ids = new Set(rows.map(item => item._id));
       const batches = rows.concat(result.list.filter(item => {
@@ -59,13 +65,19 @@ Page({
       this.context = { owner, read };
       this.setData({ batches, hasMore: result.hasMore === true, ready: true });
     } catch (error) {
-      if (!current()) return;
-      const retain = !reset && !['E_FORBIDDEN', 'E_FEATURE_OFF', 'E_UNBOUND', 'E_BLOCKED'].includes(error.code);
+      if (!live()) return;
+      const identityChanged = owner && identity(app.globalData.user) !== owner;
+      if ((hadVerifiedContext || hadKnownOwner) && identityChanged) return;
+      const retain = !reset && !identityChanged && !['E_FORBIDDEN', 'E_FEATURE_OFF', 'E_UNBOUND', 'E_BLOCKED'].includes(error.code);
       this.context = retain ? { owner, read } : null;
       if (!retain) this.offset = 0;
-      this.setData({ ready: false, loadError: true, pageError: retain, error: error.message || '批次加载失败',
+      this.setData({ ready: false, loadError: true, pageError: retain,
+        error: identityChanged ? '登录身份已变化，请重新加载' : error.message || '批次加载失败',
         ...(!retain ? { batches: [], hasMore: false } : {}) });
-    } finally { if (current()) this.setData({ loading: false }); }
+    } finally {
+      if (live() && !((hadVerifiedContext || hadKnownOwner) && owner && identity(app.globalData.user) !== owner))
+        this.setData({ loading: false });
+    }
   },
   monthChange(event) {
     if (!this.visible || this.data.exporting) return;

@@ -29,30 +29,42 @@ Page({
   async load(options = {}) {
     if (!this.visible || !this.batchId) return;
     if (options.preserveMedia !== true) this.operation = null;
+    const hadVerifiedContext = !!this.context;
     this.clearContext();
     const read = this.read, batchId = this.batchId;
     let identity = owner(getApp().globalData.user);
-    const current = () => this.visible && read === this.read && batchId === this.batchId &&
-      (!identity || identity === owner(getApp().globalData.user));
+    const hadKnownOwner = !!identity;
+    const live = () => this.visible && read === this.read && batchId === this.batchId;
+    const current = () => live() && (!identity || identity === owner(getApp().globalData.user));
     this.setData({ loading: true });
     try {
       const user = await getApp().ensureSession();
-      if (!current()) return;
-      identity = owner(user);
-      if (!identity) throw Error('登录资料暂不可用，请重试');
-      if (!current()) return;
+      if (!live()) return;
+      const resolvedOwner = owner(user);
+      if (!resolvedOwner) throw Error('登录资料暂不可用，请重试');
+      if (owner(getApp().globalData.user) !== resolvedOwner || (identity && identity !== resolvedOwner))
+        throw Error('登录身份已变化，请重新加载');
+      identity = resolvedOwner;
       if (this.operation && (this.operation.owner !== identity || this.operation.batchId !== batchId)) this.operation = null;
       const batch = await api.call('station', 'providerBatch', { batchId },
         { loading: false, silent: true, redirectOnForbidden: false, isActive: current });
-      if (!current()) return;
+      if (!live()) return;
+      if (!current()) throw Error('登录身份已变化，请重新加载');
       if (!batch || batch._id !== batchId || !Array.isArray(batch.items)) throw Error('批次资料暂不可用，请重试');
       this.context = { owner: identity, batchId, read };
       this.setData({ ready: true, busy: !!this.operation, batch: { ...batch,
         items: batch.items.map(item => ({ ...item, atText: item.at ? display(item.at) : '' })) } });
     } catch (error) {
-      if (current()) { this.operation = null; this.setData({ busy: false, error: error.message || '批次加载失败' }); }
+      if (live()) {
+        if ((hadVerifiedContext || hadKnownOwner) && identity && owner(getApp().globalData.user) !== identity) return;
+        this.operation = null;
+        this.setData({ busy: false, error: identity && owner(getApp().globalData.user) !== identity
+          ? '登录身份已变化，请重新加载' : error.message || '批次加载失败' });
+      }
     } finally {
-      if (current()) { this.setData({ loading: false }); await this.finishMedia(); }
+      if (live() && !((hadVerifiedContext || hadKnownOwner) && identity && owner(getApp().globalData.user) !== identity)) {
+        this.setData({ loading: false }); await this.finishMedia();
+      }
     }
   },
   allowed(request) {
