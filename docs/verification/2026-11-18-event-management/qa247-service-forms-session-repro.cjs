@@ -17,7 +17,7 @@ async function run(pageId, file, phase) {
     assert.equal(action, 'getCommunity');
     const result = { _id: 'community-a', name: '合成A小区', prices: {},
       stations: [], canteens: [], dutyWindows: [] };
-    if (phase === 'late-community' && !finishRead)
+    if (phase.startsWith('late-community') && !finishRead)
       return new Promise(resolve => { finishRead = () => resolve(result); });
     return result;
   });
@@ -35,10 +35,11 @@ async function run(pageId, file, phase) {
   if (phase === 'first-session') {
     env.app.globalData.user = user('b');
     finishSession();
-  } else if (phase === 'late-community') {
+  } else if (phase.startsWith('late-community')) {
     for (let i = 0; i < 25 && !finishRead; i += 1) await Promise.resolve();
     assert.equal(typeof finishRead, 'function', `${pageId}: catalog read must start`);
-    env.app.globalData.user = user('b');
+    env.app.globalData.user = phase === 'late-community-same-user'
+      ? { ...first, communityId: 'community-b', buildingId: 'building-b' } : user('b');
     finishRead();
   }
   await pending;
@@ -59,14 +60,14 @@ async function run(pageId, file, phase) {
 async function main() {
   const results = [];
   for (const [pageId, file] of pages)
-    for (const phase of ['normal', 'session-error', 'first-session', 'late-community'])
+    for (const phase of ['normal', 'session-error', 'first-session', 'late-community', 'late-community-same-user'])
       results.push(await run(pageId, file, phase));
   const failed = results.filter(result => !result.desired);
-  assert.equal(results.length, 28);
-  assert.equal(failed.length, 21, 'reproduction baseline changed; inspect before editing decision record');
+  assert.equal(results.length, 35);
+  assert.equal(failed.length, 28, 'reproduction baseline changed; inspect before editing decision record');
   console.log(JSON.stringify({ scope: 'Seven actual service-form pages; synthetic users; no cloud writes',
     controlsPassed: results.length - failed.length, boundariesFailed: failed.length,
-    failedByPhase: Object.fromEntries(['session-error', 'first-session', 'late-community'].map(phase =>
+    failedByPhase: Object.fromEntries(['session-error', 'first-session', 'late-community', 'late-community-same-user'].map(phase =>
       [phase, failed.filter(result => result.phase === phase).length])),
     lateCommunityExample: failed.find(result => result.phase === 'late-community') }, null, 2));
 }
