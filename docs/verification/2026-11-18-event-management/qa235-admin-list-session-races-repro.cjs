@@ -7,6 +7,7 @@ const pages = [
   ['P21', 'admin/providers/providers', 'listProviders'],
   ['P26', 'admin/reports/reports', 'listReports'],
   ['P27', 'admin/chat/chat', 'adminPull'],
+  ['P28', 'admin/coupons/coupons', 'adminTemplates'],
   ['P30', 'admin/merchants/merchants', 'adminList'],
   ['P33', 'admin/stations/stations', 'listApplications']
 ];
@@ -55,9 +56,9 @@ async function main() {
     for (const phase of ['normal', 'first-session', 'late-read']) results.push(await run(item, phase));
   }
   const failed = results.filter(result => !result.desired);
-  assert.equal(results.length, 18);
-  assert.equal(failed.length, 11, 'reproduction baseline changed; inspect before updating decision record');
-  console.log(JSON.stringify({ scope: 'six actual admin list pages; synthetic administrators; cloud intercepted',
+  assert.equal(results.length, 21);
+  assert.equal(failed.length, 13, 'reproduction baseline changed; inspect before updating decision record');
+  console.log(JSON.stringify({ scope: 'seven actual admin list pages; synthetic administrators; cloud intercepted',
     controlsPassed: results.filter(result => result.phase === 'normal' && result.desired).length,
     boundariesFailed: failed.length, failed }, null, 2));
 }
