@@ -30,14 +30,16 @@ Page({
     if (reset) this.clearContext();
     else { this.operation = null; this.read++; }
     const read = this.read;
-    let userId;
-    const current = () => this.visible && this.read === read && (!userId || getApp().globalData.user?._id === userId);
+    let userId, communityId;
+    const pageCurrent = () => this.visible && this.read === read;
+    const current = () => pageCurrent() && (!userId || (getApp().globalData.user?._id === userId &&
+      getApp().globalData.user?.communityId === communityId));
     this.pageError = false;
     this.setData({ loading: true, ready: false, error: '' });
     try {
       const user = await getApp().ensureSession();
       if (!current()) return;
-      userId = user?._id;
+      userId = user?._id; communityId = user?.communityId;
       if (!userId) throw Error('登录资料暂不可用，请重试');
       if (!current()) return;
       let nextOffset = reset ? 0 : this.nextOffset;
@@ -69,7 +71,10 @@ Page({
         else if (!reset) this.context = { userId, read };
         this.setData({ loading: false, error: error.message || '任务加载失败' });
       }
-    } finally { if (current()) this.setData({ loading: false }); }
+    } finally {
+      if (current()) this.setData({ loading: false });
+      else if (pageCurrent() && userId) this.setData({ loading: false, error: '登录身份已变化，请重新加载' });
+    }
   },
   async accept(event) {
     if (!this.visible || this.data.loading || this.data.busy || !this.data.ready) return;

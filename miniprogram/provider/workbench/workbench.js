@@ -25,15 +25,17 @@ Page({
     this.clearContext();
     this.pageError = false;
     const read = this.read;
-    let userId;
-    const current = () => this.visible && this.read === read && (!userId || getApp().globalData.user?._id === userId);
+    let userId, communityId;
+    const pageCurrent = () => this.visible && this.read === read;
+    const current = () => pageCurrent() && (!userId || (getApp().globalData.user?._id === userId &&
+      getApp().globalData.user?.communityId === communityId));
     const apiOptions = { loading: false, silent: true, redirectOnForbidden: false, isActive: current };
     this.setData({ remainingReminders: subscriptions.remaining() });
     this.setData({ loading: true, error: '' });
     try {
       const user = await getApp().ensureSession();
       if (!current()) return;
-      userId = user?._id;
+      userId = user?._id; communityId = user?.communityId;
       if (!userId) throw Error('登录资料暂不可用，请重试');
       if (this.posterRequest && this.posterRequest.userId !== userId) this.posterRequest = null;
       if (!current()) return;
@@ -52,7 +54,10 @@ Page({
       this.context = { userId, read };
       this.setData({ ready: true, savingPoster: !!this.posterRequest });
     } catch (error) { if (current()) { this.posterRequest = null; this.setData({ savingPoster: false, error: error.message || '加载失败，请重试' }); } }
-    finally { if (current()) { this.setData({ loading: false }); this.applyPosterResult(); } }
+    finally {
+      if (current()) { this.setData({ loading: false }); this.applyPosterResult(); }
+      else if (pageCurrent() && userId) this.setData({ loading: false, error: '登录身份已变化，请重新加载' });
+    }
   },
   retry() { return this.pageError ? this.more() : this.load(); },
   async more() {

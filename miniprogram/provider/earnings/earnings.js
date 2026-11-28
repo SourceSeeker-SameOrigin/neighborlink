@@ -24,15 +24,17 @@ Page({
     if (reset) this.clearContext();
     else { this.operation = null; this.read++; }
     const read = this.read;
-    let userId;
-    const current = () => this.visible && this.read === read && (!userId || getApp().globalData.user?._id === userId);
+    let userId, communityId;
+    const pageCurrent = () => this.visible && this.read === read;
+    const current = () => pageCurrent() && (!userId || (getApp().globalData.user?._id === userId &&
+      getApp().globalData.user?.communityId === communityId));
     const apiOptions = { loading: false, silent: true, redirectOnForbidden: false, isActive: current };
     this.pageError = false;
     this.setData({ loading: true, ready: false, loadError: false, error: '' });
     try {
       const user = await getApp().ensureSession();
       if (!current()) return;
-      userId = user?._id;
+      userId = user?._id; communityId = user?.communityId;
       if (!userId) throw Error('登录资料暂不可用，请重试');
       if (!current()) return;
       if (this.nativePayout && this.nativePayout.userId !== userId) this.nativePayout = null;
@@ -59,7 +61,10 @@ Page({
         this.nativePayout = null;
         this.setData({ loading: false, creatingPayout: false, loadError: true, error: error.message || '收入加载失败' });
       }
-    } finally { if (current()) { this.setData({ loading: false }); this.applyPayoutResult(); } }
+    } finally {
+      if (current()) { this.setData({ loading: false }); this.applyPayoutResult(); }
+      else if (pageCurrent() && userId) this.setData({ loading: false, error: '登录身份已变化，请重新加载' });
+    }
   },
   payoutStateText(state) { return ({ created: '处理中', processing: '处理中', wait_user_confirm: '待确认收款',
     success: '已到账', failed: '失败，收入已解锁', cancelled: '已撤销，收入已解锁' })[state] || '处理中'; },

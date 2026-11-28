@@ -23,7 +23,8 @@ Page({
     if (!this.visible() || this.loadInFlight || this.submitting) return;
     const sequence = this.loadSequence = (this.loadSequence || 0) + 1;
     let userId, communityId;
-    const current = () => this.visible() && sequence === this.loadSequence &&
+    const pageCurrent = () => this.visible() && sequence === this.loadSequence;
+    const current = () => pageCurrent() &&
       (!userId || (getApp().globalData.user?._id === userId && getApp().globalData.user?.communityId === communityId));
     const selected = this.data.communities[this.data.communityIndex];
     const selectedStation = selected && selected.stations[this.data.stationIndex];
@@ -52,7 +53,14 @@ Page({
       this.userCommunityId = user.communityId;
       this.setData({ communities, application: mine.application, communityIndex, stationIndex, ready: true });
     } catch (error) { if (current()) this.setData({ error: error.message || '驿站申请信息加载失败', loadError: true }); }
-    finally { if (current()) { this.loadInFlight = false; this.setData({ loading: false }); } }
+    finally {
+      if (current()) { this.loadInFlight = false; this.setData({ loading: false }); }
+      else if (pageCurrent() && userId) {
+        this.loadInFlight = false;
+        this.setData({ loading: false, loadError: true, error: '登录身份已变化，请重新加载',
+          communities: [], application: null, communityIndex: 0, stationIndex: 0 });
+      }
+    }
   },
   chooseCommunity(event) {
     const index = Number(event.detail.value);

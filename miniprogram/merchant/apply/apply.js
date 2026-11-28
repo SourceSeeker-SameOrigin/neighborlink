@@ -27,7 +27,8 @@ Page({
     if (!this.visible() || this.loadInFlight || this.submitting || this.uploading) return;
     const sequence = this.loadSequence = (this.loadSequence || 0) + 1;
     let userId, communityId;
-    const current = () => this.visible() && sequence === this.loadSequence &&
+    const pageCurrent = () => this.visible() && sequence === this.loadSequence;
+    const current = () => pageCurrent() &&
       (!userId || (getApp().globalData.user?._id === userId && getApp().globalData.user?.communityId === communityId));
     this.loadInFlight = true;
     this.setData({ loading: true, ready: false, loadError: false, error: '' });
@@ -50,7 +51,16 @@ Page({
       this.setData({ ready: true });
       this.applyUploadResult();
     } catch (error) { if (current()) this.setData({ loadError: true, error: error.message || '加载失败' }); }
-    finally { if (current()) { this.loadInFlight = false; this.setData({ loading: false }); } }
+    finally {
+      if (current()) { this.loadInFlight = false; this.setData({ loading: false }); }
+      else if (pageCurrent() && userId) {
+        this.loadInFlight = false;
+        this.user = null; this.pendingUpload = null; this.draftInitialized = false; this.phoneEdited = false;
+        this.setData({ loading: false, loadError: true, error: '登录身份已变化，请重新加载',
+          existing: null, name: '', licenseName: '', creditCode: '', contactName: '', phone: '',
+          licenseFileId: '', categoryIndex: 0 });
+      }
+    }
   },
   input(event) {
     if (!this.canEdit()) return;
