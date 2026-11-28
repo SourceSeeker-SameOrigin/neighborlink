@@ -36,8 +36,17 @@ async function main() {
   rejectBuildingRead(Error('synthetic old building error'));
   await change;
   assert.equal(page.data.error, 'synthetic old building error');
+
+  const failedSession = runtime(async () => { throw Error('Unexpected cloud call'); });
+  failedSession.app.globalData.user = null;
+  failedSession.app.ensureSession = async () => { throw Error('synthetic session timeout'); };
+  const firstLoad = failedSession.instance('miniprogram/pages/bind/bind.js');
+  await firstLoad.load();
+  const afterSessionFailure = { loading: firstLoad.data.loading, error: firstLoad.data.error,
+    cloudCalls: failedSession.requests.length };
+  assert.deepEqual(afterSessionFailure, { loading: true, error: '', cloudCalls: 0 });
   console.log(JSON.stringify({ scope: 'Actual bind page with synthetic catalog and resident; no live cloud writes',
-    afterReturn, lateErrorAfterHide: page.data.error }, null, 2));
+    afterReturn, lateErrorAfterHide: page.data.error, afterSessionFailure }, null, 2));
 }
 
 main().catch(error => { console.error(error); process.exitCode = 1; });
