@@ -1007,3 +1007,7 @@ QA235–QA252 共 18 个待决复现脚本在当前分支逐一重跑，均退�
 ## QA258 P24 结算页同账号撤销角色（2026-11-29，待统一决策）
 
 实际结算页接管理员、物业和一条合成结算记录，共测 4 项：两项正常读取通过；`listSettlements` 未返回时同一账号失去对应角色，迟到记录仍显示，`ready=true`、`authorized=true` 且没有错误。现有操作会再次检查角色，本轮没有生成结算、确认打款、导出或访问开发云。推荐读取接纳时复核本人、角色和小区，失效时清结算与预览并提供只读重试；尚未实施。复跑 `node docs/verification/2026-11-18-event-management/qa258-admin-settlement-role-repro.cjs`。
+
+## QA259 P22 切小区期间撤销管理员角色（2026-11-29，待统一决策）
+
+实际小区配置页接两个合成小区及拦截读取共测 2 项：正常切换通过；切换读取尚未返回时撤销同一账号管理员角色，迟到配置仍写入第二小区，页面 `loading=true`、`authorized=false` 且没有错误或可用重试。旧保存操作由 `currentAdmin()` 拦截，本次没有开发云配置写入。推荐在切小区读取前后核对角色、小区及序号，失效时清旧数据、结束加载并提供只读重试；尚未实施。复跑 `node docs/verification/2026-11-18-event-management/qa259-admin-community-switch-role-repro.cjs`。
