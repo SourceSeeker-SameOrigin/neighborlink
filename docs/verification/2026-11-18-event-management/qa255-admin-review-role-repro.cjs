@@ -1,8 +1,12 @@
-// Actual P30/P33 pages; synthetic administrator role revocation; all cloud reads intercepted.
+// Actual P21/P26/P30/P33 pages; synthetic administrator role revocation; all cloud reads intercepted.
 const assert = require('node:assert/strict');
 const { runtime } = require('../2026-11-09-remediation/page-fixture.cjs');
 
 const cases = [
+  { id: 'P21', file: 'miniprogram/admin/providers/providers.js', action: 'listProviders',
+    reply: { list: [{ _id: 'synthetic-provider', status: 'pending', certs: [] }], hasMore: false }, field: 'rows' },
+  { id: 'P26', file: 'miniprogram/admin/reports/reports.js', action: 'listReports',
+    reply: { list: [{ _id: 'synthetic-report', targetType: 'message', status: 'pending' }], hasMore: false }, field: 'rows' },
   { id: 'P30', file: 'miniprogram/admin/merchants/merchants.js', action: 'adminList',
     reply: { list: [{ _id: 'synthetic-merchant', status: 'pending' }], hasMore: false }, field: 'list' },
   { id: 'P33', file: 'miniprogram/admin/stations/stations.js', action: 'listApplications',
@@ -48,9 +52,9 @@ async function main() {
     results.push(await run(item, true));
   }
   const failed = results.filter(result => !result.desired);
-  console.log(JSON.stringify({ scope: 'P30/P33 actual pages; synthetic role change; zero cloud writes',
+  console.log(JSON.stringify({ scope: 'P21/P26/P30/P33 actual pages; synthetic role change; zero cloud writes',
     controlsPassed: results.length - failed.length, boundariesFailed: failed.length, results }, null, 2));
-  assert.equal(failed.length, 2, 'reproduction baseline changed; inspect before editing decision record');
+  assert.equal(failed.length, 4, 'reproduction baseline changed; inspect before editing decision record');
 }
 
 main().catch(error => { console.error(error.stack); process.exitCode = 1; });
