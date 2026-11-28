@@ -46,18 +46,21 @@ Page({
     this.posterScope = null;
     this.setData({ loading: true, ready: false, communityReady: false, communityLoading: false,
       communities: [], providers: [], buildings: [], poster: null, error: '', retryAction: '' });
-    let userId;
-    const current = () => version === this._loadVersion && this.visible !== false && !this._closed &&
-      (!userId || getApp().globalData.user?._id === userId);
+    let userId, communityId;
+    const pageCurrent = () => version === this._loadVersion && this.visible !== false && !this._closed;
+    const current = () => pageCurrent() && (!userId || (getApp().globalData.user?._id === userId &&
+      getApp().globalData.user?.communityId === communityId));
     try {
       const user = await getApp().ensureSession();
-      if (!current()) return;
-      userId = user?._id;
-      if (!user.roles.includes('admin')) throw new Error('只有运营管理员可以生成海报码');
+      if (!pageCurrent()) return;
+      userId = user?._id; communityId = user?.communityId;
       if (!userId) throw new Error('登录资料暂不可用，请重试');
-      const communities = await listAll('catalog', 'listCommunities');
       if (!current()) return;
-      const providers = await listAll('admin', 'listProviders', { status: 'approved' });
+      if (!user.roles.includes('admin')) throw new Error('只有运营管理员可以生成海报码');
+      const communities = await listAll('catalog', 'listCommunities', {}, { isActive: current, redirectOnForbidden: false });
+      if (!current()) return;
+      const providers = await listAll('admin', 'listProviders', { status: 'approved' },
+        { isActive: current, redirectOnForbidden: false });
       if (!current()) return;
       const communityIndex = Math.max(0, communities.findIndex(item => item._id === selectedCommunity));
       this.ownerId = userId;
@@ -69,6 +72,7 @@ Page({
     } finally {
       if (version === this._loadingVersion) this._loading = false;
       if (current()) this.setData({ loading: false });
+      else if (pageCurrent() && userId) this.setData({ loading: false, error: '登录身份已变化，请重新加载', retryAction: 'load' });
     }
   },
   async changeCommunity(event) {
