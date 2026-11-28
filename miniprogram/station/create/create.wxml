@@ -3,8 +3,8 @@
   <view wx:if="{{loading}}" class="card">正在核对本人及原批次…</view>
   <view wx:if="{{error}}" class="error">{{error}}</view>
   <view wx:if="{{!loading && !ready}}" class="card">
-    <view class="section-title">创建结果待核对</view>
-    <view>先读取本人原批次，不会重新创建。</view>
+    <view class="section-title">创建信息待核对</view>
+    <view>先读取本人及原批次，不会重新创建。</view>
     <button bindtap="load">重新核对</button>
     <navigator class="picker" url="/station/workbench/workbench">查看批次进度 ›</navigator>
   </view>

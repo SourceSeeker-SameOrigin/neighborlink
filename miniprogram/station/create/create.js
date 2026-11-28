@@ -23,15 +23,18 @@ Page({
     if (!this.visible) return;
     const version = this.version = (this.version || 0) + 1;
     let owner = scope(getApp().globalData.user);
-    const active = () => this.visible && version === this.version && (!owner || scope(getApp().globalData.user) === owner);
+    const live = () => this.visible && version === this.version;
+    const active = () => live() && (!owner || scope(getApp().globalData.user) === owner);
     this.context = null;
     this.setData({ ready: false, loading: true, busy: false, result: null, error: '', recovery: 'lookup' });
     try {
       const user = await getApp().ensureSession();
-      if (!active()) return;
-      owner = scope(user);
-      if (!owner) throw Error('请先核对驿站账号和小区绑定');
-      if (!active()) return;
+      if (!live()) return;
+      const resolvedOwner = scope(user);
+      if (!resolvedOwner) throw Error('请先核对驿站账号和小区绑定');
+      if (scope(getApp().globalData.user) !== resolvedOwner || (owner && owner !== resolvedOwner))
+        throw Error('登录身份已变化，请重新加载');
+      owner = resolvedOwner;
       if (this.owner && this.owner !== owner) this.setData({ lines: '' });
       this.owner = owner;
       this.storageKey = 'station-creation:' + encodeURIComponent(owner);
@@ -41,15 +44,20 @@ Page({
       if (this.receipt) {
         const found = await api.call('station', 'lookupBatchCreation', { requestId: this.receipt.requestId },
           { loading: false, silent: true, redirectOnForbidden: false, isActive: active });
-        if (!active()) return;
+        if (!live()) return;
+        if (!active()) throw Error('登录身份已变化，请重新加载');
         if (!found || (found.batchId !== null && !validResult(found))) throw Error('原批次查询结果暂不可用');
         if (found.batchId) result = found;
       }
       this.context = { owner, version };
       this.setData({ ready: true, result, recovery: result ? 'done' : this.receipt ? 'confirm' : '' });
     } catch (error) {
-      if (active()) this.setData({ error: error.message || '原批次结果待核对，请重试读取', recovery: 'lookup' });
-    } finally { if (active()) this.setData({ loading: false }); }
+      if (live()) this.setData({
+        error: owner && scope(getApp().globalData.user) !== owner
+          ? '登录身份已变化，请重新加载' : error.message || '原批次结果待核对，请重试读取',
+        recovery: 'lookup'
+      });
+    } finally { if (live()) this.setData({ loading: false }); }
   },
   change(event) {
     if (!this.current(this.context) || !this.data.ready || this.data.busy || this.data.recovery === 'done') return;

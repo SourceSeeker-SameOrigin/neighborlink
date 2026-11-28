@@ -134,7 +134,7 @@
 |P60|提交预约<br>shops/booking/booking|真实微信用户，业务页需对应绑定/参与关系|merchants|QA23真实绑定地址无undefined；QA25缺编号隐藏预约表单/提交，实际返回商家列表；QA228 同人换小区后旧提交、原单入口、迟到结果和本机凭据隔离回归通过|旧格式凭据真实迁移、真实商家预约及真机完整业务闭环待验|待确认|
 |P61|申请驿站账号<br>station/apply/apply|住户申请／驿站／服务员，按页面核验|stationDelivery|QA18功能关闭错误，无假未申请/申请表|未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF|待确认|
 |P62|驿站工作台<br>station/workbench/workbench|住户申请／驿站／服务员，按页面核验|stationDelivery|本人无驿站资格，直达回首页；成功工作台未测|未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF|待确认|
-|P63|创建送上门批次<br>station/create/create|住户申请／驿站／服务员，按页面核验|stationDelivery|建批次常驻门牌标签及每行格式已看，空表单禁用；未建批次|未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF|待确认|
+|P63|创建送上门批次<br>station/create/create|住户申请／驿站／服务员，按页面核验|stationDelivery|建批次常驻门牌标签及每行格式已看，空表单禁用；QA229 首次身份变化结束加载、迟到找批次不回填的隔离回归通过；未建真实批次|模拟器、真实驿站账号和完整业务闭环待验；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF|待确认|
 |P64|驿站配送任务<br>station/worker/worker|住户申请／驿站／服务员，按页面核验|stationDelivery|本人无配送资格，直达回首页；成功工作台未测|未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF|待确认|
 |P65|驿站批次<br>station/batch/batch|住户申请／驿站／服务员，按页面核验|stationDelivery|QA25缺编号提示/按钮实景通过；实点返回station/worker/worker → pages/index/index：当前resident/admin账号无配送权限，providerHall实测E_FORBIDDEN并回首页；不是配送成功流程|未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF|待确认|
 |P66|送餐上门<br>elder/meal|真实微信用户，业务页需对应绑定/参与关系|elder|食堂未配置/功能关闭；QA24实际价格栏及禁用确认已核对|未完成完整业务闭环；具体已有成功样本与前置见PAGE_ACCEPTANCE及TEST_HANDOFF|待确认|
