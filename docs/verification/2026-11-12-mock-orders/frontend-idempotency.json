@@ -1,0 +1,259 @@
+{
+  "scope": "Offline page handlers, synthetic API/payment/navigation; not live UI acceptance",
+  "passed": 63,
+  "total": 63,
+  "cases": [
+    {
+      "name": "express: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "express: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "express: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "express: failed detail navigation must not create a new order on retry",
+      "passed": true
+    },
+    {
+      "name": "express: recovered receipt opens only the existing order, never payment",
+      "passed": true
+    },
+    {
+      "name": "express: navigation retry is guarded and success clears only own receipt",
+      "passed": true
+    },
+    {
+      "name": "express: late create after unload keeps receipt without navigation or payment",
+      "passed": true
+    },
+    {
+      "name": "express: late create after hide restores receipt on return without another create",
+      "passed": true
+    },
+    {
+      "name": "express: wrong-user receipt is discarded; created receipt contains no password",
+      "passed": true
+    },
+    {
+      "name": "trash: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "trash: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "trash: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "trash: failed detail navigation must not create a new order on retry",
+      "passed": true
+    },
+    {
+      "name": "trash: recovered receipt opens only the existing order, never payment",
+      "passed": true
+    },
+    {
+      "name": "trash: navigation retry is guarded and success clears only own receipt",
+      "passed": true
+    },
+    {
+      "name": "trash: late create after unload keeps receipt without navigation or payment",
+      "passed": true
+    },
+    {
+      "name": "trash: late create after hide restores receipt on return without another create",
+      "passed": true
+    },
+    {
+      "name": "trash: wrong-user receipt is discarded; created receipt contains no password",
+      "passed": true
+    },
+    {
+      "name": "buy: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "buy: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "buy: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "buy: failed detail navigation must not create a new order on retry",
+      "passed": true
+    },
+    {
+      "name": "buy: recovered receipt opens only the existing order, never payment",
+      "passed": true
+    },
+    {
+      "name": "buy: navigation retry is guarded and success clears only own receipt",
+      "passed": true
+    },
+    {
+      "name": "buy: late create after unload keeps receipt without navigation or payment",
+      "passed": true
+    },
+    {
+      "name": "buy: late create after hide restores receipt on return without another create",
+      "passed": true
+    },
+    {
+      "name": "buy: wrong-user receipt is discarded; created receipt contains no password",
+      "passed": true
+    },
+    {
+      "name": "help: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "help: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "help: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "help: failed detail navigation must not create a new order on retry",
+      "passed": true
+    },
+    {
+      "name": "help: recovered receipt opens only the existing order, never payment",
+      "passed": true
+    },
+    {
+      "name": "help: navigation retry is guarded and success clears only own receipt",
+      "passed": true
+    },
+    {
+      "name": "help: late create after unload keeps receipt without navigation or payment",
+      "passed": true
+    },
+    {
+      "name": "help: late create after hide restores receipt on return without another create",
+      "passed": true
+    },
+    {
+      "name": "help: wrong-user receipt is discarded; created receipt contains no password",
+      "passed": true
+    },
+    {
+      "name": "meal: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "meal: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "meal: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "meal: failed detail navigation must not create a new order on retry",
+      "passed": true
+    },
+    {
+      "name": "meal: recovered receipt opens only the existing order, never payment",
+      "passed": true
+    },
+    {
+      "name": "meal: navigation retry is guarded and success clears only own receipt",
+      "passed": true
+    },
+    {
+      "name": "meal: late create after unload keeps receipt without navigation or payment",
+      "passed": true
+    },
+    {
+      "name": "meal: late create after hide restores receipt on return without another create",
+      "passed": true
+    },
+    {
+      "name": "meal: wrong-user receipt is discarded; created receipt contains no password",
+      "passed": true
+    },
+    {
+      "name": "escort: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "escort: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "escort: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "escort: failed detail navigation must not create a new order on retry",
+      "passed": true
+    },
+    {
+      "name": "escort: recovered receipt opens only the existing order, never payment",
+      "passed": true
+    },
+    {
+      "name": "escort: navigation retry is guarded and success clears only own receipt",
+      "passed": true
+    },
+    {
+      "name": "escort: late create after unload keeps receipt without navigation or payment",
+      "passed": true
+    },
+    {
+      "name": "escort: late create after hide restores receipt on return without another create",
+      "passed": true
+    },
+    {
+      "name": "escort: wrong-user receipt is discarded; created receipt contains no password",
+      "passed": true
+    },
+    {
+      "name": "pet: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "pet: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "pet: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "pet: failed detail navigation must not create a new order on retry",
+      "passed": true
+    },
+    {
+      "name": "pet: recovered receipt opens only the existing order, never payment",
+      "passed": true
+    },
+    {
+      "name": "pet: navigation retry is guarded and success clears only own receipt",
+      "passed": true
+    },
+    {
+      "name": "pet: late create after unload keeps receipt without navigation or payment",
+      "passed": true
+    },
+    {
+      "name": "pet: late create after hide restores receipt on return without another create",
+      "passed": true
+    },
+    {
+      "name": "pet: wrong-user receipt is discarded; created receipt contains no password",
+      "passed": true
+    }
+  ]
+}

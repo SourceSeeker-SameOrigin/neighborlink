@@ -1,0 +1,20 @@
+{
+  "jest": {
+    "success": true,
+    "suites": 53,
+    "tests": 624
+  },
+  "reproduction": 13,
+  "additionalRegression": 15,
+  "relatedExportRegression": 24,
+  "changedJsSyntax": 7,
+  "wxml": 77,
+  "wxss": 78,
+  "liveUI": "No admin navigation success; coordinate click noWindowsAvailable",
+  "cloud": "merchant pending package authorization and deployment",
+  "paused": [
+    "D05",
+    "D06"
+  ],
+  "mainMerged": false
+}

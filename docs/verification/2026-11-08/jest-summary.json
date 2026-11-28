@@ -1,0 +1,281 @@
+{
+  "sourceCommit": "5b210b5",
+  "numTotalTestSuites": 45,
+  "numPassedTestSuites": 45,
+  "numTotalTests": 487,
+  "numPassedTests": 487,
+  "numFailedTests": 0,
+  "success": true,
+  "suites": [
+    {
+      "file": "cloudfunctions/_shared/__tests__/orderLifecycle.test.js",
+      "status": "passed",
+      "total": 15,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/pricing.test.js",
+      "status": "passed",
+      "total": 65,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/payout.test.js",
+      "status": "passed",
+      "total": 16,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/orderData.test.js",
+      "status": "passed",
+      "total": 21,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/time.test.js",
+      "status": "passed",
+      "total": 41,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/auth.test.js",
+      "status": "passed",
+      "total": 20,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/wxpayV3.test.js",
+      "status": "passed",
+      "total": 5,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/split.test.js",
+      "status": "passed",
+      "total": 29,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/refundState.test.js",
+      "status": "passed",
+      "total": 19,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/stateMachine.test.js",
+      "status": "passed",
+      "total": 32,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/providerData.test.js",
+      "status": "passed",
+      "total": 15,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/featuresScheduleUgc.test.js",
+      "status": "passed",
+      "total": 10,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/profile.test.js",
+      "status": "passed",
+      "total": 20,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/membershipData.test.js",
+      "status": "passed",
+      "total": 14,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/station.test.js",
+      "status": "passed",
+      "total": 7,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/money.test.js",
+      "status": "passed",
+      "total": 19,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/boardData.test.js",
+      "status": "passed",
+      "total": 6,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/seed.test.js",
+      "status": "passed",
+      "total": 7,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/eventData.test.js",
+      "status": "passed",
+      "total": 4,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/contentSafety.test.js",
+      "status": "passed",
+      "total": 11,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/paymentState.test.js",
+      "status": "passed",
+      "total": 10,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/couponFlow.test.js",
+      "status": "passed",
+      "total": 4,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/vacant.test.js",
+      "status": "passed",
+      "total": 3,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/merchant.test.js",
+      "status": "passed",
+      "total": 8,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/idleData.test.js",
+      "status": "passed",
+      "total": 5,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/chatData.test.js",
+      "status": "passed",
+      "total": 5,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/blacklist.test.js",
+      "status": "passed",
+      "total": 10,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/stationApplications.test.js",
+      "status": "passed",
+      "total": 5,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/settlementData.test.js",
+      "status": "passed",
+      "total": 7,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/recycle.test.js",
+      "status": "passed",
+      "total": 4,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/ids.test.js",
+      "status": "passed",
+      "total": 8,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/elder.test.js",
+      "status": "passed",
+      "total": 5,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/visitNotification.test.js",
+      "status": "passed",
+      "total": 2,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/subsidyExport.test.js",
+      "status": "passed",
+      "total": 1,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/pet.test.js",
+      "status": "passed",
+      "total": 3,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/geo.test.js",
+      "status": "passed",
+      "total": 3,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/eventCancellation.test.js",
+      "status": "passed",
+      "total": 1,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/errors.test.js",
+      "status": "passed",
+      "total": 8,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/dispatch.test.js",
+      "status": "passed",
+      "total": 7,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/couponData.test.js",
+      "status": "passed",
+      "total": 3,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/visibility.test.js",
+      "status": "passed",
+      "total": 2,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/dashboardMetrics.test.js",
+      "status": "passed",
+      "total": 2,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/crypto.test.js",
+      "status": "passed",
+      "total": 1,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/eventFlow.test.js",
+      "status": "passed",
+      "total": 3,
+      "failed": 0
+    },
+    {
+      "file": "cloudfunctions/_shared/__tests__/adRevenue.test.js",
+      "status": "passed",
+      "total": 1,
+      "failed": 0
+    }
+  ]
+}

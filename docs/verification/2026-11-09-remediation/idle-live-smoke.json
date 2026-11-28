@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-09",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "110ebe8",
+  "identity": "real logged-in unbound resident",
+  "execution": "WeChat DevTools Console wx.cloud.callFunction and native idle-sales page navigation",
+  "results": [
+    {
+      "action": "list",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "message": "该功能暂未开放"
+    },
+    {
+      "action": "mine",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "message": "该功能暂未开放"
+    },
+    {
+      "action": "earnings",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "message": "该功能暂未开放"
+    },
+    {
+      "action": "detail",
+      "ok": false,
+      "code": "E_INVALID_PARAM",
+      "message": "请先绑定小区门牌"
+    },
+    {
+      "action": "sales",
+      "ok": true,
+      "count": 0,
+      "hasMore": false
+    },
+    {
+      "action": "sales",
+      "offset": -1,
+      "ok": false,
+      "code": "E_INVALID_PARAM",
+      "message": "分页位置必须是有效范围内的整数"
+    }
+  ],
+  "uiObserved": [
+    "Own escrow sales page loads empty state",
+    "Seller income navigation entry is visible; not activated",
+    "Back returns to home"
+  ],
+  "consoleObservation": {
+    "errors": 0,
+    "warningsBefore": 13,
+    "warningsAfter": 15,
+    "allWarningsClassified": false
+  },
+  "notVerified": [
+    "Bound resident listing, detail visibility and contact authorization",
+    "Publish/edit/offline trade and content moderation",
+    "Escrow purchase, delivery, refund relisting and seller settlement",
+    "Nonempty pagination, other devices and full idle UI acceptance"
+  ],
+  "writes": "No item publication, order creation, delivery, refunds, payout or feature/role changes"
+}

@@ -1,13 +1,14 @@
 <view class="page">
-  <view class="page-title">内容举报审核</view>
-  <view class="row"><button data-status="pending" bindtap="chooseStatus">待处理</button><button data-status="upheld" bindtap="chooseStatus">已成立</button><button data-status="dismissed" bindtap="chooseStatus">已驳回</button></view>
-  <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重新加载</button></view>
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/admin.png"/><view class="masthead-copy"><view class="page-title">内容举报审核</view><view class="masthead-subtitle">社区运营 · 按权限管理</view></view></view>
+  <view class="row report-filters"><button class="ui-button report-filter {{status === 'pending' ? 'is-selected' : ''}}" data-status="pending" bindtap="chooseStatus" disabled="{{busy}}">待处理</button><button class="ui-button report-filter {{status === 'upheld' ? 'is-selected' : ''}}" data-status="upheld" bindtap="chooseStatus" disabled="{{busy}}">已成立</button><button class="ui-button report-filter {{status === 'dismissed' ? 'is-selected' : ''}}" data-status="dismissed" bindtap="chooseStatus" disabled="{{busy}}">已驳回</button></view>
+  <view class="muted report-scope">当前筛选：{{status === 'pending' ? '待处理' : (status === 'upheld' ? '已成立' : '已驳回')}}</view>
+  <view wx:if="{{error}}" class="error">{{error}}<button class="ui-button" bindtap="retry">重新加载</button></view>
   <view class="card" wx:for="{{rows}}" wx:key="_id">
     <view class="section-title">{{item.typeLabel}} · {{item.reason}}</view>
     <view>内容编号：{{item.targetId}}</view><view>小区：{{item.communityId}}</view>
     <view wx:if="{{item.text}}">举报说明：{{item.text}}</view>
-    <button wx:if="{{item.targetType === 'message' && item.status === 'pending'}}" data-index="{{index}}" bindtap="openChat">查看相关聊天记录（记录审计日志）</button><view wx:if="{{item.status === 'pending'}}" class="row"><button data-index="{{index}}" data-status="upheld" bindtap="resolve" disabled="{{busy}}">举报成立</button><button data-index="{{index}}" data-status="dismissed" bindtap="resolve" disabled="{{busy}}">驳回</button></view>
-    <view class="row"><button data-index="{{index}}" data-kind="{{item.hidden ? 'show' : 'hide'}}" bindtap="moderate" disabled="{{busy}}">{{item.hidden ? '解除隐藏' : '隐藏内容'}}</button><button data-index="{{index}}" data-kind="mute" bindtap="moderate" disabled="{{busy || !item.authorUserId}}">禁言 24 小时</button><button data-index="{{index}}" data-kind="block" bindtap="moderate" disabled="{{busy || !item.authorUserId}}">封禁账号</button></view>
+    <button class="ui-button" wx:if="{{item.targetType === 'message' && item.status === 'pending'}}" data-index="{{index}}" bindtap="openChat">查看相关聊天记录（记录审计日志）</button><view wx:if="{{item.status === 'pending'}}" class="row"><button class="ui-button" data-index="{{index}}" data-status="upheld" bindtap="resolve" disabled="{{busy || loading}}">举报成立</button><button class="ui-button" data-index="{{index}}" data-status="dismissed" bindtap="resolve" disabled="{{busy || loading}}">驳回</button></view>
+    <view class="row"><button class="ui-button" data-index="{{index}}" data-kind="{{item.hidden ? 'show' : 'hide'}}" bindtap="moderate" disabled="{{busy || loading}}">{{item.hidden ? '解除隐藏' : '隐藏内容'}}</button><button class="ui-button" data-index="{{index}}" data-kind="mute" bindtap="moderate" disabled="{{busy || loading || !item.authorUserId}}">禁言 24 小时</button><button class="ui-button" data-index="{{index}}" data-kind="block" bindtap="moderate" disabled="{{busy || loading || !item.authorUserId}}">封禁账号</button></view>
   </view>
-  <view wx:if="{{loading}}">正在加载…</view><view wx:elif="{{!rows.length}}">暂无举报</view>
+  <empty-state wx:if="{{loading}}" message="正在加载…"/><empty-state wx:elif="{{!error && !rows.length}}" message="暂无符合当前筛选的举报"/>
 </view>

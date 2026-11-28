@@ -1,22 +1,22 @@
 <view class="page">
-  <view class="page-title">申请驿站账号</view>
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/express.png"/><view class="masthead-copy"><view class="page-title">申请驿站账号</view><view class="masthead-subtitle">送到门口，每一户都记清</view></view></view>
   <view wx:if="{{loading}}" class="card">正在加载…</view>
-  <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重新加载</button></view>
-  <view wx:if="{{application}}" class="card">
+  <view wx:if="{{error}}" class="error">{{error}}<button disabled="{{loading || busy}}" bindtap="load">重新加载</button></view>
+  <view wx:if="{{!loading && !loadError && application}}" class="card">
     <view class="section-title">当前申请：{{application.status === 'pending' ? '审核中' : application.status === 'approved' ? '已通过' : '未通过'}}</view>
     <view>{{application.stationName}}</view>
     <view wx:if="{{application.reviewNote}}">审核说明：{{application.reviewNote}}</view>
   </view>
-  <view wx:if="{{!loading && (!application || application.status === 'rejected')}}" class="card">
+  <view wx:if="{{!loading && !loadError && (!application || application.status === 'rejected')}}" class="card">
     <view class="muted">请选择你所在的小区及合作驿站。管理员审核通过后，系统会为账号增加驿站工作台权限。</view>
-    <picker range="{{communities}}" range-key="name" value="{{communityIndex}}" bindchange="chooseCommunity">
+    <picker disabled="{{busy || loading || !ready}}" range="{{communities}}" range-key="name" value="{{communityIndex}}" bindchange="chooseCommunity">
       <view class="picker">{{communities[communityIndex].name || '选择小区'}}</view>
     </picker>
-    <picker wx:if="{{communities.length}}" range="{{communities[communityIndex].stations}}" range-key="name" value="{{stationIndex}}" bindchange="chooseStation">
+    <picker disabled="{{busy || loading || !ready}}" wx:if="{{communities.length}}" range="{{communities[communityIndex].stations}}" range-key="name" value="{{stationIndex}}" bindchange="chooseStation">
       <view class="picker">{{communities[communityIndex].stations[stationIndex].name || '选择驿站'}}</view>
     </picker>
-    <button type="primary" bindtap="submit" loading="{{busy}}" disabled="{{busy || !communities.length}}">提交审核</button>
+    <button type="primary" bindtap="submit" loading="{{busy}}" disabled="{{busy || loading || !ready || !communities.length}}">提交审核</button>
   </view>
-  <view wx:if="{{!loading && !application && !communities.length}}" class="card">当前没有开放驿站账号申请的小区，请联系管理员。</view>
+  <view wx:if="{{!loading && !loadError && !application && !communities.length}}" class="card">当前没有开放驿站账号申请的小区，请联系管理员。</view>
 </view>
 <privacy-popup/>

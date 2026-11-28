@@ -1,0 +1,181 @@
+{
+  "pass": 5,
+  "fail": 20,
+  "results": [
+    {
+      "action": "publish",
+      "boundary": "same-page",
+      "requests": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "switch-user",
+      "requests": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "publish",
+      "boundary": "hide",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "publish",
+      "boundary": "unload",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "publish",
+      "boundary": "refresh",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "review",
+      "boundary": "same-page",
+      "requests": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "switch-user",
+      "requests": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "review",
+      "boundary": "hide",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "review",
+      "boundary": "unload",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "review",
+      "boundary": "refresh",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "same-page",
+      "requests": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "switch-user",
+      "requests": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "hide",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "unload",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "refresh",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "same-page",
+      "requests": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "switch-user",
+      "requests": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "hide",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "unload",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "refresh",
+      "lateUiWrites": 1,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "checkin",
+      "boundary": "same-page",
+      "requests": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "switch-user",
+      "requests": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "checkin",
+      "boundary": "hide",
+      "lateUiWrites": 2,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "checkin",
+      "boundary": "unload",
+      "lateUiWrites": 2,
+      "error": "合成迟到失败",
+      "pass": false
+    },
+    {
+      "action": "checkin",
+      "boundary": "refresh",
+      "lateUiWrites": 2,
+      "error": "合成迟到失败",
+      "pass": false
+    }
+  ]
+}

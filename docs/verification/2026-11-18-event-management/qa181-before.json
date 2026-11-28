@@ -1,0 +1,44 @@
+{
+  "scope": "actual dashboard page, synthetic admin and intercepted cloud reads",
+  "pass": 1,
+  "fail": 3,
+  "results": [
+    {
+      "case": "valid-date-initial-load",
+      "pass": true
+    },
+    {
+      "case": "invalid-date-can-be-corrected",
+      "pass": false,
+      "observed": {
+        "afterInvalid": {
+          "ready": false,
+          "from": "2099-01-01",
+          "error": "统计日期范围不能超过一年"
+        },
+        "afterCorrection": {
+          "ready": false,
+          "from": "2099-01-01"
+        },
+        "dashboardCalls": 2
+      }
+    },
+    {
+      "case": "reload-recovers-invalid-date",
+      "pass": false,
+      "observed": {
+        "ready": false,
+        "from": "2099-01-01",
+        "error": "统计日期范围不能超过一年"
+      }
+    },
+    {
+      "case": "network-error-can-retry-selection",
+      "pass": false,
+      "observed": {
+        "ready": false,
+        "error": "网络暂不可用"
+      }
+    }
+  ]
+}

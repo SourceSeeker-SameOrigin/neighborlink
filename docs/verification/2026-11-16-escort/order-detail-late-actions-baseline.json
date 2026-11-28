@@ -1,0 +1,332 @@
+{
+  "version": "0.1.8",
+  "commit": "07c5af4",
+  "scope": "实际页面与共享客户端代码，合成本机事件；另用实际 order 云函数连接隔离数据库，不调用开发云或微信支付。",
+  "matrix": [
+    {
+      "entry": "preview",
+      "page": "visible",
+      "observations": [
+        {
+          "outcome": "resolved",
+          "seen": [
+            "preview"
+          ],
+          "pass": true
+        },
+        {
+          "outcome": "denied",
+          "seen": [
+            "toast"
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "entry": "preview",
+      "page": "hide",
+      "observations": [
+        {
+          "outcome": "resolved",
+          "seen": [
+            "preview"
+          ],
+          "pass": false
+        },
+        {
+          "outcome": "denied",
+          "seen": [
+            "toast"
+          ],
+          "pass": false
+        }
+      ]
+    },
+    {
+      "entry": "preview",
+      "page": "unload",
+      "observations": [
+        {
+          "outcome": "resolved",
+          "seen": [
+            "preview"
+          ],
+          "pass": false
+        },
+        {
+          "outcome": "denied",
+          "seen": [
+            "toast"
+          ],
+          "pass": false
+        }
+      ]
+    },
+    {
+      "entry": "preview",
+      "page": "denied",
+      "observations": [
+        {
+          "outcome": "resolved",
+          "seen": [
+            "preview"
+          ],
+          "pass": false
+        },
+        {
+          "outcome": "denied",
+          "seen": [
+            "toast"
+          ],
+          "pass": false
+        }
+      ]
+    },
+    {
+      "entry": "previewVacant",
+      "page": "visible",
+      "observations": [
+        {
+          "outcome": "resolved",
+          "seen": [
+            "preview"
+          ],
+          "pass": true
+        },
+        {
+          "outcome": "denied",
+          "seen": [
+            "toast"
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "entry": "previewVacant",
+      "page": "hide",
+      "observations": [
+        {
+          "outcome": "resolved",
+          "seen": [
+            "preview"
+          ],
+          "pass": false
+        },
+        {
+          "outcome": "denied",
+          "seen": [
+            "toast"
+          ],
+          "pass": false
+        }
+      ]
+    },
+    {
+      "entry": "previewVacant",
+      "page": "unload",
+      "observations": [
+        {
+          "outcome": "resolved",
+          "seen": [
+            "preview"
+          ],
+          "pass": false
+        },
+        {
+          "outcome": "denied",
+          "seen": [
+            "toast"
+          ],
+          "pass": false
+        }
+      ]
+    },
+    {
+      "entry": "previewVacant",
+      "page": "denied",
+      "observations": [
+        {
+          "outcome": "resolved",
+          "seen": [
+            "preview"
+          ],
+          "pass": false
+        },
+        {
+          "outcome": "denied",
+          "seen": [
+            "toast"
+          ],
+          "pass": false
+        }
+      ]
+    },
+    {
+      "entry": "pay",
+      "page": "visible",
+      "observations": [
+        {
+          "confirm": false,
+          "calls": 0,
+          "pass": true
+        },
+        {
+          "confirm": true,
+          "calls": 1,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "entry": "pay",
+      "page": "hide",
+      "observations": [
+        {
+          "confirm": false,
+          "calls": 0,
+          "pass": true
+        },
+        {
+          "confirm": true,
+          "calls": 1,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "entry": "pay",
+      "page": "unload",
+      "observations": [
+        {
+          "confirm": false,
+          "calls": 0,
+          "pass": true
+        },
+        {
+          "confirm": true,
+          "calls": 1,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "entry": "pay",
+      "page": "denied",
+      "observations": [
+        {
+          "confirm": false,
+          "calls": 0,
+          "pass": true
+        },
+        {
+          "confirm": true,
+          "calls": 1,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "entry": "cancel",
+      "page": "visible",
+      "observations": [
+        {
+          "confirm": false,
+          "calls": 0,
+          "pass": true
+        },
+        {
+          "confirm": true,
+          "calls": 1,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "entry": "cancel",
+      "page": "hide",
+      "observations": [
+        {
+          "confirm": false,
+          "calls": 0,
+          "pass": true
+        },
+        {
+          "confirm": true,
+          "calls": 0,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "entry": "cancel",
+      "page": "unload",
+      "observations": [
+        {
+          "confirm": false,
+          "calls": 0,
+          "pass": true
+        },
+        {
+          "confirm": true,
+          "calls": 0,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "entry": "cancel",
+      "page": "denied",
+      "observations": [
+        {
+          "confirm": false,
+          "calls": 0,
+          "pass": true
+        },
+        {
+          "confirm": true,
+          "calls": 0,
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "mockPaymentFunction": [
+    {
+      "stage": "cancelModal",
+      "calls": 0,
+      "result": "none",
+      "status": "pending_pay",
+      "orders": 1
+    },
+    {
+      "stage": "visible",
+      "calls": 1,
+      "result": "OK",
+      "status": "paid",
+      "orders": 1
+    },
+    {
+      "stage": "hide",
+      "calls": 1,
+      "result": "OK",
+      "status": "paid",
+      "orders": 1
+    },
+    {
+      "stage": "unload",
+      "calls": 1,
+      "result": "OK",
+      "status": "paid",
+      "orders": 1
+    },
+    {
+      "stage": "switchAccount",
+      "calls": 1,
+      "result": "E_FORBIDDEN",
+      "status": "pending_pay",
+      "orders": 1
+    }
+  ]
+}

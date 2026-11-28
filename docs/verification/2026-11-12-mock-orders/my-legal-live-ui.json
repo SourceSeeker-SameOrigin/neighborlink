@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-13",
+  "sourceCommit": "e08f12b",
+  "businessCodeCommit": "419f0d0",
+  "scope": "My page, workspace conditions, provider application and terms; read only",
+  "width": {
+    "value": 430,
+    "basis": "continued iPhone 14 Pro Max device from preceding live width read; no device change this batch"
+  },
+  "observed": {
+    "my": [
+      "loaded logged-in profile and service address card",
+      "five workspace labels present in accessibility tree",
+      "merchant actual tap shows closed-feature modal; dismissed",
+      "station actual tap shows closed-feature modal; dismissed",
+      "property actual tap shows qualification modal; dismissed",
+      "provider actual tap opens application",
+      "actual return from application reaches My"
+    ],
+    "providerApply": [
+      "430 top and bottom screenshots reviewed",
+      "visible labels, identity upload entries, community, level, agreement link and submission button",
+      "no inputs changed or uploads/submission attempted",
+      "actual terms-link tap opens terms"
+    ],
+    "terms": [
+      "430 top and bottom screenshots cover seven groups",
+      "text wraps within cards; no observed overlap or horizontal clipping",
+      "actual back returns to provider application"
+    ],
+    "notVerified": [
+      "privacy entry attempt has no confirmed navigation result",
+      "admin entry not retested this batch",
+      "My lower screen visual layout incomplete",
+      "other widths for these targets",
+      "large font, keyboard, full real-role business flow"
+    ]
+  },
+  "blocker": "scroll approval timed out; subsequent read explicitly reported Mac locked. User asked to unlock; no lock settings changed.",
+  "synthetic": {
+    "workspace": {
+      "passed": 17,
+      "total": 17
+    },
+    "qa59": {
+      "passed": 1,
+      "total": 8,
+      "status": "decision pending; business code unchanged"
+    },
+    "jest": {
+      "passed": 624,
+      "total": 624,
+      "suites": 53
+    }
+  },
+  "businessWrites": {
+    "orders": 0,
+    "payments": 0,
+    "applications": 0,
+    "uploads": 0,
+    "roles": 0,
+    "features": 0
+  },
+  "settings": "unchanged; no cache or hot reload change"
+}

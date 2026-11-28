@@ -1,0 +1,7 @@
+{
+  "scope": "isolated actual cancellation worker; no cloud writes",
+  "signupStatus": "cancelled",
+  "signupCount": 0,
+  "taskStatus": "completed",
+  "jobStatus": "completed"
+}

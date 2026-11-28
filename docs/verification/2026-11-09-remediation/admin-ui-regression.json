@@ -1,0 +1,67 @@
+{
+  "scope": "Offline actual page handlers; synthetic fixtures; no cloud writes or device acceptance",
+  "total": 15,
+  "passed": 15,
+  "results": [
+    {
+      "name": "QA01 coupon edit/save preserves codes, fen and selected issue mode",
+      "status": "PASS"
+    },
+    {
+      "name": "QA01 all Chinese display normalizes to existing API values",
+      "status": "PASS"
+    },
+    {
+      "name": "QA02 approved merchant remains reachable; no repeat admission review",
+      "status": "PASS"
+    },
+    {
+      "name": "QA02 filter reload clears previous selection and errors",
+      "status": "PASS"
+    },
+    {
+      "name": "QA02 late services response cannot restore old filter selection",
+      "status": "PASS"
+    },
+    {
+      "name": "QA02 service status requires approved selected merchant",
+      "status": "PASS"
+    },
+    {
+      "name": "QA03 unbound admin selects scope and loads ads without resident address",
+      "status": "PASS"
+    },
+    {
+      "name": "QA03 notices failure does not suppress ads; retry recovers",
+      "status": "PASS"
+    },
+    {
+      "name": "QA03 ads failure does not suppress notices",
+      "status": "PASS"
+    },
+    {
+      "name": "QA03 catalog failure preserves independent ads read and blocks targetless save",
+      "status": "PASS"
+    },
+    {
+      "name": "QA03 property cannot change own scope or query ads",
+      "status": "PASS"
+    },
+    {
+      "name": "QA03 missing property scope and revoked admin do not display stale content",
+      "status": "PASS"
+    },
+    {
+      "name": "QA03 late notice read cannot replace current community",
+      "status": "PASS"
+    },
+    {
+      "name": "QA05 Chinese ad selections preserve original target, slot, status and integer fen payload",
+      "status": "PASS"
+    },
+    {
+      "name": "QA05 page target path unchanged and invalid money never submitted",
+      "status": "PASS"
+    }
+  ]
+}

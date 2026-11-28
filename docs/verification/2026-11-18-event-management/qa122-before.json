@@ -1,0 +1,97 @@
+{
+  "scope": "Actual pet/work page, synthetic dialogs/uploads and intercepted writes only",
+  "pass": 5,
+  "fail": 14,
+  "results": [
+    {
+      "name": "missed-confirm-same",
+      "pass": true
+    },
+    {
+      "name": "missed-confirm-cancel",
+      "pass": true
+    },
+    {
+      "name": "missed-confirm-hidden",
+      "pass": false,
+      "error": "stale confirmation must not register a missed visit\n\n1 !== 0\n"
+    },
+    {
+      "name": "missed-confirm-unloaded",
+      "pass": false,
+      "error": "stale confirmation must not register a missed visit\n\n1 !== 0\n"
+    },
+    {
+      "name": "missed-confirm-user",
+      "pass": false,
+      "error": "stale confirmation must not register a missed visit\n\n1 !== 0\n"
+    },
+    {
+      "name": "missed-confirm-order",
+      "pass": false,
+      "error": "stale confirmation must not register a missed visit\n\n1 !== 0\n"
+    },
+    {
+      "name": "missed-confirm-refresh",
+      "pass": false,
+      "error": "stale confirmation must not register a missed visit\n\n1 !== 0\n"
+    },
+    {
+      "name": "done-choice-same",
+      "pass": true
+    },
+    {
+      "name": "done-choice-cancel",
+      "pass": true
+    },
+    {
+      "name": "done-choice-hidden",
+      "pass": false,
+      "error": "stale choice must not submit service proof\n\n1 !== 0\n"
+    },
+    {
+      "name": "done-choice-unloaded",
+      "pass": false,
+      "error": "stale choice must not submit service proof\n\n1 !== 0\n"
+    },
+    {
+      "name": "done-choice-user",
+      "pass": false,
+      "error": "stale choice must not submit service proof\n\n1 !== 0\n"
+    },
+    {
+      "name": "done-choice-order",
+      "pass": false,
+      "error": "stale choice must not submit service proof\n\n1 !== 0\n"
+    },
+    {
+      "name": "done-choice-refresh",
+      "pass": false,
+      "error": "stale choice must not submit service proof\n\n1 !== 0\n"
+    },
+    {
+      "name": "done-upload-same",
+      "pass": true
+    },
+    {
+      "name": "done-upload-unloaded",
+      "pass": false,
+      "error": "stale upload must not submit service proof\n\n1 !== 0\n"
+    },
+    {
+      "name": "done-upload-user",
+      "pass": false,
+      "error": "stale upload must not submit service proof\n\n1 !== 0\n"
+    },
+    {
+      "name": "done-upload-order",
+      "pass": false,
+      "error": "stale upload must not submit service proof\n\n1 !== 0\n"
+    },
+    {
+      "name": "done-upload-refresh",
+      "pass": false,
+      "error": "stale upload must not submit service proof\n\n1 !== 0\n"
+    }
+  ]
+}

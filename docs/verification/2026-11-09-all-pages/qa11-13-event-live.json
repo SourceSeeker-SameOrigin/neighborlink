@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-09",
+  "sourceCommit": "bfcf067",
+  "route": "events/manage/manage",
+  "device": "微信开发者工具 iPhone 12/13 Pro 75%",
+  "entry": "用户前轮导航后，代理本轮直接操作模拟器并通过确认焦点的Console导航服务协议",
+  "readOnly": false,
+  "observed": {
+    "routeConfirmed": true,
+    "upperScreen": [
+      "活动管理绿色页头及白色表单卡片",
+      "活动标题/说明/地点常驻中文标签",
+      "兴趣活动类型中文显示",
+      "报名费用（元）及名额（人）标签",
+      "上半屏输入文字未观察到裁切或重叠"
+    ],
+    "axOnly": [
+      "开始/结束/报名截止三个日期均为请选择日期",
+      "默认时刻10:00/12:00/23:59",
+      "赞助名称/金额（元）/说明常驻标签",
+      "保存并提交活动审核及扫描签到码按钮"
+    ],
+    "console": {
+      "errors": 0,
+      "warningsInitial": 7,
+      "warningsLatest": 10
+    },
+    "lowerScreen": [
+      "三项日期/时间、赞助字段及元单位实际可见",
+      "保存和扫码按钮文字居中、未见裁切",
+      "结束日期选择器打开并取消后仍为空",
+      "开始日期确认后回填2026-11-09",
+      "缺少开始/结束日期分别拦截；QA14修复前错误在顶部且未自动滚动",
+      "QA14修复后缺少开始日期从底部自动回顶部，提示立即可见且无重试按钮"
+    ]
+  },
+  "notVerified": [
+    "QA14修复后结束/截止日期缺失及非空草稿保留的完整真实交互（本地已覆盖）",
+    "有效日期提交/活动创建发布",
+    "非空活动/退款/报名状态",
+    "其他屏宽/大字体/键盘/真机",
+    "用户视觉签收"
+  ],
+  "screenshot": "当前会话工具截图，未保存本地截图文件",
+  "interactionIncident": {
+    "description": "前轮只读QA_CHANNEL命令因焦点错误进入AGENTS.md未保存编辑缓冲，当前截图确认",
+    "diskVerifiedUnchanged": true,
+    "gitWorktreeClean": true,
+    "resolution": "代理已恢复误插入命令及额外换行，使用原生文件菜单保存；未保存标记消失，保存后git diff --exit-code HEAD -- AGENTS.md为0且工作区当时干净。",
+    "bufferFinalComparisonVerified": true
+  },
+  "connectionRecheck": {
+    "date": "2026-11-09",
+    "native": "本轮恢复并实际完成滚动/点击/日期选择/保存；约19:12继续操作时工具再次报告Mac锁定",
+    "browser": "仍返回Local browser use is disabled in Work settings",
+    "scope": "工具连接状态，不更改锁屏设置"
+  },
+  "mutationScope": "仅本地页面选择日期和空日期校验；未创建/发布活动或修改云数据；保存的AGENTS.md与HEAD一致",
+  "frontendVersion": "QA14本轮提交，基于7889bb7"
+}

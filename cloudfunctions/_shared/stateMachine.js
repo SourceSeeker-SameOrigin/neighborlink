@@ -20,14 +20,15 @@ const STATUS_TEXT = Object.freeze({
   cancelled: '已取消', closed: '已关闭', refunded: '已退款'
 });
 
-function canTransition(from, to) {
+function canTransition(from, to, kind) {
+  if (kind === 'idle_purchase' && from === 'accepted' && to === 'delivered') return true;
   return typeof from === 'string' && typeof to === 'string' &&
     Object.prototype.hasOwnProperty.call(TRANSITIONS, from) && TRANSITIONS[from].includes(to);
 }
 
 // 这里只校验状态边，角色、投诉期限及数据库条件更新由对应云函数负责。
-function assertTransition(from, to) {
-  if (!canTransition(from, to)) throw new AppError('E_BAD_STATE', '订单状态已变化，无法执行此操作');
+function assertTransition(from, to, kind) {
+  if (!canTransition(from, to, kind)) throw new AppError('E_BAD_STATE', '订单状态已变化，无法执行此操作');
 }
 
 module.exports = { canTransition, assertTransition, STATUS_TEXT };

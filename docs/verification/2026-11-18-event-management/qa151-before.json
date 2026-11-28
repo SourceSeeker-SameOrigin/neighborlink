@@ -1,0 +1,15 @@
+{
+  "case": "QA151",
+  "page": "chat/room/room",
+  "method": "Actual page JavaScript in an isolated Node VM with synthetic identities, conversation messages and intercepted API calls",
+  "scenario": "Resident A loads a conversation; the global identity changes to resident B; the old send handler runs, then a new pull is denied",
+  "observed": {
+    "messagesInitiallyLoaded": 1,
+    "chatSendCallsUnderResidentB": 1,
+    "conversationIdSent": "conv-A",
+    "readyAfterDeniedReload": false,
+    "oldMessagesAfterDeniedReload": 2
+  },
+  "scope": "No CloudBase request, real message, image upload, report or business write occurred",
+  "status": "Reproduced; front-end remediation awaits user decision"
+}

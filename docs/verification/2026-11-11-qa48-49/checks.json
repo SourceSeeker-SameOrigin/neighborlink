@@ -1,0 +1,29 @@
+{
+  "jest": {
+    "suites": 53,
+    "tests": 624,
+    "failures": 0
+  },
+  "compiler": {
+    "wxml": 77,
+    "wxss": 78,
+    "exitCodes": [
+      0,
+      0
+    ],
+    "stderr": ""
+  },
+  "note": "QA48 tests and QA49 final WXML/WXSS compile; native visual evidence recorded separately",
+  "finalCompiler": {
+    "wxml": {
+      "files": 77,
+      "exitCode": 0,
+      "stderr": ""
+    },
+    "wxss": {
+      "files": 78,
+      "exitCode": 0,
+      "stderr": ""
+    }
+  }
+}

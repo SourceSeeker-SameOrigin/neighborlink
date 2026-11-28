@@ -1,0 +1,177 @@
+{
+  "dynamicSites": 7,
+  "contracts": [
+    {
+      "file": "admin/order/order",
+      "method": "perform",
+      "pairs": [
+        [
+          "admin",
+          "assign"
+        ],
+        [
+          "admin",
+          "forceCancel"
+        ],
+        [
+          "admin",
+          "retryRefund"
+        ],
+        [
+          "admin",
+          "resolveComplaint"
+        ],
+        [
+          "admin",
+          "voidMembership"
+        ]
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "admin/providers/providers",
+      "method": "perform",
+      "pairs": [
+        [
+          "admin",
+          "reviewProvider"
+        ],
+        [
+          "admin",
+          "suspendProvider"
+        ],
+        [
+          "admin",
+          "setInsurance"
+        ],
+        [
+          "admin",
+          "setCerts"
+        ],
+        [
+          "admin",
+          "cleanupProviderKyc"
+        ]
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "events/manage/manage",
+      "method": "action",
+      "pairs": [
+        [
+          "event",
+          "publish"
+        ],
+        [
+          "event",
+          "cancelEvent"
+        ],
+        [
+          "event",
+          "retryCancellation"
+        ]
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "admin/exports/exports",
+      "method": "loadAll",
+      "pairs": [
+        [
+          "catalog",
+          "listCommunities"
+        ],
+        [
+          "admin",
+          "listProviders"
+        ],
+        [
+          "merchant",
+          "adminList"
+        ]
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "admin/exports/exports",
+      "method": "download",
+      "pairs": [
+        [
+          "admin",
+          "exportCsv"
+        ],
+        [
+          "admin",
+          "exportSubsidyOrders"
+        ],
+        [
+          "admin",
+          "exportRecyclerStatement"
+        ],
+        [
+          "station",
+          "exportStatement"
+        ]
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "pages/orders/detail",
+      "pairs": [
+        [
+          "order",
+          "confirm"
+        ],
+        [
+          "order",
+          "rate"
+        ],
+        [
+          "order",
+          "complain"
+        ]
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "provider/task/task",
+      "pairs": [
+        [
+          "provider",
+          "start"
+        ],
+        [
+          "provider",
+          "release"
+        ],
+        [
+          "provider",
+          "deliver"
+        ]
+      ],
+      "status": "PASS"
+    }
+  ],
+  "recycleFailure": {
+    "errorShown": true,
+    "loading": false,
+    "retryButtonPresent": false,
+    "reloadHandlerPresent": false
+  },
+  "styles": [
+    {
+      "file": "recycle/order/order.wxss",
+      "selector": ".choices button",
+      "fontRpx": 28,
+      "requirement": 32
+    },
+    {
+      "file": "shops/list/list.wxss",
+      "selector": ".muted",
+      "fontRpx": 26,
+      "requirement": 32
+    }
+  ],
+  "scope": "source/isolated VM only; no cloud calls"
+}

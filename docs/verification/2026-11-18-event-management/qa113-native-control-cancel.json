@@ -1,0 +1,37 @@
+[
+  {
+    "state": "modal:show",
+    "detail": "",
+    "stack": [
+      "probe/nav/start"
+    ]
+  },
+  {
+    "state": "modal:click",
+    "detail": "",
+    "stack": [
+      "probe/nav/start"
+    ]
+  },
+  {
+    "state": "modal:success",
+    "detail": "{\"errMsg\":\"showModal:ok\",\"cancel\":true,\"confirm\":false}",
+    "stack": [
+      "probe/nav/start"
+    ]
+  },
+  {
+    "state": "modal:complete",
+    "detail": "{\"errMsg\":\"showModal:ok\",\"cancel\":true,\"confirm\":false}",
+    "stack": [
+      "probe/nav/start"
+    ]
+  },
+  {
+    "state": "modal:click",
+    "detail": "",
+    "stack": [
+      "probe/nav/start"
+    ]
+  }
+]

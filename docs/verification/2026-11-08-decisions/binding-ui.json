@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-08",
+  "timeZone": "Asia/Shanghai",
+  "window": "20:52–20:59",
+  "environment": "WeChat DevTools 2.01.2510290 / base library 3.18.0",
+  "actualIdentity": "Existing unbound personal-subject account; no fake phone, profile or role writes",
+  "results": [
+    {
+      "scenario": "Compile unbound homepage",
+      "result": "PASS",
+      "observed": "欢迎使用近邻帮; four core tiles and membership entry; no automatic redirect"
+    },
+    {
+      "scenario": "Core service tile",
+      "result": "PASS",
+      "observed": "Clicked 代取快递; binding page loaded real catalog"
+    },
+    {
+      "scenario": "Phone denial callback",
+      "result": "PASS_SIMULATED_CALLBACK",
+      "observed": "Invoked actual Page.phone with no-code denial event in Console; input room 302 preserved; phone absent; agreement false; Save disabled; independent phone error visible",
+      "limitation": "No real WeChat phone permission popup was accepted or rejected in this run"
+    },
+    {
+      "scenario": "Back Home after denial",
+      "result": "PASS",
+      "observed": "Clicked 返回首页; homepage stayed visible"
+    },
+    {
+      "scenario": "Membership tile then native Back",
+      "result": "PASS",
+      "observed": "Binding opened; native Back returned to home and stayed"
+    },
+    {
+      "scenario": "Direct service entry guard",
+      "result": "PASS",
+      "observed": "Native wx.navigateTo express; actual stack [pages/index/index,pages/bind/bind]; native Back returned home"
+    },
+    {
+      "scenario": "Direct membership entry guard",
+      "result": "PASS",
+      "observed": "Native wx.navigateTo membership; actual stack [pages/index/index,pages/bind/bind]; native Back returned home"
+    },
+    {
+      "scenario": "Successful binding",
+      "result": "PASS_ISOLATED_ONLY",
+      "observed": "Actual page code tested with synthetic server phone and setAddress responses, followed by home onShow refresh",
+      "limitation": "True phone authorization and server address success remain pending account eligibility; not bypassed"
+    },
+    {
+      "scenario": "D42 price-bar selector",
+      "result": "PASS_COMPILE_AND_RUNTIME_LOAD",
+      "observed": "After class change, official WCC/WCSC compile passed; recompile and direct express entry produced no price-bar selector warning",
+      "limitation": "Bound-user price-bar visual/payment flow still requires genuine binding"
+    },
+    {
+      "scenario": "Final runtime diagnostics",
+      "result": "PASS_WITH_PLATFORM_WARNINGS",
+      "observed": "0 errors; 7 warnings after return (tool/base-library warnings remain); final simulator on home"
+    },
+    {
+      "scenario": "Package analysis refresh",
+      "result": "PASS",
+      "observed": "After final changes, refresh showed total 364KB and main 107KB; rounded tool values"
+    }
+  ],
+  "cacheActions": "Previously authorized reset-fileutils and compile-cache only; no login/auth/storage/file cache deletion",
+  "cloudChanges": false
+}

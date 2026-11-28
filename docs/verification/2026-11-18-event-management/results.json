@@ -1,0 +1,292 @@
+{
+  "date": "2026-11-18",
+  "scope": "实际活动管理页面与云函数，数据库、内容审核为合成替身；未调用真实云端、未运行云端 timer。",
+  "qa109": {
+    "status": "待用户决策",
+    "cases": [
+      {
+        "role": "admin",
+        "failure": "none",
+        "firstCount": 1,
+        "firstStatuses": [
+          "published"
+        ],
+        "finalCount": 1,
+        "finalStatuses": [
+          "published"
+        ],
+        "createCalls": 1,
+        "error": ""
+      },
+      {
+        "role": "admin",
+        "failure": "after-create",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "draft",
+          "published"
+        ],
+        "createCalls": 2,
+        "error": ""
+      },
+      {
+        "role": "admin",
+        "failure": "before-publish",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "draft",
+          "published"
+        ],
+        "createCalls": 2,
+        "error": ""
+      },
+      {
+        "role": "admin",
+        "failure": "after-publish",
+        "firstCount": 1,
+        "firstStatuses": [
+          "published"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "published",
+          "published"
+        ],
+        "createCalls": 2,
+        "error": ""
+      },
+      {
+        "role": "property",
+        "failure": "none",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 1,
+        "finalStatuses": [
+          "draft"
+        ],
+        "createCalls": 1,
+        "error": ""
+      },
+      {
+        "role": "property",
+        "failure": "after-create",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "draft",
+          "draft"
+        ],
+        "createCalls": 2,
+        "error": ""
+      },
+      {
+        "role": "property",
+        "failure": "before-publish",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "draft",
+          "draft"
+        ],
+        "createCalls": 2,
+        "error": ""
+      },
+      {
+        "role": "property",
+        "failure": "after-publish",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "draft",
+          "draft"
+        ],
+        "createCalls": 2,
+        "error": ""
+      },
+      {
+        "role": "merchant",
+        "failure": "none",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 1,
+        "finalStatuses": [
+          "draft"
+        ],
+        "createCalls": 1,
+        "error": ""
+      },
+      {
+        "role": "merchant",
+        "failure": "after-create",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "draft",
+          "draft"
+        ],
+        "createCalls": 2,
+        "error": ""
+      },
+      {
+        "role": "merchant",
+        "failure": "before-publish",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "draft",
+          "draft"
+        ],
+        "createCalls": 2,
+        "error": ""
+      },
+      {
+        "role": "merchant",
+        "failure": "after-publish",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "draft",
+          "draft"
+        ],
+        "createCalls": 2,
+        "error": ""
+      }
+    ],
+    "sponsorshipCases": [
+      {
+        "role": "admin",
+        "failure": "none",
+        "firstCount": 1,
+        "firstStatuses": [
+          "published"
+        ],
+        "finalCount": 1,
+        "finalStatuses": [
+          "published"
+        ],
+        "ledgerCount": 1,
+        "ledgerAmounts": [
+          500
+        ],
+        "createCalls": 1,
+        "error": ""
+      },
+      {
+        "role": "admin",
+        "failure": "after-create",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "draft",
+          "published"
+        ],
+        "ledgerCount": 2,
+        "ledgerAmounts": [
+          500,
+          500
+        ],
+        "createCalls": 2,
+        "error": ""
+      },
+      {
+        "role": "admin",
+        "failure": "before-publish",
+        "firstCount": 1,
+        "firstStatuses": [
+          "draft"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "draft",
+          "published"
+        ],
+        "ledgerCount": 2,
+        "ledgerAmounts": [
+          500,
+          500
+        ],
+        "createCalls": 2,
+        "error": ""
+      },
+      {
+        "role": "admin",
+        "failure": "after-publish",
+        "firstCount": 1,
+        "firstStatuses": [
+          "published"
+        ],
+        "finalCount": 2,
+        "finalStatuses": [
+          "published",
+          "published"
+        ],
+        "ledgerCount": 2,
+        "ledgerAmounts": [
+          500,
+          500
+        ],
+        "createCalls": 2,
+        "error": ""
+      }
+    ]
+  },
+  "cancellation": [
+    {
+      "role": "admin",
+      "jobs": 1,
+      "cancelledSignups": 2,
+      "remainingSignupCount": 0,
+      "jobStatus": "completed",
+      "orders": 0
+    },
+    {
+      "role": "property",
+      "jobs": 1,
+      "cancelledSignups": 2,
+      "remainingSignupCount": 0,
+      "jobStatus": "completed",
+      "orders": 0
+    },
+    {
+      "role": "merchant",
+      "jobs": 1,
+      "cancelledSignups": 2,
+      "remainingSignupCount": 0,
+      "jobStatus": "completed",
+      "orders": 0
+    }
+  ]
+}

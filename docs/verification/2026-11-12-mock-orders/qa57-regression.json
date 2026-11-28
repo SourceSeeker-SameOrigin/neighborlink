@@ -1,0 +1,133 @@
+{
+  "baseCommit": "07da819",
+  "workingTree": true,
+  "scope": "Synthetic isolated actual page methods; no real cloud reads/writes or UI acceptance",
+  "passed": 31,
+  "total": 31,
+  "results": [
+    {
+      "name": "resident newer filter wins over late prior success",
+      "passed": true
+    },
+    {
+      "name": "resident filter failure clears old group rows",
+      "passed": true
+    },
+    {
+      "name": "resident failed next page preserves rows and offset on retry",
+      "passed": true
+    },
+    {
+      "name": "resident late list success after onHide has no page writes",
+      "passed": true
+    },
+    {
+      "name": "resident late list success after onUnload has no page writes",
+      "passed": true
+    },
+    {
+      "name": "admin newer filter wins over late prior success",
+      "passed": true
+    },
+    {
+      "name": "admin filter failure clears old group rows",
+      "passed": true
+    },
+    {
+      "name": "admin failed next page preserves rows and offset on retry",
+      "passed": true
+    },
+    {
+      "name": "admin late list success after onHide has no page writes",
+      "passed": true
+    },
+    {
+      "name": "admin late list success after onUnload has no page writes",
+      "passed": true
+    },
+    {
+      "name": "resident unread newer response wins",
+      "passed": true
+    },
+    {
+      "name": "resident unread after onHide has no tab changes",
+      "passed": true
+    },
+    {
+      "name": "resident unread after onUnload has no tab changes",
+      "passed": true
+    },
+    {
+      "name": "resident late list failure after onHide is ignored",
+      "passed": true
+    },
+    {
+      "name": "resident late list failure after onUnload is ignored",
+      "passed": true
+    },
+    {
+      "name": "resident hiding while session loads prevents stale API call",
+      "passed": true
+    },
+    {
+      "name": "resident reentry keeps filter and accepts latest result only",
+      "passed": true
+    },
+    {
+      "name": "resident duplicate next page call is blocked",
+      "passed": true
+    },
+    {
+      "name": "resident invalid filter makes no request",
+      "passed": true
+    },
+    {
+      "name": "resident API UI callback expires when hidden",
+      "passed": true
+    },
+    {
+      "name": "admin late list failure after onHide is ignored",
+      "passed": true
+    },
+    {
+      "name": "admin late list failure after onUnload is ignored",
+      "passed": true
+    },
+    {
+      "name": "admin hiding while session loads prevents stale API call",
+      "passed": true
+    },
+    {
+      "name": "admin reentry keeps filter and accepts latest result only",
+      "passed": true
+    },
+    {
+      "name": "admin duplicate next page call is blocked",
+      "passed": true
+    },
+    {
+      "name": "admin invalid filter makes no request",
+      "passed": true
+    },
+    {
+      "name": "admin API UI callback expires when hidden",
+      "passed": true
+    },
+    {
+      "name": "resident old unread failure cannot clear latest badge",
+      "passed": true
+    },
+    {
+      "name": "resident late unread failure after hide is silent",
+      "passed": true
+    },
+    {
+      "name": "resident refresh completion only stops current visible spinner hide=false",
+      "passed": true
+    },
+    {
+      "name": "resident refresh completion only stops current visible spinner hide=true",
+      "passed": true
+    }
+  ]
+}

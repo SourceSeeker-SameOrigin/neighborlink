@@ -1,0 +1,117 @@
+{
+  "source": "Isolated actual refreshQuote handler; synthetic responses; no cloud writes",
+  "total": 21,
+  "passed": 21,
+  "jest": {
+    "suites": 52,
+    "tests": 605,
+    "success": true
+  },
+  "results": [
+    {
+      "route": "pages/service/express",
+      "mode": "no_provider",
+      "passed": true
+    },
+    {
+      "route": "pages/service/express",
+      "mode": "on_duty",
+      "passed": true
+    },
+    {
+      "route": "pages/service/express",
+      "mode": "no_slots",
+      "passed": true
+    },
+    {
+      "route": "pages/service/trash",
+      "mode": "no_provider",
+      "passed": true
+    },
+    {
+      "route": "pages/service/trash",
+      "mode": "on_duty",
+      "passed": true
+    },
+    {
+      "route": "pages/service/trash",
+      "mode": "no_slots",
+      "passed": true
+    },
+    {
+      "route": "pages/service/buy",
+      "mode": "no_provider",
+      "passed": true
+    },
+    {
+      "route": "pages/service/buy",
+      "mode": "on_duty",
+      "passed": true
+    },
+    {
+      "route": "pages/service/buy",
+      "mode": "no_slots",
+      "passed": true
+    },
+    {
+      "route": "pages/service/help",
+      "mode": "no_provider",
+      "passed": true
+    },
+    {
+      "route": "pages/service/help",
+      "mode": "on_duty",
+      "passed": true
+    },
+    {
+      "route": "pages/service/help",
+      "mode": "no_slots",
+      "passed": true
+    },
+    {
+      "route": "elder/meal",
+      "mode": "no_provider",
+      "passed": true
+    },
+    {
+      "route": "elder/meal",
+      "mode": "on_duty",
+      "passed": true
+    },
+    {
+      "route": "elder/meal",
+      "mode": "no_slots",
+      "passed": true
+    },
+    {
+      "route": "elder/escort",
+      "mode": "no_provider",
+      "passed": true
+    },
+    {
+      "route": "elder/escort",
+      "mode": "on_duty",
+      "passed": true
+    },
+    {
+      "route": "elder/escort",
+      "mode": "no_slots",
+      "passed": true
+    },
+    {
+      "route": "pet/order",
+      "mode": "no_provider",
+      "passed": true
+    },
+    {
+      "route": "pet/order",
+      "mode": "on_duty",
+      "passed": true
+    },
+    {
+      "route": "pet/order",
+      "mode": "no_slots",
+      "passed": true
+    }
+  ]
+}

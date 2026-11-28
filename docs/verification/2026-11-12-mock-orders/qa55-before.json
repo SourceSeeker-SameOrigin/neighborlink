@@ -1,0 +1,95 @@
+{
+  "scope": "Offline real page with synthetic identity, API and payment. No cloud writes or visual acceptance.",
+  "total": 18,
+  "passed": 2,
+  "results": [
+    {
+      "name": "before initialization does not create",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "failed initialization does not create and keeps requirement",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "successful initialization ends loading and enables submission",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- true\n"
+    },
+    {
+      "name": "missing service never loads or submits",
+      "passed": true
+    },
+    {
+      "name": "pending load rejects submit and duplicate read",
+      "passed": false,
+      "error": "r.p.load is not a function"
+    },
+    {
+      "name": "retry preserves requirement and selected address by ID after reorder",
+      "passed": false,
+      "error": "r.p.load is not a function"
+    },
+    {
+      "name": "invalid address event ignored",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n99 !== 0\n"
+    },
+    {
+      "name": "empty addresses retains current binding fallback after successful load",
+      "passed": true
+    },
+    {
+      "name": "late load after onHide does not update page",
+      "passed": false,
+      "error": "r.p[end] is not a function"
+    },
+    {
+      "name": "late load after onUnload does not update page",
+      "passed": false,
+      "error": "r.p[end] is not a function"
+    },
+    {
+      "name": "reentry accepts fresh read and rejects older response",
+      "passed": false,
+      "error": "r.p.onHide is not a function"
+    },
+    {
+      "name": "busy submit blocks read, editing and repeated submit",
+      "passed": false,
+      "error": "r.p.load is not a function"
+    },
+    {
+      "name": "late create after onHide does not pay, navigate or toast",
+      "passed": false,
+      "error": "r.p[end] is not a function"
+    },
+    {
+      "name": "late create after onUnload does not pay, navigate or toast",
+      "passed": false,
+      "error": "r.p[end] is not a function"
+    },
+    {
+      "name": "hide and return before create resolves does not auto pay or navigate",
+      "passed": false,
+      "error": "r.p.onHide is not a function"
+    },
+    {
+      "name": "late payment result after leave does not navigate or toast",
+      "passed": false,
+      "error": "r.p.onHide is not a function"
+    },
+    {
+      "name": "same unknown create result retries original request ID",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- true\n"
+    },
+    {
+      "name": "different user cannot resume previous user order",
+      "passed": false,
+      "error": "r.p.onHide is not a function"
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "date": "2026-11-12",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "authorizedManifest": "deployment-manifest.json",
+  "order": {
+    "selectedFileVerified": true,
+    "bytes": 126284,
+    "sha256": "53c8bebc7ae49472ebc9e84ca4a6e003db63c1801341bc99b285e942974dd9e0",
+    "operation": "old console Save and install dependencies",
+    "result": "UI rejected dependency installation: root package.json absent; local ZIP root package.json confirmed present",
+    "status": "new console deployed; 76/76 source hashes matched; wx-server-sdk 4.0.2 present",
+    "oldPageRetained": true,
+    "newConsoleRead": "two automatic approval timeouts; no state returned",
+    "oldPageRefresh": "automatic review rejected to avoid losing selected ZIP state; page retained",
+    "next": "continue provider",
+    "cloudReadback": {
+      "matched": 72,
+      "total": 76,
+      "differences": [
+        "lib/shared/adminOrders.js",
+        "lib/shared/adminSettlements.js",
+        "lib/shared/eventCancellation.js",
+        "lib/shared/payFlow.js"
+      ],
+      "packageAndDependenciesPresent": true
+    },
+    "newConsoleRetryAuthorized": true,
+    "newConsoleUploadDialogReady": true,
+    "browserHashCheck": "selected order.zip size and SHA-256 matched",
+    "cloudReadbackAfter": {
+      "matched": 76,
+      "total": 76,
+      "differences": [],
+      "sdkVersion": "4.0.2"
+    },
+    "environmentAfter": {
+      "names": [
+        "ALLOW_MOCK_PAY",
+        "SECRET_KEY"
+      ],
+      "masked": true,
+      "valuesRevealed": false,
+      "reason": "kept masked after automatic review rejected revealing secret"
+    }
+  },
+  "remainingFunctions": [],
+  "timerExecuted": false,
+  "additionalReadback": "provider/membership/admin batch did not execute: automatic approval timeout",
+  "completed": [
+    "order",
+    "provider",
+    "membership",
+    "admin",
+    "board",
+    "event",
+    "idle",
+    "merchant",
+    "pet",
+    "timer",
+    "payCallback",
+    "refundCallback"
+  ],
+  "provider": {
+    "status": "deployed and readback verified",
+    "packageHashMatched": true,
+    "matchedFiles": 76,
+    "totalFiles": 76,
+    "sdkVersion": "4.0.2",
+    "environmentNamesRetained": [
+      "ALLOW_MOCK_PAY"
+    ],
+    "valuesNotRevealed": true
+  },
+  "membership": {
+    "status": "deployed and readback verified",
+    "packageHashMatched": true,
+    "matchedFiles": 76,
+    "totalFiles": 76,
+    "sdkVersion": "4.0.2",
+    "environmentNamesRetained": [
+      "ALLOW_MOCK_PAY",
+      "SECRET_KEY"
+    ],
+    "valuesNotRevealed": true
+  },
+  "next": "runtime integration: read-only checks authorized; mock business records require concrete scope confirmation",
+  "admin": {
+    "status": "deployed and readback verified",
+    "packageHashMatched": true,
+    "matchedFiles": 76,
+    "totalFiles": 76,
+    "sdkVersion": "4.0.2",
+    "environmentNamesRetained": [
+      "ALLOW_MOCK_PAY"
+    ],
+    "valuesNotRevealed": true
+  },
+  "board": {
+    "status": "deployed and readback verified",
+    "packageHashMatched": true,
+    "matchedFiles": 76,
+    "totalFiles": 76,
+    "sdkVersion": "4.0.2",
+    "environmentNamesRetained": [
+      "ALLOW_MOCK_PAY"
+    ],
+    "valuesNotRevealed": true
+  },
+  "event": {
+    "status": "deployed and readback verified",
+    "packageHashMatched": true,
+    "matchedFiles": 76,
+    "totalFiles": 76,
+    "sdkVersion": "4.0.2",
+    "environmentNamesRetained": [
+      "ALLOW_MOCK_PAY"
+    ],
+    "valuesNotRevealed": true
+  },
+  "idle": {
+    "status": "deployed and readback verified",
+    "packageHashMatched": true,
+    "matchedFiles": 76,
+    "totalFiles": 76,
+    "sdkVersion": "4.0.2",
+    "environmentNamesRetained": [
+      "ALLOW_MOCK_PAY"
+    ],
+    "valuesNotRevealed": true
+  },
+  "merchant": {
+    "status": "deployed and readback verified",
+    "packageHashMatched": true,
+    "matchedFiles": 76,
+    "totalFiles": 76,
+    "sdkVersion": "4.0.2",
+    "environmentNamesRetained": [
+      "ALLOW_MOCK_PAY"
+    ],
+    "valuesNotRevealed": true
+  },
+  "pet": {
+    "status": "deployed and readback verified",
+    "packageHashMatched": true,
+    "matchedFiles": 76,
+    "totalFiles": 76,
+    "sdkVersion": "4.0.2",
+    "environmentNamesRetained": [
+      "ALLOW_MOCK_PAY",
+      "SECRET_KEY"
+    ],
+    "valuesNotRevealed": true
+  },
+  "timer": {
+    "status": "deployed and readback verified",
+    "packageHashMatched": true,
+    "matchedFiles": 76,
+    "totalFiles": 76,
+    "sdkVersion": "4.0.2",
+    "environmentNamesRetained": [
+      "ALLOW_MOCK_PAY"
+    ],
+    "valuesNotRevealed": true,
+    "functionInvoked": false,
+    "triggersModified": false
+  },
+  "payCallback": {
+    "status": "deployed and readback verified",
+    "packageHashMatched": true,
+    "matchedFiles": 76,
+    "totalFiles": 76,
+    "sdkVersion": "4.0.2",
+    "configurationModified": false,
+    "callbackInvoked": false
+  },
+  "refundCallback": {
+    "status": "deployed and readback verified",
+    "packageHashMatched": true,
+    "matchedFiles": 76,
+    "totalFiles": 76,
+    "sdkVersion": "4.0.2",
+    "configurationModified": false,
+    "callbackInvoked": false
+  },
+  "batchSummary": {
+    "functions": 12,
+    "matchedSourceFiles": 912,
+    "totalSourceFiles": 912,
+    "allSdkVersions": "4.0.2",
+    "sourceCommit": "05bda9609d3e897cabb73f14e96f442823d723a1",
+    "businessFlowAcceptance": false
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "scope": "QA114 offline static references and load/cleanup only; not UI/cloud success acceptance",
+  "pageCount": 69,
+  "scenarioCount": 207,
+  "unhandled": [],
+  "failures": [],
+  "referenceFailures": []
+}

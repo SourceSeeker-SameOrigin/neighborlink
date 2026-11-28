@@ -1,0 +1,50 @@
+{
+  "sourceCommit": "110ebe8b562cb1b8304a056e89bac5994b00e95d",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "authorizedPackages": [
+    "user",
+    "provider",
+    "order",
+    "membership",
+    "merchant",
+    "idle",
+    "board",
+    "timer"
+  ],
+  "uploaded": [
+    "user",
+    "provider",
+    "idle",
+    "board",
+    "timer"
+  ],
+  "verified": [
+    "user",
+    "provider",
+    "idle",
+    "board",
+    "timer"
+  ],
+  "nextFunction": null,
+  "nextPackage": null,
+  "browserPageId": 2,
+  "hashListener": "window.__jinlin110ebe8Proof",
+  "autoFileSelection": "Tool denied both /tmp and IdeaProjects paths as outside configured workspace roots; native Chrome contains no target CloudBase window",
+  "permissionsNotExpanded": true,
+  "nextPackageSource": null,
+  "supersededByFc2a313": [
+    "order",
+    "membership",
+    "merchant"
+  ],
+  "fulfilledByReplacement": {
+    "membership": "fc2a313",
+    "order": "fc2a313",
+    "merchant": "fc2a313"
+  },
+  "timerCodeOnly": true,
+  "timerInvoked": false,
+  "timerTriggersObserved": [],
+  "authorizedScopeCodeUpdatesComplete": true,
+  "businessAcceptanceComplete": false
+}

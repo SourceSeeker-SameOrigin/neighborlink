@@ -1,0 +1,47 @@
+{
+  "scope": "Isolated actual frontend handlers, synthetic responses only; no live cloud writes",
+  "total": 10,
+  "passed": 10,
+  "results": [
+    {
+      "name": "addBuilding写成功读失败明确区分，保存按钮不再写入，重试只读",
+      "status": "PASS"
+    },
+    {
+      "name": "saveCommunity写成功读失败明确区分，保存按钮不再写入，重试只读",
+      "status": "PASS"
+    },
+    {
+      "name": "刷新恢复后再次保存楼栋使用已返回ID；显式新建才清空",
+      "status": "PASS"
+    },
+    {
+      "name": "直接保存及刷新成功保留其他三类草稿",
+      "status": "PASS"
+    },
+    {
+      "name": "写入失败仍属QA15，不进入已保存刷新状态",
+      "status": "PASS"
+    },
+    {
+      "name": "重复点击刷新及保存仅执行一次读取",
+      "status": "PASS"
+    },
+    {
+      "name": "迟到回读不覆盖其他小区",
+      "status": "PASS"
+    },
+    {
+      "name": "回读小区不匹配仍可只读重试且不覆盖草稿",
+      "status": "PASS"
+    },
+    {
+      "name": "无权限或无待刷新记录不发请求",
+      "status": "PASS"
+    },
+    {
+      "name": "模板提供只读重试，待刷新时禁用三个保存按钮",
+      "status": "PASS"
+    }
+  ]
+}

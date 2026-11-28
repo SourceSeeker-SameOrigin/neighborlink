@@ -1,10 +1,11 @@
+const { orderEnabled, requireOrderFeatures } = require('./lib/shared/orderFeatures');
 const cloud = require('wx-server-sdk');
 const { createServer } = require('./lib/shared/server');
 const { createOrderContext } = require('./lib/shared/orderContext');
 const { STATUS_GROUPS, listView, transitionPatch } = require('./lib/shared/orderData');
 const { orderView } = require('./lib/shared/views');
 const { ensure, integer, text } = require('./lib/shared/validate');
-const { createOrderWriter } = require('./lib/shared/orderWrite');
+const { createOrderWriter, requestOrderId } = require('./lib/shared/orderWrite');
 const { checkOrderContent } = require('./lib/shared/contentSafety');
 const { totalFee } = require('./lib/shared/paymentState');
 const { requireRole } = require('./lib/shared/auth');
@@ -31,14 +32,35 @@ function mockEnabled(config) {
   payConfig('mock');
 }
 
-async function create(event, { user }) {
+async function lookupRequest(event, { user }) {
   requireRole(user, ['resident']);
-  const result = await context(event, user);
+  const order = await server.get('orders', requestOrderId(event, user));
+  return { orderId: order && order.kind === 'service' && order.userOpenid === user.openid ? order._id : null };
+}
+
+async function createNew(event, user) {
+  const result = await context(event, user, { creating: true });
   if (result.pricing.payAmount + result.pricing.goodsCap > 0) payConfig(result.config.payMode);
   await checkOrderContent(cloud, user.openid, result.note, result.detail, result.config.blacklist);
-  const order = await writer.create(event, user, result);
+  return writer.create(event, user, result);
+}
+
+async function create(event, { user }) {
+  requireRole(user, ['resident']);
+  let order = await writer.findReplay(event, user);
+  if (!order) {
+    try { order = await createNew(event, user); }
+    catch (error) {
+      // 同编号的并发请求可能在本次报价或事务期间完成并锁券。
+      order = await writer.findReplay(event, user);
+      if (!order) throw error;
+    }
+  }
   if (order.createdNow && order.status === 'paid') await notify.newTask(order);
-  try { return await payments.prepare(order); }
+  try {
+    if (!order.createdNow && order.status === 'pending_pay') await requireOrderFeatures(server, order);
+    return await payments.prepare(order);
+  }
   catch (error) {
     // 已建单后统一返回订单编号，网络失败也可在详情页重试，避免再次下单。
     return { orderId: order._id, paymentError: error.code || 'E_PAYMENT' };
@@ -47,10 +69,11 @@ async function create(event, { user }) {
 
 async function mockPay(event, { user }) {
   requireRole(user, ['resident']);
-  mockEnabled(await server.config());
   text(event.orderId, '订单');
   const order = await server.get('orders', event.orderId);
   ensure(order && order.userOpenid === user.openid, '无权操作该订单', 'E_FORBIDDEN');
+  await requireOrderFeatures(server, order);
+  mockEnabled(await server.config());
   ensure(order.payment.mode === 'mock', '该订单不支持模拟支付', 'E_FORBIDDEN');
   const paid = await payments.onPaid(order, { mode: 'mock', amount: totalFee(order), transactionId: 'mock_' + order._id });
   return { orderId: paid._id, status: paid.status };
@@ -107,12 +130,14 @@ async function detail(event, { user }) {
   const [provider, config, community] = await Promise.all([server.get('providers', order.providerId), server.config(),
     server.get('communities', order.communityId)]);
   const result = orderView(order, user, provider, config, new Date());
+  result.featureEnabled = orderEnabled(order, config, community);
+  result.canPay = result.canPay && result.featureEnabled;
   result.chatEnabled = isEnabled('chat', config, community) && Boolean(order.providerOpenid) &&
     ['accepted', 'in_service', 'delivered', 'disputed', 'completed'].includes(order.status);
   result.canChat = result.chatEnabled && (order.userOpenid === user.openid || order.providerOpenid === user.openid);
-  result.canShareLocation = order.providerOpenid === user.openid && ['accepted', 'in_service'].includes(order.status) &&
+  result.canShareLocation = result.featureEnabled && order.providerOpenid === user.openid && ['accepted', 'in_service'].includes(order.status) &&
     isEnabled('location', config, community);
-  result.canConfirm = order.userOpenid === user.openid && order.status === 'delivered';
+  result.canConfirm = result.featureEnabled && order.userOpenid === user.openid && order.status === 'delivered';
   result.canRate = order.userOpenid === user.openid && order.status === 'completed' && !order.rating;
   result.canComplain = order.userOpenid === user.openid && complaintAllowed(order, new Date(), config.complaintWindowHours);
   if (order.userOpenid === user.openid && ['accepted','in_service'].includes(order.status) && provider &&
@@ -131,6 +156,7 @@ async function retryPayment(event, { openid }) {
   text(event.orderId, '订单');
   const order = await server.get('orders', event.orderId);
   ensure(order && order.userOpenid === openid, '无权操作该订单', 'E_FORBIDDEN');
+  await requireOrderFeatures(server, order);
   if (order.taskPostId) {
     const now = new Date();
     const post = await server.get('posts', order.taskPostId);
@@ -177,5 +203,5 @@ async function cancel(event, { openid }) {
   return { orderId: order._id, status: patch.status };
 }
 
-exports.main = server.entry({ quote, create, mockPay, listMine, detail, cancel, retryPayment, subscriptionTemplates, subscribeVisitReport,
-  ...residentOrderActions(cloud, server) }, ['resident', 'admin', 'property']);
+exports.main = server.entry({ quote, create, lookupRequest, mockPay, listMine, detail, cancel, retryPayment, subscriptionTemplates, subscribeVisitReport,
+  ...residentOrderActions(cloud, server) }, ['resident', 'admin', 'property'], 'order');

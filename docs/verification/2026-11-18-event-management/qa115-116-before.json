@@ -1,0 +1,291 @@
+{
+  "scope": "Actual page; synthetic responses only; no cloud writes, camera or real files",
+  "pass": 15,
+  "fail": 35,
+  "results": [
+    {
+      "name": "report-before-ready",
+      "pass": true,
+      "observed": {
+        "calls": 1
+      }
+    },
+    {
+      "name": "report-before-hidden",
+      "pass": false,
+      "error": "recordReport call count=1"
+    },
+    {
+      "name": "report-before-unloaded",
+      "pass": false,
+      "error": "recordReport call count=1"
+    },
+    {
+      "name": "report-before-changed-user",
+      "pass": false,
+      "error": "recordReport call count=1"
+    },
+    {
+      "name": "report-before-changed-order",
+      "pass": false,
+      "error": "recordReport call count=1"
+    },
+    {
+      "name": "report-before-read-failed",
+      "pass": false,
+      "error": "recordReport call count=1"
+    },
+    {
+      "name": "report-before-completed",
+      "pass": false,
+      "error": "recordReport call count=1"
+    },
+    {
+      "name": "report-before-disabled",
+      "pass": false,
+      "error": "recordReport call count=1"
+    },
+    {
+      "name": "report-late-success-ready",
+      "pass": true,
+      "observed": {
+        "updates": 7,
+        "toasts": 1,
+        "extraReads": 1
+      }
+    },
+    {
+      "name": "report-late-success-hidden",
+      "pass": false,
+      "error": "{\"updates\":2,\"toasts\":1,\"extraReads\":0}"
+    },
+    {
+      "name": "report-late-success-unloaded",
+      "pass": false,
+      "error": "{\"updates\":2,\"toasts\":1,\"extraReads\":0}"
+    },
+    {
+      "name": "report-late-success-changed-user",
+      "pass": false,
+      "error": "{\"updates\":8,\"toasts\":1,\"extraReads\":1}"
+    },
+    {
+      "name": "report-late-success-changed-order",
+      "pass": false,
+      "error": "{\"updates\":8,\"toasts\":1,\"extraReads\":1}"
+    },
+    {
+      "name": "report-late-success-refreshed",
+      "pass": false,
+      "error": "{\"updates\":7,\"toasts\":1,\"extraReads\":1}"
+    },
+    {
+      "name": "report-late-failure-ready",
+      "pass": true,
+      "observed": {
+        "updates": 2,
+        "toasts": 0,
+        "extraReads": 0
+      }
+    },
+    {
+      "name": "report-late-failure-hidden",
+      "pass": false,
+      "error": "{\"updates\":2,\"toasts\":0,\"extraReads\":0}"
+    },
+    {
+      "name": "report-late-failure-unloaded",
+      "pass": false,
+      "error": "{\"updates\":2,\"toasts\":0,\"extraReads\":0}"
+    },
+    {
+      "name": "report-late-failure-changed-user",
+      "pass": false,
+      "error": "{\"updates\":2,\"toasts\":0,\"extraReads\":0}"
+    },
+    {
+      "name": "report-late-failure-changed-order",
+      "pass": false,
+      "error": "{\"updates\":2,\"toasts\":0,\"extraReads\":0}"
+    },
+    {
+      "name": "report-late-failure-refreshed",
+      "pass": false,
+      "error": "{\"updates\":2,\"toasts\":0,\"extraReads\":0}"
+    },
+    {
+      "name": "media-photos-success-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-success-unloaded",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-photos-success-changed-user",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-photos-success-changed-order",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-photos-success-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-failure-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-failure-unloaded",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-photos-failure-changed-user",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-photos-failure-changed-order",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-photos-failure-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-success-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-success-unloaded",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-receipt-success-changed-user",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-receipt-success-changed-order",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-receipt-success-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-failure-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-failure-unloaded",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-receipt-failure-changed-user",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-receipt-failure-changed-order",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-receipt-failure-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-success-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-success-unloaded",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-vacant-success-changed-user",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-vacant-success-changed-order",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-vacant-success-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-failure-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-failure-unloaded",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-vacant-failure-changed-user",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-vacant-failure-changed-order",
+      "pass": false,
+      "error": "stale media changed page"
+    },
+    {
+      "name": "media-vacant-failure-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    }
+  ]
+}

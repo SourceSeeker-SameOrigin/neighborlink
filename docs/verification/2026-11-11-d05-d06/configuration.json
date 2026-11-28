@@ -1,0 +1,110 @@
+{
+  "date": "2026-11-11",
+  "environment": "development",
+  "authorization": "User approved D05 D06 recommended plan",
+  "functions": [
+    {
+      "function": "pet",
+      "before": "empty",
+      "after": "ALLOW_MOCK_PAY=true",
+      "verified": true
+    },
+    {
+      "function": "order",
+      "before": "empty",
+      "after": "ALLOW_MOCK_PAY=true",
+      "verified": true
+    },
+    {
+      "function": "provider",
+      "before": "empty",
+      "after": "ALLOW_MOCK_PAY=true",
+      "verified": true
+    },
+    {
+      "function": "membership",
+      "before": "empty",
+      "after": "ALLOW_MOCK_PAY=true",
+      "verified": true
+    },
+    {
+      "function": "admin",
+      "before": "empty",
+      "after": "ALLOW_MOCK_PAY=true",
+      "verified": true
+    },
+    {
+      "function": "board",
+      "before": "empty",
+      "after": "ALLOW_MOCK_PAY=true",
+      "verified": true
+    },
+    {
+      "function": "event",
+      "before": "empty",
+      "after": "ALLOW_MOCK_PAY=true",
+      "verified": true
+    },
+    {
+      "function": "idle",
+      "before": "empty",
+      "after": "ALLOW_MOCK_PAY=true",
+      "verified": true
+    },
+    {
+      "function": "merchant",
+      "before": "empty",
+      "after": "ALLOW_MOCK_PAY=true",
+      "verified": true
+    },
+    {
+      "function": "timer",
+      "before": "empty",
+      "after": "ALLOW_MOCK_PAY=true",
+      "verified": true
+    }
+  ],
+  "payModeRecheck": {
+    "collection": "config",
+    "document": "global",
+    "value": "mock",
+    "verified": true,
+    "method": "Official CloudBase document UI, read only"
+  },
+  "secretKey": {
+    "status": "four functions saved and format verified; business verification pending",
+    "functions": {
+      "order": {
+        "saved": true,
+        "formatValid": true,
+        "mockRetained": true
+      },
+      "pet": {
+        "saved": true,
+        "formatValid": true,
+        "mockRetained": true
+      },
+      "membership": {
+        "saved": true,
+        "formatValid": true,
+        "mockRetained": true
+      },
+      "vacant": {
+        "saved": true,
+        "formatValid": true,
+        "mockNotRequired": true
+      }
+    },
+    "crossFunctionConsistency": "not verified",
+    "businessVerification": "not performed",
+    "verifiedAt": "2026-11-12"
+  },
+  "timerExecution": "not authorized or performed",
+  "businessRecordsCreated": 0,
+  "localCrypto": {
+    "passed": 8,
+    "total": 8,
+    "evidence": "crypto-check.json",
+    "scope": "synthetic data only; no configured cloud keys used"
+  }
+}

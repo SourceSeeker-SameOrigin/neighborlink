@@ -1,0 +1,44 @@
+{
+  "source": "miniprogram/pages/me/me.js",
+  "mode": "actual-page-synthetic-only",
+  "passed": 8,
+  "total": 8,
+  "results": [
+    {
+      "name": "successful initial read",
+      "passed": true,
+      "evidence": {
+        "loading": false,
+        "unreadTotal": 7
+      }
+    },
+    {
+      "name": "older read cannot overwrite newer unread count",
+      "passed": true
+    },
+    {
+      "name": "onHide blocks late success updates",
+      "passed": true
+    },
+    {
+      "name": "onHide blocks late identity failure updates",
+      "passed": true
+    },
+    {
+      "name": "onUnload blocks late success updates",
+      "passed": true
+    },
+    {
+      "name": "onUnload blocks late identity failure updates",
+      "passed": true
+    },
+    {
+      "name": "merchant failed application read is not silent absence",
+      "passed": true
+    },
+    {
+      "name": "station failed application read is not silent absence",
+      "passed": true
+    }
+  ]
+}

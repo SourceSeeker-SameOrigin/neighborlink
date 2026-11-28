@@ -1,0 +1,80 @@
+{
+  "width": 375,
+  "calls": [
+    {
+      "outcome": "cancel"
+    },
+    {
+      "outcome": "failure"
+    },
+    {
+      "outcome": "success"
+    }
+  ],
+  "records": [
+    {
+      "phase": "applyPhoneResult",
+      "ready": true,
+      "calling": false,
+      "error": "",
+      "attention": false,
+      "confirmed": false
+    },
+    {
+      "phase": "loaded",
+      "ready": true,
+      "calling": false,
+      "error": "",
+      "attention": true,
+      "confirmed": false
+    },
+    {
+      "phase": "callResident",
+      "ready": true,
+      "calling": true,
+      "error": "",
+      "attention": true,
+      "confirmed": false
+    },
+    {
+      "phase": "applyPhoneResult",
+      "ready": true,
+      "calling": false,
+      "error": "",
+      "attention": true,
+      "confirmed": false
+    },
+    {
+      "phase": "callResident",
+      "ready": true,
+      "calling": true,
+      "error": "",
+      "attention": true,
+      "confirmed": false
+    },
+    {
+      "phase": "applyPhoneResult",
+      "ready": true,
+      "calling": false,
+      "error": "未能发起电话联系，请重试",
+      "attention": true,
+      "confirmed": false
+    },
+    {
+      "phase": "callResident",
+      "ready": true,
+      "calling": true,
+      "error": "",
+      "attention": true,
+      "confirmed": false
+    },
+    {
+      "phase": "applyPhoneResult",
+      "ready": true,
+      "calling": false,
+      "error": "",
+      "attention": true,
+      "confirmed": true
+    }
+  ]
+}

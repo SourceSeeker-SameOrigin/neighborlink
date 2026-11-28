@@ -1,0 +1,37 @@
+{
+  "scope": "QA199-QA218 approved development-cloud code update",
+  "date": "2026-11-28",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "a780d17",
+  "method": "CloudBase CLI 3.9.5 fn code update with current config; independent WeChat DevTools CLI source download",
+  "functions": [
+    "admin",
+    "board",
+    "content",
+    "event",
+    "idle",
+    "provider",
+    "station",
+    "payout",
+    "order",
+    "timer"
+  ],
+  "functionVerification": {
+    "sourceFilesMatchedPerFunction": "77/77",
+    "sdkVersion": "4.0.2",
+    "finalStatus": "Active",
+    "configurationChanged": false
+  },
+  "indexesCreatedAndReadBack": [
+    {"collection": "payouts", "name": "payee_type_created_id", "key": {"payeeOpenid": 1, "payeeType": 1, "createdAt": -1, "_id": -1}, "unique": false},
+    {"collection": "comments", "name": "post_status_created_id", "key": {"postId": 1, "status": 1, "createdAt": 1, "_id": 1}, "unique": false},
+    {"collection": "notices", "name": "community_status_pinned_created_id", "key": {"communityId": 1, "status": 1, "pinnedAt": -1, "createdAt": -1, "_id": -1}, "unique": false}
+  ],
+  "pending": [
+    "ads.slot_active_start_id query-plan validation; no index created",
+    "real resident session read-only cloud calls",
+    "four-width and test-member phone acceptance"
+  ],
+  "businessWrites": 0,
+  "packageManifest": "qa199-218-cloud-candidates.json"
+}

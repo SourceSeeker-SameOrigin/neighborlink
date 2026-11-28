@@ -1,0 +1,177 @@
+{
+  "testedSource": "6d34386",
+  "scope": "实际活动详情页和云函数，合成住户、弹窗与数据库",
+  "signup": [
+    {
+      "kind": "free",
+      "timing": "same",
+      "signupCalls": 1,
+      "bSigned": null,
+      "bOrders": 0,
+      "modals": 0,
+      "busyAfter": false,
+      "pass": true
+    },
+    {
+      "kind": "free",
+      "timing": "before",
+      "signupCalls": 1,
+      "bSigned": "signed",
+      "bOrders": 0,
+      "modals": 0,
+      "busyAfter": false,
+      "pass": false
+    },
+    {
+      "kind": "free",
+      "timing": "during",
+      "signupCalls": 0,
+      "bSigned": null,
+      "bOrders": 0,
+      "modals": 0,
+      "busyAfter": true,
+      "pass": false
+    },
+    {
+      "kind": "free",
+      "timing": "fresh",
+      "signupCalls": 1,
+      "bSigned": "signed",
+      "bOrders": 0,
+      "modals": 0,
+      "busyAfter": false,
+      "pass": true
+    },
+    {
+      "kind": "paid",
+      "timing": "same",
+      "signupCalls": 1,
+      "bSigned": null,
+      "bOrders": 0,
+      "modals": 1,
+      "busyAfter": false,
+      "pass": true
+    },
+    {
+      "kind": "paid",
+      "timing": "before",
+      "signupCalls": 1,
+      "bSigned": "pending_pay",
+      "bOrders": 1,
+      "modals": 1,
+      "busyAfter": false,
+      "pass": false
+    },
+    {
+      "kind": "paid",
+      "timing": "during",
+      "signupCalls": 0,
+      "bSigned": null,
+      "bOrders": 0,
+      "modals": 0,
+      "busyAfter": true,
+      "pass": false
+    },
+    {
+      "kind": "paid",
+      "timing": "fresh",
+      "signupCalls": 1,
+      "bSigned": "pending_pay",
+      "bOrders": 1,
+      "modals": 1,
+      "busyAfter": false,
+      "pass": true
+    },
+    {
+      "kind": "resume",
+      "timing": "same",
+      "signupCalls": 1,
+      "bSigned": null,
+      "bOrders": 0,
+      "modals": 1,
+      "busyAfter": false,
+      "pass": true
+    },
+    {
+      "kind": "resume",
+      "timing": "before",
+      "signupCalls": 1,
+      "bSigned": "pending_pay",
+      "bOrders": 1,
+      "modals": 1,
+      "busyAfter": false,
+      "pass": false
+    },
+    {
+      "kind": "resume",
+      "timing": "during",
+      "signupCalls": 0,
+      "bSigned": null,
+      "bOrders": 0,
+      "modals": 0,
+      "busyAfter": true,
+      "pass": false
+    },
+    {
+      "kind": "resume",
+      "timing": "fresh",
+      "signupCalls": 1,
+      "bSigned": "pending_pay",
+      "bOrders": 1,
+      "modals": 1,
+      "busyAfter": false,
+      "pass": true
+    }
+  ],
+  "report": [
+    {
+      "timing": "same",
+      "reportCalls": 1,
+      "reportRows": 1,
+      "bySecond": false,
+      "pass": true
+    },
+    {
+      "timing": "before",
+      "reportCalls": 1,
+      "reportRows": 1,
+      "bySecond": true,
+      "pass": false
+    },
+    {
+      "timing": "reason",
+      "reportCalls": 1,
+      "reportRows": 1,
+      "bySecond": true,
+      "pass": false
+    },
+    {
+      "timing": "modal",
+      "reportCalls": 1,
+      "reportRows": 1,
+      "bySecond": true,
+      "pass": false
+    },
+    {
+      "timing": "reload",
+      "reportCalls": 1,
+      "reportRows": 1,
+      "bySecond": false,
+      "pass": false
+    },
+    {
+      "timing": "hidden",
+      "reportCalls": 0,
+      "reportRows": 0,
+      "bySecond": false,
+      "pass": true
+    },
+    {
+      "timing": "fresh",
+      "reportCalls": 1,
+      "reportRows": 1,
+      "bySecond": true,
+      "pass": true
+    }
+  ]
+}

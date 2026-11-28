@@ -1,0 +1,123 @@
+{
+  "scope": "Isolated actual page/cloud code; synthetic DB, no network, no real writes, not device acceptance",
+  "total": 29,
+  "passed": 29,
+  "results": [
+    {
+      "name": "R01 property page reads only own scope and never invokes admin-only lists or writes",
+      "status": "PASS"
+    },
+    {
+      "name": "R01 ordinary user cannot load settlement business or property write buttons",
+      "status": "PASS"
+    },
+    {
+      "name": "R01 pending_quote picker maps to actual list filter",
+      "status": "PASS"
+    },
+    {
+      "name": "R02 disabled directory item gives explanation without business call, enabled item navigates",
+      "status": "PASS"
+    },
+    {
+      "name": "R02 every directory target exists and all five workbench entries are rendered",
+      "status": "PASS"
+    },
+    {
+      "name": "R02 resident can discover management qualification without self granting a role",
+      "status": "PASS"
+    },
+    {
+      "name": "R02 each authorized role enters its own workspace",
+      "status": "PASS"
+    },
+    {
+      "name": "R03 edits existing building by ID; create leaves ID absent; no full community rewrite",
+      "status": "PASS"
+    },
+    {
+      "name": "R03 global unsaved edits survive community refresh; failed building save preserves input",
+      "status": "PASS"
+    },
+    {
+      "name": "R03 actual managementConfig excludes secrets and rejects property; feature config is reachable",
+      "status": "PASS"
+    },
+    {
+      "name": "R03 actual server updates existing building and denies cross-community edit",
+      "status": "PASS"
+    },
+    {
+      "name": "R03 invalid shifts/price/monthcard fail without database writes",
+      "status": "PASS"
+    },
+    {
+      "name": "R04 operation field reaches real mute/unmute/block/unblock branches; resident denied",
+      "status": "PASS"
+    },
+    {
+      "name": "R04 three distinct reporters hide merchant; duplicate is idempotent; list/detail enforce hide",
+      "status": "PASS"
+    },
+    {
+      "name": "R04 muted user cannot send even before content-check/transaction",
+      "status": "PASS"
+    },
+    {
+      "name": "R04 outsider and cross-community reports make no writes",
+      "status": "PASS"
+    },
+    {
+      "name": "R05 board_top filters scope/date/review and signs only visible owner files for 600 seconds",
+      "status": "PASS"
+    },
+    {
+      "name": "R05 shops_top filters scope/date/review and signs only visible owner files for 600 seconds",
+      "status": "PASS"
+    },
+    {
+      "name": "R05 disabled host/ads and outsider return no ad/media data",
+      "status": "PASS"
+    },
+    {
+      "name": "R05 client blocks external ad targets, deduplicates exposure and ignores stale reload",
+      "status": "PASS"
+    },
+    {
+      "name": "R01 dashboard sends selected dates and displays all membership types, R06 separate goods amounts",
+      "status": "PASS"
+    },
+    {
+      "name": "R06 actual dashboard excludes unpaid values and exposes separated goods totals",
+      "status": "PASS"
+    },
+    {
+      "name": "R04 authorized idle report review is audit logged; arbitrary conversation read is refused",
+      "status": "PASS"
+    },
+    {
+      "name": "R04 admin hide updates latest conversation preview; participants only receive placeholder",
+      "status": "PASS"
+    },
+    {
+      "name": "R07 actual config transaction locks active entitlements but permits new-purchase prices",
+      "status": "PASS"
+    },
+    {
+      "name": "R08 pending purchase locks rights until actually closed; price-only changes stay allowed",
+      "status": "PASS"
+    },
+    {
+      "name": "R08 purchase or activation between outside queries and transaction rejects stale admin save",
+      "status": "PASS"
+    },
+    {
+      "name": "R08 free purchase and activation both advance community revision; replay does not duplicate card or ledger",
+      "status": "PASS"
+    },
+    {
+      "name": "R08 plan changed before purchase transaction rejects stale quote without creating order",
+      "status": "PASS"
+    }
+  ]
+}

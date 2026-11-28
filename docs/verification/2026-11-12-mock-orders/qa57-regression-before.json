@@ -1,0 +1,153 @@
+{
+  "baseCommit": "07da819",
+  "workingTree": false,
+  "scope": "Synthetic isolated actual page methods; no real cloud reads/writes or UI acceptance",
+  "passed": 11,
+  "total": 31,
+  "results": [
+    {
+      "name": "resident newer filter wins over late prior success",
+      "passed": true
+    },
+    {
+      "name": "resident filter failure clears old group rows",
+      "passed": true
+    },
+    {
+      "name": "resident failed next page preserves rows and offset on retry",
+      "passed": true
+    },
+    {
+      "name": "resident late list success after onHide has no page writes",
+      "passed": false,
+      "error": "late page writes: 2\n\n2 !== 0\n"
+    },
+    {
+      "name": "resident late list success after onUnload has no page writes",
+      "passed": false,
+      "error": "late page writes: 2\n\n2 !== 0\n"
+    },
+    {
+      "name": "admin newer filter wins over late prior success",
+      "passed": true
+    },
+    {
+      "name": "admin filter failure clears old group rows",
+      "passed": true
+    },
+    {
+      "name": "admin failed next page preserves rows and offset on retry",
+      "passed": true
+    },
+    {
+      "name": "admin late list success after onHide has no page writes",
+      "passed": false,
+      "error": "late page writes: 2\n\n2 !== 0\n"
+    },
+    {
+      "name": "admin late list success after onUnload has no page writes",
+      "passed": true
+    },
+    {
+      "name": "resident unread newer response wins",
+      "passed": false,
+      "error": "older response replaced badge with 1\n\n'1' !== '7'\n"
+    },
+    {
+      "name": "resident unread after onHide has no tab changes",
+      "passed": false,
+      "error": "late badge changes: 1\n\n1 !== 0\n"
+    },
+    {
+      "name": "resident unread after onUnload has no tab changes",
+      "passed": false,
+      "error": "late badge changes: 1\n\n1 !== 0\n"
+    },
+    {
+      "name": "resident late list failure after onHide is ignored",
+      "passed": false,
+      "error": "r.p[hook] is not a function"
+    },
+    {
+      "name": "resident late list failure after onUnload is ignored",
+      "passed": false,
+      "error": "r.p[hook] is not a function"
+    },
+    {
+      "name": "resident hiding while session loads prevents stale API call",
+      "passed": false,
+      "error": "r.p.onHide is not a function"
+    },
+    {
+      "name": "resident reentry keeps filter and accepts latest result only",
+      "passed": false,
+      "error": "r.p.onHide is not a function"
+    },
+    {
+      "name": "resident duplicate next page call is blocked",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n2 !== 1\n"
+    },
+    {
+      "name": "resident invalid filter makes no request",
+      "passed": true
+    },
+    {
+      "name": "resident API UI callback expires when hidden",
+      "passed": false,
+      "error": "opts.isActive is not a function"
+    },
+    {
+      "name": "admin late list failure after onHide is ignored",
+      "passed": false,
+      "error": "r.p[hook] is not a function"
+    },
+    {
+      "name": "admin late list failure after onUnload is ignored",
+      "passed": true
+    },
+    {
+      "name": "admin hiding while session loads prevents stale API call",
+      "passed": false,
+      "error": "r.p.onHide is not a function"
+    },
+    {
+      "name": "admin reentry keeps filter and accepts latest result only",
+      "passed": false,
+      "error": "r.p.onHide is not a function"
+    },
+    {
+      "name": "admin duplicate next page call is blocked",
+      "passed": true
+    },
+    {
+      "name": "admin invalid filter makes no request",
+      "passed": true
+    },
+    {
+      "name": "admin API UI callback expires when hidden",
+      "passed": false,
+      "error": "opts.isActive is not a function"
+    },
+    {
+      "name": "resident old unread failure cannot clear latest badge",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n'' !== '9'\n"
+    },
+    {
+      "name": "resident late unread failure after hide is silent",
+      "passed": false,
+      "error": "r.p.onHide is not a function"
+    },
+    {
+      "name": "resident refresh completion only stops current visible spinner hide=false",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n0 !== 1\n"
+    },
+    {
+      "name": "resident refresh completion only stops current visible spinner hide=true",
+      "passed": false,
+      "error": "r.p.onHide is not a function"
+    }
+  ]
+}

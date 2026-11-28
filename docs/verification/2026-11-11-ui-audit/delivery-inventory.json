@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-11",
+  "baseline": "1f96a21",
+  "scope": "Inventory and artifact structure only; not visual or business acceptance",
+  "routes": 69,
+  "ledger": 69,
+  "missingRoutes": [],
+  "duplicateRoutes": 0,
+  "criteria": 897,
+  "latestPartialLive": 10,
+  "readmeLocalLinks": 20,
+  "missingReadmeTargets": [],
+  "cloudFunctions": 21,
+  "functionsAbsentFromMapping": [],
+  "pptxSlides": 27,
+  "pptxArchiveIntegrity": true,
+  "pdfHeader": "%PDF-",
+  "uiRetry": {
+    "consoleAXFocus": "did not focus; no text pasted",
+    "scroll": "noWindowsAvailable",
+    "coordinateClick": "noWindowsAvailable",
+    "observation": "current recycle page lower cards and export button visible in 320-wide screenshot; click result not verified"
+  },
+  "mappedFunctionRows": 21
+}

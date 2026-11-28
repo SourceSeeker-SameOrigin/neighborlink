@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-12",
+  "commitUnderTest": "0df6c0d",
+  "scope": "本轮模拟器真实点击、临时受控错误与只读初始化，不含预约提交或付款",
+  "hotReloadChangedThisRun": false,
+  "hotReloadObservedEnabled": true,
+  "qa54": {
+    "430": {
+      "firstEnter": true,
+      "actualBackHome": true,
+      "reentry": {
+        "width": 430,
+        "loading": false,
+        "error": "",
+        "created": false,
+        "busy": false,
+        "navigating": false,
+        "method": "function"
+      },
+      "detailBackChain": "本轮从预约页返回；不是上轮订单详情的连续返回链"
+    },
+    "375": {
+      "deviceSwitchRestartedRuntime": true,
+      "pageVisibleAfterSwitch": true,
+      "actualBackHome": true,
+      "subsequentEnter": {
+        "width": 375,
+        "loading": false,
+        "error": "",
+        "created": false,
+        "busy": false,
+        "navigating": false,
+        "method": "function"
+      },
+      "limit": "切换设备有重启日志；不将切换前后归为同一运行实例"
+    },
+    "390": "尚未执行：设备切换后工具明确报告Mac锁定",
+    "rootCause": "未定；之前375热重载开启时未注册空白证据仍保留"
+  },
+  "qa55": {
+    "320": {
+      "failure": {
+        "width": 320,
+        "ready": false,
+        "loading": false,
+        "loadError": true,
+        "draftKept": true
+      },
+      "formAndSubmitHiddenOnFailure": true,
+      "errorAndRetryVisuallyObserved": true,
+      "actualRetryClick": true,
+      "afterRetryVisual": {
+        "formVisible": true,
+        "draftVisible": true,
+        "errorCleared": true,
+        "submitVisible": true,
+        "observedClippingOrOverlap": false
+      },
+      "actualBackHome": true,
+      "temporaryEnsureSessionRestoredInFinally": true
+    },
+    "375": {
+      "failure": {
+        "width": 375,
+        "ready": false,
+        "loading": false,
+        "loadError": true,
+        "draftKept": true
+      },
+      "formAndSubmitHiddenOnFailure": true,
+      "errorAndRetryVisuallyObserved": true,
+      "actualRetryClick": true,
+      "afterRetryVisual": {
+        "formVisible": true,
+        "draftVisible": true,
+        "errorCleared": true,
+        "submitVisible": true,
+        "observedClippingOrOverlap": false
+      },
+      "actualBackHome": true,
+      "temporaryEnsureSessionRestoredInFinally": true
+    }
+  },
+  "qa55Remaining": "390本轮未测；430沿用qa55-live-ui.json。真实服务、真机、键盘、大字体、真实多地址及预约闭环仍待验",
+  "toolEvents": [
+    "导航前提示用户改变窗口，重新读取后执行；未把未执行导航算成功",
+    "320错误测试自动审批Bad Request一次，明确未执行；读取现状后同项重试成功",
+    "390设备切换后明确报告Mac锁定，已在对话请求解锁"
+  ],
+  "newOrders": 0,
+  "realPaymentFen": 0,
+  "realApplications": 0,
+  "cloudUploads": 0
+}

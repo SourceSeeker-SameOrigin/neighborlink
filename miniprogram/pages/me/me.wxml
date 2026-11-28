@@ -3,22 +3,30 @@
   <view wx:elif="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view>
   <block wx:elif="{{user}}">
     <view wx:for="{{user.moderationNotices}}" wx:key="createdAt" class="card error">{{item.message}}</view>
-    <view class="card"><view class="page-title">我的门牌</view><view>{{community.name || '尚未选择小区'}}</view><view>{{user.buildingName}} {{user.unit}} {{user.room}}</view><view>{{user.phone || '尚未绑定手机号'}}</view><navigator url="/pages/bind/bind">修改门牌和手机号 ›</navigator></view>
-    <navigator class="card" url="/pages/membership/index">我的月卡 ›</navigator>
+    <view class="profile-heading"><view class="avatar-disc"><image class="profile-avatar" src="/assets/icons/avatar.png"/></view><view><view class="profile-name">微信用户</view><text class="pill">✓ 已登录</text><view class="muted">{{user.buildingId ? '服务资料已填写' : '门牌与联系电话待完善'}}</view></view></view>
+    <navigator class="profile-address" url="/pages/bind/bind"><image src="/assets/icons/home.png" class="address-icon"/><view class="menu-copy"><view class="profile-card-title">{{user.buildingId ? '我的服务门牌' : '完善服务资料'}}</view><view class="muted">{{community.name || '绑定门牌后使用本小区服务'}}</view><view wx:if="{{user.buildingId}}">{{user.buildingName}} {{user.unit}} {{user.room}}</view><view wx:if="{{user.phone}}" class="muted">{{user.phone}} · {{user.phoneVerified ? '微信授权' : '未验证联系电话'}}</view></view><text class="profile-action">{{user.buildingId ? '修改' : '去完善'}}</text></navigator>
+    <view class="section-title">我的服务</view>
+    <view class="account-grid"><navigator class="account-item" url="/pages/orders/list" open-type="switchTab"><image class="menu-icon" src="/assets/icons/orders.png"/>我的订单</navigator><navigator class="account-item" url="/pages/membership/index"><image class="menu-icon" src="/assets/icons/ticket.png"/>我的月卡</navigator><navigator class="account-item" url="/pages/bind/bind"><image class="menu-icon" src="/assets/icons/pin.png"/>服务地址</navigator><button class="account-item" bindtap="callHotline"><image class="menu-icon" src="/assets/icons/support.png"/>联系客服</button></view>
     <view wx:if="{{community.features.stationDelivery}}" class="card"><text>快递默认送上门</text><switch checked="{{doorDelivery}}" disabled="{{doorDeliveryBusy}}" bindchange="doorDeliveryChange"/><view class="muted">开启后表示同意驿站将快递送到门口，可随时关闭。</view></view>
     <navigator wx:if="{{community.enabledFeatures.board}}" class="card" url="/board/list/list">需求广场 ›</navigator>
     <navigator wx:if="{{community.enabledFeatures.idle}}" class="card" url="/idle/mine/mine">我的闲置 ›</navigator>
     <navigator wx:if="{{community.enabledFeatures.chat}}" class="card" url="/chat/list/list">站内消息<text wx:if="{{unreadTotal}}"> · {{unreadTotal}} 条未读</text> ›</navigator>
     <navigator wx:if="{{community.enabledFeatures.coupons}}" class="card" url="/coupons/mine/mine">我的优惠券 ›</navigator>
     <navigator wx:if="{{community.enabledFeatures.events && canManageEvents}}" class="card" url="/events/manage/manage">活动管理 ›</navigator>
-    <navigator wx:if="{{community.features.merchants && merchant.status === 'approved'}}" class="card" url="/merchant/workbench/workbench">商家工作台 ›</navigator><navigator wx:elif="{{community.features.merchants}}" class="card" url="/merchant/apply/apply">{{merchant ? '查看商家入驻审核' : '申请商家入驻'}} ›</navigator>
-    <navigator wx:if="{{isStation}}" class="card" url="/station/workbench/workbench">驿站工作台 ›</navigator>
-    <navigator wx:elif="{{community.features.stationDelivery}}" class="card" url="/station/apply/apply">{{stationApplication ? (stationApplication.status === 'pending' ? '驿站入驻审核中' : stationApplication.status === 'rejected' ? '驿站申请未通过，查看原因' : '申请驿站账号') : '申请驿站账号'}} ›</navigator>
-    <navigator wx:if="{{provider.status === 'approved'}}" class="card" url="/provider/workbench/workbench">服务员工作台 ›</navigator>
-    <navigator wx:else class="card" url="/provider/apply/apply">{{provider ? '查看服务员申请' : '成为邻居帮手'}} ›</navigator>
-    <navigator wx:if="{{manage}}" class="card" url="/admin/dashboard/dashboard">管理后台 ›</navigator>
-    <button bindtap="callHotline">联系客服</button>
-    <view class="links"><navigator url="/pages/legal/privacy">隐私政策</navigator><navigator url="/pages/legal/terms">服务协议</navigator></view>
+    <view wx:if="{{community.enabledFeatures.points}}" class="card">环保积分余额：{{user.pointsBalance || 0}}</view>
+    <view class="section-title">工作台与入驻</view>
+    <view class="muted">共用同一微信身份；资格审核通过后才能办理对应业务。</view>
+    <view class="card">
+      <button class="menu-row workspace-row" data-code="provider" bindtap="openWorkspace"><image class="menu-icon" src="/assets/icons/help.png"/><view class="menu-copy"><view>服务员工作台</view><view class="muted">{{provider.status === 'approved' ? '进入工作台' : provider ? '查看申请与审核结果' : '申请成为邻居帮手'}}</view></view><text class="chevron">›</text></button>
+      <button class="menu-row workspace-row" data-code="merchant" bindtap="openWorkspace"><image class="menu-icon" src="/assets/icons/shop.png"/><view class="menu-copy"><view>商家工作台</view><view class="muted">{{isMerchant ? '进入工作台' : !community.enabledFeatures.merchants ? '本小区未开通 · 查看条件' : merchantLoading ? '正在读取申请状态…' : merchantError ? '状态读取失败 · 请重试' : merchant ? '查看入驻审核结果' : '提交入驻申请'}}</view></view><text class="chevron">›</text></button>
+      <view wx:if="{{merchantError}}" class="workspace-error"><view>商家申请状态读取失败</view><view class="muted">{{merchantError}}</view><button class="btn-secondary" data-code="merchant" bindtap="retryApplication" disabled="{{merchantLoading}}">重试商家状态</button></view>
+      <button class="menu-row workspace-row" data-code="station" bindtap="openWorkspace"><image class="menu-icon" src="/assets/icons/express.png"/><view class="menu-copy"><view>驿站工作台</view><view class="muted">{{isStation ? '进入工作台' : !community.enabledFeatures.stationDelivery ? '本小区未开通 · 查看条件' : stationLoading ? '正在读取申请状态…' : stationError ? '状态读取失败 · 请重试' : stationApplication ? '查看账号审核结果' : '提交驿站申请'}}</view></view><text class="chevron">›</text></button>
+      <view wx:if="{{stationError}}" class="workspace-error"><view>驿站申请状态读取失败</view><view class="muted">{{stationError}}</view><button class="btn-secondary" data-code="station" bindtap="retryApplication" disabled="{{stationLoading}}">重试驿站状态</button></view>
+      <button class="menu-row workspace-row" data-code="admin" bindtap="openWorkspace"><image class="menu-icon" src="/assets/icons/admin.png"/><view class="menu-copy"><view>管理员后台</view><view class="muted">{{isAdmin ? '进入管理后台' : '需运营方授权 · 查看条件'}}</view></view><text class="chevron">›</text></button>
+      <button class="menu-row workspace-row" data-code="property" bindtap="openWorkspace"><image class="menu-icon" src="/assets/icons/home.png"/><view class="menu-copy"><view>物业后台</view><view class="muted">{{isProperty ? '查看本小区订单与分成' : '需核验物业身份 · 查看条件'}}</view></view><text class="chevron">›</text></button>
+    </view>
+
+    <view class="legal-menu"><navigator class="menu-row" url="/pages/legal/privacy"><image class="menu-icon" src="/assets/icons/shield.png"/><text>隐私政策</text><text class="chevron">›</text></navigator><navigator class="menu-row" url="/pages/legal/terms"><image class="menu-icon" src="/assets/icons/legal.png"/><text>服务协议</text><text class="chevron">›</text></navigator></view><view class="page-footer">邻里互助，安心到家</view>
   </block>
 </view>
 <privacy-popup />

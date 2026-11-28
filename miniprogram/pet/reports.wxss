@@ -1,1 +1,1 @@
-image, video { width: 100%; margin-top: 12rpx; }
+.media-photo { width: 100%; margin-top: 12rpx; }

@@ -1,0 +1,11 @@
+{
+  "function": "provider",
+  "sourceCommit": "110ebe8b562cb1b8304a056e89bac5994b00e95d",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "method": "official CLI download; every authorized ZIP source file SHA-256 compared",
+  "selectedPackageBytes": 121247,
+  "selectedPackageSha256": "ab7baa233b43521c3b2d022054b6908301528dd3b50bb0722c8bd94a6ffee1cf",
+  "comparedFiles": 72,
+  "matches": 72,
+  "mismatches": []
+}

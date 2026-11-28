@@ -1,0 +1,86 @@
+[
+  {
+    "role": "admin",
+    "failure": "none",
+    "firstCount": 1,
+    "firstStatuses": [
+      "published"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "published"
+    ],
+    "reviewRequested": [
+      false
+    ],
+    "ledgerCount": 1,
+    "ledgerAmounts": [
+      500
+    ],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "admin",
+    "failure": "after-create",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "published"
+    ],
+    "reviewRequested": [
+      false
+    ],
+    "ledgerCount": 1,
+    "ledgerAmounts": [
+      500
+    ],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "admin",
+    "failure": "before-publish",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "published"
+    ],
+    "reviewRequested": [
+      false
+    ],
+    "ledgerCount": 1,
+    "ledgerAmounts": [
+      500
+    ],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "admin",
+    "failure": "after-publish",
+    "firstCount": 1,
+    "firstStatuses": [
+      "published"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "published"
+    ],
+    "reviewRequested": [
+      false
+    ],
+    "ledgerCount": 1,
+    "ledgerAmounts": [
+      500
+    ],
+    "createCalls": 1,
+    "error": ""
+  }
+]

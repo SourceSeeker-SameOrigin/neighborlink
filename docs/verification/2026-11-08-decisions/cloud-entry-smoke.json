@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-08",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "151483331205b4783367e7c91365cb6b78044f6b",
+  "method": "Official CloudBase console function test",
+  "input": {
+    "name": "test",
+    "data": {
+      "key": "value",
+      "number": 123
+    }
+  },
+  "expectedCode": "E_UNKNOWN_ACTION",
+  "scope": "Cloud module initialization and unknown-action handling only; no injected identity or business action. Does not verify authentication, cloud invocation permissions, or end-to-end business acceptance.",
+  "results": [
+    {
+      "function": "order",
+      "requestId": "93214252-db4a-11f1-9d10-525400b2d845",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 4
+    },
+    {
+      "function": "admin",
+      "requestId": "faa575bf-db67-11f1-9c6a-525400631ae4",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 4
+    },
+    {
+      "function": "board",
+      "requestId": "401e5798-db68-11f1-85cf-525400884db9",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 3
+    },
+    {
+      "function": "catalog",
+      "requestId": "611edb34-db68-11f1-872b-525400655719",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 4
+    },
+    {
+      "function": "chat",
+      "requestId": "86d91fd0-db68-11f1-95b9-5254008d6b64",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 5
+    },
+    {
+      "function": "content",
+      "requestId": "9a8947e4-db68-11f1-9bb6-5254007228a3",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 32
+    },
+    {
+      "function": "coupon",
+      "requestId": "b809b549-db68-11f1-9d04-525400f7d8a7",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 4
+    },
+    {
+      "function": "event",
+      "requestId": "c73787fa-db68-11f1-8852-525400a9be57",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 3
+    },
+    {
+      "function": "idle",
+      "requestId": "e3fee3f9-db68-11f1-946e-52540006055e",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 3
+    },
+    {
+      "function": "membership",
+      "requestId": "f25877a0-db68-11f1-a616-5254001d4d48",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 4
+    },
+    {
+      "function": "merchant",
+      "requestId": "86c9ff3d-db69-11f1-be67-5254008eeee0",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 3
+    },
+    {
+      "function": "payout",
+      "requestId": "975979de-db69-11f1-b743-52540059feef",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 3
+    },
+    {
+      "function": "pet",
+      "requestId": "b3392d5a-db69-11f1-9920-5254000e3830",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 3
+    },
+    {
+      "function": "provider",
+      "requestId": "c099c22d-db69-11f1-846d-5254009948b0",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 4
+    },
+    {
+      "function": "station",
+      "requestId": "eb19dfea-db69-11f1-b49e-5254005cf213",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 3
+    },
+    {
+      "function": "user",
+      "requestId": "f9cacd33-db69-11f1-a3ed-5254007594e6",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 4
+    },
+    {
+      "function": "vacant",
+      "requestId": "09d8c7f8-db6a-11f1-9c6a-525400631ae4",
+      "code": "E_UNKNOWN_ACTION",
+      "durationMs": 3
+    }
+  ],
+  "skipped": [
+    {
+      "function": "payCallback",
+      "reason": "Payment callback was source-verified only; no runtime invocation in this round."
+    }
+  ]
+}

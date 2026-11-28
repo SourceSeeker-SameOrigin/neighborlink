@@ -1,9 +1,11 @@
+const { orderEnabled, requireOrderFeatures } = require('./lib/shared/orderFeatures');
 const cloud = require('wx-server-sdk');
 const crypto = require('crypto');
 const { createServer } = require('./lib/shared/server');
 const { atomic, read, insert } = require('./lib/shared/transaction');
 const { application, canWork, canTake, delivery, providerView, hallView } = require('./lib/shared/providerData');
 const { requireApprovedProvider } = require('./lib/shared/auth');
+const { codeEnvVersion } = require('./lib/shared/qrEnv');
 const { transitionPatch, listView } = require('./lib/shared/orderData');
 const { ensure, integer, text } = require('./lib/shared/validate');
 const { shortCode } = require('./lib/shared/ids');
@@ -80,26 +82,32 @@ async function subscriptionTemplates(event, { user }) {
 async function referralPoster(event, { openid }) {
   const provider = await mine(openid);
   requireApprovedProvider(provider, 1);
+  const envVersion = codeEnvVersion();
   const response = await cloud.openapi.wxacode.getUnlimited({ scene: 'r=' + provider.referralCode,
-    page: 'pages/index/index', checkPath: false, envVersion: 'develop', width: 430 });
+    page: 'pages/index/index', checkPath: false, envVersion, width: 430 });
   ensure(response && response.buffer, '推荐码生成失败', 'E_INTERNAL');
-  const file = await cloud.uploadFile({ cloudPath: 'posters/providers/' + provider._id + '.png', fileContent: response.buffer });
-  await db.collection('providers').doc(provider._id).update({ data: { referralPosterFileId: file.fileID, updatedAt: new Date() } });
+  const file = await cloud.uploadFile({ cloudPath: 'posters/providers/' + provider._id + '/' + envVersion + '-' + Date.now() + '.png', fileContent: response.buffer });
+  await db.collection('providers').doc(provider._id).update({ data: { referralPosterFileId: file.fileID,
+    referralPosterEnvVersion: envVersion, updatedAt: new Date() } });
   const result = await cloud.getTempFileURL({ fileList: [file.fileID] });
-  return { fileId: file.fileID, tempFileURL: result.fileList[0].tempFileURL, referralCode: provider.referralCode };
+  return { fileId: file.fileID, tempFileURL: result.fileList[0].tempFileURL,
+    referralCode: provider.referralCode, envVersion };
 }
 
 async function hall(event, { openid }) {
   const provider = await mine(openid);
   canWork(provider, new Date(), 1, true);
+  const pageOffset = offset(event);
   const result = await db.collection('orders').where({ kind: 'service', communityId: provider.communityId,
     status: 'paid', minLevel: command.lte(provider.level), releasedProviderIds: command.nin([provider._id]) })
-    .orderBy('createdAt', 'asc').skip(offset(event)).limit(20).get();
+    .orderBy('createdAt', 'asc').skip(pageOffset).limit(20).get();
   const tasks = result.data.filter(order => order.taskPostId);
   const posts = tasks.length ? await db.collection('posts').where({ _id: command.in(tasks.map(order => order.taskPostId)) }).get() : { data: [] };
   const postById = new Map(posts.data.map(post => [post._id, post]));
   const now = new Date();
+  const [config, community] = await Promise.all([server.config(), server.get('communities', provider.communityId)]);
   const visible = result.data.filter(order => {
+    if (!orderEnabled(order, config, community)) return false;
     if (order.taskPostId) {
       const post = postById.get(order.taskPostId);
       if (!post || post.moderationHidden || post.expireAt <= now || !['open', 'taken'].includes(post.status)) return false;
@@ -107,7 +115,8 @@ async function hall(event, { openid }) {
     }
     return !order.requiredCert || (provider.certs || []).includes(order.requiredCert);
   });
-  return { list: visible.map(hallView), hasMore: result.data.length === 20 };
+  return { list: visible.map(hallView), hasMore: result.data.length === 20,
+    nextOffset: pageOffset + result.data.length };
 }
 
 async function assigned(event, openid) {
@@ -124,6 +133,7 @@ async function accept(event, { openid }) {
   ensure(order, '订单不存在');
   const now = new Date();
   canTake(order, provider, now);
+  await requireOrderFeatures(server, order);
   if (order.taskPostId) {
     const post = await server.get('posts', order.taskPostId);
     ensure(post && !post.moderationHidden && post.expireAt > now && post.status === 'open',
@@ -133,6 +143,8 @@ async function accept(event, { openid }) {
   const result = await conditionalTransition(server, order, 'accepted', openid,
     { providerId: provider._id, providerOpenid: openid, acceptedAt: now },
     { releasedProviderIds: command.nin([provider._id]) }, '手慢了，单已被接走');
+  await notify.resident('accepted', { ...order, status: 'accepted', providerId: provider._id,
+    providerOpenid: openid, acceptedAt: now });
   try {
     await server.feature('chat', order.communityId);
     await ensureOrderConversation(server, { ...order, status: 'accepted', providerOpenid: openid });
@@ -162,6 +174,7 @@ async function release(event, { openid }) {
 
 async function start(event, { openid }) {
   const { provider, order } = await assigned(event, openid);
+  await requireOrderFeatures(server, order);
   canWork(provider, new Date(), order.minLevel);
   if (order.serviceCode === 'vacant') ensure(order.slot.date === ymd(new Date()), '只能在预约巡检日开始服务', 'E_BAD_STATE');
   ensure(order.status === 'accepted', '请先接单后再开始服务', 'E_BAD_STATE');
@@ -172,6 +185,8 @@ async function deliver(event, { openid }) {
   const { order, provider } = await assigned(event, openid);
   ensure(order.serviceCode !== 'vacant', '空置房巡检请填写逐项报告后提交', 'E_BAD_STATE');
   if (order.status === 'delivered') return { orderId: order._id, status: order.status };
+  await requireOrderFeatures(server, order);
+  ensure(order.serviceCode !== 'pet', '喂宠服务请在上门清单中逐次完成或登记漏次', 'E_BAD_STATE');
   ensure(order.status === 'in_service', '请先开始服务，再提交完成', 'E_BAD_STATE');
   if (order.serviceCode === 'recycle') {
     const updated = await recycleFlow.deliver(order, event, openid);
@@ -227,6 +242,7 @@ async function updateLocation(event, { openid }) {
   requireApprovedProvider(provider, 1);
   const order = await server.get('orders', event.orderId);
   ensure(order && order.providerId === provider._id && ['accepted','in_service'].includes(order.status), '当前订单不允许共享位置', 'E_FORBIDDEN');
+  await requireOrderFeatures(server, order);
   await server.feature('location', order.communityId);
   const now = new Date();
   const previous = provider.lastLocation;
@@ -237,4 +253,4 @@ async function updateLocation(event, { openid }) {
   return { updatedAt: now };
 }
 
-exports.main = server.entry({ apply, myStatus, subscriptionTemplates, referralPoster, setDuty, hall, accept, release, start, deliver, myTasks, earnings, updateLocation }, ['resident', 'admin']);
+exports.main = server.entry({ apply, myStatus, subscriptionTemplates, referralPoster, setDuty, hall, accept, release, start, deliver, myTasks, earnings, updateLocation }, ['resident', 'admin'], 'provider');

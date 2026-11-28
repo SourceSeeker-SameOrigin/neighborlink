@@ -1,0 +1,103 @@
+{
+  "scope": "Isolated VM only; no real large dataset, cloud writes or payment",
+  "total": 24,
+  "passed": 24,
+  "results": [
+    {
+      "name": "dashboard：完整加载101小区，相关对象21条及原审核筛选",
+      "status": "PASS"
+    },
+    {
+      "name": "dashboard：第二页失败禁止依赖操作，重试读齐后恢复",
+      "status": "PASS"
+    },
+    {
+      "name": "dashboard：加载未结束时依赖操作不发请求",
+      "status": "PASS"
+    },
+    {
+      "name": "features：完整加载101小区，相关对象21条及原审核筛选",
+      "status": "PASS"
+    },
+    {
+      "name": "features：第二页失败禁止依赖操作，重试读齐后恢复",
+      "status": "PASS"
+    },
+    {
+      "name": "features：加载未结束时依赖操作不发请求",
+      "status": "PASS"
+    },
+    {
+      "name": "recycle：完整加载101小区，相关对象21条及原审核筛选",
+      "status": "PASS"
+    },
+    {
+      "name": "recycle：第二页失败禁止依赖操作，重试读齐后恢复",
+      "status": "PASS"
+    },
+    {
+      "name": "recycle：加载未结束时依赖操作不发请求",
+      "status": "PASS"
+    },
+    {
+      "name": "posters：完整加载101小区，相关对象21条及原审核筛选",
+      "status": "PASS"
+    },
+    {
+      "name": "posters：第二页失败禁止依赖操作，重试读齐后恢复",
+      "status": "PASS"
+    },
+    {
+      "name": "posters：加载未结束时依赖操作不发请求",
+      "status": "PASS"
+    },
+    {
+      "name": "settlements：完整加载101小区，相关对象21条及原审核筛选",
+      "status": "PASS"
+    },
+    {
+      "name": "settlements：第二页失败禁止依赖操作，重试读齐后恢复",
+      "status": "PASS"
+    },
+    {
+      "name": "settlements：加载未结束时依赖操作不发请求",
+      "status": "PASS"
+    },
+    {
+      "name": "结算对象listProviders第二页失败不得用不完整选项提交",
+      "status": "PASS"
+    },
+    {
+      "name": "结算对象adminList第二页失败不得用不完整选项提交",
+      "status": "PASS"
+    },
+    {
+      "name": "异常分页：空页仍有后续",
+      "status": "PASS"
+    },
+    {
+      "name": "异常分页：缺少列表",
+      "status": "PASS"
+    },
+    {
+      "name": "异常分页：重复记录",
+      "status": "PASS"
+    },
+    {
+      "name": "异常分页：记录缺ID",
+      "status": "PASS"
+    },
+    {
+      "name": "空列表正常返回且只读取一次",
+      "status": "PASS"
+    },
+    {
+      "name": "后续页重复记录停止，避免无限循环",
+      "status": "PASS"
+    },
+    {
+      "name": "物业结算仍限本区，不拉取管理员选择器",
+      "status": "PASS"
+    }
+  ]
+}

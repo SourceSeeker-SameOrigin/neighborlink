@@ -18,7 +18,10 @@ exports.main = async (event = {}) => {
     const callback = { mode: 'wechat', amount: Number(field(event, 'totalFee', 'total_fee')),
       transactionId: field(event, 'transactionId', 'transaction_id') };
     const patch = paidPatch(order, callback, new Date());
-    if (!patch) return { errcode: 0, errmsg: '' };
+    if (!patch) {
+      await payments.dispatchEventRefund(order);
+      return { errcode: 0, errmsg: '' };
+    }
     const verified = await payments.verifyPaid(order);
     ensure(verified.transactionId === callback.transactionId, '支付流水不一致', 'E_PAYMENT');
     await payments.onPaid(order, verified);

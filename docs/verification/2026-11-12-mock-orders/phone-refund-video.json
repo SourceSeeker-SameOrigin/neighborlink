@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-12",
+  "video": {
+    "filename": "15739d38fafd7d4b3fc60cec37e21961.mp4",
+    "sha256": "cf793d7ac0abe67e8696633ddca9cc5e95bf141898270e5740ffa865339afb31",
+    "durationSeconds": 89.873333,
+    "size": [
+      592,
+      1280
+    ],
+    "inspection": "5-second overview and full-resolution cancellation confirmation frame",
+    "audio": "mean/max -91 dB"
+  },
+  "observed": [
+    "Second order cancellation confirmation and subsequent 已取消",
+    "Refund section ¥1.00 已退款, reason 住户取消订单",
+    "Refresh retains cancelled state and refund",
+    "Ongoing list empty, done list contains cancelled and closed orders, aftersale list empty",
+    "Both list entries opened, details matched, returned to list"
+  ],
+  "cloudReadback": {
+    "source": "Official CloudBase rendered orders/users UI, readonly",
+    "collectionOrderCount": 2,
+    "firstOrder": {
+      "orderNo": "JL2611121533180516",
+      "status": "closed",
+      "acceptedAt": null,
+      "providerId": null
+    },
+    "secondOrder": {
+      "orderNo": "JL2611121534276424",
+      "status": "cancelled",
+      "paymentMode": "mock",
+      "payAmountFen": 100,
+      "refunds": [
+        {
+          "amount": 100,
+          "status": "success",
+          "reason": "住户取消订单"
+        }
+      ],
+      "timelineStatuses": [
+        "pending_pay",
+        "paid",
+        "cancelled"
+      ],
+      "acceptedAt": null,
+      "providerId": null
+    },
+    "user": {
+      "approvedRecordMatched": true,
+      "paidOrderCount": 1,
+      "firstPaidAtBeijing": "2026-11-12 15:34:30",
+      "firstPaidOrderMatchesSecond": true
+    }
+  },
+  "completed": [
+    "unpaid cancellation",
+    "mock payment then full mock refund",
+    "both test orders terminal and unassigned",
+    "list/detail navigation on observed phone",
+    "first-paid statistics remain after refund"
+  ],
+  "pending": [
+    "live duplicate create/payment/refund request idempotency",
+    "real WeChat payment/refund",
+    "provider acceptance/fulfillment",
+    "all viewport/font/keyboard states and full design acceptance"
+  ],
+  "limits": "Observed one successful refund record is not proof against duplicate requests; no third order, no role/data reset, no timer run, no business write by agent; no real payment",
+  "privacy": "No phone, door address, full openid, credentials or media copied to repository"
+}

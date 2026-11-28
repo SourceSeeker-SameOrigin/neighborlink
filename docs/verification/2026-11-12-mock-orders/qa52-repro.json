@@ -1,0 +1,37 @@
+{
+  "scope": "Actual membership page; synthetic plans/API/payment/navigation. No cloud writes, real payment, or claim of existing duplicate cloud orders.",
+  "results": [
+    {
+      "plan": "trash_monthly",
+      "createRequests": 2,
+      "uniqueRequestIds": 2,
+      "paymentCalls": 2,
+      "navigations": 2,
+      "riskReproduced": true
+    },
+    {
+      "plan": "express_monthly",
+      "createRequests": 2,
+      "uniqueRequestIds": 2,
+      "paymentCalls": 2,
+      "navigations": 2,
+      "riskReproduced": true
+    },
+    {
+      "plan": "visit_monthly",
+      "createRequests": 2,
+      "uniqueRequestIds": 2,
+      "paymentCalls": 2,
+      "navigations": 2,
+      "riskReproduced": true
+    },
+    {
+      "plan": "vacant_monthly",
+      "createRequests": 2,
+      "uniqueRequestIds": 2,
+      "paymentCalls": 2,
+      "navigations": 2,
+      "riskReproduced": true
+    }
+  ]
+}

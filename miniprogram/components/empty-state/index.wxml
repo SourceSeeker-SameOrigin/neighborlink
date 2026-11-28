@@ -1,1 +1,1 @@
-<view class="empty"><view>{{message}}</view><button wx:if="{{retry}}" bindtap="retry">重新加载</button></view>
+<view class="empty"><image class="empty-icon" src="/assets/icons/empty.png"/><view class="message">{{message}}</view><button class="retry-action" wx:if="{{retry}}" bindtap="retry">重新加载</button></view>

@@ -1,0 +1,63 @@
+{
+  "scope": "synthetic identity and credential; no cloud reads",
+  "pass": 4,
+  "fail": 8,
+  "results": [
+    {
+      "name": "pet-response-same",
+      "pass": true
+    },
+    {
+      "name": "pet-response-hidden",
+      "pass": true
+    },
+    {
+      "name": "pet-response-changed-user",
+      "pass": false,
+      "error": "credential display must match original identity and task\n\ntrue !== false\n"
+    },
+    {
+      "name": "pet-response-changed-order",
+      "pass": false,
+      "error": "credential display must match original identity and task\n\ntrue !== false\n"
+    },
+    {
+      "name": "pet-start-changed-user",
+      "pass": false,
+      "error": "stale task must not request credential\n\n1 !== 0\n"
+    },
+    {
+      "name": "pet-start-changed-order",
+      "pass": false,
+      "error": "stale task must not request credential\n\n1 !== 0\n"
+    },
+    {
+      "name": "vacant-response-same",
+      "pass": true
+    },
+    {
+      "name": "vacant-response-hidden",
+      "pass": true
+    },
+    {
+      "name": "vacant-response-changed-user",
+      "pass": false,
+      "error": "credential display must match original identity and task\n\ntrue !== false\n"
+    },
+    {
+      "name": "vacant-response-changed-order",
+      "pass": false,
+      "error": "credential display must match original identity and task\n\ntrue !== false\n"
+    },
+    {
+      "name": "vacant-start-changed-user",
+      "pass": false,
+      "error": "stale task must not request credential\n\n1 !== 0\n"
+    },
+    {
+      "name": "vacant-start-changed-order",
+      "pass": false,
+      "error": "stale task must not request credential\n\n1 !== 0\n"
+    }
+  ]
+}

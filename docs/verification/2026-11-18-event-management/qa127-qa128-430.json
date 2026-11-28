@@ -1,0 +1,99 @@
+{
+  "width": 430,
+  "writes": [
+    {
+      "action": "completeBooking",
+      "id": "order-20",
+      "user": "a"
+    }
+  ],
+  "offsets": [
+    0,
+    0,
+    0,
+    20,
+    20,
+    0,
+    20,
+    0,
+    20
+  ],
+  "records": [
+    {
+      "phase": "shown",
+      "ready": true,
+      "rows": 20,
+      "busy": false,
+      "error": "",
+      "pageError": false,
+      "hasMore": true,
+      "writes": 0,
+      "last": "order-19"
+    },
+    {
+      "phase": "read-failed",
+      "ready": false,
+      "rows": 0,
+      "busy": false,
+      "error": "合成读取失败，请重试",
+      "pageError": false,
+      "hasMore": false,
+      "writes": 0
+    },
+    {
+      "phase": "retry",
+      "ready": true,
+      "rows": 20,
+      "busy": false,
+      "error": "",
+      "pageError": false,
+      "hasMore": true,
+      "writes": 0,
+      "last": "order-19"
+    },
+    {
+      "phase": "more",
+      "ready": false,
+      "rows": 20,
+      "busy": false,
+      "error": "合成续页失败，请重试",
+      "pageError": true,
+      "hasMore": true,
+      "writes": 0,
+      "last": "order-19"
+    },
+    {
+      "phase": "retry",
+      "ready": true,
+      "rows": 21,
+      "busy": false,
+      "error": "",
+      "pageError": false,
+      "hasMore": false,
+      "writes": 0,
+      "last": "order-20"
+    },
+    {
+      "phase": "complete",
+      "ready": true,
+      "rows": 20,
+      "busy": false,
+      "error": "",
+      "pageError": false,
+      "hasMore": true,
+      "writes": 1,
+      "last": "order-19"
+    },
+    {
+      "phase": "more",
+      "ready": true,
+      "rows": 21,
+      "busy": false,
+      "error": "",
+      "pageError": false,
+      "hasMore": false,
+      "writes": 1,
+      "last": "order-20"
+    }
+  ]
+}

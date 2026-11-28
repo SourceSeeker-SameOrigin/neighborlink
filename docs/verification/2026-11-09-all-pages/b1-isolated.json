@@ -1,0 +1,43 @@
+{
+  "scope": "Local actual entry/worker with synthetic users; NOT real multi-account or CloudBase transaction acceptance",
+  "total": 9,
+  "passed": 9,
+  "results": [
+    {
+      "name": "A免费报名成功，无付款订单",
+      "status": "PASS"
+    },
+    {
+      "name": "A重复报名返回原结果，不增加人数",
+      "status": "PASS"
+    },
+    {
+      "name": "B名额已满拒绝且不写第二报名",
+      "status": "PASS"
+    },
+    {
+      "name": "A截止前取消释放名额",
+      "status": "PASS"
+    },
+    {
+      "name": "B在释放后报名成功",
+      "status": "PASS"
+    },
+    {
+      "name": "管理员取消活动创建任务",
+      "status": "PASS"
+    },
+    {
+      "name": "QA27任务取消B免费报名并将人数清零",
+      "status": "PASS"
+    },
+    {
+      "name": "后台任务完成且全程没有创建付款订单",
+      "status": "PASS"
+    },
+    {
+      "name": "重复处理不再次扣减人数",
+      "status": "PASS"
+    }
+  ]
+}

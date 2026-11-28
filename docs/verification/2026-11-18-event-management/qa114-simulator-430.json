@@ -1,0 +1,163 @@
+{
+  "width": 430,
+  "writes": [
+    {
+      "action": "start",
+      "orderId": "synthetic-order"
+    },
+    {
+      "action": "deliver",
+      "orderId": "synthetic-order"
+    },
+    {
+      "action": "deliver",
+      "orderId": "synthetic-order"
+    }
+  ],
+  "records": [
+    {
+      "status": "accepted",
+      "ready": true,
+      "loading": false,
+      "busy": false,
+      "error": "",
+      "rects": [
+        {
+          "left": 13,
+          "right": 417,
+          "top": 478,
+          "bottom": 528,
+          "width": 404,
+          "height": 50,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "status": "in_service",
+      "ready": true,
+      "loading": false,
+      "busy": false,
+      "error": "",
+      "rects": [
+        {
+          "left": 13,
+          "right": 417,
+          "top": 595,
+          "bottom": 645,
+          "width": 404,
+          "height": 50,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "status": "in_service",
+      "ready": true,
+      "loading": false,
+      "busy": false,
+      "error": "",
+      "rects": [
+        {
+          "left": 13,
+          "right": 417,
+          "top": 595,
+          "bottom": 645,
+          "width": 404,
+          "height": 50,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "status": null,
+      "ready": false,
+      "loading": false,
+      "busy": false,
+      "error": "任务读取失败（本地合成），请重试",
+      "rects": [
+        {
+          "left": 13,
+          "right": 417,
+          "top": 338,
+          "bottom": 388,
+          "width": 404,
+          "height": 50,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "status": "in_service",
+      "ready": true,
+      "loading": false,
+      "busy": false,
+      "error": "",
+      "rects": [
+        {
+          "left": 13,
+          "right": 417,
+          "top": 595,
+          "bottom": 645,
+          "width": 404,
+          "height": 50,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "status": "in_service",
+      "ready": true,
+      "loading": false,
+      "busy": false,
+      "error": "完成提交失败（本地合成），请重试",
+      "rects": [
+        {
+          "left": 13,
+          "right": 417,
+          "top": 851,
+          "bottom": 901,
+          "width": 404,
+          "height": 50,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "status": "delivered",
+      "ready": true,
+      "loading": false,
+      "busy": false,
+      "error": "",
+      "rects": [
+        {
+          "left": 13,
+          "right": 417,
+          "top": 422,
+          "bottom": 472,
+          "width": 404,
+          "height": 50,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "status": "delivered",
+      "ready": true,
+      "loading": false,
+      "busy": false,
+      "error": "",
+      "rects": [
+        {
+          "left": 13,
+          "right": 417,
+          "top": 422,
+          "bottom": 472,
+          "width": 404,
+          "height": 50,
+          "disabled": false
+        }
+      ]
+    }
+  ]
+}

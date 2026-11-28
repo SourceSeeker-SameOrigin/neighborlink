@@ -1,0 +1,31 @@
+{
+  "width": 390,
+  "writes": [],
+  "offsets": [
+    0,
+    0
+  ],
+  "records": [
+    {
+      "phase": "shown",
+      "ready": true,
+      "rows": 20,
+      "busy": false,
+      "error": "",
+      "pageError": false,
+      "hasMore": true,
+      "writes": 0,
+      "last": "order-19"
+    },
+    {
+      "phase": "read-failed",
+      "ready": false,
+      "rows": 0,
+      "busy": false,
+      "error": "合成读取失败，请重试",
+      "pageError": false,
+      "hasMore": false,
+      "writes": 0
+    }
+  ]
+}

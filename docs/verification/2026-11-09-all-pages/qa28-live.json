@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-09",
+  "function": "content",
+  "sourceCommit": "73194f8",
+  "scope": "real mini-program resident/admin session; unchanged Junyue binding; demo_community only",
+  "notice": {
+    "id": "4dc64f446af1e5a600303657670aee68",
+    "title": "验收测试｜公告展示",
+    "body": "仅用于示例花园开发验收，不代表实际服务通知。测试完成后撤下。",
+    "communityId": "demo_community",
+    "imageFileId": "",
+    "endAt": "2026-11-11T15:59:59.000Z",
+    "publish": "actual visible button click; refreshed list returned matching record; no error",
+    "end": "actual visible end button click; refreshed list count 0; no error; record retained"
+  },
+  "ui": {
+    "width": 390,
+    "formAndPublishedTitleObserved": true,
+    "allSizesPassed": false,
+    "consoleErrors": 0,
+    "accumulatedWarnings": 16
+  },
+  "limitations": [
+    "same-community non-admin resident view not verified",
+    "image notices and ad workflows not verified",
+    "ended database status not independently queried; end API and list refresh verified",
+    "no notifications, timer, payments, role or binding changes"
+  ],
+  "D05": "paused",
+  "D06": "paused"
+}

@@ -1,0 +1,91 @@
+{
+  "scope": "actual page and synthetic GPS; no real location or cloud writes",
+  "pass": 21,
+  "fail": 0,
+  "results": [
+    {
+      "name": "same-page",
+      "pass": true
+    },
+    {
+      "name": "hide",
+      "pass": true
+    },
+    {
+      "name": "unload",
+      "pass": true
+    },
+    {
+      "name": "completed",
+      "pass": true
+    },
+    {
+      "name": "sharing-disabled",
+      "pass": true
+    },
+    {
+      "name": "order-changed",
+      "pass": true
+    },
+    {
+      "name": "user-changed",
+      "pass": true
+    },
+    {
+      "name": "location-denied",
+      "pass": true
+    },
+    {
+      "name": "refresh",
+      "pass": true
+    },
+    {
+      "name": "hide-return",
+      "pass": true
+    },
+    {
+      "name": "start-guard-no-read",
+      "pass": true
+    },
+    {
+      "name": "start-guard-hidden",
+      "pass": true
+    },
+    {
+      "name": "start-guard-completed",
+      "pass": true
+    },
+    {
+      "name": "start-guard-sharing-disabled",
+      "pass": true
+    },
+    {
+      "name": "start-guard-user-changed",
+      "pass": true
+    },
+    {
+      "name": "start-guard-busy",
+      "pass": true
+    },
+    {
+      "name": "refresh-rejected-invalidates-old-and-retry-resumes",
+      "pass": true
+    },
+    {
+      "name": "detail-pending-user",
+      "pass": true
+    },
+    {
+      "name": "detail-pending-order",
+      "pass": true
+    },
+    {
+      "name": "detail-pending-hide",
+      "pass": true
+    },
+    {
+      "name": "same-context-sequential-ticks-and-accepted-status",
+      "pass": true
+    }
+  ]
+}

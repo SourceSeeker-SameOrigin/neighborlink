@@ -1,0 +1,308 @@
+{
+  "function": "catalog",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "151483331205b4783367e7c91365cb6b78044f6b",
+  "selectedFile": {
+    "bytes": 117700,
+    "sha256": "e2fe775dfebae47679c21f4e3a93a8cfedbce7840a971a05daf0e3ea727b34d3"
+  },
+  "downloadMethod": "official WeChat CLI functions download",
+  "readbackDirectory": "/tmp/jinlin-order-readback-20261108-1546/catalog.zip",
+  "comparedFiles": 72,
+  "missingFiles": [],
+  "mismatchedFiles": [],
+  "dependency": {
+    "name": "wx-server-sdk",
+    "version": "4.0.2"
+  },
+  "files": [
+    {
+      "file": "index.js",
+      "sha256": "dea99a9d9333f6017b3969eda1bd83715f2935de3a70e8e590b31caa49ca0ab6"
+    },
+    {
+      "file": "config.json",
+      "sha256": "ca3664cc370f406d81b3d260e643ac226b52d2322ca8df6346b6476796bf6fc8"
+    },
+    {
+      "file": "package.json",
+      "sha256": "f6369bf592d36a364e6a06b59ce05ecf0d708bbcd23f07e36bb105b1027562b7"
+    },
+    {
+      "file": "lib/shared/adRevenue.js",
+      "sha256": "4eed195387e78f034ebd132e6aac416681c0c2bbd865ef42e2cdbcce492ed0c1"
+    },
+    {
+      "file": "lib/shared/adminDashboard.js",
+      "sha256": "02fe37c891da284f0452cc7ebf4cabe150ee70fbf1eb675811f9b46ed041ed90"
+    },
+    {
+      "file": "lib/shared/adminOrders.js",
+      "sha256": "3de17ff996814f7bcd066f380af87edf27743da50761eb03f21a954593bdb07e"
+    },
+    {
+      "file": "lib/shared/adminProviders.js",
+      "sha256": "b39fb0e4d2f8338249331487688fb477767c565cc4fb81414b60ceca6ebe96f9"
+    },
+    {
+      "file": "lib/shared/adminSettlements.js",
+      "sha256": "68cc0bc6c7fd9bf018671d00f02e7ad1de3d72ec6f9324b0261ccdc73dff97b3"
+    },
+    {
+      "file": "lib/shared/auth.js",
+      "sha256": "3e243f53c292593c2478d1911e7a51f68640a5725f2aa9c4b6dae4d29e5b6641"
+    },
+    {
+      "file": "lib/shared/blacklist.js",
+      "sha256": "b095d7d95bf0f5ace7589b99661cbb7eb49784d0a1c149695b539f87a2810fe2"
+    },
+    {
+      "file": "lib/shared/boardData.js",
+      "sha256": "b2d34f8619527c96069dc6c0de39d8c2417f7dc703799e3072bfa604d0267700"
+    },
+    {
+      "file": "lib/shared/chatData.js",
+      "sha256": "cf14e76a83094d2d54e4df9ccbe412a01f7805a406bbd8be97bfb96fbd8c9c9b"
+    },
+    {
+      "file": "lib/shared/chatFlow.js",
+      "sha256": "adba792f0ed344e220273f46c07e5a0b051eb3750583a2caa82e84ec0acca69e"
+    },
+    {
+      "file": "lib/shared/contentSafety.js",
+      "sha256": "e32b68e0f0d52f46f7849c6b0d33a0ea902b2fe9c42247c1a9582d542eda67e7"
+    },
+    {
+      "file": "lib/shared/couponData.js",
+      "sha256": "f8b9b7ddfd12c75af321a17cbce85ecd841dd4e5b3ce661540611185fad15a9d"
+    },
+    {
+      "file": "lib/shared/couponFlow.js",
+      "sha256": "25a19538c02d31ae4a1545945e9478e1d20a1a074fda0fd2c4e78dfcbfb72519"
+    },
+    {
+      "file": "lib/shared/crypto.js",
+      "sha256": "90d5f6e9a3c9a213ff23dd8da4721aeee36d7a35993348ffe35fd962b4193a61"
+    },
+    {
+      "file": "lib/shared/dashboardMetrics.js",
+      "sha256": "2c9e15fd52cac99ed2516f784e25a6ce0114e940571558e919008143eb7e9a2b"
+    },
+    {
+      "file": "lib/shared/dispatch.js",
+      "sha256": "41288df756efe4cb7027c7df31efea8d9bb7c1ef455891d0e1ab5c64855b4f6a"
+    },
+    {
+      "file": "lib/shared/errors.js",
+      "sha256": "8d1f0f4ae8ab810bb6dce81403cf6e78874c4cf7f21fbeb557c74a732556f712"
+    },
+    {
+      "file": "lib/shared/eventCancellation.js",
+      "sha256": "3dece90e10924f6e4c550fb4ad98927d050cb3d9caa9f3a0fc83a226f628df40"
+    },
+    {
+      "file": "lib/shared/eventData.js",
+      "sha256": "93e18abe4f9f6f527a6f6690c0635506527359bebb3d9da122fe9939608025c8"
+    },
+    {
+      "file": "lib/shared/eventFlow.js",
+      "sha256": "ca86f1e52a39a09a7e3e0a1490174137f7a6fcc7d6ec3d629d4795e301f1aabb"
+    },
+    {
+      "file": "lib/shared/features.js",
+      "sha256": "a52af1de923650b9353f3875c3b1bc7f9a13c818c004055ba29fe09c39560d39"
+    },
+    {
+      "file": "lib/shared/geo.js",
+      "sha256": "15b661729321f0ad9ef085e750dd1197765dfa815b47731e5cdb31ed6a84d73e"
+    },
+    {
+      "file": "lib/shared/idleData.js",
+      "sha256": "501fbb878950e2164525515e2194881610d11a4aa586f26d1ed6f96351653d74"
+    },
+    {
+      "file": "lib/shared/ids.js",
+      "sha256": "a82fe12b9eb753d737de5b9ad2c908000726dd131d98f54c052f3c7a536ccd5c"
+    },
+    {
+      "file": "lib/shared/ledgerFlow.js",
+      "sha256": "899bb4154dae4968d30acd42ba037a15356634e88922f74bb0ca62e2a3a1b3f5"
+    },
+    {
+      "file": "lib/shared/mediaAccess.js",
+      "sha256": "7972955dbffbd8895401bb28b48c7b78cd6382a6e577662c194ac1e666d96a40"
+    },
+    {
+      "file": "lib/shared/membershipData.js",
+      "sha256": "9ccb015e9884ff25e6715122094c136e0e6a1dd3644c4473e2a084850473696c"
+    },
+    {
+      "file": "lib/shared/membershipFlow.js",
+      "sha256": "2ebce3a10b6bb1d857c1d800e2ae114dc4892cc3ca3a6cce7b99feb0019d56ef"
+    },
+    {
+      "file": "lib/shared/merchant.js",
+      "sha256": "91d81d716c837eccc8d6c991494a9c65237d9cae4f7a1fbf4dc002a9e239809f"
+    },
+    {
+      "file": "lib/shared/money.js",
+      "sha256": "35bdd8c236d06346573ed3655db224e36da1ef411beaf397e37316cffea969d8"
+    },
+    {
+      "file": "lib/shared/notificationData.js",
+      "sha256": "2daa449ff78202ced87cb8c7283978b761bef94a5f519b85eb0be238f1874ab3"
+    },
+    {
+      "file": "lib/shared/notify.js",
+      "sha256": "25016163850bcea722b5710872094b3c6631e6e588d00212c53dbd02dbaab5b7"
+    },
+    {
+      "file": "lib/shared/orderContext.js",
+      "sha256": "59f900bc7fc9549b2098f61993d62518a2c46e6faca9261d0b8decebe815bfec"
+    },
+    {
+      "file": "lib/shared/orderData.js",
+      "sha256": "7fca70be7347b94691bbae658c7c87ae7a44721df08b6536d48ef30f4909fb6f"
+    },
+    {
+      "file": "lib/shared/orderFeatures.js",
+      "sha256": "0385254e55b48dd1a3dd739afc83c2119859895dd6647ad95bb24308ffc2b80b"
+    },
+    {
+      "file": "lib/shared/orderLifecycle.js",
+      "sha256": "7f9a62fefd241d9b5529cedcb5cfeb027acd0e7737d18ca7936e210950834993"
+    },
+    {
+      "file": "lib/shared/orderStore.js",
+      "sha256": "1a67464fe7e3ea748eb571b1a99ea27b48bf8a7681cce6e8900812d95c24aa32"
+    },
+    {
+      "file": "lib/shared/orderWrite.js",
+      "sha256": "44ab2b13cc25b1a89c1b2f947a5bc62414cd802550c5b81414ab97df54e85687"
+    },
+    {
+      "file": "lib/shared/payConfig.js",
+      "sha256": "37e6a1f2b7da8de8ddde5cb77fa744ada438951c4654b5087a1122f60de7a878"
+    },
+    {
+      "file": "lib/shared/payFlow.js",
+      "sha256": "b4b9ecf24019082362d7643196defb87e9b3576387ca884b464bfa158f146981"
+    },
+    {
+      "file": "lib/shared/paymentState.js",
+      "sha256": "82fb33790212e132edd25f4343e9a187a585952aceb1a1889faabef2f421b9bf"
+    },
+    {
+      "file": "lib/shared/payout.js",
+      "sha256": "1ac754e401815d79983e0c249b0fa8a6d4dc496638afb3980b12204b925509c3"
+    },
+    {
+      "file": "lib/shared/payoutFlow.js",
+      "sha256": "d15b6cc43162bcb5fa484b4d16de17bf29c51f60c298ffa42c2595a14073a6ef"
+    },
+    {
+      "file": "lib/shared/pet.js",
+      "sha256": "3c01c1f89e2bd99195a38720208ad9887b73891430b9106ad334c5377301e20c"
+    },
+    {
+      "file": "lib/shared/petFlow.js",
+      "sha256": "914f5cf28b9c645512c1db2865b6db3eaa96bd5705a61bb5f487b3e38abb62d9"
+    },
+    {
+      "file": "lib/shared/pricing.js",
+      "sha256": "780ec46ef35ee41f134f42b37cb66257f7aed5b66656efbf516c61af7aa5917f"
+    },
+    {
+      "file": "lib/shared/profile.js",
+      "sha256": "3495dfacb93ef660dc7a9299c48edb16635100ef03ee76170f702673e5bdabb6"
+    },
+    {
+      "file": "lib/shared/providerData.js",
+      "sha256": "83d6d4e512d7f4e8c529212c159fb3aa64b95c168447ef861bff19566e785433"
+    },
+    {
+      "file": "lib/shared/recycle.js",
+      "sha256": "ea0f1d38a3737d47840258c5a923ba5ebaccdea2728818913adb3b9954f4b3d1"
+    },
+    {
+      "file": "lib/shared/recycleFlow.js",
+      "sha256": "da0db92029f698fe62093fb770f3cbd73a18abf124b490f8fc2c93a74aae784e"
+    },
+    {
+      "file": "lib/shared/refundState.js",
+      "sha256": "bf5184d873895877a7933f885e4d7d87e9eddb7c51faa9c97d063bdf31202bb3"
+    },
+    {
+      "file": "lib/shared/residentOrders.js",
+      "sha256": "2cddc1e76f5b7a298bbeeeffa17660070d4736dd3d35e90a7bea24fe1529587d"
+    },
+    {
+      "file": "lib/shared/schedule.js",
+      "sha256": "d682de85ffb1611f9d55aa4f9590913f36570978a3e3c1333adef3674bcd8fbc"
+    },
+    {
+      "file": "lib/shared/server.js",
+      "sha256": "cc9b5fef19b2aaf109212a908fd677b0775a64a59a41096c427730984d250b79"
+    },
+    {
+      "file": "lib/shared/services/elder.js",
+      "sha256": "7ad8574f397340bb8262f8e1ad1a92b9e7515ef75eed01f7829eac0ef74b9905"
+    },
+    {
+      "file": "lib/shared/settlementData.js",
+      "sha256": "12e45fec0d9d7f9dead8b995ba7a5871909b686f9d866618789e78324b3ed0de"
+    },
+    {
+      "file": "lib/shared/split.js",
+      "sha256": "a604c6a81ea0ab7f2b6fea25bfc3c2f97531ee729ca183dd685e9da3d65415e3"
+    },
+    {
+      "file": "lib/shared/stateMachine.js",
+      "sha256": "cbf21befdabbb2cfcb8f0728201d70d0103baf7c4be893d3d79707d17c21d56c"
+    },
+    {
+      "file": "lib/shared/station.js",
+      "sha256": "9f22710735cde0a4bb568469f18770d538e11b36d552504c037101ad7225c21e"
+    },
+    {
+      "file": "lib/shared/stationApplications.js",
+      "sha256": "86e13e8f1feea7c679e50d799d5ec9cd21e9227651829811960f977b025f59ba"
+    },
+    {
+      "file": "lib/shared/subsidyExport.js",
+      "sha256": "98961c54f62d4065169f1ce96c6c603b45afe2519ca44161af52ee380f54f663"
+    },
+    {
+      "file": "lib/shared/time.js",
+      "sha256": "9ce25cab45cb11d124471412fdfc83b1fe1d4e7193b37ea906241255c49a5347"
+    },
+    {
+      "file": "lib/shared/transaction.js",
+      "sha256": "4a04386386f5540aa5e23ad5945c54dba741a7511b63040b225df5e81205f865"
+    },
+    {
+      "file": "lib/shared/ugc.js",
+      "sha256": "3e679dde751d5f846cc0299e6130448d2fc6cb79fc719677a187b9b3f2696cfc"
+    },
+    {
+      "file": "lib/shared/vacant.js",
+      "sha256": "8891369b668a92f8712f5ec9626a5f44da56942e62df5780f5312998119b9442"
+    },
+    {
+      "file": "lib/shared/validate.js",
+      "sha256": "60d218be945022bf8e0e56f36004df312a24fb2f31e27ccce774701148b03e62"
+    },
+    {
+      "file": "lib/shared/views.js",
+      "sha256": "10b88a8e111e885e9b5a6c0caeb0b424af863f4db81ba7dca0c7d4afb0d301ea"
+    },
+    {
+      "file": "lib/shared/visibility.js",
+      "sha256": "687f5697c9f4fdca42fd6ba2d28d23ecd8df981cc9980d4a19236259a63ed7e8"
+    },
+    {
+      "file": "lib/shared/wxpayV3.js",
+      "sha256": "dabbf46eb89f42fded9f20004bb8fa6b58d2858249695c84f8b01369151e970f"
+    }
+  ]
+}

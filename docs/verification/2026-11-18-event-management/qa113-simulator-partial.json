@@ -1,0 +1,104 @@
+{
+  "scope": "Tourist project, actual task page; synthetic user, order, modal callbacks and API. No cloud writes.",
+  "verified": [
+    "320 width task initial layout and first cancellation; button recovered; writes=0"
+  ],
+  "unverified": [
+    "320 navigation return, failure and success",
+    "375/390/430 layouts and interactions",
+    "native confirmation and real provider workflow"
+  ],
+  "blockers": [
+    "WAWorker.js TypeError: Cannot read property bg of null during navigateTo",
+    "WAWorker.js ReferenceError: __global is not defined",
+    "subsequent compile produced mismatched screenshot/AX; coordinate click noWindowsAvailable"
+  ],
+  "raw": [
+    {
+      "file": "jinlin-qa113-320.json",
+      "result": {
+        "width": 320,
+        "confirmations": 2,
+        "writes": 0,
+        "records": [
+          {
+            "state": "shown",
+            "busy": false,
+            "ready": true,
+            "error": "",
+            "rect": null
+          },
+          {
+            "state": "busy",
+            "busy": true,
+            "rect": null
+          },
+          {
+            "state": "settled",
+            "visible": true,
+            "busy": false,
+            "error": ""
+          },
+          {
+            "state": "busy",
+            "busy": true,
+            "rect": null
+          },
+          {
+            "state": "probe/away/index"
+          }
+        ]
+      }
+    },
+    {
+      "file": "jinlin-qa113-layout-320.json",
+      "result": {
+        "width": 320,
+        "confirmations": 0,
+        "writes": 0,
+        "records": [
+          {
+            "state": "shown",
+            "busy": false,
+            "ready": true,
+            "error": "",
+            "rect": {
+              "left": 10,
+              "right": 310,
+              "top": 257,
+              "bottom": 294,
+              "width": 300,
+              "height": 37,
+              "disabled": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "file": "jinlin-qa113-layout-375.json",
+      "result": {
+        "width": 375,
+        "confirmations": 0,
+        "writes": 0,
+        "records": [
+          {
+            "state": "shown",
+            "busy": false,
+            "ready": true,
+            "error": "",
+            "rect": {
+              "left": 12,
+              "right": 363,
+              "top": 312,
+              "bottom": 356,
+              "width": 351,
+              "height": 44,
+              "disabled": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

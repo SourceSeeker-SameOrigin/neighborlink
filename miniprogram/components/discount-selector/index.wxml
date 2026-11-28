@@ -1,4 +1,4 @@
 <view class="card discount" wx:if="{{couponsEnabled || pointsEnabled}}">
-  <view wx:if="{{couponsEnabled}}" class="field"><text class="label">优惠券</text><picker range="{{options}}" range-key="label" bindchange="coupon"><view class="picker">选择优惠券 ›</view></picker></view>
+  <view wx:if="{{couponsEnabled}}" class="field"><text class="label">优惠券</text><picker range="{{options}}" range-key="label" value="{{selectedIndex}}" bindchange="coupon"><view class="picker">{{selectedLabel}} ›</view></picker></view>
   <view wx:if="{{pointsEnabled}}" class="field"><text class="label">环保积分（余额 {{pointsBalance}}）</text><input type="number" value="{{pointsToUse}}" bindinput="points" placeholder="输入抵扣积分，最多抵扣服务费一半"/></view>
 </view>

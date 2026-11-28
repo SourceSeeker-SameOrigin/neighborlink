@@ -1,0 +1,105 @@
+{
+  "width": 390,
+  "observations": [
+    {
+      "label": "initial",
+      "recovery": "lookup",
+      "error": "合成网络中断，请重试核对",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 25,
+          "right": 365,
+          "top": 501,
+          "bottom": 546,
+          "width": 340,
+          "height": 45
+        }
+      ],
+      "calls": {
+        "create": 0,
+        "publish": 0,
+        "lookup": 1
+      }
+    },
+    {
+      "label": "createActivity",
+      "recovery": "confirm",
+      "error": "",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 25,
+          "right": 365,
+          "top": 1768,
+          "bottom": 1813,
+          "width": 340,
+          "height": 45
+        }
+      ],
+      "calls": {
+        "create": 0,
+        "publish": 0,
+        "lookup": 2
+      }
+    },
+    {
+      "label": "createActivity",
+      "recovery": "lookup",
+      "error": "合成创建响应丢失",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 25,
+          "right": 365,
+          "top": 446,
+          "bottom": 491,
+          "width": 340,
+          "height": 45
+        }
+      ],
+      "calls": {
+        "create": 1,
+        "publish": 0,
+        "lookup": 3
+      }
+    },
+    {
+      "label": "createActivity",
+      "recovery": "done",
+      "error": "",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 25,
+          "right": 365,
+          "top": 362,
+          "bottom": 407,
+          "width": 340,
+          "height": 45
+        }
+      ],
+      "calls": {
+        "create": 1,
+        "publish": 1,
+        "lookup": 5
+      }
+    }
+  ],
+  "observedUI": [
+    "390 screenshot: initial lookup error and recovery button",
+    "390 screenshot: confirmed absent and original form retained",
+    "Native scroll three pages: bottom confirm button visible without overlap",
+    "Native click confirm: create response lost; page returned to top with explicit error",
+    "Native click lookup: published result shown; exactly one create and one publish"
+  ],
+  "otherWidths": "320/375/430 remaining state screenshots not accepted this turn: AX and screenshot diverged; normal compile, CUA reset and isolated project reopen attempted. Previous successful-state evidence retained."
+}

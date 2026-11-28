@@ -1,0 +1,75 @@
+{
+  "mode": "actual-page-synthetic-only",
+  "total": 17,
+  "passed": 17,
+  "results": [
+    {
+      "name": "provider: bound resident opens application",
+      "passed": true
+    },
+    {
+      "name": "provider: unbound resident opens binding",
+      "passed": true
+    },
+    {
+      "name": "merchant: bound resident opens application",
+      "passed": true
+    },
+    {
+      "name": "merchant: unbound resident opens binding",
+      "passed": true
+    },
+    {
+      "name": "station: bound resident opens application",
+      "passed": true
+    },
+    {
+      "name": "station: unbound resident opens binding",
+      "passed": true
+    },
+    {
+      "name": "merchant: closed feature shows conditions",
+      "passed": true
+    },
+    {
+      "name": "merchant: existing role opens protected workbench",
+      "passed": true
+    },
+    {
+      "name": "station: closed feature shows conditions",
+      "passed": true
+    },
+    {
+      "name": "station: existing role opens protected workbench",
+      "passed": true
+    },
+    {
+      "name": "approved provider opens workbench",
+      "passed": true
+    },
+    {
+      "name": "admin: no role shows qualification",
+      "passed": true
+    },
+    {
+      "name": "admin: assigned role opens shared dashboard",
+      "passed": true
+    },
+    {
+      "name": "property: no role shows qualification",
+      "passed": true
+    },
+    {
+      "name": "property: assigned role opens shared dashboard",
+      "passed": true
+    },
+    {
+      "name": "missing identity cannot navigate",
+      "passed": true
+    },
+    {
+      "name": "unknown workspace cannot navigate",
+      "passed": true
+    }
+  ]
+}

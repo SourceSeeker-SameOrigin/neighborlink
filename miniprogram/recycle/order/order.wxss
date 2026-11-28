@@ -1,1 +1,1 @@
-.choices{display:flex;flex-wrap:wrap;gap:16rpx;margin:24rpx 0}.choices button{margin:0;font-size:28rpx}.choices .selected{background:#1f7a5c;color:#fff}
+.choices{display:flex;flex-wrap:wrap;gap:16rpx;margin:24rpx 0}.choices .ui-button{margin:0;font-size:32rpx}.choices .selected{background:#1f7a5c;color:#fff}

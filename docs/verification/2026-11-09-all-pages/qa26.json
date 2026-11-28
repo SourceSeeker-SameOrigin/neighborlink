@@ -1,0 +1,51 @@
+{
+  "scope": "Isolated frontend handlers, not live role or business acceptance",
+  "total": 11,
+  "passed": 11,
+  "results": [
+    {
+      "name": "管理员默认本人小区，切换只改页面目标",
+      "status": "PASS"
+    },
+    {
+      "name": "创建传所选小区并保持免费一人参数，发布后仍保持所选小区",
+      "status": "PASS"
+    },
+    {
+      "name": "property只获取本区，不允许页面切换",
+      "status": "PASS"
+    },
+    {
+      "name": "merchant只获取本区，不允许页面切换",
+      "status": "PASS"
+    },
+    {
+      "name": "普通住户拒绝管理加载且不能创建",
+      "status": "PASS"
+    },
+    {
+      "name": "空小区列表不请求活动且不能创建",
+      "status": "PASS"
+    },
+    {
+      "name": "分页小区完整加载并匹配本人默认值",
+      "status": "PASS"
+    },
+    {
+      "name": "切换加载失败清旧记录、禁创建，重试仍是目标小区且保留草稿",
+      "status": "PASS"
+    },
+    {
+      "name": "忙碌或加载中不能切换 {\"busy\":true}",
+      "status": "PASS"
+    },
+    {
+      "name": "忙碌或加载中不能切换 {\"loading\":true}",
+      "status": "PASS"
+    },
+    {
+      "name": "迟到旧列表不覆盖新小区结果",
+      "status": "PASS"
+    }
+  ]
+}

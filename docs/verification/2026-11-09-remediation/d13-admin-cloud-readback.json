@@ -1,0 +1,18 @@
+{
+  "function": "admin",
+  "sourceCommit": "02a4470508d9384802c8b5d0261091a4e309a771",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "browserSelectedPackage": {
+    "bytes": 123815,
+    "sha256": "97ea1e31e9aa90b7168022d27438c4caf8f1f20bb7e547b4c3d630c70176972b",
+    "matched": true
+  },
+  "method": "official WeChat CLI download and SHA256 per source file",
+  "comparedFiles": 76,
+  "matches": 76,
+  "missingFiles": [],
+  "mismatchedFiles": [],
+  "sdkVersion": "4.0.2",
+  "cloudStatus": "normal",
+  "permissionsDeclarationChanged": false
+}

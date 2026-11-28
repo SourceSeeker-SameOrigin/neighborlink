@@ -1,19 +1,60 @@
 <view class="page">
-  <view class="page-title">数据导出</view>
-  <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view>
-  <view wx:if="{{loading}}" class="card">正在加载…</view>
-  <block wx:if="{{!loading}}">
-    <picker range="{{types}}" range-key="name" value="{{typeIndex}}" data-field="typeIndex" bindchange="select"><view class="picker">导出类型：{{types[typeIndex].name}}</view></picker>
-    <picker wx:if="{{typeIndex !== 1}}" range="{{communities}}" range-key="name" value="{{communityIndex}}" data-field="communityIndex" bindchange="select"><view class="picker">小区：{{communities[communityIndex].name || '选择小区'}}</view></picker>
-    <picker wx:if="{{typeIndex === 0}}" range="{{payees}}" value="{{payeeIndex}}" data-field="payeeIndex" bindchange="select"><view class="picker">收款对象：{{payees[payeeIndex]}}</view></picker>
-    <picker wx:if="{{typeIndex === 0 && payeeIndex === 0}}" range="{{providers}}" range-key="realName" value="{{providerIndex}}" data-field="providerIndex" bindchange="select"><view class="picker">服务员：{{providers[providerIndex].realName || '选择服务员'}}</view></picker>
-    <picker wx:if="{{typeIndex === 0 && payeeIndex === 2}}" range="{{merchants}}" range-key="name" value="{{merchantIndex}}" data-field="merchantIndex" bindchange="select"><view class="picker">商家：{{merchants[merchantIndex].name || '选择商家'}}</view></picker>
-    <input wx:if="{{typeIndex === 0 && payeeIndex === 3}}" value="{{sellerOpenid}}" data-field="sellerOpenid" bindinput="input" placeholder="卖家 OpenID（留空导出全部）"/>
-    <picker wx:if="{{typeIndex === 3}}" range="{{community.stations}}" range-key="name" value="{{stationIndex}}" data-field="stationIndex" bindchange="select"><view class="picker">驿站：{{community.stations[stationIndex].name || '选择驿站'}}</view></picker>
-    <picker mode="date" value="{{from}}" data-field="from" bindchange="select"><view class="picker">开始日期：{{from}}</view></picker>
-    <picker mode="date" value="{{to}}" data-field="to" bindchange="select"><view class="picker">结束日期：{{to}}</view></picker>
-    <view wx:if="{{typeIndex === 1}}" class="muted">政府补贴导出仅包含已批准业务字段，不含门牌、姓名、手机号、备注、用户标识或照片。</view>
-    <button type="primary" bindtap="exportData" disabled="{{busy}}" loading="{{busy}}">生成并打开 CSV</button>
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/admin.png"/><view class="masthead-copy"><view class="page-title">数据导出</view><view class="masthead-subtitle">社区运营 · 按权限管理</view></view></view>
+  <view wx:if="{{error}}" class="error">
+    <view>{{error}}</view>
+    <button wx:if="{{errorKind === 'load'}}" disabled="{{loading || communityLoading || busy}}" bindtap="load">重新加载</button>
+    <view wx:elif="{{errorKind === 'export'}}" class="error-help">可检查条件后，点击下方“生成并打开 CSV”重试。</view>
+  </view>
+  <view wx:if="{{loading || communityLoading}}" class="card">正在加载…</view>
+  <block wx:if="{{ready && !loading}}">
+    <view class="card">
+      <view class="section-title">导出内容</view>
+      <view class="field">
+        <view class="label">导出类型</view>
+        <picker disabled="{{busy}}" range="{{types}}" range-key="name" value="{{typeIndex}}" data-field="typeIndex" bindchange="select"><view class="picker export-picker"><text class="export-value">{{types[typeIndex].name}}</text><text class="export-arrow">›</text></view></picker>
+      </view>
+    </view>
+    <view wx:if="{{typeIndex !== 1}}" class="card">
+      <view class="section-title">导出范围</view>
+      <view class="field">
+        <view class="label">小区</view>
+        <picker disabled="{{busy}}" range="{{communities}}" range-key="name" value="{{communityIndex}}" data-field="communityIndex" bindchange="select"><view class="picker export-picker"><text class="export-value">{{communities[communityIndex].name || '选择小区'}}</text><text class="export-arrow">›</text></view></picker>
+      </view>
+      <view wx:if="{{typeIndex === 0}}" class="field">
+        <view class="label">收款对象</view>
+        <picker disabled="{{busy}}" range="{{payees}}" value="{{payeeIndex}}" data-field="payeeIndex" bindchange="select"><view class="picker export-picker"><text class="export-value">{{payees[payeeIndex]}}</text><text class="export-arrow">›</text></view></picker>
+      </view>
+      <view wx:if="{{typeIndex === 0 && payeeIndex === 0}}" class="field">
+        <view class="label">服务员</view>
+        <picker disabled="{{busy || !providers.length}}" range="{{providers}}" range-key="realName" value="{{providerIndex}}" data-field="providerIndex" bindchange="select"><view class="picker export-picker"><text class="export-value">{{providers.length ? (providers[providerIndex].realName || '选择服务员') : '暂无已审核服务员'}}</text><text class="export-arrow">›</text></view></picker>
+      </view>
+      <view wx:if="{{typeIndex === 0 && payeeIndex === 2}}" class="field">
+        <view class="label">商家</view>
+        <picker disabled="{{busy || !merchants.length}}" range="{{merchants}}" range-key="name" value="{{merchantIndex}}" data-field="merchantIndex" bindchange="select"><view class="picker export-picker"><text class="export-value">{{merchants.length ? (merchants[merchantIndex].name || '选择商家') : '暂无已审核商家'}}</text><text class="export-arrow">›</text></view></picker>
+      </view>
+      <view wx:if="{{typeIndex === 0 && payeeIndex === 3}}" class="field">
+        <view class="label">卖家编号（OpenID，选填）</view>
+        <input disabled="{{busy}}" value="{{sellerOpenid}}" data-field="sellerOpenid" bindinput="input" placeholder="填写卖家编号"/>
+        <view class="muted field-help">留空导出所选小区、日期范围内的全部卖家账目。</view>
+      </view>
+      <view wx:if="{{typeIndex === 3}}" class="field">
+        <view class="label">驿站</view>
+        <picker disabled="{{busy}}" range="{{community.stations}}" range-key="name" value="{{stationIndex}}" data-field="stationIndex" bindchange="select"><view class="picker export-picker"><text class="export-value">{{community.stations[stationIndex].name || '选择驿站'}}</text><text class="export-arrow">›</text></view></picker>
+      </view>
+    </view>
+    <view class="card">
+      <view class="section-title">导出日期</view>
+      <view class="field">
+        <view class="label">开始日期</view>
+        <picker disabled="{{busy}}" mode="date" value="{{from}}" data-field="from" bindchange="select"><view class="picker export-picker"><text class="export-value">{{from}}</text><text class="export-arrow">›</text></view></picker>
+      </view>
+      <view class="field">
+        <view class="label">结束日期</view>
+        <picker disabled="{{busy}}" mode="date" value="{{to}}" data-field="to" bindchange="select"><view class="picker export-picker"><text class="export-value">{{to}}</text><text class="export-arrow">›</text></view></picker>
+      </view>
+    </view>
+    <view wx:if="{{typeIndex === 1}}" class="card export-note"><view class="label">导出说明</view><view class="muted">政府补贴导出仅包含已批准业务字段，不含门牌、姓名、手机号、备注、用户标识或照片。</view></view>
+    <button class="export-submit" type="primary" bindtap="exportData" disabled="{{busy || loading || !ready}}" loading="{{busy}}">生成并打开 CSV</button>
   </block>
 </view>
 <privacy-popup/>

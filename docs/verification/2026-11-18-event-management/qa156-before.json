@@ -1,0 +1,15 @@
+{
+  "case": "QA156",
+  "pages": ["idle/sales/sales", "idle/sale/sale"],
+  "method": "Actual page JavaScript in isolated Node VMs with synthetic residents, orders and intercepted API and media upload calls",
+  "observed": {
+    "sellerListAfterDeniedRead": 1,
+    "deliveryOrderAfterDeniedRead": "A's order still visible under B",
+    "staleAcceptCallsUnderB": 1,
+    "photoUploadAfterIdentityChange": "B invoked upload with the stale order ID"
+  },
+  "cloudCalls": 0,
+  "realTransactions": 0,
+  "limits": "The service may independently reject stale requests; online incidence and real-device behavior are unknown",
+  "status": "Reproduced in isolation; remediation awaits user decision"
+}

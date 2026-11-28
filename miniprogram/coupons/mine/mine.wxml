@@ -1,1 +1,42 @@
-<view class="page"><view class="page-title">我的优惠券</view><view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view><view wx:for="{{list}}" wx:key="_id" class="card"><view class="section-title">{{item.name}} · {{item.discountText}}</view><view>{{item.thresholdText}}</view><view>有效期至 {{item.validText}}</view><view class="muted">{{item.statusText}}</view></view><view wx:if="{{loading}}">正在加载…</view><view wx:elif="{{!list.length && !error}}">还没有优惠券，去优惠券中心看看吧。</view><navigator class="card" url="/coupons/center/center">优惠券中心 ›</navigator></view>
+<view class="page">
+  <view class="page-masthead">
+    <image class="masthead-icon" src="/assets/icons/coupon.png"/>
+    <view class="masthead-copy">
+      <view class="page-title">我的优惠券</view>
+      <view class="masthead-subtitle">查看可用优惠与使用条件</view>
+    </view>
+  </view>
+  <view class="coupon-loading" wx:if="{{loading}}">正在加载…</view>
+  <block wx:else>
+    <view wx:if="{{error}}" class="error">{{error}}
+      <button bindtap="load">重试</button>
+    </view>
+    <block wx:else>
+      <block wx:if="{{list.length > 0}}">
+        <view wx:for="{{list}}" wx:key="_id" class="card coupon-item">
+          <view class="section-title">{{item.name}} · {{item.discountText}}</view>
+          <view>{{item.thresholdText}}</view>
+          <view>有效期至 {{item.validText}}</view>
+          <view class="muted">{{item.statusText}}</view>
+        </view>
+      </block>
+      <view class="coupon-empty" wx:else>还没有优惠券，去优惠券中心看看吧。</view>
+      <view wx:if="{{hasMore}}">
+        <view wx:if="{{moreError}}" class="error">{{moreError}}</view>
+        <button class="secondary" bindtap="loadMore" disabled="{{loadingMore}}" loading="{{loadingMore}}">{{moreError ? '重试加载更多' : '加载更多'}}</button>
+      </view>
+    </block>
+  </block>
+  <navigator class="card menu-row" url="/coupons/center/center">
+    <image class="menu-icon" src="/assets/icons/coupon.png"/>
+    <text class="menu-copy">优惠券中心</text>
+    <text class="chevron">›</text>
+  </navigator>
+  <view wx:if="{{canRetry}}" class="card">
+    <view class="section-title">新人赠券</view>
+    <view class="muted">若绑定门牌时赠券未完成，可在这里重试。可领范围以小区活动规则为准。</view>
+    <view wx:if="{{retryError}}" class="error">{{retryError}}</view>
+    <view wx:if="{{retryMessage}}" class="notice">{{retryMessage}}</view>
+    <button class="secondary" loading="{{retrying}}" disabled="{{retrying}}" bindtap="retryWelcome">重试领取新人赠券</button>
+  </view>
+</view>

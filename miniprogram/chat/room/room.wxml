@@ -1,17 +1,19 @@
-<view class="page room">
-  <view wx:if="{{error}}" class="error">{{error}}<button wx:if="{{!conversationId}}" bindtap="start">重试</button></view>
-  <scroll-view class="messages" scroll-y scroll-into-view="{{scrollTarget}}">
+<view class="page room"><view class="page-masthead"><image class="masthead-icon" src="/assets/icons/chat.png"/><view class="masthead-copy"><view class="page-title">聊天</view><view class="masthead-subtitle">邻里沟通，及时联系</view></view></view>
+  <view wx:if="{{error}}" class="error">{{error}}<button class="ui-button" wx:if="{{loadError}}" disabled="{{loading}}" bindtap="start">重试</button></view>
+  <scroll-view class="messages" scroll-y scroll-into-view="{{scrollTarget}}" bindscrolltoupper="loadOlder">
+    <view wx:if="{{olderError}}" class="error">{{olderError}}</view>
+    <button wx:if="{{hasOlder}}" class="ui-button" loading="{{olderLoading}}" disabled="{{olderLoading}}" bindtap="loadOlder">{{olderError ? '重试加载较早消息' : '加载较早消息'}}</button>
     <view wx:for="{{messages}}" wx:key="_id" id="message-{{item._id}}" class="message-row {{item.mine ? 'mine' : ''}}">
       <view class="bubble">
         <text wx:if="{{item.type === 'text'}}">{{item.content}}</text>
-        <image wx:elif="{{item.fileId}}" class="message-image" src="{{item.fileId}}" mode="widthFix"/>
+        <private-media wx:elif="{{item.fileId}}" media-class="message-image" src="{{item.fileId}}" mode="widthFix"/>
         <text wx:elif="{{item.status === 'pending'}}">图片审核中</text>
         <text wx:elif="{{item.status === 'blocked'}}">{{item.content}}</text>
-        <view class="time">{{item.timeText}}</view>
+        <view class="time">{{item.timeText}}</view><button wx:if="{{!item.mine}}" class="report-button" size="mini" data-id="{{item._id}}" bindtap="reportContent">举报此消息</button>
       </view>
     </view>
     <view wx:if="{{loading}}" class="muted">正在加载消息…</view>
     <view wx:if="{{readOnly}}" class="muted notice">会话已关闭，只能查看历史消息</view>
   </scroll-view>
-  <view wx:if="{{!readOnly}}" class="composer"><textarea value="{{content}}" maxlength="500" auto-height placeholder="最多 500 字" bindinput="input"/><button bindtap="image" disabled="{{sending}}">图片</button><button type="primary" bindtap="send" loading="{{sending}}" disabled="{{sending}}">发送</button></view>
+  <view wx:if="{{ready && !readOnly}}" class="composer"><textarea class="ui-textarea" value="{{content}}" maxlength="500" auto-height placeholder="最多 500 字" bindinput="input"/><button class="ui-button" bindtap="image" disabled="{{loading || sending}}">图片</button><button class="ui-button" type="primary" bindtap="send" loading="{{sending}}" disabled="{{loading || sending}}">发送</button></view>
 </view>

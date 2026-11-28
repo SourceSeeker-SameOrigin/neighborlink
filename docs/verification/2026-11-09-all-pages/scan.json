@@ -1,0 +1,4292 @@
+{
+  "scope": "Isolated VM lifecycle and static references only; API always throws; no real cloud/visual/success-flow acceptance",
+  "pageCount": 69,
+  "scenarioCount": 207,
+  "structure": [
+    {
+      "route": "pages/index/index",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "openNotices",
+        "openAd",
+        "recordAd",
+        "introduce",
+        "callHotline"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pages/bind/bind",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "communityChange",
+        "buildingChange",
+        "unitChange",
+        "roomChange",
+        "toggleContact",
+        "contactNameChange",
+        "contactPhoneChange",
+        "manualPhoneChange",
+        "agreementChange",
+        "save",
+        "backHome"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pages/service/express",
+      "filesComplete": true,
+      "handlers": [
+        "openCreatedOrder",
+        "load",
+        "addressChange",
+        "address",
+        "selectPlace",
+        "change",
+        "slotChange",
+        "couponChange",
+        "pointsChange",
+        "retryQuote",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pages/service/trash",
+      "filesComplete": true,
+      "handlers": [
+        "openCreatedOrder",
+        "load",
+        "addressChange",
+        "address",
+        "change",
+        "slotChange",
+        "couponChange",
+        "pointsChange",
+        "retryQuote",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pages/service/buy",
+      "filesComplete": true,
+      "handlers": [
+        "openCreatedOrder",
+        "load",
+        "addressChange",
+        "address",
+        "change",
+        "slotChange",
+        "couponChange",
+        "pointsChange",
+        "retryQuote",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pages/service/help",
+      "filesComplete": true,
+      "handlers": [
+        "openCreatedOrder",
+        "load",
+        "addressChange",
+        "address",
+        "change",
+        "slotChange",
+        "couponChange",
+        "pointsChange",
+        "retryQuote",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pages/orders/list",
+      "filesComplete": true,
+      "handlers": [
+        "groupChange",
+        "retry"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pages/orders/detail",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "openChat",
+        "subscribeVisitReport",
+        "subscribeVacantReport",
+        "previewVacant",
+        "openPetReports",
+        "callProvider",
+        "preview",
+        "pay",
+        "cancel",
+        "serviceAction",
+        "form"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pages/membership/index",
+      "filesComplete": true,
+      "handlers": [
+        "openCreatedOrder",
+        "load",
+        "retryPending",
+        "addressChange",
+        "slot",
+        "entry",
+        "entryPassword",
+        "buy",
+        "skip"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pages/me/me",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "callHotline",
+        "doorDeliveryChange",
+        "openWorkspace",
+        "retryApplication"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pages/legal/privacy",
+      "filesComplete": true,
+      "handlers": [],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pages/legal/terms",
+      "filesComplete": true,
+      "handlers": [],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "provider/apply/apply",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "change",
+        "photo",
+        "agree",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "provider/workbench/workbench",
+      "filesComplete": true,
+      "handlers": [
+        "retry",
+        "duty",
+        "subscribeMore",
+        "saveReferralPoster",
+        "task",
+        "more"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "provider/hall/hall",
+      "filesComplete": true,
+      "handlers": [
+        "retry",
+        "accept",
+        "more"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "provider/task/task",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "callResident",
+        "openChat",
+        "openPetTasks",
+        "revealEntry",
+        "closeSecret",
+        "weight",
+        "act",
+        "photo",
+        "goods",
+        "checklist",
+        "removeVacantPhoto",
+        "vacantPhoto",
+        "vacantNotes",
+        "vacantAttention",
+        "visitCheck",
+        "visitNotes",
+        "visitAttention",
+        "submitVacantReport"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "provider/earnings/earnings",
+      "filesComplete": true,
+      "handlers": [
+        "retry",
+        "createPayout",
+        "morePayouts"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/dashboard/dashboard",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "chooseCommunity",
+        "chooseScope",
+        "chooseDate"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/orders/orders",
+      "filesComplete": true,
+      "handlers": [
+        "filter",
+        "retry",
+        "open"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/order/order",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "preview",
+        "openChat",
+        "retryRefund",
+        "provider",
+        "assign",
+        "cancel",
+        "resolutionField",
+        "liable",
+        "resolve",
+        "voidCard"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/providers/providers",
+      "filesComplete": true,
+      "handlers": [
+        "filter",
+        "retry",
+        "preview",
+        "note",
+        "certs",
+        "review",
+        "cleanup",
+        "insurance",
+        "suspend"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/community/community",
+      "filesComplete": true,
+      "handlers": [
+        "retrySavedRefresh",
+        "load",
+        "chooseCommunity",
+        "input",
+        "chooseLocation",
+        "checkOriginalBuilding",
+        "editBuilding",
+        "newBuilding",
+        "addBuilding",
+        "rowInput",
+        "removeRow",
+        "addRow",
+        "chooseHelpMode",
+        "togglePetCert",
+        "choosePlan",
+        "saveCommunity",
+        "saveGlobal"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/posters/posters",
+      "filesComplete": true,
+      "handlers": [
+        "retry",
+        "changeCommunity",
+        "generate",
+        "providerChange",
+        "preview",
+        "save"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/settlements/settlements",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "select",
+        "input",
+        "preview",
+        "create",
+        "markPaid",
+        "loadMoreHistory"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/features/features",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "scope",
+        "choose",
+        "toggle"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/reports/reports",
+      "filesComplete": true,
+      "handlers": [
+        "chooseStatus",
+        "retry",
+        "openChat",
+        "resolve",
+        "moderate"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/chat/chat",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "preview",
+        "loadMore"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/coupons/coupons",
+      "filesComplete": true,
+      "handlers": [
+        "startNewTemplate",
+        "field",
+        "chooseKind",
+        "chooseMode",
+        "save",
+        "reset",
+        "edit",
+        "toggleStatus",
+        "startNewIssue",
+        "templatePick",
+        "issue"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/content/content",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "chooseCommunity",
+        "startNewCreate",
+        "input",
+        "chooseImage",
+        "togglePinned",
+        "saveNotice",
+        "endNotice",
+        "moreNotices",
+        "loadAds",
+        "adSlotChange",
+        "adTargetTypeChange",
+        "adPathChange",
+        "adStatusChange",
+        "saveAd",
+        "confirmAdReceived",
+        "endAd",
+        "moreAds"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/merchants/merchants",
+      "filesComplete": true,
+      "handlers": [
+        "filter",
+        "retry",
+        "inspect",
+        "loadMore",
+        "retryServices",
+        "serviceStatus",
+        "loadMoreServices",
+        "review"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/recycle/recycle",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "select",
+        "input",
+        "openExports"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/exports/exports",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "select",
+        "input",
+        "exportData"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "admin/stations/stations",
+      "filesComplete": true,
+      "handlers": [
+        "retry",
+        "review"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "chat/list/list",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "open",
+        "loadMore"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "chat/room/room",
+      "filesComplete": true,
+      "handlers": [
+        "start",
+        "loadOlder",
+        "reportContent",
+        "input",
+        "image",
+        "send"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "coupons/center/center",
+      "filesComplete": true,
+      "handlers": [
+        "claim",
+        "load"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "coupons/mine/mine",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "loadMore",
+        "retryWelcome"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "board/list/list",
+      "filesComplete": true,
+      "handlers": [
+        "bindAddress",
+        "chooseType",
+        "chooseScope",
+        "retryAds",
+        "openAd",
+        "recordAd",
+        "retry",
+        "open",
+        "create",
+        "more"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "board/detail/detail",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "preview",
+        "continuePayment",
+        "close",
+        "report",
+        "reportComment",
+        "moreComments",
+        "retryOriginalComment",
+        "startNewComment",
+        "input",
+        "comment"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "board/create/create",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "openCreated",
+        "startNewRequest",
+        "field",
+        "scope",
+        "choose",
+        "toggleEnterHome",
+        "agree",
+        "photos",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "idle/list/list",
+      "filesComplete": true,
+      "handlers": [
+        "bindAddress",
+        "scope",
+        "retry",
+        "open",
+        "more",
+        "create",
+        "mine"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "idle/detail/detail",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "openOriginal",
+        "buy",
+        "startNewPurchase",
+        "preview",
+        "edit",
+        "markSold",
+        "sales",
+        "remove",
+        "contact",
+        "want",
+        "carry",
+        "report"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "idle/create/create",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "openCreated",
+        "startNewRequest",
+        "field",
+        "condition",
+        "switch",
+        "tradeMode",
+        "scope",
+        "photos",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "idle/mine/mine",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "open",
+        "more",
+        "sales",
+        "income",
+        "create"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "idle/sales/sales",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "open",
+        "more"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "idle/sale/sale",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "accept",
+        "preview",
+        "photos",
+        "note",
+        "deliver"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "idle/income/income",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "withdraw",
+        "morePayouts"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "events/list/list",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "open"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "events/detail/detail",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "signup",
+        "cancelSignup",
+        "reportContent"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "events/manage/manage",
+      "filesComplete": true,
+      "handlers": [
+        "chooseCommunity",
+        "load",
+        "createActivity",
+        "newActivity",
+        "input",
+        "typeChange",
+        "scan",
+        "publish",
+        "showSignups",
+        "checkin",
+        "cancel",
+        "retryCancellation",
+        "loadMoreEvents",
+        "retrySignups",
+        "loadMoreSignups"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pet/order",
+      "filesComplete": true,
+      "handlers": [
+        "openCreatedOrder",
+        "load",
+        "addressChange",
+        "addPetDate",
+        "removePetDate",
+        "change",
+        "slotChange",
+        "retryQuote",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pet/work",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "reveal",
+        "done",
+        "missed",
+        "closeSecret"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "pet/reports",
+      "filesComplete": true,
+      "handlers": [
+        "load"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "merchant/apply/apply",
+      "filesComplete": true,
+      "handlers": [
+        "input",
+        "chooseCategory",
+        "upload",
+        "load",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "merchant/workbench/workbench",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "orders",
+        "services",
+        "apply"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "merchant/services/services",
+      "filesComplete": true,
+      "handlers": [
+        "startNewService",
+        "input",
+        "chooseType",
+        "photos",
+        "save",
+        "retry",
+        "more"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "merchant/orders/orders",
+      "filesComplete": true,
+      "handlers": [
+        "retry",
+        "chooseQuote",
+        "input",
+        "quote",
+        "transition",
+        "complete",
+        "more"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "shops/list/list",
+      "filesComplete": true,
+      "handlers": [
+        "retryAds",
+        "openAd",
+        "recordAd",
+        "load",
+        "open",
+        "more"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "shops/detail/detail",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "book",
+        "more",
+        "reportContent"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "shops/booking/booking",
+      "filesComplete": true,
+      "handlers": [
+        "address",
+        "input",
+        "load",
+        "startNewBooking",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "station/apply/apply",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "chooseCommunity",
+        "chooseStation",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "station/workbench/workbench",
+      "filesComplete": true,
+      "handlers": [
+        "monthChange",
+        "exportStatement",
+        "retry"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "station/create/create",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "change",
+        "create",
+        "nextBatch"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "station/worker/worker",
+      "filesComplete": true,
+      "handlers": [
+        "retry",
+        "accept",
+        "more"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "station/batch/batch",
+      "filesComplete": true,
+      "handlers": [
+        "load",
+        "start",
+        "delivered",
+        "failed"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "elder/meal",
+      "filesComplete": true,
+      "handlers": [
+        "openCreatedOrder",
+        "load",
+        "addressChange",
+        "selectPlace",
+        "change",
+        "slotChange",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "elder/escort",
+      "filesComplete": true,
+      "handlers": [
+        "openCreatedOrder",
+        "load",
+        "addressChange",
+        "change",
+        "retryQuote",
+        "submit"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "recycle/order/order",
+      "filesComplete": true,
+      "handlers": [
+        "openCreatedOrder",
+        "category",
+        "note",
+        "selectSlot",
+        "load",
+        "startNewRequest",
+        "create"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    },
+    {
+      "route": "notices/list/list",
+      "filesComplete": true,
+      "handlers": [
+        "loadMore",
+        "load"
+      ],
+      "missingHandlers": [],
+      "missingRoutes": [],
+      "missingAssets": [],
+      "missingComponents": []
+    }
+  ],
+  "results": [
+    {
+      "route": "pages/index/index",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/index/index",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/index/index",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/bind/bind",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/bind/bind",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/bind/bind",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/express",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/express",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/express",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": [
+        [
+          "redirectTo",
+          "/pages/bind/bind"
+        ]
+      ]
+    },
+    {
+      "route": "pages/service/trash",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/trash",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/trash",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": [
+        [
+          "redirectTo",
+          "/pages/bind/bind"
+        ]
+      ]
+    },
+    {
+      "route": "pages/service/buy",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/buy",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/buy",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": [
+        [
+          "redirectTo",
+          "/pages/bind/bind"
+        ]
+      ]
+    },
+    {
+      "route": "pages/service/help",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/help",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/help",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": [
+        [
+          "redirectTo",
+          "/pages/bind/bind"
+        ]
+      ]
+    },
+    {
+      "route": "pages/orders/list",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "order",
+          "action": "listMine"
+        },
+        {
+          "name": "chat",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/orders/list",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "order",
+          "action": "listMine"
+        },
+        {
+          "name": "chat",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/orders/list",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "order",
+          "action": "listMine"
+        },
+        {
+          "name": "chat",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/orders/detail",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/orders/detail",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/orders/detail",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/membership/index",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "membership",
+          "action": "plans"
+        },
+        {
+          "name": "membership",
+          "action": "mine"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/membership/index",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "membership",
+          "action": "plans"
+        },
+        {
+          "name": "membership",
+          "action": "mine"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/membership/index",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": [
+        [
+          "redirectTo",
+          "/pages/bind/bind"
+        ]
+      ]
+    },
+    {
+      "route": "pages/me/me",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "list"
+        }
+      ],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/me/me",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "list"
+        }
+      ],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/me/me",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "list"
+        }
+      ],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/legal/privacy",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/legal/privacy",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/legal/privacy",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/legal/terms",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/legal/terms",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pages/legal/terms",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/apply/apply",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败",
+        "errorKind": "load"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/apply/apply",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放",
+        "errorKind": "load"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/apply/apply",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败",
+        "errorKind": "load"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/workbench/workbench",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "myStatus"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/workbench/workbench",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "myStatus"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/workbench/workbench",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "myStatus"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/hall/hall",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "hall"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/hall/hall",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "hall"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/hall/hall",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "hall"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/task/task",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/task/task",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/task/task",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/earnings/earnings",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "earnings"
+        },
+        {
+          "name": "payout",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/earnings/earnings",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "earnings"
+        },
+        {
+          "name": "payout",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "provider/earnings/earnings",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "earnings"
+        },
+        {
+          "name": "payout",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/dashboard/dashboard",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/dashboard/dashboard",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/dashboard/dashboard",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/orders/orders",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "listOrders"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/orders/orders",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "listOrders"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/orders/orders",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "listOrders"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/order/order",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/order/order",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/order/order",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/providers/providers",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "listProviders"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/providers/providers",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "listProviders"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/providers/providers",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "listProviders"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/community/community",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "managementConfig"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/community/community",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "managementConfig"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/community/community",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "managementConfig"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/posters/posters",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/posters/posters",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/posters/posters",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/settlements/settlements",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "admin",
+          "action": "listSettlements"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "admin",
+          "action": "listSettlements"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/settlements/settlements",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "admin",
+          "action": "listSettlements"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "admin",
+          "action": "listSettlements"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/settlements/settlements",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "admin",
+          "action": "listSettlements"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "admin",
+          "action": "listSettlements"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/features/features",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/features/features",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/features/features",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/reports/reports",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "content",
+          "action": "listReports"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/reports/reports",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "content",
+          "action": "listReports"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/reports/reports",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "content",
+          "action": "listReports"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/chat/chat",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "adminPull"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/chat/chat",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "adminPull"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/chat/chat",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "adminPull"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/coupons/coupons",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "adminTemplates"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/coupons/coupons",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "adminTemplates"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/coupons/coupons",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "adminTemplates"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/content/content",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "content",
+          "action": "listAds"
+        }
+      ],
+      "errors": {
+        "noticeError": "合成网络失败",
+        "adError": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/content/content",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "content",
+          "action": "listAds"
+        }
+      ],
+      "errors": {
+        "noticeError": "此功能暂未开放",
+        "adError": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/content/content",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "content",
+          "action": "listAds"
+        }
+      ],
+      "errors": {
+        "noticeError": "合成网络失败",
+        "adError": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/merchants/merchants",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/merchants/merchants",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/merchants/merchants",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/recycle/recycle",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/recycle/recycle",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/recycle/recycle",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/exports/exports",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败",
+        "errorKind": "load"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/exports/exports",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放",
+        "errorKind": "load"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/exports/exports",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败",
+        "errorKind": "load"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/stations/stations",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "station",
+          "action": "listApplications"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/stations/stations",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "station",
+          "action": "listApplications"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "admin/stations/stations",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "station",
+          "action": "listApplications"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "chat/list/list",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "chat/list/list",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "chat/list/list",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "chat/room/room",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {
+        "error": "聊天会话不存在"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "chat/room/room",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {
+        "error": "聊天会话不存在"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "chat/room/room",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {
+        "error": "聊天会话不存在"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "coupons/center/center",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "center"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "coupons/center/center",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "center"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "coupons/center/center",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "center"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "coupons/mine/mine",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "mine"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "coupons/mine/mine",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "mine"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "coupons/mine/mine",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "mine"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "board/list/list",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "board/list/list",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "board/list/list",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "board/detail/detail",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "board/detail/detail",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "board/detail/detail",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "board/create/create",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "board/create/create",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "board/create/create",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/list/list",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/list/list",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/list/list",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/detail/detail",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/detail/detail",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/detail/detail",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/create/create",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/create/create",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/create/create",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/mine/mine",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "mine"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/mine/mine",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "mine"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/mine/mine",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "mine"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/sales/sales",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "sales"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/sales/sales",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "sales"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/sales/sales",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "sales"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/sale/sale",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/sale/sale",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/sale/sale",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/income/income",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "earnings"
+        },
+        {
+          "name": "payout",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/income/income",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "earnings"
+        },
+        {
+          "name": "payout",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "idle/income/income",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "earnings"
+        },
+        {
+          "name": "payout",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "events/list/list",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "event",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "events/list/list",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "event",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "events/list/list",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "event",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "events/detail/detail",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "events/detail/detail",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "events/detail/detail",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "events/manage/manage",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "events/manage/manage",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "events/manage/manage",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pet/order",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pet/order",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pet/order",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": [
+        [
+          "redirectTo",
+          "/pages/bind/bind"
+        ]
+      ]
+    },
+    {
+      "route": "pet/work",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pet/work",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pet/work",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pet/reports",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pet/reports",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "pet/reports",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/apply/apply",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myApplication"
+        },
+        {
+          "name": "merchant",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/apply/apply",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myApplication"
+        },
+        {
+          "name": "merchant",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/apply/apply",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myApplication"
+        },
+        {
+          "name": "merchant",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/workbench/workbench",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/workbench/workbench",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/workbench/workbench",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/services/services",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myServices"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/services/services",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myServices"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/services/services",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myServices"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/orders/orders",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "merchantOrders"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/orders/orders",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "merchantOrders"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "merchant/orders/orders",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "merchantOrders"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "shops/list/list",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "content",
+          "action": "adsForSlot"
+        },
+        {
+          "name": "merchant",
+          "action": "listForCommunity"
+        }
+      ],
+      "errors": {
+        "adError": "推荐内容加载失败，可重试",
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "shops/list/list",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "content",
+          "action": "adsForSlot"
+        },
+        {
+          "name": "merchant",
+          "action": "listForCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "shops/list/list",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "listForCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "shops/detail/detail",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "shops/detail/detail",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "shops/detail/detail",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "shops/booking/booking",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "shops/booking/booking",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "shops/booking/booking",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/apply/apply",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "station",
+          "action": "applicationOptions"
+        },
+        {
+          "name": "station",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/apply/apply",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "station",
+          "action": "applicationOptions"
+        },
+        {
+          "name": "station",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/apply/apply",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "station",
+          "action": "applicationOptions"
+        },
+        {
+          "name": "station",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/workbench/workbench",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "station",
+          "action": "listMyBatches"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/workbench/workbench",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "station",
+          "action": "listMyBatches"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/workbench/workbench",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "station",
+          "action": "listMyBatches"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/create/create",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {
+        "error": "请先核对驿站账号和小区绑定"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/create/create",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {
+        "error": "请先核对驿站账号和小区绑定"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/create/create",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {
+        "error": "请先核对驿站账号和小区绑定"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/worker/worker",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "station",
+          "action": "providerHall"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/worker/worker",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "station",
+          "action": "providerHall"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/worker/worker",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "station",
+          "action": "providerHall"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/batch/batch",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/batch/batch",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "station/batch/batch",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "elder/meal",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "elder/meal",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "elder/meal",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": [
+        [
+          "redirectTo",
+          "/pages/bind/bind"
+        ]
+      ]
+    },
+    {
+      "route": "elder/escort",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "elder/escort",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "elder/escort",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": [
+        [
+          "redirectTo",
+          "/pages/bind/bind"
+        ]
+      ]
+    },
+    {
+      "route": "recycle/order/order",
+      "scenario": "network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "recycle/order/order",
+      "scenario": "feature_off",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "recycle/order/order",
+      "scenario": "unbound_network_failure",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "notices/list/list",
+      "scenario": "network_failure",
+      "calls": [
+        {
+          "name": "content",
+          "action": "listNotices"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "notices/list/list",
+      "scenario": "feature_off",
+      "calls": [
+        {
+          "name": "content",
+          "action": "listNotices"
+        }
+      ],
+      "errors": {
+        "error": "此功能暂未开放"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    },
+    {
+      "route": "notices/list/list",
+      "scenario": "unbound_network_failure",
+      "calls": [
+        {
+          "name": "content",
+          "action": "listNotices"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "navigation": []
+    }
+  ],
+  "unhandled": []
+}

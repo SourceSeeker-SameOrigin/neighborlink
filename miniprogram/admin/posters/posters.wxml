@@ -1,1 +1,34 @@
-<view class="page"><view class="page-title">海报码</view><view wx:if="{{loading}}">正在加载…</view><view wx:if="{{error}}" class="error">{{error}}</view><picker range="{{communities}}" range-key="name" value="{{communityIndex}}" bindchange="changeCommunity"><view class="picker">{{communities[communityIndex].name || '选择小区'}}</view></picker><view class="section-title">楼栋海报码</view><view class="card" wx:for="{{buildings}}" wx:key="_id"><view>{{item.name}}</view><view class="muted">二维码场景：b={{item.shortCode}}</view><button data-type="building" data-id="{{item._id}}" bindtap="generate" loading="{{busy}}">生成 / 更新小程序码</button></view><view class="section-title">服务员推荐码</view><picker range="{{providers}}" range-key="realName" value="{{providerIndex}}" bindchange="providerChange"><view class="picker">{{providers[providerIndex].realName || '选择服务员'}}</view></picker><button data-type="provider" bindtap="generate" loading="{{busy}}">生成推荐海报</button><view wx:if="{{poster}}" class="card"><image class="poster" src="{{poster.tempFileURL}}" mode="widthFix" bindtap="preview"/><view>场景：{{poster.scene}}</view><button type="primary" bindtap="save">保存到相册</button></view></view>
+<view class="page">
+  <view class="page-masthead">
+    <image class="masthead-icon" src="/assets/icons/admin.png"/>
+    <view class="masthead-copy"><view class="page-title">海报码</view><view class="masthead-subtitle">社区运营 · 按权限管理</view></view>
+  </view>
+  <view wx:if="{{loading}}">正在加载…</view>
+  <view wx:if="{{error}}" class="error">
+    {{error}}
+    <button wx:if="{{retryAction}}" class="ui-button" bindtap="retry" disabled="{{loading || communityLoading || busy}}">重新加载</button>
+  </view>
+  <block wx:if="{{ready}}">
+    <picker range="{{communities}}" range-key="name" value="{{communityIndex}}" bindchange="changeCommunity" disabled="{{loading}}">
+      <view class="picker">{{communities[communityIndex].name || '选择小区'}}</view>
+    </picker>
+    <view class="section-title">楼栋海报码</view>
+    <view wx:if="{{communityLoading}}" class="muted">正在读取所选小区楼栋…</view>
+    <view wx:elif="{{communityReady && !buildings.length}}" class="muted">当前小区尚未维护楼栋，请先到小区配置维护。</view>
+    <view wx:elif="{{!communities.length}}" class="muted">暂无可选小区，请先到小区配置维护。</view>
+    <view class="card" wx:for="{{buildings}}" wx:key="_id">
+      <view>{{item.name}}</view><view class="muted">二维码场景：b={{item.shortCode}}</view>
+      <button class="ui-button" data-type="building" data-id="{{item._id}}" bindtap="generate" loading="{{busy}}" disabled="{{loading || busy || !communityReady}}">生成 / 更新小程序码</button>
+    </view>
+    <view class="section-title">服务员推荐码</view>
+    <view wx:if="{{!providers.length}}" class="muted">暂无可用服务员，请先完成服务员审核。</view>
+    <picker range="{{providers}}" range-key="realName" value="{{providerIndex}}" bindchange="providerChange" disabled="{{loading || !providers.length}}">
+      <view class="picker">{{providers[providerIndex].realName || '选择服务员'}}</view>
+    </picker>
+    <button class="ui-button" data-type="provider" bindtap="generate" loading="{{busy}}" disabled="{{loading || busy || !providers[providerIndex]._id}}">生成推荐海报</button>
+    <view wx:if="{{poster}}" class="card">
+      <private-media media-class="poster" src="{{poster.tempFileURL}}" mode="widthFix" bindtap="preview"/>
+      <view>场景：{{poster.scene}}</view><button class="ui-button" type="primary" bindtap="save">保存到相册</button>
+    </view>
+  </block>
+</view>

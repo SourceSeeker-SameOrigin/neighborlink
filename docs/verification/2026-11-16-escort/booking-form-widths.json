@@ -1,0 +1,42 @@
+[
+  {
+    "width": 320,
+    "picker": true,
+    "textarea": true,
+    "button": true,
+    "stacked": true,
+    "secondAddress": true,
+    "draft": true,
+    "observedAt": "2026-11-17T03:10:41.231Z"
+  },
+  {
+    "width": 375,
+    "picker": true,
+    "textarea": true,
+    "button": true,
+    "stacked": true,
+    "secondAddress": true,
+    "draft": true,
+    "observedAt": "2026-11-17T03:11:01.663Z"
+  },
+  {
+    "width": 390,
+    "picker": true,
+    "textarea": true,
+    "button": true,
+    "stacked": true,
+    "secondAddress": true,
+    "draft": true,
+    "observedAt": "2026-11-17T03:10:15.382Z"
+  },
+  {
+    "width": 430,
+    "picker": true,
+    "textarea": true,
+    "button": true,
+    "stacked": true,
+    "secondAddress": true,
+    "draft": true,
+    "observedAt": "2026-11-17T03:11:24.592Z"
+  }
+]

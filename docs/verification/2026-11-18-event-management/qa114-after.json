@@ -1,0 +1,359 @@
+{
+  "scope": "actual task page and API client, synthetic responses only; no cloud writes",
+  "pass": 88,
+  "fail": 0,
+  "results": [
+    {
+      "name": "start-guard-ready",
+      "pass": true
+    },
+    {
+      "name": "start-guard-read-failed",
+      "pass": true
+    },
+    {
+      "name": "start-guard-changed-user",
+      "pass": true
+    },
+    {
+      "name": "start-guard-changed-order",
+      "pass": true
+    },
+    {
+      "name": "start-guard-hidden",
+      "pass": true
+    },
+    {
+      "name": "start-guard-unloaded",
+      "pass": true
+    },
+    {
+      "name": "start-guard-completed",
+      "pass": true
+    },
+    {
+      "name": "start-guard-disabled",
+      "pass": true
+    },
+    {
+      "name": "start-guard-loading",
+      "pass": true
+    },
+    {
+      "name": "start-sent-success-ready",
+      "pass": true
+    },
+    {
+      "name": "start-sent-success-changed-user",
+      "pass": true
+    },
+    {
+      "name": "start-sent-success-changed-order",
+      "pass": true
+    },
+    {
+      "name": "start-sent-success-hidden",
+      "pass": true
+    },
+    {
+      "name": "start-sent-success-unloaded",
+      "pass": true
+    },
+    {
+      "name": "start-sent-success-refreshed",
+      "pass": true
+    },
+    {
+      "name": "start-sent-success-returned",
+      "pass": true
+    },
+    {
+      "name": "start-sent-success-completed",
+      "pass": true
+    },
+    {
+      "name": "start-sent-success-disabled",
+      "pass": true
+    },
+    {
+      "name": "start-sent-failure-ready",
+      "pass": true
+    },
+    {
+      "name": "start-sent-failure-changed-user",
+      "pass": true
+    },
+    {
+      "name": "start-sent-failure-changed-order",
+      "pass": true
+    },
+    {
+      "name": "start-sent-failure-hidden",
+      "pass": true
+    },
+    {
+      "name": "start-sent-failure-unloaded",
+      "pass": true
+    },
+    {
+      "name": "start-sent-failure-refreshed",
+      "pass": true
+    },
+    {
+      "name": "start-sent-failure-returned",
+      "pass": true
+    },
+    {
+      "name": "start-sent-failure-completed",
+      "pass": true
+    },
+    {
+      "name": "start-sent-failure-disabled",
+      "pass": true
+    },
+    {
+      "name": "start-duplicate-and-new-operation-lock",
+      "pass": true
+    },
+    {
+      "name": "start-actual-api-forbidden-ready",
+      "pass": true
+    },
+    {
+      "name": "start-actual-api-forbidden-hidden",
+      "pass": true
+    },
+    {
+      "name": "start-actual-api-forbidden-changed-user",
+      "pass": true
+    },
+    {
+      "name": "deliver-guard-ready",
+      "pass": true
+    },
+    {
+      "name": "deliver-guard-read-failed",
+      "pass": true
+    },
+    {
+      "name": "deliver-guard-changed-user",
+      "pass": true
+    },
+    {
+      "name": "deliver-guard-changed-order",
+      "pass": true
+    },
+    {
+      "name": "deliver-guard-hidden",
+      "pass": true
+    },
+    {
+      "name": "deliver-guard-unloaded",
+      "pass": true
+    },
+    {
+      "name": "deliver-guard-completed",
+      "pass": true
+    },
+    {
+      "name": "deliver-guard-disabled",
+      "pass": true
+    },
+    {
+      "name": "deliver-guard-loading",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-success-ready",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-success-changed-user",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-success-changed-order",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-success-hidden",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-success-unloaded",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-success-refreshed",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-success-returned",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-success-completed",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-success-disabled",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-failure-ready",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-failure-changed-user",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-failure-changed-order",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-failure-hidden",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-failure-unloaded",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-failure-refreshed",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-failure-returned",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-failure-completed",
+      "pass": true
+    },
+    {
+      "name": "deliver-sent-failure-disabled",
+      "pass": true
+    },
+    {
+      "name": "deliver-duplicate-and-new-operation-lock",
+      "pass": true
+    },
+    {
+      "name": "deliver-actual-api-forbidden-ready",
+      "pass": true
+    },
+    {
+      "name": "deliver-actual-api-forbidden-hidden",
+      "pass": true
+    },
+    {
+      "name": "deliver-actual-api-forbidden-changed-user",
+      "pass": true
+    },
+    {
+      "name": "read-success-hidden",
+      "pass": true
+    },
+    {
+      "name": "read-success-unloaded",
+      "pass": true
+    },
+    {
+      "name": "read-success-changed-user",
+      "pass": true
+    },
+    {
+      "name": "read-success-changed-order",
+      "pass": true
+    },
+    {
+      "name": "read-success-refreshed",
+      "pass": true
+    },
+    {
+      "name": "read-failure-hidden",
+      "pass": true
+    },
+    {
+      "name": "read-failure-unloaded",
+      "pass": true
+    },
+    {
+      "name": "read-failure-changed-user",
+      "pass": true
+    },
+    {
+      "name": "read-failure-changed-order",
+      "pass": true
+    },
+    {
+      "name": "read-failure-refreshed",
+      "pass": true
+    },
+    {
+      "name": "draft-same",
+      "pass": true
+    },
+    {
+      "name": "draft-changed-user",
+      "pass": true
+    },
+    {
+      "name": "draft-changed-order",
+      "pass": true
+    },
+    {
+      "name": "read-failure-retry-no-write",
+      "pass": true
+    },
+    {
+      "name": "missing-identity-no-detail",
+      "pass": true
+    },
+    {
+      "name": "deliver-payload-trash",
+      "pass": true
+    },
+    {
+      "name": "deliver-payload-parcel",
+      "pass": true
+    },
+    {
+      "name": "deliver-payload-buy",
+      "pass": true
+    },
+    {
+      "name": "deliver-payload-help",
+      "pass": true
+    },
+    {
+      "name": "deliver-payload-meal",
+      "pass": true
+    },
+    {
+      "name": "deliver-payload-escort",
+      "pass": true
+    },
+    {
+      "name": "deliver-payload-visit",
+      "pass": true
+    },
+    {
+      "name": "deliver-payload-recycle",
+      "pass": true
+    },
+    {
+      "name": "vacant-uses-separate-report",
+      "pass": true
+    },
+    {
+      "name": "cleared-task-phone-handler-safe",
+      "pass": true
+    },
+    {
+      "name": "cleared-task-phone-callback-safe",
+      "pass": true
+    }
+  ]
+}

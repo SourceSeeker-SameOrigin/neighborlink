@@ -1,0 +1,58 @@
+{
+  "sourceCommit": "f9e19d4",
+  "date": "2026-11-12",
+  "device": "WeChat DevTools iPhone 12/13 (Pro), 390 CSS px, 75% display",
+  "scope": "Local injected minimal receipt referencing existing authorized closed trash order; no new monthly order, payment or backend mutation",
+  "observed": {
+    "initial": {
+      "route": "pages/membership/index",
+      "recoveryMethod": "function",
+      "ready": true,
+      "loading": false,
+      "receipt": false,
+      "userMatched": true
+    },
+    "freshPageReceiptRestore": {
+      "receipt": true,
+      "created": true,
+      "ready": false,
+      "loading": false
+    },
+    "controlledFailure": {
+      "message": "月卡订单已创建，暂未打开详情，请点击下方按钮重试。不会重复购买。",
+      "navigating": false,
+      "navigationApiRestored": true
+    },
+    "visual": "Recovery card, explanation, failure message and existing-order button visible without overlap at 390; purchase form hidden",
+    "actualButtonClick": "Actual recovery button opened the original closed test order; loaded identity matched and status closed.",
+    "detailReadback": {
+      "route": "pages/orders/detail",
+      "orderMatches": true,
+      "status": "closed",
+      "loading": false,
+      "error": "",
+      "receiptAbsent": true
+    },
+    "actualBackButton": true,
+    "returnReadback": {
+      "route": "pages/membership/index",
+      "ready": true,
+      "loading": false,
+      "error": "",
+      "busy": false,
+      "createdOrderId": "",
+      "receipt": false,
+      "navigating": false,
+      "plans": 0,
+      "cards": 0
+    },
+    "returnVisual": "Normal no-plan/no-card empty states visible; recovery card absent."
+  },
+  "pending": [
+    "True app restart and real-device recovery",
+    "320/375/430 recovery UI and full approved-design acceptance",
+    "Actual monthly creation/activation/task generation"
+  ],
+  "blocker": "Prior lock interruption resolved for the 390-width recovery/navigation/return sample. Remaining cases are not verified by this sample.",
+  "cleanup": "Confirmed receiptAbsent=true after navigation; page receipt=false after back. Navigation API was restored immediately after local fault injection."
+}

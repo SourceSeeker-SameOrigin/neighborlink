@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "3d10e68",
+  "function": "provider",
+  "uploadedBytes": 127988,
+  "uploadedSha256": "d9f0fa52e92c0552cafb20e8277ae13e56e1789c30df9c6619c1ba2335a835d7",
+  "downloadBytes": 7404454,
+  "downloadSha256": "3f5762ba9a59467f1357372658cff37e8a8b07ab2b536bdef49ee669a394be74",
+  "sourceFilesMatched": 76,
+  "sdkVersion": "4.0.2",
+  "scope": "代码部署回读；未执行真实履约或退款"
+}

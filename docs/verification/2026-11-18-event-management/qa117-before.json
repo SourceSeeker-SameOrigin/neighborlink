@@ -1,0 +1,79 @@
+{
+  "scope": "Actual page, synthetic calls only; no real phone, cloud writes or reports",
+  "pass": 6,
+  "fail": 6,
+  "results": [
+    {
+      "name": "phone-result-ready",
+      "pass": true,
+      "observed": {
+        "confirmed": true
+      }
+    },
+    {
+      "name": "phone-result-hidden",
+      "pass": true,
+      "observed": {
+        "confirmed": false
+      }
+    },
+    {
+      "name": "phone-result-unloaded",
+      "pass": true,
+      "observed": {
+        "confirmed": false
+      }
+    },
+    {
+      "name": "phone-result-refreshed",
+      "pass": false,
+      "error": "old call marked current report notified=true"
+    },
+    {
+      "name": "phone-result-changed-user",
+      "pass": false,
+      "error": "old call marked current report notified=true"
+    },
+    {
+      "name": "phone-result-changed-order",
+      "pass": false,
+      "error": "old call marked current report notified=true"
+    },
+    {
+      "name": "phone-result-attention-reset",
+      "pass": false,
+      "error": "old call marked current report notified=true"
+    },
+    {
+      "name": "phone-start-ready",
+      "pass": true,
+      "observed": {
+        "calls": 1
+      }
+    },
+    {
+      "name": "phone-start-hidden",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "phone-start-unloaded",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "phone-start-identity-changed-without-refresh",
+      "pass": false,
+      "error": "phone API calls=1"
+    },
+    {
+      "name": "phone-start-order-changed-without-refresh",
+      "pass": false,
+      "error": "phone API calls=1"
+    }
+  ]
+}

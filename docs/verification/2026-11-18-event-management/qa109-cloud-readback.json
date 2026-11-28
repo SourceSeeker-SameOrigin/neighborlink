@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "7d94d5e0c9711887c385eb6803d3cad9daceb568",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "function": "event",
+  "selectedPackageHashMatched": true,
+  "sourceFilesMatched": 76,
+  "sourceFilesExpected": 76,
+  "sdkVersion": "4.0.2",
+  "downloadedCodeRegression": {
+    "recovery": 27,
+    "createRetry": 12,
+    "sponsor": 4
+  },
+  "scope": "仅代码更新及下载代码的隔离回归；真实活动、赞助账新增为0；体验版未切换"
+}

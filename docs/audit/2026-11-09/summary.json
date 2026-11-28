@@ -1,0 +1,119 @@
+{
+  "date": "2026-11-09",
+  "timezone": "Asia/Shanghai",
+  "sourceCommit": "61e587a9708370a05d7a87c85804e25b473e61a7",
+  "archive": "/Users/waishixiaoxiaoya/Documents/近邻帮/jinlin-spec.zip",
+  "archiveSha256": "d2a42d4204cb1082bbc4fd2cb4ebe87249a24faf6ac5af533d30cb90b9ae4323",
+  "archiveFiles": [
+    {
+      "path": "README.md",
+      "sha256": "819ff0bbe8f90b8266ef521f7f63dea034a99ce0af1391cea95dea02bd4eb27e",
+      "extractedIdentical": true
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "fdc55e47b34d9fc4b1f991a38cc6dc7c6152a3d35118d81fe05b72a2ddf85f18",
+      "extractedIdentical": true
+    },
+    {
+      "path": "docs/MANUAL_SETUP.md",
+      "sha256": "98ea91ed0dcdb3640ca036b21874a8aecda3ec79e9fac63ae6dd0ad9971a573a",
+      "extractedIdentical": true
+    },
+    {
+      "path": "docs/SPEC.md",
+      "sha256": "5cec9309b51757da3327d3f8b8b55819d13b0fe85885ca1aeefe64fd3b73a3b9",
+      "extractedIdentical": true
+    },
+    {
+      "path": "docs/SPEC_EXT.md",
+      "sha256": "54dbbbd0fc8a97c042cc4a382a1343c52c9d35afa25e55f2071ba627f200ebd3",
+      "extractedIdentical": true
+    },
+    {
+      "path": "docs/TASKS.md",
+      "sha256": "511a6a2c57f2ca4dee94f42ada9e9880fcc21ec5b0ac23a7a7bae390c3cfe30b",
+      "extractedIdentical": true
+    }
+  ],
+  "baselineClauseUnits": 616,
+  "tasks": 34,
+  "pages": 69,
+  "findings": 14,
+  "jest": {
+    "numPassedTests": 570,
+    "numFailedTests": 0,
+    "numPassedTestSuites": 50,
+    "numFailedTestSuites": 0,
+    "success": true
+  },
+  "isolatedManualPhone": 16,
+  "isolatedUserEntry": 24,
+  "packages": [
+    {
+      "name": "user",
+      "exists": true,
+      "bytes": 119098,
+      "sizeMatches": true,
+      "shaMatches": true,
+      "crcOK": true
+    },
+    {
+      "name": "provider",
+      "exists": true,
+      "bytes": 121247,
+      "sizeMatches": true,
+      "shaMatches": true,
+      "crcOK": true
+    },
+    {
+      "name": "order",
+      "exists": true,
+      "bytes": 119856,
+      "sizeMatches": true,
+      "shaMatches": true,
+      "crcOK": true
+    },
+    {
+      "name": "membership",
+      "exists": true,
+      "bytes": 119468,
+      "sizeMatches": true,
+      "shaMatches": true,
+      "crcOK": true
+    },
+    {
+      "name": "merchant",
+      "exists": true,
+      "bytes": 121849,
+      "sizeMatches": true,
+      "shaMatches": true,
+      "crcOK": true
+    },
+    {
+      "name": "idle",
+      "exists": true,
+      "bytes": 122168,
+      "sizeMatches": true,
+      "shaMatches": true,
+      "crcOK": true
+    },
+    {
+      "name": "board",
+      "exists": true,
+      "bytes": 121856,
+      "sizeMatches": true,
+      "shaMatches": true,
+      "crcOK": true
+    },
+    {
+      "name": "timer",
+      "exists": true,
+      "bytes": 119109,
+      "sizeMatches": true,
+      "shaMatches": true,
+      "crcOK": true
+    }
+  ],
+  "cloudLimits": "Current console inspected user upload selection and communities only; latest source download failed code17. Other cloud claims are prior evidence, not new full cloud scan. No deployment/business writes in this audit."
+}

@@ -1,0 +1,137 @@
+{
+  "scope": "actual page with synthetic identities/orders; all writes intercepted; server acceptance unknown",
+  "pass": 2,
+  "fail": 8,
+  "results": [
+    {
+      "action": "start",
+      "boundary": "ready",
+      "before": {
+        "orderRetained": true,
+        "taskReady": true,
+        "busy": false,
+        "loading": false
+      },
+      "writes": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "action": "start",
+      "boundary": "read-failed",
+      "before": {
+        "orderRetained": true,
+        "taskReady": false,
+        "busy": false,
+        "loading": false
+      },
+      "writes": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "start",
+      "boundary": "changed-user",
+      "before": {
+        "orderRetained": true,
+        "taskReady": true,
+        "busy": false,
+        "loading": false
+      },
+      "writes": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "start",
+      "boundary": "hidden",
+      "before": {
+        "orderRetained": true,
+        "taskReady": false,
+        "busy": false,
+        "loading": false
+      },
+      "writes": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "start",
+      "boundary": "unloaded",
+      "before": {
+        "orderRetained": true,
+        "taskReady": false,
+        "busy": false,
+        "loading": false
+      },
+      "writes": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "deliver",
+      "boundary": "ready",
+      "before": {
+        "orderRetained": true,
+        "taskReady": true,
+        "busy": false,
+        "loading": false
+      },
+      "writes": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "action": "deliver",
+      "boundary": "read-failed",
+      "before": {
+        "orderRetained": true,
+        "taskReady": false,
+        "busy": false,
+        "loading": false
+      },
+      "writes": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "deliver",
+      "boundary": "changed-user",
+      "before": {
+        "orderRetained": true,
+        "taskReady": true,
+        "busy": false,
+        "loading": false
+      },
+      "writes": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "deliver",
+      "boundary": "hidden",
+      "before": {
+        "orderRetained": true,
+        "taskReady": false,
+        "busy": false,
+        "loading": false
+      },
+      "writes": 1,
+      "expected": 0,
+      "pass": false
+    },
+    {
+      "action": "deliver",
+      "boundary": "unloaded",
+      "before": {
+        "orderRetained": true,
+        "taskReady": false,
+        "busy": false,
+        "loading": false
+      },
+      "writes": 1,
+      "expected": 0,
+      "pass": false
+    }
+  ]
+}

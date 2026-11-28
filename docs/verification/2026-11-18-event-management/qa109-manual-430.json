@@ -1,0 +1,107 @@
+{
+  "width": 430,
+  "observations": [
+    {
+      "label": "initial",
+      "recovery": "lookup",
+      "error": "合成网络中断，请重试核对",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 27,
+          "right": 403,
+          "top": 555,
+          "bottom": 605,
+          "width": 376,
+          "height": 50
+        }
+      ],
+      "calls": {
+        "create": 0,
+        "publish": 0,
+        "lookup": 1
+      }
+    },
+    {
+      "label": "createActivity",
+      "recovery": "confirm",
+      "error": "",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 27,
+          "right": 403,
+          "top": 1946,
+          "bottom": 1996,
+          "width": 376,
+          "height": 50
+        }
+      ],
+      "calls": {
+        "create": 0,
+        "publish": 0,
+        "lookup": 2
+      }
+    },
+    {
+      "label": "createActivity",
+      "recovery": "lookup",
+      "error": "合成创建响应丢失",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 27,
+          "right": 403,
+          "top": 494,
+          "bottom": 544,
+          "width": 376,
+          "height": 50
+        }
+      ],
+      "calls": {
+        "create": 1,
+        "publish": 0,
+        "lookup": 3
+      }
+    },
+    {
+      "label": "createActivity",
+      "recovery": "done",
+      "error": "",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 27,
+          "right": 403,
+          "top": 401,
+          "bottom": 451,
+          "width": 376,
+          "height": 50
+        }
+      ],
+      "calls": {
+        "create": 1,
+        "publish": 1,
+        "lookup": 5
+      }
+    }
+  ],
+  "baseline": "6212c25",
+  "verifiedDate": "2026-11-19",
+  "observedUI": [
+    "430 screenshot: initial lookup error and recovery button",
+    "Actual AX click: confirmed absent; original title and description visible",
+    "First AX submit-button action brought bottom into view without submitting; bottom date fields and full confirm button screenshot checked",
+    "Second explicit click: create response lost; error and recovery button visible",
+    "Explicit lookup click: published result visible; one create and one publish"
+  ],
+  "limits": "Synthetic local API only. No real activity or cloud write. 375/320 not signed off by this receipt. Busy-state screenshots and full-page design are outside this supplement."
+}

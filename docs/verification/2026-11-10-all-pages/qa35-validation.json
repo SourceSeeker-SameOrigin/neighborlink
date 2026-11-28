@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-10",
+  "scope": "QA35 frontend; no new cloud deployment",
+  "jest": {
+    "success": true,
+    "numPassedTestSuites": 53,
+    "numPassedTests": 624,
+    "numFailedTests": 0
+  },
+  "targetedTests": {
+    "qa35": 9,
+    "qa34": 9
+  },
+  "nativeCompile": "普通编译后首页、订单、我的和管理看板有实景证据；不等于69页全量通过"
+}

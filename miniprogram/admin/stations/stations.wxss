@@ -1,2 +1,2 @@
 .row { display: flex; gap: 20rpx; }
-.row button { flex: 1; }
+.row .ui-button { flex: 1; }

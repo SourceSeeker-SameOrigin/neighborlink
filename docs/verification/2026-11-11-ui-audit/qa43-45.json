@@ -1,0 +1,65 @@
+{
+  "scope": "isolated real page code, synthetic dependencies; not live UI or cloud acceptance",
+  "results": [
+    {
+      "name": "QA45 初始化失败和旧选项均不能上传或提交",
+      "status": "PASS"
+    },
+    {
+      "name": "QA45 失败重试保留草稿与有效小区，仅读取",
+      "status": "PASS"
+    },
+    {
+      "name": "QA45 上传期间重复点击/提交/重载被阻止",
+      "status": "PASS"
+    },
+    {
+      "name": "QA45 上传失败保留原文件并可明确重试",
+      "status": "PASS"
+    },
+    {
+      "name": "QA45 提交失败保留草稿，明确重试成功后禁止再提交",
+      "status": "PASS"
+    },
+    {
+      "name": "QA45 离页后load迟到响应不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "QA45 离页后upload迟到响应不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "QA45 离页后submit迟到响应不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "QA45 已通过或待审不开放申请操作，拒绝后允许编辑",
+      "status": "PASS"
+    },
+    {
+      "name": "QA44 回收页面传递编码后的小区与日期，目标页回显且零导出",
+      "status": "PASS"
+    },
+    {
+      "name": "QA44 源页拒绝未就绪、非法日期、倒序和空小区",
+      "status": "PASS"
+    },
+    {
+      "name": "QA44 伪造/不完整入口参数不会退回其他范围导出",
+      "status": "PASS"
+    },
+    {
+      "name": "QA44 不可选小区拒绝，无静默回退",
+      "status": "PASS"
+    },
+    {
+      "name": "QA44 小区读取失败重试保留传入范围",
+      "status": "PASS"
+    },
+    {
+      "name": "QA44 原无参数导出入口继续可用",
+      "status": "PASS"
+    }
+  ]
+}

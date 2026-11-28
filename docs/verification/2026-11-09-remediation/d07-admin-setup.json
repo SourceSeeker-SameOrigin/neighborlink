@@ -1,0 +1,114 @@
+{
+  "date": "2026-11-09",
+  "decision": "D07 resumed, explicit target and record access/role append authorized by user",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "targetUserIdSuffix": "16249b8",
+  "identityVerification": {
+    "source": "current WeChat mini-program console userId matched CloudBase users document",
+    "openidSha256DerivedUserIdMatched": true,
+    "rawOpenidStoredInRepository": false
+  },
+  "before": {
+    "roles": [
+      "resident"
+    ],
+    "blocked": false,
+    "hasPhone": false,
+    "hasCommunity": false,
+    "hasBuilding": false,
+    "adminAlertRecipientCount": 0
+  },
+  "afterCloudReadback": {
+    "roles": [
+      "resident",
+      "admin"
+    ],
+    "blocked": false,
+    "openidUnchanged": true,
+    "adminAlertRecipientCount": 1,
+    "targetIncluded": true,
+    "existingRecipientsPreserved": true,
+    "duplicateRecipients": 0
+  },
+  "writes": [
+    "Append admin to existing target users.roles",
+    "Append same verified openid to config/global.adminOpenids"
+  ],
+  "excludedWrites": [
+    "Phone or address binding",
+    "Other users or roles",
+    "Feature flags",
+    "Payment mode or keys",
+    "Timer triggers",
+    "Production configuration"
+  ],
+  "runtimeSessionRefreshed": true,
+  "runtimeAdminAccessVerified": true,
+  "runtimeBlocker": null,
+  "D05": "paused",
+  "D06": "paused",
+  "note": "Cloud configuration, seven authenticated admin reads and actual dashboard load verified. Full UI acceptance, management writes, other identities and notification delivery remain unverified.",
+  "runtimeRoles": [
+    "resident",
+    "admin"
+  ],
+  "runtimeReadChecks": [
+    {
+      "action": "managementConfig",
+      "ok": true,
+      "communityCount": 2
+    },
+    {
+      "action": "dashboard",
+      "ok": true,
+      "totalOrders": 0
+    },
+    {
+      "action": "getFeatures",
+      "ok": true
+    },
+    {
+      "action": "listOrders",
+      "ok": true,
+      "count": 0
+    },
+    {
+      "action": "listProviders",
+      "ok": true,
+      "count": 0
+    },
+    {
+      "action": "listSettlements",
+      "ok": true,
+      "count": 0
+    },
+    {
+      "action": "notificationTemplates",
+      "ok": true
+    }
+  ],
+  "uiVerified": [
+    "My page shows 管理员后台 / 进入管理后台 after session refresh",
+    "Actual navigation reached admin/dashboard/dashboard after tool reconnection",
+    "13 management navigation labels displayed",
+    "Selected test community, 2026-11-09 date range, zero orders and separate service/goods amounts displayed",
+    "Loading indicator disappeared; empty memberships and zero extension statistics displayed"
+  ],
+  "dashboardPageVerified": true,
+  "uiIssue": {
+    "firstNavigation": "navigateTo:fail timeout",
+    "recovery": "Recompiled and reconnected native UI tool; actual click opened dashboard with loaded statistics at 2026-11-09 13:39-13:40 Asia/Shanghai",
+    "remaining": "No current dashboard access blocker. Date/community/scope interactions, nonzero data, detailed design acceptance and other identities remain unverified."
+  },
+  "consoleAfterRecompile": {
+    "errors": 0,
+    "warnings": 4,
+    "allWarningsClassified": false
+  },
+  "dashboardVerificationScope": "Authenticated page load, 13 navigation labels, zero-data dashboard text and top/bottom screenshots; not full UI or business acceptance",
+  "consoleAfterDashboard": {
+    "errors": 0,
+    "warnings": 8,
+    "allWarningsCleared": false
+  }
+}

@@ -1,0 +1,219 @@
+{
+  "date": "2026-11-08",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "151483331205b4783367e7c91365cb6b78044f6b",
+  "scope": "Developer tools confirmed each declared permission update; code readback after synchronization matched 72 approved files each. This is not an independent effective-ACL readback or successful OpenAPI business call.",
+  "method": "Synchronize function list, then upload and deploy with cloud dependency installation through official developer tools",
+  "functions": [
+    {
+      "function": "admin",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "43642c1ab881eb181807c7525b48cfc7db69ba0372b2e98dcddf90a75b645ee7",
+      "declaredOpenapi": [
+        "wxacode.getUnlimited",
+        "subscribeMessage.send"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "board",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "0acc447cd361d698cbb128c9f6b17d11a5ae22fa506adb0d6b869b20c3b8045c",
+      "declaredOpenapi": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync",
+        "subscribeMessage.send"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "chat",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "f8d744bd25af8a5cf9612b65ed828bc9fb600daca4a75659b83b885d48500442",
+      "declaredOpenapi": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "content",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "7e7accef4ebbafb13546f55792a2e75415c1e6dec945aca203aae50085925d57",
+      "declaredOpenapi": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "event",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "4686fa2727a4507cfec1f05e99277e33d6097b26aa7e0bc484f15934fbb90d1b",
+      "declaredOpenapi": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync",
+        "subscribeMessage.send",
+        "wxacode.getUnlimited"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "idle",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "7e7accef4ebbafb13546f55792a2e75415c1e6dec945aca203aae50085925d57",
+      "declaredOpenapi": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "merchant",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "7e7accef4ebbafb13546f55792a2e75415c1e6dec945aca203aae50085925d57",
+      "declaredOpenapi": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "order",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "78f579bc65513d6d19b1a66340ab31ee7083cc3771f0192f3b48cd44b4b866dc",
+      "declaredOpenapi": [
+        "security.msgSecCheck",
+        "subscribeMessage.send"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "payCallback",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "c71d69ad95e53d9b43b62840ded321af1b70ac0163c48640f36d1618226247eb",
+      "declaredOpenapi": [
+        "subscribeMessage.send"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "pet",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "dbf9187ec2e5aeb0824d973de97dc34517e9401f90c94b707b5aff2d3daecd77",
+      "declaredOpenapi": [
+        "subscribeMessage.send"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "provider",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "e10ad9d481e06ce75f56fb5efe2cd720bcd5e849b169a79807f7fe4c776307d7",
+      "declaredOpenapi": [
+        "subscribeMessage.send",
+        "wxacode.getUnlimited"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "user",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "2298d72c7b683a28e74b896ca629decff36a706c6b454cb7fc0ac7ae5e208af2",
+      "declaredOpenapi": [
+        "phonenumber.getPhoneNumber"
+      ],
+      "actualApiCallVerified": false
+    },
+    {
+      "function": "vacant",
+      "uploadUiSuccess": true,
+      "permissionUpdateUiSuccess": true,
+      "uiEvidence": "Green success icons for both tasks in developer tools notification center",
+      "sourceFileCount": 72,
+      "byteIdentical": true,
+      "wxServerSdk": "4.0.2",
+      "configSha256": "dbf9187ec2e5aeb0824d973de97dc34517e9401f90c94b707b5aff2d3daecd77",
+      "declaredOpenapi": [
+        "subscribeMessage.send"
+      ],
+      "actualApiCallVerified": false
+    }
+  ],
+  "emptyPermissionFunctionsNotResubmitted": [
+    "catalog",
+    "coupon",
+    "membership",
+    "payout",
+    "station"
+  ],
+  "excludedFromThisBatch": [
+    "mediaCallback",
+    "refundCallback",
+    "timer"
+  ],
+  "packagingNote": "Most native uploads counted 75 entries: 72 files and 3 directories. order additionally included npm package-lock.json; root dependency is wx-server-sdk 4.0.2. Approved source/config files remained identical.",
+  "timerTriggersEnabled": false,
+  "httpOpened": false,
+  "rolesGranted": false
+}

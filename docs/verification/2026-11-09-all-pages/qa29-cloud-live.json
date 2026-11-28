@@ -1,0 +1,40 @@
+{
+  "scope": "Actual own WeChat mini-program session against deployed QA29 event; cancelled-event rejection with deliberately invalid check-in code",
+  "sourceCommit": "3f8537e90310d110b6a9d3af15bacf3cdb252b7d",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "eventId": "ev_77e06a061cfb7cd3c103a7aa694d40bd",
+  "checkin": {
+    "ok": false,
+    "code": "E_CONFLICT",
+    "message": "活动未发布或已结束，不能签到"
+  },
+  "before": {
+    "status": "cancelled",
+    "count": 0
+  },
+  "after": {
+    "status": "cancelled",
+    "count": 0,
+    "cancel": {
+      "status": "queued",
+      "totalCount": 0,
+      "completedCount": 0,
+      "failedCount": 0,
+      "retryCount": 0
+    }
+  },
+  "signups": {
+    "ok": true,
+    "count": 0
+  },
+  "crossCommunityDetail": {
+    "ok": false,
+    "code": "E_FORBIDDEN"
+  },
+  "binding": "junyue_international",
+  "limitations": [
+    "No valid resident signup or successful check-in tested",
+    "No real concurrent cancel/check-in test",
+    "No timer invocation or new business records"
+  ]
+}

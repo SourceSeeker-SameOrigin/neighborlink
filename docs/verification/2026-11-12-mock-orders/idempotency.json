@@ -1,0 +1,86 @@
+{
+  "scope": "offline actual handlers/shared code; synthetic serialized database, no cloud API or real money",
+  "limits": "No CloudBase conflict isolation, real session identity, network retry or cloud idempotency claim",
+  "mutation": null,
+  "mutationApplied": false,
+  "passed": 19,
+  "total": 19,
+  "cases": [
+    {
+      "name": "create: 25 identical retries produce one order and one revision",
+      "passed": true
+    },
+    {
+      "name": "create: same request ID with changed details rejected without writes",
+      "passed": true
+    },
+    {
+      "name": "create: same request after closed or refunded returns original, never reopens",
+      "passed": true
+    },
+    {
+      "name": "create: 20 overlapping callers under serialized transactions create once",
+      "passed": true
+    },
+    {
+      "name": "payment: 25 repeated mockPay handlers do not change state/events/statistics",
+      "passed": true
+    },
+    {
+      "name": "payment: overlapping mockPay callers increment once in serialized fixture",
+      "passed": true
+    },
+    {
+      "name": "payment: altered transaction, amount and mode reject with unchanged state",
+      "passed": true
+    },
+    {
+      "name": "unpaid cancel: repeated public handler rejects, shared close stays no-op",
+      "passed": true
+    },
+    {
+      "name": "unpaid closed order: mockPay rejects without reopening",
+      "passed": true
+    },
+    {
+      "name": "refund: 25 repeated same-key requests preserve single refund and statistics",
+      "passed": true
+    },
+    {
+      "name": "refund: repeated public cancel rejects without additional refund",
+      "passed": true
+    },
+    {
+      "name": "refund: concurrent same-key reservation creates one refund under fixture serialization",
+      "passed": true
+    },
+    {
+      "name": "refunded order: duplicate payment returns cancelled without new writes",
+      "passed": true
+    },
+    {
+      "name": "refund: changed amount or new key exceeding remaining amount rejects",
+      "passed": true
+    },
+    {
+      "name": "refund result: duplicate/late callbacks cannot downgrade success or double refund",
+      "passed": true
+    },
+    {
+      "name": "identity: other resident cannot pay or cancel; zero writes",
+      "passed": true
+    },
+    {
+      "name": "create: injected transaction conflict has no partial writes; retry succeeds",
+      "passed": true
+    },
+    {
+      "name": "payment: injected transaction conflict has no partial writes; retry succeeds",
+      "passed": true
+    },
+    {
+      "name": "refund: injected transaction conflict has no partial writes; retry succeeds",
+      "passed": true
+    }
+  ]
+}

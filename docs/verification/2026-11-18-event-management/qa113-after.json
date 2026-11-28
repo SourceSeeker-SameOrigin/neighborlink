@@ -1,0 +1,151 @@
+{
+  "scope": "actual page with synthetic modal and API; no real order release",
+  "pass": 36,
+  "fail": 0,
+  "results": [
+    {
+      "name": "confirmation-same-page",
+      "pass": true
+    },
+    {
+      "name": "confirmation-cancel",
+      "pass": true
+    },
+    {
+      "name": "confirmation-hidden",
+      "pass": true
+    },
+    {
+      "name": "confirmation-unload",
+      "pass": true
+    },
+    {
+      "name": "confirmation-user-changed",
+      "pass": true
+    },
+    {
+      "name": "confirmation-order-changed",
+      "pass": true
+    },
+    {
+      "name": "confirmation-refreshed",
+      "pass": true
+    },
+    {
+      "name": "confirmation-completed",
+      "pass": true
+    },
+    {
+      "name": "confirmation-returned",
+      "pass": true
+    },
+    {
+      "name": "sent-success-same-page",
+      "pass": true
+    },
+    {
+      "name": "sent-success-hidden",
+      "pass": true
+    },
+    {
+      "name": "sent-success-unload",
+      "pass": true
+    },
+    {
+      "name": "sent-success-user-changed",
+      "pass": true
+    },
+    {
+      "name": "sent-success-order-changed",
+      "pass": true
+    },
+    {
+      "name": "sent-success-refreshed",
+      "pass": true
+    },
+    {
+      "name": "sent-success-completed",
+      "pass": true
+    },
+    {
+      "name": "sent-success-returned",
+      "pass": true
+    },
+    {
+      "name": "sent-failure-same-page",
+      "pass": true
+    },
+    {
+      "name": "sent-failure-hidden",
+      "pass": true
+    },
+    {
+      "name": "sent-failure-unload",
+      "pass": true
+    },
+    {
+      "name": "sent-failure-user-changed",
+      "pass": true
+    },
+    {
+      "name": "sent-failure-order-changed",
+      "pass": true
+    },
+    {
+      "name": "sent-failure-refreshed",
+      "pass": true
+    },
+    {
+      "name": "sent-failure-completed",
+      "pass": true
+    },
+    {
+      "name": "sent-failure-returned",
+      "pass": true
+    },
+    {
+      "name": "duplicate-click-one-confirmation",
+      "pass": true
+    },
+    {
+      "name": "old-finally-does-not-unlock-new-operation",
+      "pass": true
+    },
+    {
+      "name": "modal-failure-and-retry",
+      "pass": true
+    },
+    {
+      "name": "start-guard-loading",
+      "pass": true
+    },
+    {
+      "name": "start-guard-read-failed",
+      "pass": true
+    },
+    {
+      "name": "start-guard-hidden",
+      "pass": true
+    },
+    {
+      "name": "start-guard-completed",
+      "pass": true
+    },
+    {
+      "name": "start-guard-changed-user-before-click",
+      "pass": true
+    },
+    {
+      "name": "real-client-forbidden-same-page",
+      "pass": true
+    },
+    {
+      "name": "real-client-forbidden-hidden",
+      "pass": true
+    },
+    {
+      "name": "real-client-forbidden-user-changed",
+      "pass": true
+    }
+  ]
+}

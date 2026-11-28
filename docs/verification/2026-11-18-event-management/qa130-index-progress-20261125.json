@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-25",
+  "collection": "merchantServices",
+  "observedExistingIndexes": [
+    "_id_",
+    "merchant_created_id",
+    "_openid_1",
+    "merchant_status_title"
+  ],
+  "desired": {
+    "name": "merchant_created_id",
+    "unique": false,
+    "fields": [
+      [
+        "merchantId",
+        "asc"
+      ],
+      [
+        "createdAt",
+        "desc"
+      ],
+      [
+        "_id",
+        "desc"
+      ]
+    ]
+  },
+  "submitted": true,
+  "created": true,
+  "lastObservedDraft": null,
+  "blocker": null,
+  "liveQueryVerified": false,
+  "latestAttempt": "2026-11-25 native accessibility index-list readback after draft closed; repeated after reload key",
+  "readback": {
+    "name": "merchant_created_id",
+    "unique": false,
+    "fields": [
+      [
+        "merchantId",
+        "asc"
+      ],
+      [
+        "createdAt",
+        "desc"
+      ],
+      [
+        "_id",
+        "desc"
+      ]
+    ],
+    "method": "native accessibility index table read twice",
+    "screenshotFresh": false,
+    "note": "Screenshot remained stale; no claim of live-query verification or screenshot confirmation."
+  }
+}

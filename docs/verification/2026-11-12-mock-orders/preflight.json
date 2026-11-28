@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-12",
+  "environment": "development",
+  "authorized": {
+    "maximumOrders": 2,
+    "serviceCode": "trash",
+    "community": "junyue_international",
+    "note": "联调测试，请勿履约",
+    "cases": [
+      "unpaid cancellation",
+      "mock payment, duplicate request, cancellation and mock refund"
+    ],
+    "acceptFirstPaidAndCountImpact": true,
+    "useCoupons": false,
+    "usePoints": false,
+    "entryPassword": false,
+    "acceptOrFulfill": false,
+    "deleteOrReset": false,
+    "timer": false
+  },
+  "preflight": {
+    "source": "official CloudBase UI read only",
+    "payMode": "mock",
+    "notificationTemplates": {
+      "accepted": "",
+      "delivered": "",
+      "eventReminder": "",
+      "newTask": "",
+      "unaccepted": "",
+      "visitReport": ""
+    },
+    "community": {
+      "status": "active",
+      "trashSingleFen": 500,
+      "firstOrderPriceFen": 100,
+      "dutyWindows": [
+        {
+          "start": "07:00",
+          "end": "00:00"
+        }
+      ]
+    },
+    "approvedUserRecordMatched": true,
+    "userSummary": {
+      "roles": [
+        "resident",
+        "admin"
+      ],
+      "communityMatched": true,
+      "firstPaidAt": null,
+      "paidOrderCount": 0,
+      "blocked": false
+    }
+  },
+  "execution": {
+    "createdOrders": 0,
+    "payments": 0,
+    "refunds": 0,
+    "realFundsFen": 0,
+    "completedCases": [],
+    "runtimeQuote": "not yet obtained",
+    "currentSessionIdentity": "UI binding visible; Console refresh pending"
+  },
+  "blocker": {
+    "type": "native input channel",
+    "observed": [
+      "AX Console click did not establish focus",
+      "coordinate click returned noWindowsAvailable",
+      "targeted Console setValue did not show inserted command",
+      "Raise and CUA rebind did not restore page navigation",
+      "After user manually focused Console, channel probe paste was not visible; Return was not pressed"
+    ],
+    "lockedReported": false,
+    "requestedAssistance": "Official phone preview: inspect trash page quote only; do not submit yet"
+  }
+}

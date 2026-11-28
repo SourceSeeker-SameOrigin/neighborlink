@@ -1,0 +1,119 @@
+{
+  "width": 430,
+  "confirmations": 4,
+  "writes": 2,
+  "records": [
+    {
+      "state": "shown",
+      "busy": false,
+      "ready": true,
+      "error": "",
+      "rect": {
+        "left": 13,
+        "right": 417,
+        "top": 348,
+        "bottom": 398,
+        "width": 404,
+        "height": 50,
+        "disabled": false
+      }
+    },
+    {
+      "state": "busy",
+      "busy": true,
+      "rect": {
+        "left": 13,
+        "right": 417,
+        "top": 348,
+        "bottom": 398,
+        "width": 404,
+        "height": 50,
+        "disabled": true
+      }
+    },
+    {
+      "state": "settled",
+      "visible": true,
+      "busy": false,
+      "error": ""
+    },
+    {
+      "state": "busy",
+      "busy": true,
+      "rect": {
+        "left": 13,
+        "right": 417,
+        "top": 348,
+        "bottom": 398,
+        "width": 404,
+        "height": 50,
+        "disabled": true
+      }
+    },
+    {
+      "state": "probe/away/index"
+    },
+    {
+      "state": "settled",
+      "visible": false,
+      "busy": false,
+      "error": ""
+    },
+    {
+      "state": "shown",
+      "busy": false,
+      "ready": true,
+      "error": "",
+      "rect": {
+        "left": 13,
+        "right": 417,
+        "top": 348,
+        "bottom": 398,
+        "width": 404,
+        "height": 50,
+        "disabled": false
+      }
+    },
+    {
+      "state": "busy",
+      "busy": true,
+      "rect": {
+        "left": 13,
+        "right": 417,
+        "top": 348,
+        "bottom": 398,
+        "width": 404,
+        "height": 50,
+        "disabled": true
+      }
+    },
+    {
+      "state": "settled",
+      "visible": true,
+      "busy": false,
+      "error": "放弃任务失败（本地合成）"
+    },
+    {
+      "state": "busy",
+      "busy": true,
+      "rect": {
+        "left": 13,
+        "right": 417,
+        "top": 348,
+        "bottom": 398,
+        "width": 404,
+        "height": 50,
+        "disabled": true
+      }
+    },
+    {
+      "state": "settled",
+      "visible": true,
+      "busy": false,
+      "error": ""
+    },
+    {
+      "state": "provider/workbench/workbench"
+    }
+  ]
+}

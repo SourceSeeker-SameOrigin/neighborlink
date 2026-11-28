@@ -6,9 +6,29 @@ const { ensure, integer } = require('./validate');
 const { isEnabled } = require('./features');
 const { validCoupon, couponDiscount } = require('./couponData');
 
+async function orderCoupons(server, openid, now, selectedId) {
+  if (selectedId === '') return [];
+  const owned = typeof selectedId === 'string'
+    ? [await server.get('coupons', selectedId)]
+    : await server.all('coupons', { openid, status: 'unused', validTo: server.command.gt(now) });
+  const current = owned.filter(item => item && item.openid === openid && item.status === 'unused' &&
+    item.validFrom <= now && item.validTo > now);
+  const ids = [...new Set(current.map(item => item.templateId).filter(Boolean))];
+  const byId = new Map();
+  for (let i = 0; i < ids.length; i += 20) {
+    const batch = ids.slice(i, i + 20);
+    const result = await server.db.collection('couponTemplates')
+      .where({ _id: server.command.in(batch) }).limit(batch.length).get();
+    for (const template of result.data) byId.set(template._id, template);
+  }
+  return current.filter(item => validCoupon(item, byId.get(item.templateId), now))
+    .sort((a, b) => a.validTo - b.validTo)
+    .map(coupon => ({ couponId: coupon._id, coupon, template: byId.get(coupon.templateId) }));
+}
+
 function createOrderContext(server) {
   const { db, command, get } = server;
-  return async function orderContext(event, user, { metadata = false } = {}) {
+  return async function orderContext(event, user, { metadata = false, creating = false } = {}) {
     const now = new Date();
     const selectedAddress = event.addressId ? (user.addresses || []).find(item => item.id === event.addressId) : null;
     ensure(!event.addressId || selectedAddress, '请选择已保存的上门地址');
@@ -48,16 +68,7 @@ function createOrderContext(server) {
     const common = { now, community, building, config, address, onDutyCount: duty.total, slots,
       hasTrashMembership: memberships.some(item => item.planCode === 'trash_monthly'),
       membership, membershipState, todayUsedParcels };
-    let coupons = [];
-    if (couponsEnabled) {
-      const [owned, templates] = await Promise.all([
-        db.collection('coupons').where({ openid: user.openid, status: 'unused' }).orderBy('validTo', 'asc').limit(100).get(),
-        server.all('couponTemplates', { status: 'active' })
-      ]);
-      const byId = new Map(templates.map(item => [item._id, item]));
-      coupons = owned.data.filter(coupon => validCoupon(coupon, byId.get(coupon.templateId), now))
-        .map(coupon => ({ couponId: coupon._id, coupon, template: byId.get(coupon.templateId) }));
-    }
+    const coupons = couponsEnabled ? await orderCoupons(server, user.openid, now, creating ? event.couponId : undefined) : [];
     const pointsBalance = integer(user.pointsBalance || 0, '积分余额');
     try {
       const pricing = quote({ ...event, prices: community.prices, community, user, membershipState, todayUsedParcels,

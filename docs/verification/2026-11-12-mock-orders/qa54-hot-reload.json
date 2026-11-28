@@ -1,0 +1,80 @@
+{
+  "scope": "QA54 approved temporary hot-reload comparison; no business code or cloud writes",
+  "width": 320,
+  "initialSetting": true,
+  "temporarySetting": false,
+  "ordinaryCompile": "completed; startup log no hot reload enabled message",
+  "firstEntry": {
+    "route": "recycle/order/order",
+    "loading": false,
+    "error": "",
+    "method": "function",
+    "ownerMatches": true,
+    "formScreenshotObserved": true
+  },
+  "actualBack": {
+    "observedRoutes": [
+      "pages/index/index"
+    ]
+  },
+  "reentry": {
+    "route": "recycle/order/order",
+    "loading": false,
+    "error": "",
+    "method": "function"
+  },
+  "recoveryProbe": {
+    "fixture": "Only current-user ID and previously authorized closed trash order ID in local receipt; not a new recycle booking",
+    "width": 320,
+    "created": true,
+    "navigating": false,
+    "navigationError": "预约已创建，暂未打开详情，请点击下方按钮重试。不会重复预约。",
+    "storedBeforeClick": true,
+    "originalRedirectRestoredImmediately": true,
+    "visual": "320-width recovery card, complete wrapped failure text and enabled existing-order button observed; original form hidden",
+    "actualButtonClicked": true
+  },
+  "restoration": {
+    "fileValue": true,
+    "exactOriginalBytes": true,
+    "runtimeReadback": "2026-11-12 19:57 startup log explicitly reported automatic hot reload enabled"
+  },
+  "limitations": [
+    "Root cause not established; this temporary-off sample did not reproduce blank registration",
+    "375/390/430 QA53 recovery samples and phone remain pending",
+    "True app restart recovery pending",
+    "Actual recycle booking, service completion, points and reconciliation NOT exercised"
+  ],
+  "newCloudOrders": 0,
+  "realPayments": 0,
+  "resumeReadback": {
+    "route": "pages/index/index",
+    "width": 320,
+    "receiptExists": false,
+    "receiptMatches": false
+  },
+  "detailReadback": {
+    "route": "pages/orders/detail",
+    "loading": false,
+    "error": "",
+    "orderMatches": true,
+    "status": "closed",
+    "receiptExists": false
+  },
+  "actualBackAfterDetail": {
+    "routes": [
+      "pages/index/index"
+    ],
+    "note": "First click approval timed out; allowed single retry executed; route readback confirmed home"
+  },
+  "finalReentry": {
+    "route": "recycle/order/order",
+    "loading": false,
+    "error": "",
+    "createdOrderId": "",
+    "busy": false,
+    "navigating": false,
+    "receiptExists": false,
+    "method": "function"
+  }
+}

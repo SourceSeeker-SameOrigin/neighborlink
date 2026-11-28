@@ -1,0 +1,72 @@
+{
+  "total": 13,
+  "passed": 1,
+  "failed": 12,
+  "scope": "Isolated VM, synthetic API responses; no real phone authorization or cloud writes",
+  "results": [
+    {
+      "name": "Unbound launch and return stay home without community business reads",
+      "status": "FAIL",
+      "actual": "Home must not automatically reopen binding"
+    },
+    {
+      "name": "Missing either community or building remains unbound",
+      "status": "FAIL",
+      "actual": "undefined == true"
+    },
+    {
+      "name": "Unbound home clears previously visible community data and extensions",
+      "status": "FAIL",
+      "actual": "{\n  name: 'old'\n} == null"
+    },
+    {
+      "name": "Phone denial preserves typed form and never saves or marks authorization",
+      "status": "FAIL",
+      "actual": "Cannot read properties of undefined (reading 'includes')"
+    },
+    {
+      "name": "Failed code exchange preserves unbound profile and allows return home",
+      "status": "FAIL",
+      "actual": "undefined == '授权服务暂不可用'"
+    },
+    {
+      "name": "Back after denial and repeated home onShow never reopen binding",
+      "status": "FAIL",
+      "actual": "bind.backHome is not a function"
+    },
+    {
+      "name": "Concurrent authorization does not exchange the same gesture twice",
+      "status": "FAIL",
+      "actual": "2 == 1"
+    },
+    {
+      "name": "Successful retry authorizes phone but does not imply address binding",
+      "status": "FAIL",
+      "actual": "undefined == ''"
+    },
+    {
+      "name": "Successful server address response refreshes bound home; no extra redirect",
+      "status": "FAIL",
+      "actual": "undefined == false"
+    },
+    {
+      "name": "Failed address save never updates profile or leaves binding",
+      "status": "PASS"
+    },
+    {
+      "name": "Direct service entry replaces itself with binding so Back cannot loop",
+      "status": "FAIL",
+      "actual": "'navigateTo' == 'redirectTo'"
+    },
+    {
+      "name": "Direct membership entry replaces itself with binding so Back cannot loop",
+      "status": "FAIL",
+      "actual": "'navigateTo' == 'redirectTo'"
+    },
+    {
+      "name": "Scanned building stays available for explicit binding after browsing home",
+      "status": "FAIL",
+      "actual": "1 == 0"
+    }
+  ]
+}

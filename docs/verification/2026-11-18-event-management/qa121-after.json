@@ -1,0 +1,103 @@
+{
+  "scope": "synthetic identity and credential; no cloud reads",
+  "pass": 24,
+  "fail": 0,
+  "results": [
+    {
+      "name": "pet-response-success-same",
+      "pass": true
+    },
+    {
+      "name": "pet-response-success-hidden",
+      "pass": true
+    },
+    {
+      "name": "pet-response-success-changed-user",
+      "pass": true
+    },
+    {
+      "name": "pet-response-success-changed-order",
+      "pass": true
+    },
+    {
+      "name": "pet-response-failure-same",
+      "pass": true
+    },
+    {
+      "name": "pet-response-failure-hidden",
+      "pass": true
+    },
+    {
+      "name": "pet-response-failure-changed-user",
+      "pass": true
+    },
+    {
+      "name": "pet-response-failure-changed-order",
+      "pass": true
+    },
+    {
+      "name": "pet-start-changed-user",
+      "pass": true
+    },
+    {
+      "name": "pet-start-changed-order",
+      "pass": true
+    },
+    {
+      "name": "vacant-response-success-same",
+      "pass": true
+    },
+    {
+      "name": "vacant-response-success-hidden",
+      "pass": true
+    },
+    {
+      "name": "vacant-response-success-changed-user",
+      "pass": true
+    },
+    {
+      "name": "vacant-response-success-changed-order",
+      "pass": true
+    },
+    {
+      "name": "vacant-response-failure-same",
+      "pass": true
+    },
+    {
+      "name": "vacant-response-failure-hidden",
+      "pass": true
+    },
+    {
+      "name": "vacant-response-failure-changed-user",
+      "pass": true
+    },
+    {
+      "name": "vacant-response-failure-changed-order",
+      "pass": true
+    },
+    {
+      "name": "vacant-start-changed-user",
+      "pass": true
+    },
+    {
+      "name": "vacant-start-changed-order",
+      "pass": true
+    },
+    {
+      "name": "pet-list-changed-user-success",
+      "pass": true
+    },
+    {
+      "name": "pet-list-changed-user-failure",
+      "pass": true
+    },
+    {
+      "name": "pet-list-changed-order-success",
+      "pass": true
+    },
+    {
+      "name": "pet-list-changed-order-failure",
+      "pass": true
+    }
+  ]
+}

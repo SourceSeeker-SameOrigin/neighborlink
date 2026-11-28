@@ -1,0 +1,102 @@
+{
+  "date": "2026-11-09",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "scope": "Two authorized update batches, three superseded packages counted once",
+  "uniqueFunctions": 12,
+  "comparedSourceFiles": 886,
+  "matches": 886,
+  "mismatches": [],
+  "functions": [
+    {
+      "function": "user",
+      "sourceCommit": "110ebe8",
+      "comparedFiles": 72,
+      "matches": 72,
+      "evidence": "user-cloud-readback.json"
+    },
+    {
+      "function": "provider",
+      "sourceCommit": "110ebe8b562cb1b8304a056e89bac5994b00e95d",
+      "comparedFiles": 72,
+      "matches": 72,
+      "evidence": "provider-cloud-readback.json"
+    },
+    {
+      "function": "idle",
+      "sourceCommit": "110ebe8b562cb1b8304a056e89bac5994b00e95d",
+      "comparedFiles": 72,
+      "matches": 72,
+      "evidence": "idle-cloud-readback.json"
+    },
+    {
+      "function": "board",
+      "sourceCommit": "110ebe8b562cb1b8304a056e89bac5994b00e95d",
+      "comparedFiles": 72,
+      "matches": 72,
+      "evidence": "board-cloud-readback.json"
+    },
+    {
+      "function": "timer",
+      "sourceCommit": "110ebe8b562cb1b8304a056e89bac5994b00e95d",
+      "comparedFiles": 72,
+      "matches": 72,
+      "evidence": "timer-cloud-readback.json"
+    },
+    {
+      "function": "membership",
+      "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+      "comparedFiles": 75,
+      "matches": 75,
+      "evidence": "membership-cloud-readback.json"
+    },
+    {
+      "function": "order",
+      "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+      "comparedFiles": 76,
+      "matches": 76,
+      "evidence": "order-cloud-readback.json"
+    },
+    {
+      "function": "payCallback",
+      "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+      "comparedFiles": 75,
+      "matches": 75,
+      "evidence": "payCallback-cloud-readback.json"
+    },
+    {
+      "function": "content",
+      "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+      "comparedFiles": 75,
+      "matches": 75,
+      "evidence": "content-cloud-readback.json"
+    },
+    {
+      "function": "chat",
+      "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+      "comparedFiles": 75,
+      "matches": 75,
+      "evidence": "chat-cloud-readback.json"
+    },
+    {
+      "function": "merchant",
+      "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+      "comparedFiles": 75,
+      "matches": 75,
+      "evidence": "merchant-cloud-readback.json"
+    },
+    {
+      "function": "admin",
+      "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+      "comparedFiles": 75,
+      "matches": 75,
+      "evidence": "admin-cloud-readback.json"
+    }
+  ],
+  "deploymentOrderVerified": "membership/order/payCallback updated before admin; admin deployed last",
+  "timerInvoked": false,
+  "timerTriggersEnabled": false,
+  "payCallbackInvoked": false,
+  "mainMerged": false,
+  "allBusinessAcceptanceComplete": false,
+  "otherNineFunctions": "Not part of this update scope; no fresh full-source/runtime claim for all 21 functions"
+}

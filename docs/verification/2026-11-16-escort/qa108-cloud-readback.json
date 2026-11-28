@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-18",
+  "sourceCommit": "68392d5",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "function": "event",
+  "matched": 76,
+  "sdk": "4.0.2",
+  "sha256": "86233cd4bd62883f126d07b1a86646ae96e52d49a77cc829f18191993b826c26",
+  "downloadedCodeIsolatedRegression": "passed",
+  "scope": "官方CLI下载云端源码逐文件比对，再使用合成数据库及页面回归。真实微信扫码和签到待验。",
+  "output": [
+    "PASS: registration, scene parsing, roster, wrong activity, check-in, duplicate rejection and resident refresh",
+    "P50 activity list: {\"initialCount\":20,\"visible\":21,\"targetInList\":true,\"rosterId\":\"activity-21\",\"targetSignupStatus\":\"checked_in\",\"serverSecondPageCount\":1,\"pagingButtons\":[\"loadMoreEvents\",\"loadMoreSignups\"]}",
+    "organizer scope: {\"role\":\"property\",\"moved\":false,\"roster\":true,\"checkin\":true,\"storedStatus\":\"checked_in\",\"revision\":1}",
+    "organizer scope: {\"role\":\"property\",\"moved\":true,\"roster\":\"E_FORBIDDEN\",\"checkin\":\"E_FORBIDDEN\",\"storedStatus\":\"signed\",\"revision\":0}",
+    "organizer scope: {\"role\":\"merchant\",\"moved\":false,\"roster\":true,\"checkin\":true,\"storedStatus\":\"checked_in\",\"revision\":1}",
+    "organizer scope: {\"role\":\"merchant\",\"moved\":true,\"roster\":\"E_FORBIDDEN\",\"checkin\":\"E_FORBIDDEN\",\"storedStatus\":\"signed\",\"revision\":0}",
+    "organizer scope: {\"role\":\"admin\",\"moved\":false,\"roster\":true,\"checkin\":true,\"storedStatus\":\"checked_in\",\"revision\":1}",
+    "organizer scope: {\"role\":\"admin\",\"moved\":true,\"roster\":true,\"checkin\":true,\"storedStatus\":\"checked_in\",\"revision\":1}",
+    "community changed before transaction: false signed"
+  ]
+}

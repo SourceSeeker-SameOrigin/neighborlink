@@ -1,0 +1,159 @@
+{
+  "scope": "synthetic interfaces and database; no real media or cloud writes; database order prearranged",
+  "pass": 4,
+  "fail": 13,
+  "results": [
+    {
+      "name": "normal-load",
+      "pass": true,
+      "evidence": {
+        "rows": 1,
+        "ready": true
+      }
+    },
+    {
+      "name": "denied-reload-clears-old-services",
+      "pass": false,
+      "evidence": {
+        "rows": 1,
+        "ready": false
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "late-read-hidden",
+      "pass": false,
+      "evidence": {
+        "updates": 3,
+        "rows": 1
+      },
+      "error": "3 == 0"
+    },
+    {
+      "name": "late-read-unloaded",
+      "pass": false,
+      "evidence": {
+        "updates": 3,
+        "rows": 1
+      },
+      "error": "3 == 0"
+    },
+    {
+      "name": "late-read-user",
+      "pass": false,
+      "evidence": {
+        "updates": 3,
+        "rows": 1
+      },
+      "error": "3 == 0"
+    },
+    {
+      "name": "return-refresh-not-blocked-by-old-read",
+      "pass": false,
+      "evidence": {
+        "calls": 1,
+        "id": "old"
+      },
+      "error": "'old' == 'new'"
+    },
+    {
+      "name": "save-entry-same-page",
+      "pass": true,
+      "evidence": {
+        "calls": 1
+      }
+    },
+    {
+      "name": "save-entry-hidden",
+      "pass": false,
+      "evidence": {
+        "calls": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "save-entry-unloaded",
+      "pass": false,
+      "evidence": {
+        "calls": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "save-entry-user",
+      "pass": false,
+      "evidence": {
+        "calls": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "upload-result-same-page",
+      "pass": true,
+      "evidence": {
+        "images": 1
+      }
+    },
+    {
+      "name": "upload-result-unloaded",
+      "pass": false,
+      "evidence": {
+        "images": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "upload-result-user",
+      "pass": false,
+      "evidence": {
+        "images": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "account-change-clears-old-draft",
+      "pass": false,
+      "evidence": {
+        "title": "A的合成草稿",
+        "images": 1
+      },
+      "error": "'A的合成草稿' == ''"
+    },
+    {
+      "name": "cloud-offset-reaches-101st-service",
+      "pass": false,
+      "evidence": {
+        "counts": [
+          100,
+          100
+        ],
+        "firstIds": [
+          "service-0",
+          "service-0"
+        ],
+        "writes": 0
+      },
+      "error": "The expression evaluated to a falsy value:\n\n  assert(last.data.list.some(s => s._id === 'service-100'))\n"
+    },
+    {
+      "name": "page-reaches-101st-service",
+      "pass": false,
+      "evidence": {
+        "rows": 100,
+        "paginationButton": false,
+        "calls": 1,
+        "writes": 0
+      },
+      "error": "The expression evaluated to a falsy value:\n\n  assert(page.data.list.some(s => s._id === 'service-100'))\n"
+    },
+    {
+      "name": "other-merchant-cannot-read-services",
+      "pass": true,
+      "evidence": {
+        "ok": false,
+        "code": "E_FORBIDDEN",
+        "writes": 0
+      }
+    }
+  ]
+}

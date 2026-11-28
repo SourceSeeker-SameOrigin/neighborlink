@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-26",
+  "sourceCommit": "27ed9e0",
+  "function": "cloudfunctions/_shared/station.js:statementCsv",
+  "scope": "one synthetic completed batch with three consented items; no cloud call",
+  "batchCount": 1,
+  "exportedColumn": "批次数",
+  "exportedValue": 3,
+  "actualMeaning": "consented item count",
+  "realRecords": 0
+}

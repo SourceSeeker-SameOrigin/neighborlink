@@ -1,0 +1,70 @@
+{
+  "calls": [
+    {
+      "action": "publish",
+      "eventId": "publish"
+    },
+    {
+      "action": "publish",
+      "eventId": "publish"
+    },
+    {
+      "action": "review",
+      "eventId": "review"
+    },
+    {
+      "action": "review",
+      "eventId": "review"
+    },
+    {
+      "action": "cancelEvent",
+      "eventId": "cancelEvent"
+    },
+    {
+      "action": "cancelEvent",
+      "eventId": "cancelEvent"
+    },
+    {
+      "action": "retryCancellation",
+      "eventId": "retryCancellation"
+    },
+    {
+      "action": "retryCancellation",
+      "eventId": "retryCancellation"
+    },
+    {
+      "action": "checkin",
+      "eventId": "checkin"
+    },
+    {
+      "action": "checkin",
+      "eventId": "checkin"
+    },
+    {
+      "action": "checkin",
+      "eventId": "checkin"
+    },
+    {
+      "action": "publish",
+      "eventId": "publish"
+    },
+    {
+      "action": "cancelEvent",
+      "eventId": "cancelEvent"
+    },
+    {
+      "action": "retryCancellation",
+      "eventId": "retryCancellation"
+    },
+    {
+      "action": "review",
+      "eventId": "review"
+    },
+    {
+      "action": "review",
+      "eventId": "review"
+    }
+  ],
+  "error": "",
+  "busy": false
+}

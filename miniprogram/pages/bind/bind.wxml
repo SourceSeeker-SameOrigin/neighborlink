@@ -1,21 +1,26 @@
-<view class="page">
-  <view class="page-title">服务送到您家门口</view>
-  <view class="muted">请确认小区、门牌和联系电话</view>
-  <view wx:if="{{loading}}" class="card">正在加载…</view>
+<view class="page bind-page">
+  <view class="bind-hero"><image class="bind-art" src="/assets/illustrations/address-neighborhood.png" mode="aspectFit"/><view class="bind-hero-copy"><view class="page-title">把服务送到家门口</view><view class="muted">确认服务地址，填写联系电话</view></view></view>
+  <view class="bind-steps"><view class="step"><text class="step-number">1</text>选择门牌</view><view class="step-line"></view><view class="step"><text class="step-number secondary">2</text>填写电话</view></view>
+  <view wx:if="{{loading}}" class="card muted">正在加载…</view>
   <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重新加载</button></view>
-  <view wx:if="{{!loading && !communities.length}}" class="card">暂时没有可服务的小区</view>
-  <view wx:if="{{locationHint}}" class="muted">{{locationHint}}</view>
-  <view wx:if="{{communities.length}}" class="card">
-    <view class="field"><text class="label">小区</text><picker range="{{communities}}" range-key="displayName" value="{{communityIndex}}" bindchange="communityChange"><view class="picker">{{communities[communityIndex].displayName}} ›</view></picker></view>
-    <view class="field"><text class="label">楼栋</text><picker range="{{buildings}}" range-key="name" value="{{buildingIndex}}" bindchange="buildingChange" disabled="{{!buildings.length}}"><view class="picker">{{buildings[buildingIndex].name || '请选择楼栋'}} ›</view></picker></view>
-    <view class="field"><text class="label">单元</text><picker range="{{units}}" value="{{unitIndex}}" bindchange="unitChange" disabled="{{!units.length}}"><view class="picker">{{units[unitIndex] || '请选择单元'}} ›</view></picker></view>
-    <view class="field"><text class="label">门牌号</text><input placeholder="例如：302" value="{{room}}" bindinput="roomChange" maxlength="30" /></view>
-    <view class="field"><text class="label">联系人姓名（选填）</text><input placeholder="留空时使用当前账户" value="{{contactName}}" bindinput="contactNameChange" maxlength="30" /></view>
-    <view class="field"><text class="label">本地址联系电话（选填）</text><input type="number" placeholder="留空时使用已授权手机号" value="{{contactPhone}}" bindinput="contactPhoneChange" maxlength="11" /></view>
-    <checkbox-group bindchange="agreementChange"><label><checkbox value="agree" checked="{{agreed}}" color="#1F7A5C" />我已阅读并同意隐私政策和服务协议</label></checkbox-group>
-    <view class="links"><navigator url="/pages/legal/privacy">隐私政策</navigator><navigator url="/pages/legal/terms">服务协议</navigator></view>
-    <view class="field"><text class="label">联系电话</text><view wx:if="{{phone}}">{{phone}}</view><button open-type="getPhoneNumber" bindgetphonenumber="phone" disabled="{{!agreed}}">{{phone ? '更换授权手机号' : '授权手机号'}}</button></view>
-    <button type="primary" bindtap="save" loading="{{saving}}" disabled="{{saving || !agreed || !phone || !room}}">保存门牌</button>
-  </view>
+  <view wx:if="{{!loading && !error && !communities.length}}" class="card">暂时没有可服务的小区</view>
+  <view wx:if="{{locationHint}}" class="notice">{{locationHint}}</view>
+  <block wx:if="{{communities.length}}">
+    <view class="card address-form">
+      <view class="address-field"><view class="address-label"><image class="field-icon" src="/assets/icons/building.png"/>服务小区</view><picker class="ui-picker" range="{{communities}}" range-key="displayName" value="{{communityIndex}}" bindchange="communityChange"><view class="address-value">{{communities[communityIndex].displayName}} <text class="chevron">›</text></view></picker></view>
+      <view class="address-field"><view class="address-label"><image class="field-icon" src="/assets/icons/building.png"/>楼栋 / 单元</view><view class="building-pickers"><picker class="ui-picker" range="{{buildings}}" range-key="name" value="{{buildingIndex}}" bindchange="buildingChange" disabled="{{!buildings.length}}"><view class="address-value">{{buildings[buildingIndex].name || '楼栋'}} ›</view></picker><picker class="ui-picker" range="{{units}}" value="{{unitIndex}}" bindchange="unitChange" disabled="{{!units.length}}"><view class="address-value">{{units[unitIndex] || '单元'}} ›</view></picker></view></view>
+      <view class="address-field"><view class="address-label"><image class="field-icon" src="/assets/icons/home.png"/>门牌号</view><input class="room-input" placeholder="例如：302" value="{{room}}" bindinput="roomChange" maxlength="30"/></view>
+    </view>
+    <view class="card contact-card"><button class="optional-contact" bindtap="toggleContact"><image class="field-icon" src="/assets/icons/me.png"/><text>补充联系人（选填）</text><text class="chevron">{{contactExpanded ? '⌃' : '›'}}</text></button><block wx:if="{{contactExpanded}}"><view class="field"><text class="label">联系人姓名</text><input placeholder="留空时使用当前账户" value="{{contactName}}" bindinput="contactNameChange" maxlength="30"/></view><view class="field"><text class="label">本地址联系电话</text><input type="number" placeholder="留空时使用下方联系电话" value="{{contactPhone}}" bindinput="contactPhoneChange" maxlength="11"/></view></block></view>
+    <view class="card phone-card"><view class="phone-heading"><image class="field-icon" src="/assets/icons/phone.png"/><view><view class="phone-title">联系电话</view><view class="muted">用于服务联系，号码按权限保护</view></view></view>
+      <view wx:if="{{phone}}" class="saved-phone">已保存 {{phone}} · {{phoneVerified ? '微信授权' : '未验证'}}</view>
+      <input class="manual-phone" type="number" maxlength="11" value="{{manualPhone}}" bindinput="manualPhoneChange" placeholder="{{phone ? '更换号码请填写，留空保留原号码' : '请输入11位联系电话'}}"/>
+      <view class="phone-note">手填号码未经验证，请确认是本人或获授权使用的联系电话。</view>
+      <view wx:if="{{phoneError}}" class="phone-error">{{phoneError}}</view>
+    </view>
+    <view class="agreement"><checkbox-group bindchange="agreementChange"><view class="agreement-inline"><label class="ui-label"><checkbox value="agree" checked="{{agreed}}" color="#1F7A5C"/></label><view class="agreement-text">我已阅读并同意 <navigator class="ui-navigator" url="/pages/legal/privacy">隐私政策</navigator> 和 <navigator class="ui-navigator" url="/pages/legal/terms">服务协议</navigator></view></view></checkbox-group></view>
+    <button type="primary" bindtap="save" loading="{{saving}}" disabled="{{saving || authorizing || !agreed || (!phone && !manualPhone) || !room}}">保存门牌</button>
+  </block>
+  <button class="back-home" plain bindtap="backHome">先返回首页</button>
 </view>
 <privacy-popup />

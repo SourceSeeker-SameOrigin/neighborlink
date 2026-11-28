@@ -1,0 +1,23 @@
+{
+  "function": "event",
+  "sourceCommit": "3f8537e90310d110b6a9d3af15bacf3cdb252b7d",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "method": "Official CLI download and SHA-256 of all authorized source files",
+  "selectedPackageBytes": 128987,
+  "selectedPackageSha256": "ba1fe2f53287b8540144aecb14f984bc0ca7833bcdb4f60a01783b6bb8a6c4b8",
+  "comparedFiles": 76,
+  "matches": 76,
+  "mismatches": [],
+  "sdkVersion": "4.0.2",
+  "configurationReadback": {
+    "status": "normal",
+    "runtime": "Node.js 20.19",
+    "handler": "index.main",
+    "memoryMB": 256,
+    "timeoutSeconds": 3,
+    "modifiedAtBeijing": "2026-11-09 23:56:11",
+    "triggers": 0,
+    "httpDomains": 0,
+    "environmentVariables": "none shown"
+  }
+}

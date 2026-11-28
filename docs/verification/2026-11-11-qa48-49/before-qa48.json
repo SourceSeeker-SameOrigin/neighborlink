@@ -1,0 +1,9 @@
+{
+  "baseline": "a485e0c",
+  "scope": "Historical isolated reproduction before approved fix; no cloud/payment",
+  "probe": "membership-address-response-race",
+  "selected": "B",
+  "displayedPlan": "A-plan",
+  "expected": "B-plan",
+  "status": "FAIL"
+}

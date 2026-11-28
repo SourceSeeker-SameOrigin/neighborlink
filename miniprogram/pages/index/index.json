@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "首页",
+  "navigationBarTitleText": "近邻帮",
   "usingComponents": {
     "privacy-popup": "/components/privacy-popup/index",
     "service-tile": "/components/service-tile/index"

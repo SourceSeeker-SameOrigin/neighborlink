@@ -1,0 +1,39 @@
+{
+  "scope": "In-memory guard removal only; production source unchanged",
+  "results": [
+    {
+      "name": "create_guard",
+      "exitCode": 1,
+      "applied": true,
+      "detected": true,
+      "failed": [
+        "create: 25 identical retries produce one order and one revision",
+        "create: same request after closed or refunded returns original, never reopens",
+        "create: 20 overlapping callers under serialized transactions create once"
+      ]
+    },
+    {
+      "name": "payment_guard",
+      "exitCode": 1,
+      "applied": true,
+      "detected": true,
+      "failed": [
+        "payment: 25 repeated mockPay handlers do not change state/events/statistics",
+        "payment: overlapping mockPay callers increment once in serialized fixture",
+        "payment: altered transaction, amount and mode reject with unchanged state",
+        "refunded order: duplicate payment returns cancelled without new writes"
+      ]
+    },
+    {
+      "name": "refund_guard",
+      "exitCode": 1,
+      "applied": true,
+      "detected": true,
+      "failed": [
+        "refund: 25 repeated same-key requests preserve single refund and statistics",
+        "refund: concurrent same-key reservation creates one refund under fixture serialization",
+        "refund: changed amount or new key exceeding remaining amount rejects"
+      ]
+    }
+  ]
+}

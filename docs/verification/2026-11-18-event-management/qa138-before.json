@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-26",
+  "sourceCommit": "b32f648",
+  "scope": "actual P62 onLoad with synthetic clock only",
+  "cases": [
+    {
+      "instant": "2026-11-30T16:05:00Z",
+      "timezone": "Asia/Shanghai",
+      "expectedBeijingMonth": "2026-12",
+      "actualDefaultMonth": "2026-12",
+      "matches": true
+    },
+    {
+      "instant": "2026-11-30T16:05:00Z",
+      "timezone": "UTC",
+      "expectedBeijingMonth": "2026-12",
+      "actualDefaultMonth": "2026-11",
+      "matches": false
+    },
+    {
+      "instant": "2026-11-30T16:05:00Z",
+      "timezone": "America/Los_Angeles",
+      "expectedBeijingMonth": "2026-12",
+      "actualDefaultMonth": "2026-11",
+      "matches": false
+    },
+    {
+      "instant": "2026-12-31T16:05:00Z",
+      "timezone": "Asia/Shanghai",
+      "expectedBeijingMonth": "2027-01",
+      "actualDefaultMonth": "2027-01",
+      "matches": true
+    },
+    {
+      "instant": "2026-12-31T16:05:00Z",
+      "timezone": "UTC",
+      "expectedBeijingMonth": "2027-01",
+      "actualDefaultMonth": "2026-12",
+      "matches": false
+    },
+    {
+      "instant": "2026-12-31T16:05:00Z",
+      "timezone": "America/Los_Angeles",
+      "expectedBeijingMonth": "2027-01",
+      "actualDefaultMonth": "2026-12",
+      "matches": false
+    }
+  ],
+  "matched": 2,
+  "mismatched": 4,
+  "cloudCalls": 0
+}

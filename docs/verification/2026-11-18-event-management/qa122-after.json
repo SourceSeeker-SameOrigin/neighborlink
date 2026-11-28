@@ -1,0 +1,383 @@
+{
+  "scope": "Actual pet/work page, synthetic dialogs/uploads and intercepted writes only",
+  "pass": 94,
+  "fail": 0,
+  "results": [
+    {
+      "name": "missed-confirm-same",
+      "pass": true
+    },
+    {
+      "name": "missed-confirm-cancel",
+      "pass": true
+    },
+    {
+      "name": "missed-confirm-hidden",
+      "pass": true
+    },
+    {
+      "name": "missed-confirm-unloaded",
+      "pass": true
+    },
+    {
+      "name": "missed-confirm-user",
+      "pass": true
+    },
+    {
+      "name": "missed-confirm-order",
+      "pass": true
+    },
+    {
+      "name": "missed-confirm-refresh",
+      "pass": true
+    },
+    {
+      "name": "done-choice-same",
+      "pass": true
+    },
+    {
+      "name": "done-choice-cancel",
+      "pass": true
+    },
+    {
+      "name": "done-choice-hidden",
+      "pass": true
+    },
+    {
+      "name": "done-choice-unloaded",
+      "pass": true
+    },
+    {
+      "name": "done-choice-user",
+      "pass": true
+    },
+    {
+      "name": "done-choice-order",
+      "pass": true
+    },
+    {
+      "name": "done-choice-refresh",
+      "pass": true
+    },
+    {
+      "name": "done-upload-same",
+      "pass": true
+    },
+    {
+      "name": "done-upload-unloaded",
+      "pass": true
+    },
+    {
+      "name": "done-upload-user",
+      "pass": true
+    },
+    {
+      "name": "done-upload-order",
+      "pass": true
+    },
+    {
+      "name": "done-upload-refresh",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-hidden-result-same",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-hidden-result-user",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-hidden-result-order",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-hidden-result-read-error",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-hidden-result-completed",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-hidden-result-visit-done",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-shown-result-same",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-shown-result-user",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-shown-result-order",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-shown-result-read-error",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-shown-result-completed",
+      "pass": true
+    },
+    {
+      "name": "camera-return-photo-shown-result-visit-done",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-hidden-result-same",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-hidden-result-user",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-hidden-result-order",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-hidden-result-read-error",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-hidden-result-completed",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-hidden-result-visit-done",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-shown-result-same",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-shown-result-user",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-shown-result-order",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-shown-result-read-error",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-shown-result-completed",
+      "pass": true
+    },
+    {
+      "name": "camera-return-video-shown-result-visit-done",
+      "pass": true
+    },
+    {
+      "name": "old-button-done-hidden",
+      "pass": true
+    },
+    {
+      "name": "old-button-done-unloaded",
+      "pass": true
+    },
+    {
+      "name": "old-button-done-user",
+      "pass": true
+    },
+    {
+      "name": "old-button-done-order",
+      "pass": true
+    },
+    {
+      "name": "old-button-done-refresh",
+      "pass": true
+    },
+    {
+      "name": "old-button-done-completed",
+      "pass": true
+    },
+    {
+      "name": "old-button-done-visit-done",
+      "pass": true
+    },
+    {
+      "name": "old-button-done-read-error",
+      "pass": true
+    },
+    {
+      "name": "old-button-missed-hidden",
+      "pass": true
+    },
+    {
+      "name": "old-button-missed-unloaded",
+      "pass": true
+    },
+    {
+      "name": "old-button-missed-user",
+      "pass": true
+    },
+    {
+      "name": "old-button-missed-order",
+      "pass": true
+    },
+    {
+      "name": "old-button-missed-refresh",
+      "pass": true
+    },
+    {
+      "name": "old-button-missed-completed",
+      "pass": true
+    },
+    {
+      "name": "old-button-missed-visit-done",
+      "pass": true
+    },
+    {
+      "name": "old-button-missed-read-error",
+      "pass": true
+    },
+    {
+      "name": "late-write-done-success-hidden",
+      "pass": true
+    },
+    {
+      "name": "late-write-done-success-unloaded",
+      "pass": true
+    },
+    {
+      "name": "late-write-done-success-user",
+      "pass": true
+    },
+    {
+      "name": "late-write-done-success-order",
+      "pass": true
+    },
+    {
+      "name": "late-write-done-success-refresh",
+      "pass": true
+    },
+    {
+      "name": "late-write-done-error-hidden",
+      "pass": true
+    },
+    {
+      "name": "late-write-done-error-unloaded",
+      "pass": true
+    },
+    {
+      "name": "late-write-done-error-user",
+      "pass": true
+    },
+    {
+      "name": "late-write-done-error-order",
+      "pass": true
+    },
+    {
+      "name": "late-write-done-error-refresh",
+      "pass": true
+    },
+    {
+      "name": "late-write-missed-success-hidden",
+      "pass": true
+    },
+    {
+      "name": "late-write-missed-success-unloaded",
+      "pass": true
+    },
+    {
+      "name": "late-write-missed-success-user",
+      "pass": true
+    },
+    {
+      "name": "late-write-missed-success-order",
+      "pass": true
+    },
+    {
+      "name": "late-write-missed-success-refresh",
+      "pass": true
+    },
+    {
+      "name": "late-write-missed-error-hidden",
+      "pass": true
+    },
+    {
+      "name": "late-write-missed-error-unloaded",
+      "pass": true
+    },
+    {
+      "name": "late-write-missed-error-user",
+      "pass": true
+    },
+    {
+      "name": "late-write-missed-error-order",
+      "pass": true
+    },
+    {
+      "name": "late-write-missed-error-refresh",
+      "pass": true
+    },
+    {
+      "name": "busy-dialog-and-upload-no-duplicate",
+      "pass": true
+    },
+    {
+      "name": "upload-failure-same",
+      "pass": true
+    },
+    {
+      "name": "upload-failure-hidden",
+      "pass": true
+    },
+    {
+      "name": "upload-failure-unloaded",
+      "pass": true
+    },
+    {
+      "name": "upload-failure-user",
+      "pass": true
+    },
+    {
+      "name": "upload-failure-order",
+      "pass": true
+    },
+    {
+      "name": "upload-failure-refresh",
+      "pass": true
+    },
+    {
+      "name": "pending-upload-return-releases-busy-user",
+      "pass": true
+    },
+    {
+      "name": "pending-upload-return-releases-busy-order",
+      "pass": true
+    },
+    {
+      "name": "pending-upload-return-releases-busy-read-error",
+      "pass": true
+    },
+    {
+      "name": "pending-upload-return-releases-busy-completed",
+      "pass": true
+    },
+    {
+      "name": "pending-upload-return-releases-busy-visit-done",
+      "pass": true
+    },
+    {
+      "name": "old-result-does-not-clear-new-action-done",
+      "pass": true
+    },
+    {
+      "name": "old-result-does-not-clear-new-action-missed",
+      "pass": true
+    },
+    {
+      "name": "native-choice-error-releases-busy",
+      "pass": true
+    }
+  ]
+}

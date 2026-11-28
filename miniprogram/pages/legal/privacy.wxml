@@ -1,6 +1,6 @@
 <view class="page">
-  <view class="page-title">隐私政策</view>
-  <view class="card"><view class="section-title">我们收集的信息</view><view>手机号、服务门牌、订单内容和履约照片用于联系上门、完成服务及处理售后。扫码来源用于统计服务推广效果。您主动开启地图定位时，我们会读取当前坐标用于附近小区排序；服务员仅在接单或服务中且停留在订单详情页时每 30 秒共享一次位置，离开页面即停止。</view></view>
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/shield.png"/><view class="masthead-copy"><view class="page-title">隐私政策</view><view class="masthead-subtitle">了解规则，安心使用服务</view></view></view>
+  <view class="card"><view class="section-title">我们收集的信息</view><view>您主动填写的联系电话、服务门牌、订单内容和履约照片用于联系上门、完成服务及处理售后。手填号码仅校验格式，不进行短信或号码归属验证，并记录为未验证；请填写本人或获授权使用的联系电话。若使用微信手机号授权，则单独记录其来源。扫码来源用于统计服务推广效果。您主动开启地图定位时，我们会读取当前坐标用于附近小区排序；服务员仅在接单或服务中且停留在订单详情页时每 30 秒共享一次位置，离开页面即停止。</view></view>
   <view class="card"><view class="section-title">谁可以看到</view><view>接单前，服务员只看到服务类型、楼栋和时段。接单后，负责该订单的服务员可查看履约所需的门牌和联系电话；完成后超过配置的可见时限，手机号恢复打码。管理员为履约和售后处理访问相关记录，物业仅访问本小区的授权信息。</view></view>
   <view class="card"><view class="section-title">保存期限</view><view>订单数据保存三年。服务员身份证照片在审核完成后立即删除，仅保留身份证号后四位。定位坐标仅用于当前附近小区查找或当前订单履约，不申请后台持续定位。</view></view>
   <view class="card"><view class="section-title">您的选择</view><view>您可以拒绝相关授权，但依赖这些信息的功能可能无法使用。如需更正信息、注销账号或咨询个人信息处理，请通过首页或“我的”页面联系客服。</view></view>

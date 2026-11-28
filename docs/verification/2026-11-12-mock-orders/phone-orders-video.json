@@ -1,0 +1,85 @@
+{
+  "date": "2026-11-12",
+  "video": {
+    "filename": "4de088d6e1f65846675aa063847b2a37.mp4",
+    "sha256": "4bf66babed82844988caea643a5ab9fa51db79632a9aa417164447420272274f",
+    "durationSeconds": 107.433333,
+    "dimensions": [
+      592,
+      1280
+    ],
+    "inspection": "5-second overview; 88–100s at 2fps; full resolution 99s frame",
+    "audio": "mean/max -91 dB"
+  },
+  "cloudReadback": {
+    "source": "Official CloudBase rendered database UI; read only",
+    "ordersCollectionCount": 2,
+    "orders": [
+      {
+        "orderNo": "JL2611121533180516",
+        "status": "closed",
+        "serviceCode": "trash",
+        "payAmountFen": 100,
+        "listPriceFen": 500,
+        "discountFen": 400,
+        "paymentMode": "mock",
+        "paidAt": null,
+        "hasTransactionId": false,
+        "acceptedAt": null,
+        "providerId": null,
+        "refunds": [],
+        "timelineStatuses": [
+          "pending_pay",
+          "closed"
+        ],
+        "note": "测试"
+      },
+      {
+        "orderNo": "JL2611121534276424",
+        "status": "paid",
+        "serviceCode": "trash",
+        "payAmountFen": 100,
+        "listPriceFen": 500,
+        "discountFen": 400,
+        "paymentMode": "mock",
+        "paidAtBeijing": "2026-11-12 15:34:30",
+        "hasTransactionId": true,
+        "acceptedAt": null,
+        "providerId": null,
+        "refunds": [],
+        "timelineStatuses": [
+          "pending_pay",
+          "paid"
+        ],
+        "note": "测试"
+      }
+    ],
+    "user": {
+      "approvedRecordMatched": true,
+      "communityMatched": true,
+      "roles": [
+        "resident",
+        "admin"
+      ],
+      "paidOrderCount": 1,
+      "firstPaidAtBeijing": "2026-11-12 15:34:30",
+      "firstPaidOrderMatchesSecond": true
+    }
+  },
+  "passed": [
+    "First order created, mock payment declined, unpaid cancellation persisted as closed",
+    "Second order mock payment persisted as paid and displayed as 待接单",
+    "Two orders in collection, one mock payment in user count; firstPaid points to second order"
+  ],
+  "pending": [
+    "Second order cancellation and mock refund",
+    "Repeated request/idempotency live probe",
+    "Both orders terminal/no remaining task",
+    "Order list and return navigation full verification",
+    "Intermediate paidOrderCount between first cancellation and second payment not sampled"
+  ],
+  "deviation": "Both user-entered notes are 测试 rather than the requested 联调测试，请勿履约; recorded as observed, no database edit",
+  "followUp": "User asked to cancel existing second order and report refund; no third order authorized",
+  "privacy": "No full openid, phone, door address or transaction identifier retained; original video and frames not committed",
+  "limits": "Video plus readonly DB evidence; no agent business writes, no fulfillment, no timer execution, no real payment"
+}

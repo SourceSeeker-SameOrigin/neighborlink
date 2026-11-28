@@ -1,0 +1,42 @@
+// Real page, synthetic dialogs/uploads/API only. No real camera, files, refunds or tasks.
+const assert=require('node:assert/strict');
+const {runtime}=require('../2026-11-09-remediation/page-fixture.cjs');
+const results=[];
+async function check(name,run){try{await run();results.push({name,pass:true});}catch(e){results.push({name,pass:false,error:e.message});}}
+async function fixture(){
+ const state={readError:false,status:"in_service",visitStatus:"pending",pendingWrite:null};
+ const writes=[],dialogs=[],sheets=[],uploads=[];
+ const env=runtime(async(n,a,d)=>{if(a==='listVisits'){if(state.readError)throw Error('synthetic read denied');return{list:[{_id:'visit-a',status:state.visitStatus}],status:state.status,entryMode:'password'};}if(['markMissed','markDone'].includes(a)){writes.push({action:a,...d});if(state.pendingWrite)return state.pendingWrite;return{};}throw Error('Unexpected API');},{media:{uploadPhotos:folder=>new Promise((resolve,reject)=>uploads.push({folder,resolve,reject})),uploadVideo:folder=>new Promise((resolve,reject)=>uploads.push({folder,resolve,reject}))}});
+ env.app.globalData.user={_id:'provider-a'};
+ env.wx.showModal=o=>dialogs.push(o);env.wx.showActionSheet=o=>sheets.push(o);
+ const page=env.instance('miniprogram/pet/work.js');page.onLoad({id:'order-a'});await page.onShow();
+ return{env,page,writes,dialogs,sheets,uploads,state,event:{currentTarget:{dataset:{id:'visit-a'}}}};
+}
+async function change(f,b){if(b==='hidden')f.page.onHide();if(b==='unloaded')f.page.onUnload();if(b==='user')f.env.app.globalData.user={_id:'provider-b'};if(b==='order')f.page.orderId='order-b';if(b==='refresh')await f.page.load();}
+const tick=()=>new Promise(resolve=>setImmediate(resolve));
+(async()=>{
+ for(const boundary of ['same','cancel','hidden','unloaded','user','order','refresh'])await check('missed-confirm-'+boundary,async()=>{const f=await fixture(),p=f.page.missed(f.event);assert.equal(f.dialogs.length,1);await change(f,boundary);f.dialogs[0].success({confirm:boundary!=='cancel'});await p;assert.equal(f.writes.length,boundary==='same'?1:0,'stale confirmation must not register a missed visit');if(boundary==='same')assert.equal(f.writes[0].orderId,'order-a');});
+ for(const boundary of ['same','cancel','hidden','unloaded','user','order','refresh'])await check('done-choice-'+boundary,async()=>{const f=await fixture(),p=f.page.done(f.event);assert.equal(f.sheets.length,1);await change(f,boundary);if(boundary==='cancel')f.sheets[0].fail({errMsg:'cancel'});else f.sheets[0].success({tapIndex:0});await tick();for(const u of f.uploads)u.resolve(['synthetic-a','synthetic-b']);await p;assert.equal(f.writes.length,boundary==='same'?1:0,'stale choice must not submit service proof');if(boundary==='same')assert.equal(f.writes[0].orderId,'order-a');});
+ for(const boundary of ['same','unloaded','user','order','refresh'])await check('done-upload-'+boundary,async()=>{const f=await fixture(),p=f.page.done(f.event);f.sheets[0].success({tapIndex:0});await tick();assert.equal(f.uploads.length,1);await change(f,boundary);f.uploads[0].resolve(['synthetic-a','synthetic-b']);await p;assert.equal(f.writes.length,boundary==='same'?1:0,'stale upload must not submit service proof');});
+ for(const kind of ['photo','video'])for(const timing of ['hidden-result','shown-result'])for(const boundary of ['same','user','order','read-error','completed','visit-done'])await check('camera-return-'+kind+'-'+timing+'-'+boundary,async()=>{
+  const f=await fixture(),p=f.page.done(f.event);f.sheets[0].success({tapIndex:kind==='photo'?0:1});await tick();f.page.onHide();
+  if(boundary==='user'||boundary==='order')await change(f,boundary);if(boundary==='read-error')f.state.readError=true;if(boundary==='completed')f.state.status='delivered';if(boundary==='visit-done')f.state.visitStatus='done';
+  if(timing==='shown-result')await f.page.onShow();f.uploads[0].resolve(kind==='photo'?['synthetic-a','synthetic-b']:'synthetic-video');await p;if(timing==='hidden-result'){assert.equal(f.writes.length,0);await f.page.onShow();}
+  assert.equal(f.writes.length,boundary==='same'?1:0);assert.equal(f.page.data.busy,false);if(boundary==='same'){assert.equal(f.writes[0].visitId,'visit-a');assert.equal(f.writes[0].orderId,'order-a');assert.ok(f.env.requests.filter(x=>x[1]==='listVisits').length>=2);}
+ });
+ for(const action of ['done','missed'])for(const boundary of ['hidden','unloaded','user','order','refresh','completed','visit-done','read-error'])await check('old-button-'+action+'-'+boundary,async()=>{
+  const f=await fixture();if(boundary==='completed'){f.state.status='delivered';await f.page.load();}else if(boundary==='visit-done'){f.state.visitStatus='done';await f.page.load();}else if(boundary==='read-error'){f.state.readError=true;await f.page.load();}else if(boundary==='refresh'){f.page.taskContext=null;}else await change(f,boundary);
+  await f.page[action](f.event);assert.equal(f.dialogs.length+f.sheets.length,0);assert.equal(f.writes.length,0);
+ });
+ for(const action of ['done','missed'])for(const outcome of ['success','error'])for(const boundary of ['hidden','unloaded','user','order','refresh'])await check('late-write-'+action+'-'+outcome+'-'+boundary,async()=>{
+  const f=await fixture();let resolve,reject;f.state.pendingWrite=new Promise((a,b)=>{resolve=a;reject=b;});const p=f.page[action](f.event);
+  if(action==='done'){f.sheets[0].success({tapIndex:0});await tick();f.uploads[0].resolve(['synthetic-a','synthetic-b']);}else f.dialogs[0].success({confirm:true});await tick();assert.equal(f.writes.length,1);await change(f,boundary);
+  const before=f.page.data.error;outcome==='success'?resolve({}):reject(Error('synthetic stale write error'));await p;assert.equal(f.page.data.error,before);assert.equal(f.writes.length,1);
+ });
+ await check('busy-dialog-and-upload-no-duplicate',async()=>{const f=await fixture(),p=f.page.done(f.event);await f.page.missed(f.event);await f.page.done(f.event);assert.equal(f.sheets.length,1);assert.equal(f.dialogs.length,0);f.sheets[0].success({tapIndex:0});await tick();await f.page.missed(f.event);assert.equal(f.dialogs.length,0);f.uploads[0].resolve(['a','b']);await p;assert.equal(f.writes.length,1);assert.equal(f.page.data.busy,false);});
+ for(const boundary of ['same','hidden','unloaded','user','order','refresh'])await check('upload-failure-'+boundary,async()=>{const f=await fixture(),p=f.page.done(f.event);f.sheets[0].success({tapIndex:0});await tick();await change(f,boundary);f.uploads[0].reject(Error('synthetic upload failure'));await p;assert.equal(f.writes.length,0);assert.equal(f.page.data.error.includes('synthetic upload failure'),boundary==='same');});
+ for(const boundary of ['user','order','read-error','completed','visit-done'])await check('pending-upload-return-releases-busy-'+boundary,async()=>{const f=await fixture(),p=f.page.done(f.event);f.sheets[0].success({tapIndex:0});await tick();f.page.onHide();if(boundary==='user'||boundary==='order')await change(f,boundary);if(boundary==='read-error')f.state.readError=true;if(boundary==='completed')f.state.status='delivered';if(boundary==='visit-done')f.state.visitStatus='done';await f.page.onShow();assert.equal(f.page.data.busy,false);assert.equal(f.page.visitAction,null);f.uploads[0].resolve(['a','b']);await p;assert.equal(f.writes.length,0);});
+ for(const action of ['done','missed'])await check('old-result-does-not-clear-new-action-'+action,async()=>{const f=await fixture(),old=f.page[action](f.event);await f.page.load();const newer=f.page.missed(f.event);const token=f.page.visitAction;if(action==='done')f.sheets[0].fail({errMsg:'cancel'});else f.dialogs[0].success({confirm:true});await old;assert.equal(f.page.visitAction,token);assert.equal(f.page.data.busy,true);f.dialogs[f.dialogs.length-1].success({confirm:false});await newer;assert.equal(f.writes.length,0);assert.equal(f.page.data.busy,false);});
+ await check('native-choice-error-releases-busy',async()=>{const f=await fixture();f.env.wx.showActionSheet=()=>{throw Error('synthetic native choice error');};await f.page.done(f.event);assert.equal(f.page.data.busy,false);assert.equal(f.writes.length,0);assert.equal(f.page.data.error,'synthetic native choice error');});
+ console.log(JSON.stringify({scope:'Actual pet/work page, synthetic dialogs/uploads and intercepted writes only',pass:results.filter(x=>x.pass).length,fail:results.filter(x=>!x.pass).length,results},null,2));if(results.some(x=>!x.pass))process.exitCode=1;
+})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -1,0 +1,226 @@
+{
+  "scope": "actual P63 page; cloud-labelled cases execute actual station entry against synthetic database; no real cloud or native notifications",
+  "pass": 8,
+  "fail": 16,
+  "results": [
+    {
+      "name": "normal-create",
+      "pass": true,
+      "evidence": {
+        "calls": 1,
+        "result": "synthetic-batch"
+      }
+    },
+    {
+      "name": "busy-double-submit",
+      "pass": true,
+      "evidence": {
+        "calls": 1
+      }
+    },
+    {
+      "name": "same-page-response-loss-reuses-id",
+      "pass": true,
+      "evidence": {
+        "sameId": true
+      }
+    },
+    {
+      "name": "response-loss-reentry-keeps-original-id",
+      "pass": false,
+      "evidence": {
+        "sameId": false,
+        "calls": 2
+      },
+      "error": "Expected values to be strictly equal:\n\nfalse !== true\n"
+    },
+    {
+      "name": "old-submit-hide",
+      "pass": false,
+      "evidence": {
+        "calls": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-success-hide",
+      "pass": false,
+      "evidence": {
+        "writes": 2,
+        "notices": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "late-error-hide",
+      "pass": false,
+      "evidence": {
+        "writes": 2,
+        "notices": 0
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "old-submit-unload",
+      "pass": false,
+      "evidence": {
+        "calls": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-success-unload",
+      "pass": false,
+      "evidence": {
+        "writes": 2,
+        "notices": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "late-error-unload",
+      "pass": false,
+      "evidence": {
+        "writes": 2,
+        "notices": 0
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "old-submit-user",
+      "pass": false,
+      "evidence": {
+        "calls": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-success-user",
+      "pass": false,
+      "evidence": {
+        "writes": 2,
+        "notices": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "late-error-user",
+      "pass": false,
+      "evidence": {
+        "writes": 2,
+        "notices": 0
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "old-submit-station",
+      "pass": false,
+      "evidence": {
+        "calls": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-success-station",
+      "pass": false,
+      "evidence": {
+        "writes": 2,
+        "notices": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "late-error-station",
+      "pass": false,
+      "evidence": {
+        "writes": 2,
+        "notices": 0
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "unknown-result-unchanged-input-event-keeps-id",
+      "pass": false,
+      "evidence": {
+        "sameId": false
+      },
+      "error": "Expected values to be strictly equal:\n\nfalse !== true\n"
+    },
+    {
+      "name": "no-eligible-residents-no-batch-result",
+      "pass": true,
+      "evidence": {
+        "batchId": null,
+        "notices": 1
+      }
+    },
+    {
+      "name": "actual-cloud-synthetic-db-normal",
+      "pass": true,
+      "evidence": {
+        "firstCount": 1,
+        "finalCount": 1,
+        "calls": 1,
+        "uniqueRequestIds": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "actual-cloud-synthetic-db-same-page",
+      "pass": true,
+      "evidence": {
+        "firstCount": 1,
+        "finalCount": 1,
+        "calls": 2,
+        "uniqueRequestIds": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "actual-cloud-synthetic-db-reentry",
+      "pass": false,
+      "evidence": {
+        "firstCount": 1,
+        "finalCount": 2,
+        "calls": 2,
+        "uniqueRequestIds": 2,
+        "error": "合成响应丢失"
+      },
+      "error": "retry must not create a second batch\n\n2 !== 1\n"
+    },
+    {
+      "name": "actual-cloud-synthetic-db-unchanged-input",
+      "pass": false,
+      "evidence": {
+        "firstCount": 1,
+        "finalCount": 2,
+        "calls": 2,
+        "uniqueRequestIds": 2,
+        "error": ""
+      },
+      "error": "retry must not create a second batch\n\n2 !== 1\n"
+    },
+    {
+      "name": "actual-cloud-synthetic-db-saved-address",
+      "pass": true,
+      "evidence": {
+        "firstCount": 1,
+        "finalCount": 1,
+        "calls": 1,
+        "uniqueRequestIds": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "actual-cloud-synthetic-db-no-consent",
+      "pass": true,
+      "evidence": {
+        "firstCount": 0,
+        "finalCount": 0,
+        "calls": 1,
+        "uniqueRequestIds": 1,
+        "error": ""
+      }
+    }
+  ]
+}

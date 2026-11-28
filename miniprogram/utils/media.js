@@ -1,11 +1,13 @@
 const privacy = require('./privacy');
 
-async function uploadPhotos(folder, count = 1) {
+async function uploadPhotos(folder, count = 1, options = {}) {
   await privacy.authorize();
   const result = await new Promise((resolve, reject) => wx.chooseMedia({ count, mediaType: ['image'],
     sourceType: ['camera'], sizeType: ['compressed'], success: resolve, fail: reject }));
+  if (typeof options.onChosen === 'function') options.onChosen();
   const files = [];
-  wx.showLoading({ title: '正在上传照片', mask: true });
+  const loading = options.loading !== false;
+  if (loading) wx.showLoading({ title: '正在上传照片', mask: true });
   try {
     for (const item of result.tempFiles) {
       const extension = /\.(png|jpe?g|webp)$/i.exec(item.tempFilePath);
@@ -14,7 +16,7 @@ async function uploadPhotos(folder, count = 1) {
       files.push(uploaded.fileID);
     }
     return files;
-  } finally { wx.hideLoading(); }
+  } finally { if (loading) wx.hideLoading(); }
 }
 
 async function uploadVideo(folder) {

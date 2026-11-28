@@ -1,0 +1,143 @@
+{
+  "scope": "QA120 actual page with synthetic results only",
+  "pass": 17,
+  "fail": 0,
+  "results": [
+    {
+      "name": "recovery-read-in_service",
+      "pass": true,
+      "observed": {
+        "reads": 2,
+        "writes": 1
+      }
+    },
+    {
+      "name": "recovery-read-delivered",
+      "pass": true,
+      "observed": {
+        "reads": 2,
+        "writes": 1
+      }
+    },
+    {
+      "name": "recovery-read-completed",
+      "pass": true,
+      "observed": {
+        "reads": 2,
+        "writes": 1
+      }
+    },
+    {
+      "name": "recovery-read-cancelled",
+      "pass": true,
+      "observed": {
+        "reads": 2,
+        "writes": 1
+      }
+    },
+    {
+      "name": "recovery-failure-no-resubmit",
+      "pass": true,
+      "observed": {
+        "reads": 3,
+        "writes": 1
+      }
+    },
+    {
+      "name": "recovery-forbidden-no-resubmit",
+      "pass": true,
+      "observed": {
+        "reads": 3,
+        "writes": 1
+      }
+    },
+    {
+      "name": "recovery-feature-disabled-no-resubmit",
+      "pass": true,
+      "observed": {
+        "reads": 3,
+        "writes": 1
+      }
+    },
+    {
+      "name": "late-recovery-success-hidden",
+      "pass": true,
+      "observed": {
+        "reads": 2,
+        "writes": 1
+      }
+    },
+    {
+      "name": "late-recovery-success-unloaded",
+      "pass": true,
+      "observed": {
+        "reads": 2,
+        "writes": 1
+      }
+    },
+    {
+      "name": "late-recovery-success-changed-user",
+      "pass": true,
+      "observed": {
+        "reads": 3,
+        "writes": 1
+      }
+    },
+    {
+      "name": "late-recovery-success-changed-order",
+      "pass": true,
+      "observed": {
+        "reads": 2,
+        "writes": 1
+      }
+    },
+    {
+      "name": "late-recovery-success-refreshed",
+      "pass": true,
+      "observed": {
+        "reads": 3,
+        "writes": 1
+      }
+    },
+    {
+      "name": "late-recovery-failure-hidden",
+      "pass": true,
+      "observed": {
+        "reads": 2,
+        "writes": 1
+      }
+    },
+    {
+      "name": "late-recovery-failure-unloaded",
+      "pass": true,
+      "observed": {
+        "reads": 2,
+        "writes": 1
+      }
+    },
+    {
+      "name": "late-recovery-failure-changed-user",
+      "pass": true,
+      "observed": {
+        "reads": 3,
+        "writes": 1
+      }
+    },
+    {
+      "name": "late-recovery-failure-changed-order",
+      "pass": true,
+      "observed": {
+        "reads": 2,
+        "writes": 1
+      }
+    },
+    {
+      "name": "late-recovery-failure-refreshed",
+      "pass": true,
+      "observed": {
+        "reads": 3,
+        "writes": 1
+      }
+    }
+  ]
+}

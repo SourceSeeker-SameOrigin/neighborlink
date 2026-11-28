@@ -1,0 +1,183 @@
+{
+  "scope": "Offline actual membership page; synthetic APIs, payment, navigation and storage; no cloud or visual acceptance",
+  "total": 44,
+  "passed": 44,
+  "results": [
+    {
+      "name": "trash_monthly: double click during create calls buy once",
+      "passed": true
+    },
+    {
+      "name": "trash_monthly: unknown create outcome retries same request ID",
+      "passed": true
+    },
+    {
+      "name": "trash_monthly: cancelled payment and failed navigation do not buy or pay again",
+      "passed": true
+    },
+    {
+      "name": "trash_monthly: payment exception still locks and opens existing order",
+      "passed": true
+    },
+    {
+      "name": "trash_monthly: payment success followed by navigation failure keeps receipt",
+      "passed": true
+    },
+    {
+      "name": "trash_monthly: new instance restores minimum receipt without plans or new payment",
+      "passed": true
+    },
+    {
+      "name": "trash_monthly: late create after onHide saves receipt without UI/payment/navigation",
+      "passed": true
+    },
+    {
+      "name": "trash_monthly: late create after onUnload saves receipt without UI/payment/navigation",
+      "passed": true
+    },
+    {
+      "name": "trash_monthly: invalid create result keeps request ID for retry",
+      "passed": true
+    },
+    {
+      "name": "trash_monthly: storage failure retains in-memory create lock",
+      "passed": true
+    },
+    {
+      "name": "express_monthly: double click during create calls buy once",
+      "passed": true
+    },
+    {
+      "name": "express_monthly: unknown create outcome retries same request ID",
+      "passed": true
+    },
+    {
+      "name": "express_monthly: cancelled payment and failed navigation do not buy or pay again",
+      "passed": true
+    },
+    {
+      "name": "express_monthly: payment exception still locks and opens existing order",
+      "passed": true
+    },
+    {
+      "name": "express_monthly: payment success followed by navigation failure keeps receipt",
+      "passed": true
+    },
+    {
+      "name": "express_monthly: new instance restores minimum receipt without plans or new payment",
+      "passed": true
+    },
+    {
+      "name": "express_monthly: late create after onHide saves receipt without UI/payment/navigation",
+      "passed": true
+    },
+    {
+      "name": "express_monthly: late create after onUnload saves receipt without UI/payment/navigation",
+      "passed": true
+    },
+    {
+      "name": "express_monthly: invalid create result keeps request ID for retry",
+      "passed": true
+    },
+    {
+      "name": "express_monthly: storage failure retains in-memory create lock",
+      "passed": true
+    },
+    {
+      "name": "visit_monthly: double click during create calls buy once",
+      "passed": true
+    },
+    {
+      "name": "visit_monthly: unknown create outcome retries same request ID",
+      "passed": true
+    },
+    {
+      "name": "visit_monthly: cancelled payment and failed navigation do not buy or pay again",
+      "passed": true
+    },
+    {
+      "name": "visit_monthly: payment exception still locks and opens existing order",
+      "passed": true
+    },
+    {
+      "name": "visit_monthly: payment success followed by navigation failure keeps receipt",
+      "passed": true
+    },
+    {
+      "name": "visit_monthly: new instance restores minimum receipt without plans or new payment",
+      "passed": true
+    },
+    {
+      "name": "visit_monthly: late create after onHide saves receipt without UI/payment/navigation",
+      "passed": true
+    },
+    {
+      "name": "visit_monthly: late create after onUnload saves receipt without UI/payment/navigation",
+      "passed": true
+    },
+    {
+      "name": "visit_monthly: invalid create result keeps request ID for retry",
+      "passed": true
+    },
+    {
+      "name": "visit_monthly: storage failure retains in-memory create lock",
+      "passed": true
+    },
+    {
+      "name": "vacant_monthly: double click during create calls buy once",
+      "passed": true
+    },
+    {
+      "name": "vacant_monthly: unknown create outcome retries same request ID",
+      "passed": true
+    },
+    {
+      "name": "vacant_monthly: cancelled payment and failed navigation do not buy or pay again",
+      "passed": true
+    },
+    {
+      "name": "vacant_monthly: payment exception still locks and opens existing order",
+      "passed": true
+    },
+    {
+      "name": "vacant_monthly: payment success followed by navigation failure keeps receipt",
+      "passed": true
+    },
+    {
+      "name": "vacant_monthly: new instance restores minimum receipt without plans or new payment",
+      "passed": true
+    },
+    {
+      "name": "vacant_monthly: late create after onHide saves receipt without UI/payment/navigation",
+      "passed": true
+    },
+    {
+      "name": "vacant_monthly: late create after onUnload saves receipt without UI/payment/navigation",
+      "passed": true
+    },
+    {
+      "name": "vacant_monthly: invalid create result keeps request ID for retry",
+      "passed": true
+    },
+    {
+      "name": "vacant_monthly: storage failure retains in-memory create lock",
+      "passed": true
+    },
+    {
+      "name": "navigation pending rejects repeat click; success clears matching receipt and return permits new purchase",
+      "passed": true
+    },
+    {
+      "name": "navigation success never clears a newer receipt",
+      "passed": true
+    },
+    {
+      "name": "wrong user receipt is ignored; identity change cannot open previous in-memory order",
+      "passed": true
+    },
+    {
+      "name": "synchronous navigation error exposes retry and preserves receipt",
+      "passed": true
+    }
+  ]
+}

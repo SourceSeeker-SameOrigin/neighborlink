@@ -1,0 +1,227 @@
+{
+  "date": "2026-11-09",
+  "sourceCommit": "02a4470508d9384802c8b5d0261091a4e309a771",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "method": "Real authenticated mini-program wx.cloud.callFunction and actual page refreshQuote handlers; sanitized console observations",
+  "configuration": {
+    "community": "珺悦国际",
+    "action": "admin.updateCommunity",
+    "before": {
+      "prices": {},
+      "dutyWindows": [],
+      "stations": [],
+      "rates": {}
+    },
+    "saveOk": true,
+    "readbackMatched": true,
+    "after": {
+      "prices": {
+        "express": {
+          "base": 500,
+          "extraParcel": 100,
+          "largeSurcharge": 200,
+          "maxParcels": 10
+        },
+        "trash": {
+          "single": 500
+        },
+        "buy": {
+          "serviceFee": 5000,
+          "goodsCapMin": 1000,
+          "goodsCapMax": 20000
+        },
+        "help": {
+          "billingMode": "per_visit",
+          "perVisit": 3900,
+          "includedMinutes": 30
+        },
+        "firstOrderPrice": 100
+      },
+      "dutyWindows": [
+        {
+          "start": "07:00",
+          "end": "00:00"
+        }
+      ],
+      "stations": [
+        {
+          "code": "north_gate",
+          "name": "北门"
+        }
+      ],
+      "rates": {}
+    },
+    "helpModeIndex": 1,
+    "otherFieldsNotSubmitted": true
+  },
+  "quotes": [
+    {
+      "serviceCode": "express",
+      "sample": "two parcels including one large parcel",
+      "listPrice": 800,
+      "discount": 700,
+      "payAmount": 100,
+      "goodsCap": 0,
+      "ok": true,
+      "slotsCount": 2,
+      "firstSlot": {
+        "date": "2026-11-09",
+        "start": "07:00",
+        "end": "00:00"
+      },
+      "onDutyCount": 0,
+      "validationMessage": ""
+    },
+    {
+      "serviceCode": "trash",
+      "sample": "one bag sorted",
+      "listPrice": 500,
+      "discount": 400,
+      "payAmount": 100,
+      "goodsCap": 0,
+      "ok": true,
+      "slotsCount": 2,
+      "firstSlot": {
+        "date": "2026-11-09",
+        "start": "07:00",
+        "end": "00:00"
+      },
+      "onDutyCount": 0,
+      "validationMessage": ""
+    },
+    {
+      "serviceCode": "buy",
+      "sample": "goods prepay 10 yuan",
+      "listPrice": 5000,
+      "discount": 4900,
+      "payAmount": 100,
+      "goodsCap": 1000,
+      "ok": true,
+      "slotsCount": 2,
+      "firstSlot": {
+        "date": "2026-11-09",
+        "start": "07:00",
+        "end": "00:00"
+      },
+      "onDutyCount": 0,
+      "validationMessage": ""
+    },
+    {
+      "serviceCode": "help",
+      "sample": "per_visit 30 minutes",
+      "listPrice": 3900,
+      "discount": 0,
+      "payAmount": 3900,
+      "goodsCap": 0,
+      "ok": true,
+      "slotsCount": 2,
+      "firstSlot": {
+        "date": "2026-11-09",
+        "start": "07:00",
+        "end": "00:00"
+      },
+      "onDutyCount": 0,
+      "validationMessage": ""
+    }
+  ],
+  "negativeQuotes": [
+    {
+      "id": "express_max",
+      "input": "11 parcels",
+      "code": "E_INVALID_PARAM",
+      "ok": false,
+      "expectedRejection": true
+    },
+    {
+      "id": "buy_min",
+      "input": "999 fen goods",
+      "code": "E_INVALID_PARAM",
+      "ok": false,
+      "expectedRejection": true
+    },
+    {
+      "id": "buy_max",
+      "input": "20001 fen goods",
+      "code": "E_INVALID_PARAM",
+      "ok": false,
+      "expectedRejection": true
+    },
+    {
+      "id": "help_old",
+      "input": "legacy blocks=2",
+      "code": "E_CONFLICT",
+      "ok": false,
+      "expectedRejection": true
+    },
+    {
+      "id": "help_minutes",
+      "input": "per_visit 60 minutes",
+      "code": "E_CONFLICT",
+      "ok": false,
+      "expectedRejection": true
+    }
+  ],
+  "pageQuotes": [
+    {
+      "route": "pages/service/help",
+      "amount": "39.00",
+      "error": "",
+      "quoteError": "",
+      "slotsCount": 2
+    },
+    {
+      "route": "pages/service/express",
+      "amount": "1.00",
+      "error": "",
+      "quoteError": "",
+      "slotsCount": 2
+    },
+    {
+      "route": "pages/service/trash",
+      "amount": "1.00",
+      "error": "",
+      "quoteError": "",
+      "slotsCount": 2
+    },
+    {
+      "route": "pages/service/buy",
+      "amount": "11.00",
+      "error": "",
+      "quoteError": "",
+      "slotsCount": 2
+    }
+  ],
+  "ui": {
+    "help": "30 minute inclusion and new-order-only overtime text plus 39.00 price visible",
+    "express": "north gate and door placement; bottom price bar 1.00 and first-order reason visually inspected",
+    "scope": "one simulator size; not all page visual or physical input acceptance"
+  },
+  "console": {
+    "beforeRecompile": {
+      "errors": 2,
+      "lastWarnings": 13,
+      "error": "Expected updated data but get first rendering data"
+    },
+    "afterOrdinaryRecompile": {
+      "errors": 0,
+      "warnings": 4
+    },
+    "freshServicePageRetest": "blocked by Mac lock; root cause unknown"
+  },
+  "newDecision": {
+    "id": "QA07",
+    "status": "awaiting user",
+    "issue": "No on-duty providers but dutyHint states earliest today 07:00–00:00 arrival during afternoon",
+    "recommendation": "Current no provider; selectable slot is reservation only, actual service subject to acceptance; no scheduling rule change"
+  },
+  "limits": {
+    "orderCreated": false,
+    "paymentInvoked": false,
+    "timerInvoked": false,
+    "rolesChanged": false,
+    "featureFlagsChanged": false,
+    "mainMerged": false,
+    "requestIdsRecorded": false,
+    "privateIdentityValuesRecorded": false
+  }
+}

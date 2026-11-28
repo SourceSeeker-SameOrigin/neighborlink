@@ -1,10 +1,10 @@
 const cloud = require('wx-server-sdk');
 const crypto = require('node:crypto');
 const { createServer } = require('./lib/shared/server');
-const { publicUser, providerSummary, parseScene, validateAddress } = require('./lib/shared/profile');
+const { publicUser, publicCommunity, providerSummary, parseScene, validateAddress, contactPhone } = require('./lib/shared/profile');
 const { ensure, text } = require('./lib/shared/validate');
-const { effectiveFeatures } = require('./lib/shared/features');
 const { issueAutomatic } = require('./lib/shared/couponFlow');
+const { atomic, read, insert } = require('./lib/shared/transaction');
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
@@ -41,8 +41,7 @@ async function login(_, { openid }) {
   const building = await get('buildings', user.buildingId);
   const config = community ? await server.config() : null;
   return { profile: publicUser({ ...user, buildingName: building && building.name }), roles: user.roles,
-    provider: providerSummary(provider), community: community ? { ...community,
-      features: effectiveFeatures(config, community), hotline: config.hotline } : null };
+    provider: providerSummary(provider), community: publicCommunity(community, config) };
 }
 
 async function bindPhone(event, { openid }) {
@@ -51,31 +50,52 @@ async function bindPhone(event, { openid }) {
   const result = await cloud.openapi.phonenumber.getPhoneNumber({ code: event.code });
   const phone = result.phoneInfo && result.phoneInfo.purePhoneNumber;
   ensure(typeof phone === 'string' && /^1\d{10}$/.test(phone), '未取得有效手机号，请重新授权');
-  await db.collection('users').doc(user._id).update({ data: { phone, updatedAt: new Date() } });
-  return publicUser({ ...user, phone });
+  await db.collection('users').doc(user._id).update({ data: { phone, phoneSource: 'wechat', phoneVerified: true, updatedAt: new Date() } });
+  return publicUser({ ...user, phone, phoneSource: 'wechat', phoneVerified: true });
 }
 
 async function setAddress(event, { openid }) {
+  const actor = await server.user(openid);
+  const bindEventId = 'bind_' + crypto.randomBytes(16).toString('hex');
+  const profile = await atomic(db, async transaction => {
+    const user = await read(transaction, 'users', actor._id);
+    ensure(user && user.openid === openid && !user.blocked, '请先登录或联系管理员', 'E_FORBIDDEN');
+    const phoneFields = contactPhone(event.phone, user);
+    text(event.communityId, '小区');
+    text(event.buildingId, '楼栋');
+    const community = await read(transaction, 'communities', event.communityId);
+    const building = await read(transaction, 'buildings', event.buildingId);
+    const address = validateAddress(event, community, building);
+    const addressId = 'addr_' + crypto.createHash('sha256').update([user._id, address.communityId, address.buildingId,
+      address.unit, address.room].join(':')).digest('hex').slice(0, 16);
+    const addresses = user.addresses || [];
+    const savedAddress = { id: addressId, ...address, buildingName: building.name, contactName: event.contactName || '', contactPhone: event.contactPhone || phoneFields.phone,
+      isDefault: true };
+    ensure(typeof savedAddress.contactName === 'string' && [...savedAddress.contactName].length <= 30, '联系人姓名不能超过 30 字');
+    ensure(/^1\d{10}$/.test(savedAddress.contactPhone), '请输入有效联系人手机号');
+    const nextAddresses = [savedAddress, ...addresses.filter(item => item.id !== addressId).map(item => ({ ...item, isDefault: false }))].slice(0, 5);
+    await transaction.collection('users').doc(user._id).update({ data: { ...address, ...phoneFields, addresses: nextAddresses, updatedAt: new Date() } });
+    await insert(transaction, 'events', { _id: bindEventId, type: 'bind', openid, scene: user.source && user.source.scene || '',
+      buildingId: address.buildingId, communityId: address.communityId,
+      referrerProviderId: user.source && user.source.referrerProviderId || null, at: new Date() });
+    return publicUser({ ...user, ...address, ...phoneFields, addresses: nextAddresses, buildingName: building.name });
+  });
+  // Binding is already committed. Coupon availability must not turn it into a false failure.
+  let welcomeCouponStatus = 'complete';
+  try { await server.feature('coupons', profile.communityId); await issueAutomatic(server, openid, profile.communityId); }
+  catch (error) {
+    welcomeCouponStatus = error.code === 'E_FEATURE_OFF' ? 'unavailable' : 'pending';
+    if (welcomeCouponStatus === 'pending') console.error('Welcome coupon issuance pending after successful binding');
+  }
+  return { ...profile, welcomeCouponStatus };
+}
+
+async function retryWelcomeCoupons(_, { openid }) {
   const user = await server.user(openid);
-  ensure(Boolean(user.phone), '请先授权手机号');
-  const community = await get('communities', event.communityId);
-  const building = await get('buildings', event.buildingId);
-  const address = validateAddress(event, community, building);
-  const addressId = 'addr_' + crypto.createHash('sha256').update([user._id, address.communityId, address.buildingId,
-    address.unit, address.room].join(':')).digest('hex').slice(0, 16);
-  const addresses = user.addresses || [];
-  const savedAddress = { id: addressId, ...address, buildingName: building.name, contactName: event.contactName || '', contactPhone: event.contactPhone || user.phone,
-    isDefault: true };
-  ensure(typeof savedAddress.contactName === 'string' && [...savedAddress.contactName].length <= 30, '联系人姓名不能超过 30 字');
-  ensure(/^1\d{10}$/.test(savedAddress.contactPhone), '请输入有效联系人手机号');
-  const nextAddresses = [savedAddress, ...addresses.filter(item => item.id !== addressId).map(item => ({ ...item, isDefault: false }))].slice(0, 5);
-  await db.collection('users').doc(user._id).update({ data: { ...address, addresses: nextAddresses, updatedAt: new Date() } });
-  await db.collection('events').add({ data: { type: 'bind', openid, scene: user.source && user.source.scene || '',
-    buildingId: address.buildingId, communityId: address.communityId,
-    referrerProviderId: user.source && user.source.referrerProviderId || null, at: new Date() } });
-  try { await server.feature('coupons', address.communityId); await issueAutomatic(server, openid, address.communityId); }
-  catch (error) { if (error.code !== 'E_FEATURE_OFF') throw error; }
-  return publicUser({ ...user, ...address, addresses: nextAddresses, buildingName: building.name });
+  await server.featureEntry('coupons', user);
+  ensure(user.buildingId, '请先绑定小区门牌');
+  await issueAutomatic(server, openid, user.communityId);
+  return { complete: true };
 }
 
 async function recordScene(event, { openid }) {
@@ -97,4 +117,4 @@ async function recordScene(event, { openid }) {
   return { recorded: true };
 }
 
-exports.main = server.entry({ login, bindPhone, setAddress, recordScene });
+exports.main = server.entry({ login, bindPhone, setAddress, recordScene, retryWelcomeCoupons });

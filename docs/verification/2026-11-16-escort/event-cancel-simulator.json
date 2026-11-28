@@ -1,0 +1,72 @@
+{
+  "scope": "微信开发者工具，实际活动详情页、合成住户和报名，弹窗回调由测试工程控制",
+  "results": [
+    {
+      "width": 320,
+      "afterSwitch": 0,
+      "afterRefresh": 0,
+      "afterReturn": 0,
+      "fresh": 1,
+      "states": {
+        "alpha": "signed",
+        "beta": "cancelled"
+      },
+      "shown": "cancelled"
+    },
+    {
+      "width": 375,
+      "afterSwitch": 0,
+      "afterRefresh": 0,
+      "afterReturn": 0,
+      "fresh": 1,
+      "states": {
+        "alpha": "signed",
+        "beta": "cancelled"
+      },
+      "shown": "cancelled"
+    },
+    {
+      "width": 390,
+      "afterSwitch": 0,
+      "afterRefresh": 0,
+      "afterReturn": 0,
+      "fresh": 1,
+      "states": {
+        "alpha": "signed",
+        "beta": "cancelled"
+      },
+      "shown": "cancelled"
+    },
+    {
+      "width": 390,
+      "afterSwitch": 0,
+      "afterRefresh": 0,
+      "error": "等待超时",
+      "route": "events/detail/detail"
+    },
+    {
+      "width": 430,
+      "afterSwitch": 0,
+      "afterRefresh": 0,
+      "afterReturn": 0,
+      "fresh": 1,
+      "states": {
+        "alpha": "signed",
+        "beta": "cancelled"
+      },
+      "shown": "cancelled"
+    }
+  ],
+  "repeatAfterNavigationTimeout": {
+    "width": 390,
+    "afterSwitch": 0,
+    "afterRefresh": 0,
+    "afterReturn": 0,
+    "fresh": 1,
+    "states": {
+      "alpha": "signed",
+      "beta": "cancelled"
+    },
+    "shown": "cancelled"
+  }
+}

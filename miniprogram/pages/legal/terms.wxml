@@ -1,12 +1,12 @@
 <view class="page">
-  <view class="page-title">服务协议</view>
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/shield.png"/><view class="masthead-copy"><view class="page-title">服务协议</view><view class="masthead-subtitle">了解规则，安心使用服务</view></view></view>
   <view class="card">
     <view class="section-title">服务范围</view>
     <view>近邻帮在已开通的小区提供取快递、扔垃圾、周边代买和帮把手服务。门口任务由获准的邻居帮手或认证服务员履行，入户任务仅由认证服务员履行。</view>
   </view>
   <view class="card">
     <view class="section-title">费用与退款</view>
-    <view>下单前请核对服务费、商品预付金额及上门时段。代买商品款不参与服务费折扣，完成后按小票实际金额退还差额。帮把手按预计时长收费，第一版不另收超时费用。</view>
+    <view>下单前请核对服务费、商品预付金额及上门时段。代买商品款不参与服务费折扣，完成后按小票实际金额退还差额。帮把手按所属小区展示的计价方式和包含时长收费；超时不自动扣费，继续服务须另行确认新订单。</view>
     <view>待接单时可取消订单并申请全额退款。已接单后的问题请联系平台处理。月卡暂不支持住户自行退款，特殊情况由管理员审核处理。</view>
   </view>
   <view class="card">

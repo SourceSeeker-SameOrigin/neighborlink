@@ -1,0 +1,60 @@
+{
+  "total": 13,
+  "passed": 13,
+  "failed": 0,
+  "scope": "Isolated VM, synthetic API responses; no real phone authorization or cloud writes",
+  "results": [
+    {
+      "name": "Unbound launch and return stay home without community business reads",
+      "status": "PASS"
+    },
+    {
+      "name": "Missing either community or building remains unbound",
+      "status": "PASS"
+    },
+    {
+      "name": "Unbound home clears previously visible community data and extensions",
+      "status": "PASS"
+    },
+    {
+      "name": "Phone denial preserves typed form and never saves or marks authorization",
+      "status": "PASS"
+    },
+    {
+      "name": "Failed code exchange preserves unbound profile and allows return home",
+      "status": "PASS"
+    },
+    {
+      "name": "Back after denial and repeated home onShow never reopen binding",
+      "status": "PASS"
+    },
+    {
+      "name": "Concurrent authorization does not exchange the same gesture twice",
+      "status": "PASS"
+    },
+    {
+      "name": "Successful retry authorizes phone but does not imply address binding",
+      "status": "PASS"
+    },
+    {
+      "name": "Successful server address response refreshes bound home; no extra redirect",
+      "status": "PASS"
+    },
+    {
+      "name": "Failed address save never updates profile or leaves binding",
+      "status": "PASS"
+    },
+    {
+      "name": "Direct service entry replaces itself with binding so Back cannot loop",
+      "status": "PASS"
+    },
+    {
+      "name": "Direct membership entry replaces itself with binding so Back cannot loop",
+      "status": "PASS"
+    },
+    {
+      "name": "Scanned building stays available for explicit binding after browsing home",
+      "status": "PASS"
+    }
+  ]
+}

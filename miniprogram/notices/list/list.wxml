@@ -1,1 +1,23 @@
-<view class="page"><view class="page-title">小区公告</view><view wx:if="{{loading && !list.length}}">正在加载…</view><view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view><view wx:for="{{list}}" wx:key="_id" class="card"><view class="section-title">{{item.title}}<text wx:if="{{item.pinned}}" class="notice-label">置顶</text></view><view>{{item.body}}</view><image wx:if="{{item.imageFileId}}" src="{{item.imageFileId}}" mode="widthFix"/><view class="muted">{{item.createdText}}</view></view><button wx:if="{{hasMore}}" loading="{{loading}}" bindtap="loadMore">查看更多公告</button><view wx:if="{{!loading && !list.length}}" class="muted">暂无公告</view></view>
+<view class="page">
+  <view class="page-masthead">
+    <image class="masthead-icon" src="/assets/icons/notice.png"/>
+    <view class="masthead-copy">
+      <view class="page-title">小区公告</view>
+      <view class="masthead-subtitle">小区动态，及时了解</view>
+    </view>
+  </view>
+  <view wx:if="{{loading && !list.length}}">正在加载…</view>
+  <view wx:for="{{list}}" wx:key="_id" class="card">
+    <view class="section-title">{{item.title}}<text wx:if="{{item.pinned}}" class="notice-label">置顶</text></view>
+    <view>{{item.body}}</view>
+    <private-media wx:if="{{item.imageFileId}}" media-class="media-photo" src="{{item.imageFileId}}" mode="widthFix"/>
+    <view class="muted">{{item.createdText}}</view>
+  </view>
+  <view wx:if="{{error}}" class="error">
+    {{error}}
+    <button wx:if="{{hasMore}}" bindtap="loadMore">重试加载更多</button>
+    <button wx:else bindtap="load">重试</button>
+  </view>
+  <button wx:elif="{{hasMore}}" loading="{{loading}}" disabled="{{loading}}" bindtap="loadMore">查看更多公告</button>
+  <view wx:elif="{{!loading && !list.length}}" class="muted">暂无公告</view>
+</view>

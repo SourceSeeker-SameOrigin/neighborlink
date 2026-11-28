@@ -1,0 +1,184 @@
+{
+  "date": "2026-11-08",
+  "sourceCommit": "151483331205b4783367e7c91365cb6b78044f6b",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "manifest": "/tmp/jinlin-deploy-1514833/manifest.json",
+  "uploadAuthorized": true,
+  "authorizedFunctions": 18,
+  "totalBytes": 2148870,
+  "successfulUpdatesConfirmed": 18,
+  "attempts": [
+    {
+      "function": "order",
+      "method": "official CLI --paths + --project, remote npm install",
+      "reportedSuccess": false,
+      "code": "EISDIR",
+      "message": "illegal operation on a directory, read"
+    },
+    {
+      "function": "order",
+      "method": "official CLI --paths + --appid, remote npm install",
+      "reportedSuccess": false,
+      "code": "EISDIR",
+      "message": "illegal operation on a directory, read"
+    },
+    {
+      "function": "order",
+      "method": "official CLI --names with isolated temporary project mapping, remote npm install",
+      "reportedSuccess": false,
+      "code": "EISDIR",
+      "message": "illegal operation on a directory, read"
+    },
+    {
+      "function": "order",
+      "method": "CloudBase web ZIP upload with default dependency installation",
+      "reportedSuccess": true,
+      "codeVersionVerified": false,
+      "warning": "Cloud invocation permissions must be synchronized and uploaded through WeChat developer tools",
+      "lastModifiedAfterReload": "2026-11-08 15:46:16"
+    },
+    {
+      "function": "order",
+      "method": "User-approved single web retry after browser SHA256 match",
+      "reportedSuccess": true,
+      "codeVersionVerified": true,
+      "fileComparison": "72/72 byte-identical",
+      "dependency": "wx-server-sdk 4.0.2"
+    },
+    {
+      "function": "admin",
+      "method": "Web ZIP upload after browser SHA256 match",
+      "reportedSuccess": true,
+      "codeVersionVerified": true,
+      "fileComparison": "72/72 byte-identical",
+      "dependency": "wx-server-sdk 4.0.2"
+    },
+    {
+      "function": "board",
+      "method": "Web ZIP upload after browser SHA256 match",
+      "reportedSuccess": true,
+      "codeVersionVerified": true,
+      "fileComparison": "72/72 byte-identical",
+      "dependency": "wx-server-sdk 4.0.2"
+    },
+    {
+      "function": "catalog",
+      "method": "Web ZIP upload after browser SHA256 match",
+      "reportedSuccess": true,
+      "codeVersionVerified": true,
+      "fileComparison": "72/72 byte-identical",
+      "dependency": "wx-server-sdk 4.0.2"
+    }
+  ],
+  "readback": {
+    "functionListCount": 21,
+    "order": {
+      "status": "Active",
+      "timeout": 3,
+      "runtime": "Nodejs20.19",
+      "lastModifiedBeforeUpdate": "2026-11-07 22:07:22",
+      "lastModifiedAfterUpdate": "2026-11-08 15:46:16",
+      "sourceMismatch": "Online editor index.js still begins with wx-server-sdk require; approved ZIP begins with orderFeatures import; persists after page reload",
+      "smokeTest": {
+        "input": {
+          "action": "quote"
+        },
+        "requestId": "ab748859-db48-11f1-9a90-52540008de27",
+        "result": {
+          "ok": false,
+          "code": "E_FORBIDDEN",
+          "message": "请在微信小程序内登录"
+        },
+        "durationMs": 24,
+        "scope": "Module load and unauthenticated rejection only; no business acceptance"
+      },
+      "sourceMismatchResolved": "Official CLI downloaded actual cloud files: all72 match approved ZIP; online editor display is not authoritative",
+      "postRetrySmoke": {
+        "input": "Default Hello World template, no action",
+        "requestId": "93214252-db4a-11f1-9d10-525400b2d845",
+        "code": "E_UNKNOWN_ACTION",
+        "durationMs": 4,
+        "scope": "Module initialization and unknown-action handling only"
+      }
+    },
+    "newCodeVerified": true,
+    "verificationScope": "admin, board, catalog, chat, content, coupon, event, idle, membership, merchant, order, payCallback, payout, pet, provider, station, user, vacant"
+  },
+  "remainingFunctionsNotAttempted": 0,
+  "browser": "Original CUA provider remains blocked; user-approved Chrome DevTools page reading and clicking work",
+  "nativeUi": "Native menus and coordinate actions recovered in this round; cloud list synchronization succeeded",
+  "boundary": "18/18 code packages source verified; 13 nonempty cloud invocation permission declarations synchronized through developer tools with success indications and code readback. No timer triggers, HTTP exposure, role grants, keys, purchases, or main merge. Actual OpenAPI calls remain unverified.",
+  "connectionDiagnosis": {
+    "browserProvider": "Still blocked before listing browsers",
+    "hostAppSettings": "Tool explicitly forbids automating com.openai.codex; settings were not inspected or changed",
+    "rootCause": "Unknown; configuration/session mismatch is an unverified hypothesis",
+    "pendingDecision": null,
+    "noNewPermissionsOrPorts": true,
+    "approvedAlternative": "Existing ECC Chrome DevTools; no installation, new port or credentials",
+    "alternativeResult": "Connected; official target environment function list shows 21 functions; order upload dialog opened",
+    "fileUploadBlock": "upload_file rejected both /tmp/jinlin-deploy-1514833/order.zip and an identical copy under the current user workspace as outside configured workspace roots; configured roots not returned",
+    "nextStep": "Configuration-dependent business and cross-role acceptance; code deployment and 13 nonempty permission declarations synchronized"
+  },
+  "codeReadbackDownload": {
+    "method": "Official CLI functions download",
+    "result": "Successful when --path supplied a .zip-suffixed target; CLI created extracted directory; folder-only target failed code17",
+    "readbackRoot": "/tmp/jinlin-order-readback-20261108-1546"
+  },
+  "confirmedFunctions": [
+    "admin",
+    "board",
+    "catalog",
+    "chat",
+    "content",
+    "coupon",
+    "event",
+    "idle",
+    "membership",
+    "merchant",
+    "order",
+    "payCallback",
+    "payout",
+    "pet",
+    "provider",
+    "station",
+    "user",
+    "vacant"
+  ],
+  "inProgressFunction": null,
+  "nextFunction": null,
+  "verifiedSourceEvidence": [
+    "admin-cloud-readback.json",
+    "board-cloud-readback.json",
+    "catalog-cloud-readback.json",
+    "chat-cloud-readback.json",
+    "content-cloud-readback.json",
+    "coupon-cloud-readback.json",
+    "event-cloud-readback.json",
+    "idle-cloud-readback.json",
+    "membership-cloud-readback.json",
+    "merchant-cloud-readback.json",
+    "order-cloud-readback.json",
+    "payCallback-cloud-readback.json",
+    "payout-cloud-readback.json",
+    "pet-cloud-readback.json",
+    "provider-cloud-readback.json",
+    "station-cloud-readback.json",
+    "user-cloud-readback.json",
+    "vacant-cloud-readback.json"
+  ],
+  "cloudEntrySmoke": {
+    "file": "cloud-entry-smoke.json",
+    "passed": 17,
+    "scope": "Unknown-action handling and module initialization only; payCallback not invoked"
+  },
+  "cloudPermissionSync": {
+    "file": "cloud-permission-sync.json",
+    "confirmed": 13,
+    "scope": "Official developer tools success notifications; not independent effective-ACL readback or successful OpenAPI calls"
+  },
+  "realMiniProgramReadonly": {
+    "file": "cloud-readonly-smoke.json",
+    "passed": 12,
+    "scope": "Current real unbound resident; public/current-user reads and feature/role rejection only"
+  }
+}

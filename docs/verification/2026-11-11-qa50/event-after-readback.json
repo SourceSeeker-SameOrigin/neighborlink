@@ -1,0 +1,11 @@
+{
+  "function": "event",
+  "expected": 76,
+  "matched": 76,
+  "mismatch": [],
+  "sdkVersion": "4.0.2",
+  "environmentNamesRetained": [
+    "ALLOW_MOCK_PAY"
+  ],
+  "environmentValuesNotRevealed": true
+}

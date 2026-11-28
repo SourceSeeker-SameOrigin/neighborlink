@@ -1,0 +1,77 @@
+{
+  "scope": "Actual page and cloud code; synthetic records only; no real report or media writes",
+  "acceptance": "QA120 local integration only; simulator and native acceptance are separate",
+  "pass": 8,
+  "fail": 0,
+  "results": [
+    {
+      "name": "normal-report-and-repeat-preserve-original",
+      "pass": true,
+      "observed": {
+        "first": "delivered",
+        "repeat": "E_BAD_STATE",
+        "writes": 1
+      }
+    },
+    {
+      "name": "before-write-failure-page-retry-and-readback",
+      "pass": true,
+      "observed": {
+        "attempts": 2,
+        "writes": 1,
+        "retryError": "",
+        "afterRead": "delivered"
+      }
+    },
+    {
+      "name": "response-lost-page-retry-and-readback",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "writes": 1,
+        "retryError": "",
+        "afterRead": "delivered"
+      }
+    },
+    {
+      "name": "wrong-provider-no-report-write",
+      "pass": true,
+      "observed": {
+        "code": "E_FORBIDDEN",
+        "writes": 0
+      }
+    },
+    {
+      "name": "not-today-no-report-write",
+      "pass": true,
+      "observed": {
+        "code": "E_BAD_STATE",
+        "writes": 0
+      }
+    },
+    {
+      "name": "feature-off-no-report-write",
+      "pass": true,
+      "observed": {
+        "code": "E_FEATURE_OFF",
+        "writes": 0
+      }
+    },
+    {
+      "name": "status-changed-in-transaction-no-report-write",
+      "pass": true,
+      "observed": {
+        "code": "E_CONFLICT",
+        "writes": 0
+      }
+    },
+    {
+      "name": "assignee-changed-in-transaction-no-report-write",
+      "pass": true,
+      "observed": {
+        "code": "E_CONFLICT",
+        "writes": 0
+      }
+    }
+  ]
+}

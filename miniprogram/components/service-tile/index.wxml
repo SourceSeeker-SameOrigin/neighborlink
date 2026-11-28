@@ -1,1 +1,1 @@
-<button class="tile" bindtap="open"><view class="icon">{{icon}}</view><view>{{name}}</view></button>
+<button class="tile" bindtap="open"><image class="icon" src="/assets/icons/{{icon}}.png" mode="aspectFit"/><view class="copy"><view class="name">{{name}}</view><view class="subtitle">{{subtitle}}</view></view></button>

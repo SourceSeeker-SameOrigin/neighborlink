@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-09",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "fc2a313",
+  "identity": "real logged-in unbound resident",
+  "execution": "WeChat DevTools Console wx.cloud.callFunction",
+  "results": [
+    {
+      "action": "homeContent",
+      "ok": true,
+      "notices": 0,
+      "ads": 0,
+      "hasNotice": false
+    },
+    {
+      "action": "adsForSlot",
+      "slot": "board_top",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "message": "该功能暂未开放"
+    },
+    {
+      "action": "adsForSlot",
+      "slot": "shops_top",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "message": "该功能暂未开放"
+    },
+    {
+      "action": "adsForSlot",
+      "slot": "invalid_slot",
+      "ok": false,
+      "code": "E_INVALID_PARAM",
+      "message": "广告位不正确"
+    },
+    {
+      "action": "listReports",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    },
+    {
+      "action": "listAds",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    }
+  ],
+  "notVerified": [
+    "Bound resident notices/ads success, media URLs and visibility",
+    "Report submission and moderation success, hidden content and message preview",
+    "Admin advertisement configuration and receipt bookkeeping"
+  ],
+  "writes": "No publishing, reporting, moderation, ad tracking, receipts or feature/role changes"
+}

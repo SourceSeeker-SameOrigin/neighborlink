@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-11T08:09:42.355Z",
+  "method": "CUA native Console: Raise window, focus Console, paste, verify input then Return; agent executed",
+  "environment": "existing development environment",
+  "identity": "current real mini-program session; no supplied openid or role override",
+  "results": [
+    {
+      "action": "adminList",
+      "offset": 0,
+      "ok": true,
+      "count": 0,
+      "hasMore": false
+    },
+    {
+      "action": "adminList",
+      "offset": 20,
+      "ok": true,
+      "count": 0,
+      "hasMore": false
+    },
+    {
+      "action": "adminServices",
+      "offset": 0,
+      "ok": true,
+      "count": 0,
+      "hasMore": false
+    },
+    {
+      "action": "adminServices",
+      "offset": -1,
+      "ok": false,
+      "code": "E_INVALID_PARAM",
+      "message": "分页位置必须是有效范围内的整数"
+    }
+  ],
+  "serviceQuery": "merchant list empty; readonly nonexistent merchant identifier used; no record created",
+  "pageState": {
+    "route": "admin/merchants/merchants",
+    "loading": false,
+    "error": "",
+    "listCount": 0
+  },
+  "visual": "last successful screenshot still homepage; logic stack merchants; followup screenshot approval review timed out; not accepted",
+  "writes": false,
+  "remaining": [
+    "nonempty pagination",
+    "role isolation with actual other accounts",
+    "visual layout and interaction acceptance"
+  ],
+  "paused": [
+    "D05",
+    "D06"
+  ]
+}

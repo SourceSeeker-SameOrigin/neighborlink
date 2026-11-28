@@ -1,0 +1,42 @@
+{
+  "scope": "320-width controlled local recovery sample completed under approved QA54 temporary hot reload off comparison; not a real recycle booking",
+  "width": 320,
+  "afterProjectReopen": {
+    "route": "recycle/order/order",
+    "loading": false,
+    "error": "",
+    "newMethod": true,
+    "ownerMatches": true
+  },
+  "controlledFailure": {
+    "navigationError": "预约已创建，暂未打开详情，请点击下方按钮重试。不会重复预约。",
+    "navigating": false,
+    "persistentReceiptExists": false
+  },
+  "fixture": "In-memory receipt referencing the previously authorized closed trash order; not a new recycle booking; original redirectTo restored immediately",
+  "laterReentry": {
+    "blankObserved": true,
+    "warning": "Page \"recycle/order/order\" has not been registered yet.",
+    "dataKeys": [
+      "__webviewId__"
+    ],
+    "recoveryMethod": "undefined"
+  },
+  "remaining": [
+    "true app restart receipt",
+    "other widths and phone",
+    "real recycle booking and fulfillment"
+  ],
+  "newCloudOrders": 0,
+  "decision": "QA54 A approved, comparison and original setting restoration completed",
+  "latestEvidence": "qa54-hot-reload.json",
+  "later320Result": {
+    "cardObserved": true,
+    "actualButtonOpenedExistingOrder": true,
+    "loadedOrderMatches": true,
+    "status": "closed",
+    "receiptCleared": true,
+    "actualBackHome": true,
+    "freshReentryNormal": true
+  }
+}

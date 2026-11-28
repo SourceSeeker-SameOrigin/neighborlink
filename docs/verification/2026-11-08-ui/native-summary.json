@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-11-08T22:26:00+08:00",
+  "tool": "WeChat DevTools Stable 2.01.2510290",
+  "baseLibrary": "3.18.0",
+  "pagesViewed": [
+    "pages/index/index",
+    "pages/bind/bind",
+    "pages/me/me",
+    "pages/orders/list",
+    "pages/legal/privacy",
+    "pages/legal/terms"
+  ],
+  "realPhoneEntered": false,
+  "consentSubmitted": false,
+  "realBindingSaved": false,
+  "returnHomeObserved": true,
+  "errors": 0,
+  "warnings": 13,
+  "warningTypes": [
+    "hot reload including repetitions",
+    "getSystemInfo platform notice",
+    "gray base-library notice",
+    "App.onLaunch performance notice"
+  ],
+  "localWxssSelectorWarningsAfterRefresh": false,
+  "package": {
+    "totalKB": 918,
+    "mainKB": 645,
+    "subpackages": 14,
+    "files": 361
+  },
+  "scope": "Developer simulator current unbound account and empty records; no claim of all-role business or device acceptance"
+}

@@ -1,0 +1,80 @@
+{
+  "sourceCommit": "110ebe8b562cb1b8304a056e89bac5994b00e95d",
+  "uploaded": false,
+  "status": "authorized; 0/8 deployed; waiting for user ZIP selection in existing CloudBase user upload dialog",
+  "destination": "Tencent Cloud official CloudBase",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "operation": "update existing function code, cloud install dependencies; no role, trigger, HTTP, key or plan changes",
+  "functions": [
+    {
+      "name": "user",
+      "file": "/tmp/jinlin-deploy-110ebe8/user.zip",
+      "files": 72,
+      "bytes": 119098,
+      "sha256": "44c5e3fb2d458738f2e8da8f258957366e3926677305bb94225740dd628ef2c6",
+      "reason": "D44 manual phone/source status and D45 atomic binding plus self-only coupon retry"
+    },
+    {
+      "name": "provider",
+      "file": "/tmp/jinlin-deploy-110ebe8/provider.zip",
+      "files": 72,
+      "bytes": 121247,
+      "sha256": "ab7baa233b43521c3b2d022054b6908301528dd3b50bb0722c8bd94a6ffee1cf",
+      "reason": "D44 phone-required wording for provider application"
+    },
+    {
+      "name": "order",
+      "file": "/tmp/jinlin-deploy-110ebe8/order.zip",
+      "files": 72,
+      "bytes": 119856,
+      "sha256": "ea0b1d6efe4404ab05ac276d7eced69f288eab2feed55dafd3693e01c0111dff",
+      "reason": "D44 phone-required wording in addressSnapshot/order creation"
+    },
+    {
+      "name": "membership",
+      "file": "/tmp/jinlin-deploy-110ebe8/membership.zip",
+      "files": 72,
+      "bytes": 119468,
+      "sha256": "28e44c485059a20b161e23431e4238693eda8e5c8d7a3b64cf0aa52c78730f52",
+      "reason": "D44 phone-required wording in membership address snapshot"
+    },
+    {
+      "name": "merchant",
+      "file": "/tmp/jinlin-deploy-110ebe8/merchant.zip",
+      "files": 72,
+      "bytes": 121849,
+      "sha256": "4f1b965444033fc9b36486ab9e38b9287f72cd7bb4e233e646db40f12f6479bf",
+      "reason": "D44 phone-required wording in booking address snapshot"
+    },
+    {
+      "name": "idle",
+      "file": "/tmp/jinlin-deploy-110ebe8/idle.zip",
+      "files": 72,
+      "bytes": 122168,
+      "sha256": "c18231a2cd9c38149d9c82a2ae7dd46ea4ea3d158740c577a020bc46c5fce510",
+      "reason": "D44 phone-required wording in guaranteed order creation"
+    },
+    {
+      "name": "board",
+      "file": "/tmp/jinlin-deploy-110ebe8/board.zip",
+      "files": 72,
+      "bytes": 121856,
+      "sha256": "0068077420c27502502759fbf93c83e7e667229a5ceb905695e202cd358b1f75",
+      "reason": "D44 phone-required wording in reward order creation"
+    },
+    {
+      "name": "timer",
+      "file": "/tmp/jinlin-deploy-110ebe8/timer.zip",
+      "files": 72,
+      "bytes": 119109,
+      "sha256": "0b237f89b88f2d47ae775839b45b44f2b7e62e233da95d4138e2d4466b4eb87c",
+      "reason": "D44 shared address validation wording in membership task generation; CODE ONLY, do not apply trigger configuration"
+    }
+  ],
+  "totalBytes": 964651,
+  "functionCount": 8,
+  "authorization": {
+    "approved": true,
+    "scope": "8 packages approved in current conversation; code only, no triggers/HTTP/roles/flags/keys/billing/main merge"
+  }
+}

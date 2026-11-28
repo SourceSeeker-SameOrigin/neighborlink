@@ -1,0 +1,87 @@
+{
+  "date": "2026-11-09",
+  "source": "Actual WeChat DevTools UI and runtime console observations in this task; no reconstructed request IDs",
+  "environment": "development only",
+  "realBinding": {
+    "savedByUser": true,
+    "forcedSessionRefreshPassed": true,
+    "roles": [
+      "resident",
+      "admin"
+    ],
+    "hasCommunity": true,
+    "hasBuilding": true,
+    "hasUnit": true,
+    "hasRoom": true,
+    "hasPhone": true,
+    "phoneSource": "manual",
+    "phoneVerified": false,
+    "privateValuesRecorded": false
+  },
+  "buildingMaintenance": {
+    "community": "珺悦国际",
+    "building": "2号楼",
+    "units": [
+      "1单元"
+    ],
+    "savedAndReadBack": true
+  },
+  "adminReadMatrix": {
+    "total": 39,
+    "passed": 39,
+    "groups": {
+      "twoCommunitiesFiveReadsEach": 10,
+      "orderStatuses": 12,
+      "providerStatuses": 5,
+      "reportStatuses": 3,
+      "merchantStatuses": 4,
+      "stationStatuses": 3,
+      "couponTemplates": 1,
+      "advertisements": 1
+    },
+    "businessListsWereEmpty": true
+  },
+  "adminPagesLoaded": [
+    "dashboard",
+    "orders",
+    "providers",
+    "community",
+    "posters",
+    "settlements",
+    "features",
+    "reports",
+    "coupons",
+    "content",
+    "merchants",
+    "recycle",
+    "exports",
+    "stations"
+  ],
+  "qa01": "coupon Chinese labels and selected percentage/manual mode observed; no real issuance",
+  "qa02": "approved filter and empty result observed; no real merchant review",
+  "qa03": "admin community selection, independent notices/ads loaded; no publication",
+  "qa04": {
+    "route": "pages/service/express",
+    "hasQuote": false,
+    "slots": 0,
+    "message": "服务价格格式不正确",
+    "disabledSubmitVisible": true,
+    "noPriceBarTypeWarningAfterCompile": true,
+    "otherSixPagesNativeRetest": "pending"
+  },
+  "qa05": "native upper/lower screen inspected: Chinese slot, target, status, date, yuan amount and receipt-only accounting hint; no save",
+  "qa06": "fresh compile/home load: no service-tile url warning in console; platform/gray-base-library/hot-reload warnings remain",
+  "d13": {
+    "parametersConfirmed": true,
+    "codeTestedLocally": true,
+    "cloudDeployed": true,
+    "cloudConfigApplied": true,
+    "realQuoteAndFulfillment": "4 real cloud quotes and 4 page quotes passed; fulfillment pending; see d13-live-config-quotes.json"
+  },
+  "limitations": [
+    "Programmatic runtime navigation does not prove every physical navigation control",
+    "Empty reads do not prove non-empty management, pagination, review or cross-role fulfillment",
+    "Simulator location fallback is not phone GPS acceptance",
+    "No payment, secret, timer or production enablement"
+  ]
+}

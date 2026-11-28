@@ -1,0 +1,972 @@
+[
+  {
+    "page": "pages/index/index",
+    "title": "首页",
+    "events": [
+      "callHotline",
+      "load",
+      "openAd",
+      "openNotices",
+      "recordAd"
+    ],
+    "first": "<view class=\"page\">\n  <view wx:if=\"{{loading}}\" class=\"card\">正在加载小区服务…</view>\n  <view wx:elif=\"{{error}}\" clas"
+  },
+  {
+    "page": "pages/bind/bind",
+    "title": "选择门牌",
+    "events": [
+      "agreementChange",
+      "backHome",
+      "buildingChange",
+      "communityChange",
+      "contactNameChange",
+      "contactPhoneChange",
+      "load",
+      "phone",
+      "roomChange",
+      "save",
+      "unitChange"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">服务送到您家门口</view>\n  <view class=\"muted\">请确认小区、门牌和联系电话</view>\n  <v"
+  },
+  {
+    "page": "pages/service/express",
+    "title": "代取快递",
+    "events": [
+      "address",
+      "addressChange",
+      "change",
+      "change",
+      "change",
+      "change",
+      "change",
+      "couponChange",
+      "load",
+      "pointsChange",
+      "retryQuote",
+      "slotChange",
+      "submit"
+    ],
+    "first": "<view class=\"page service-page\"><view wx:if=\"{{restoredDraft}}\" class=\"card restored\">已恢复上次未完成的填写内容</view><emp"
+  },
+  {
+    "page": "pages/service/trash",
+    "title": "代扔垃圾",
+    "events": [
+      "address",
+      "addressChange",
+      "change",
+      "change",
+      "change",
+      "couponChange",
+      "load",
+      "pointsChange",
+      "retryQuote",
+      "slotChange",
+      "submit"
+    ],
+    "first": "<view class=\"page service-page\"><view wx:if=\"{{restoredDraft}}\" class=\"card restored\">已恢复上次未完成的填写内容</view><emp"
+  },
+  {
+    "page": "pages/service/buy",
+    "title": "周边代买",
+    "events": [
+      "address",
+      "addressChange",
+      "change",
+      "change",
+      "change",
+      "change",
+      "couponChange",
+      "load",
+      "pointsChange",
+      "retryQuote",
+      "slotChange",
+      "submit"
+    ],
+    "first": "<view class=\"page service-page\"><view wx:if=\"{{restoredDraft}}\" class=\"card restored\">已恢复上次未完成的填写内容</view><emp"
+  },
+  {
+    "page": "pages/service/help",
+    "title": "帮把手",
+    "events": [
+      "address",
+      "addressChange",
+      "change",
+      "change",
+      "change",
+      "change",
+      "couponChange",
+      "load",
+      "pointsChange",
+      "retryQuote",
+      "slotChange",
+      "submit"
+    ],
+    "first": "<view class=\"page service-page\"><view wx:if=\"{{restoredDraft}}\" class=\"card restored\">已恢复上次未完成的填写内容</view><emp"
+  },
+  {
+    "page": "pages/orders/list",
+    "title": "我的订单",
+    "events": [
+      "groupChange",
+      "retry",
+      "retry"
+    ],
+    "first": "<view class=\"page\"><view class=\"tabs\"><button wx:for=\"{{groups}}\" wx:key=\"code\" type=\"{{group === item.code ? "
+  },
+  {
+    "page": "pages/orders/detail",
+    "title": "订单详情",
+    "events": [
+      "callProvider",
+      "cancel",
+      "form",
+      "form",
+      "form",
+      "form",
+      "load",
+      "load",
+      "openChat",
+      "openPetReports",
+      "pay",
+      "preview",
+      "previewVacant",
+      "serviceAction",
+      "serviceAction",
+      "serviceAction",
+      "subscribeVacantReport",
+      "subscribeVisitReport"
+    ],
+    "first": "<view class=\"page\">\n  <empty-state wx:if=\"{{loading}}\" message=\"正在加载订单…\"/>\n  <empty-state wx:if=\"{{error}}\" me"
+  },
+  {
+    "page": "pages/membership/index",
+    "title": "我的月卡",
+    "events": [
+      "addressChange",
+      "buy",
+      "entry",
+      "entryPassword",
+      "load",
+      "skip",
+      "slot",
+      "slot"
+    ],
+    "first": "<view class=\"page\"><empty-state wx:if=\"{{loading}}\" message=\"正在加载月卡…\"/><empty-state wx:if=\"{{error}}\" message="
+  },
+  {
+    "page": "pages/me/me",
+    "title": "我的",
+    "events": [
+      "callHotline",
+      "doorDeliveryChange",
+      "load"
+    ],
+    "first": "<view class=\"page\">\n  <view wx:if=\"{{loading}}\" class=\"card\">正在加载…</view>\n  <view wx:elif=\"{{error}}\" class=\"e"
+  },
+  {
+    "page": "pages/legal/privacy",
+    "title": "隐私政策",
+    "events": [],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">隐私政策</view>\n  <view class=\"card\"><view class=\"section-title\">我们"
+  },
+  {
+    "page": "pages/legal/terms",
+    "title": "服务协议",
+    "events": [],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">服务协议</view>\n  <view class=\"card\">\n    <view class=\"section-titl"
+  },
+  {
+    "page": "provider/apply/apply",
+    "title": "服务员申请",
+    "events": [
+      "agree",
+      "change",
+      "change",
+      "change",
+      "change",
+      "load",
+      "phone",
+      "photo",
+      "photo",
+      "submit"
+    ],
+    "first": "<view class=\"page\"><empty-state wx:if=\"{{loading}}\" message=\"正在加载…\"/><empty-state wx:if=\"{{error}}\" message=\"{"
+  },
+  {
+    "page": "provider/workbench/workbench",
+    "title": "服务员工作台",
+    "events": [
+      "duty",
+      "load",
+      "more",
+      "saveReferralPoster",
+      "subscribeMore",
+      "task"
+    ],
+    "first": "<view class=\"page\"><empty-state wx:if=\"{{loading}}\" message=\"正在加载…\"/><empty-state wx:if=\"{{error}}\" message=\"{"
+  },
+  {
+    "page": "provider/hall/hall",
+    "title": "任务大厅",
+    "events": [
+      "accept",
+      "retry"
+    ],
+    "first": "<view class=\"page\"><view class=\"muted\">页面显示期间每 15 秒刷新一次</view><navigator wx:if=\"{{stationDeliveryEnabled}}\" cl"
+  },
+  {
+    "page": "provider/task/task",
+    "title": "任务详情",
+    "events": [
+      "act",
+      "act",
+      "act",
+      "callResident",
+      "checklist",
+      "goods",
+      "load",
+      "openChat",
+      "openPetTasks",
+      "photo",
+      "photo",
+      "revealEntry",
+      "submitVacantReport",
+      "vacantAttention",
+      "vacantNotes",
+      "vacantPhoto",
+      "visitAttention",
+      "visitCheck",
+      "visitNotes",
+      "weight"
+    ],
+    "first": "<view class=\"page\"><empty-state wx:if=\"{{loading}}\" message=\"正在加载…\"/><empty-state wx:if=\"{{error}}\" message=\"{"
+  },
+  {
+    "page": "provider/earnings/earnings",
+    "title": "我的收入",
+    "events": [
+      "createPayout",
+      "retry"
+    ],
+    "first": "<view class=\"page\"><view class=\"card\"><view>待结算 ¥{{pending}}</view><view>已结算 ¥{{settled}}</view><view>可提现 ¥{{a"
+  },
+  {
+    "page": "admin/dashboard/dashboard",
+    "title": "管理看板",
+    "events": [
+      "chooseCommunity",
+      "chooseScope",
+      "chooseScope",
+      "load"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">管理看板</view>\n  <navigator url=\"/admin/features/features\">功能开关</n"
+  },
+  {
+    "page": "admin/orders/orders",
+    "title": "订单管理",
+    "events": [
+      "filter",
+      "open",
+      "retry"
+    ],
+    "first": "<view class=\"page\"><view wx:if=\"{{readOnly}}\" class=\"muted\">物业只读视图</view><navigator wx:if=\"{{isAdmin}}\" class="
+  },
+  {
+    "page": "admin/order/order",
+    "title": "订单处理",
+    "events": [
+      "assign",
+      "cancel",
+      "liable",
+      "load",
+      "load",
+      "openChat",
+      "preview",
+      "preview",
+      "provider",
+      "resolutionField",
+      "resolutionField",
+      "resolutionField",
+      "resolutionField",
+      "resolutionField",
+      "resolve",
+      "retryRefund",
+      "voidCard"
+    ],
+    "first": "<view class=\"page\"><empty-state wx:if=\"{{loading}}\" message=\"正在加载…\"/><empty-state wx:if=\"{{error}}\" message=\"{"
+  },
+  {
+    "page": "admin/providers/providers",
+    "title": "服务员审核",
+    "events": [
+      "certs",
+      "certs",
+      "cleanup",
+      "filter",
+      "insurance",
+      "note",
+      "preview",
+      "retry",
+      "review",
+      "review",
+      "review",
+      "suspend"
+    ],
+    "first": "<view class=\"page\">\n  <picker range=\"{{statuses}}\" value=\"{{statusIndex}}\" bindchange=\"filter\"><view class=\"pi"
+  },
+  {
+    "page": "admin/community/community",
+    "title": "小区配置",
+    "events": [
+      "addBuilding",
+      "chooseCommunity",
+      "chooseLocation",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "saveCommunity",
+      "togglePetCert"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">小区配置</view><view wx:if=\"{{loading}}\">正在加载…</view><view wx:if=\"{{er"
+  },
+  {
+    "page": "admin/posters/posters",
+    "title": "海报码",
+    "events": [
+      "changeCommunity",
+      "generate",
+      "generate",
+      "preview",
+      "providerChange",
+      "save"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">海报码</view><view wx:if=\"{{loading}}\">正在加载…</view><view wx:if=\"{{err"
+  },
+  {
+    "page": "admin/settlements/settlements",
+    "title": "结算",
+    "events": [
+      "create",
+      "input",
+      "input",
+      "input",
+      "load",
+      "markPaid",
+      "preview",
+      "select",
+      "select",
+      "select",
+      "select"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">人工结算</view><view wx:if=\"{{loading}}\">正在加载…</view><view wx:if=\"{{er"
+  },
+  {
+    "page": "admin/features/features",
+    "title": "功能开关",
+    "events": [
+      "choose",
+      "load",
+      "scope",
+      "scope",
+      "toggle"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">扩展功能开关</view><view wx:if=\"{{loading}}\">正在加载…</view><view wx:if=\"{{"
+  },
+  {
+    "page": "admin/reports/reports",
+    "title": "内容举报审核",
+    "events": [
+      "chooseStatus",
+      "chooseStatus",
+      "chooseStatus",
+      "load",
+      "moderate",
+      "moderate",
+      "moderate",
+      "openChat",
+      "resolve",
+      "resolve"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">内容举报审核</view>\n  <view class=\"row\"><button data-status=\"pending\""
+  },
+  {
+    "page": "admin/chat/chat",
+    "title": "聊天记录审计",
+    "events": [
+      "load",
+      "preview"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">投诉/举报聊天记录</view>\n  <view class=\"muted\">本次查看已记录审计日志；仅显示当前案件关联会话。"
+  },
+  {
+    "page": "admin/coupons/coupons",
+    "title": "优惠券模板管理",
+    "events": [
+      "chooseKind",
+      "chooseMode",
+      "edit",
+      "field",
+      "field",
+      "field",
+      "field",
+      "field",
+      "field",
+      "field",
+      "field",
+      "field",
+      "field",
+      "field",
+      "issue",
+      "reset",
+      "save",
+      "templatePick",
+      "toggleStatus"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">优惠券模板</view>\n  <view wx:if=\"{{error}}\" class=\"error\">{{error}}<"
+  },
+  {
+    "page": "admin/content/content",
+    "title": "公告与广告管理",
+    "events": [
+      "adPathChange",
+      "adSlotChange",
+      "adStatusChange",
+      "adTargetTypeChange",
+      "chooseImage",
+      "chooseImage",
+      "confirmAdReceived",
+      "endAd",
+      "endNotice",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "saveAd",
+      "saveNotice",
+      "togglePinned"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">公告与广告管理</view>\n  <view wx:if=\"{{loading}}\">正在加载…</view>\n  <view"
+  },
+  {
+    "page": "admin/merchants/merchants",
+    "title": "商家入驻审核",
+    "events": [
+      "inspect",
+      "load",
+      "review",
+      "review",
+      "serviceStatus",
+      "serviceStatus"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">商家入驻审核</view><view wx:if=\"{{error}}\" class=\"error\">{{error}}<butto"
+  },
+  {
+    "page": "admin/recycle/recycle",
+    "title": "回收企业月度对账",
+    "events": [
+      "input",
+      "input",
+      "select"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">回收企业月度对账</view><view wx:if=\"{{loading}}\">正在加载…</view><view wx:if=\""
+  },
+  {
+    "page": "admin/exports/exports",
+    "title": "数据导出",
+    "events": [
+      "exportData",
+      "input",
+      "load",
+      "select",
+      "select",
+      "select",
+      "select",
+      "select",
+      "select",
+      "select",
+      "select"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">数据导出</view>\n  <view wx:if=\"{{error}}\" class=\"error\">{{error}}<b"
+  },
+  {
+    "page": "admin/stations/stations",
+    "title": "驿站账号审核",
+    "events": [
+      "load",
+      "review",
+      "review"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">驿站账号审核</view>\n  <view wx:if=\"{{error}}\" class=\"error\">{{error}}"
+  },
+  {
+    "page": "chat/list/list",
+    "title": "站内消息",
+    "events": [
+      "load",
+      "open"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">站内消息<text wx:if=\"{{unreadTotal}}\" class=\"unread\"> · {{unreadTot"
+  },
+  {
+    "page": "chat/room/room",
+    "title": "聊天",
+    "events": [
+      "image",
+      "input",
+      "send",
+      "start"
+    ],
+    "first": "<view class=\"page room\">\n  <view wx:if=\"{{error}}\" class=\"error\">{{error}}<button wx:if=\"{{!conversationId}}\" "
+  },
+  {
+    "page": "coupons/center/center",
+    "title": "优惠券中心",
+    "events": [
+      "claim",
+      "load"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">优惠券中心</view><view wx:if=\"{{error}}\" class=\"error\">{{error}}<button"
+  },
+  {
+    "page": "coupons/mine/mine",
+    "title": "我的优惠券",
+    "events": [
+      "load"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">我的优惠券</view><view wx:if=\"{{error}}\" class=\"error\">{{error}}<button"
+  },
+  {
+    "page": "board/list/list",
+    "title": "需求广场",
+    "events": [
+      "chooseScope",
+      "chooseScope",
+      "chooseType",
+      "create",
+      "load",
+      "more",
+      "open"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">需求广场</view>\n  <view class=\"tabs\"><button wx:for=\"{{types}}\" wx:"
+  },
+  {
+    "page": "board/detail/detail",
+    "title": "求助详情",
+    "events": [
+      "close",
+      "comment",
+      "continuePayment",
+      "input",
+      "load",
+      "preview",
+      "report",
+      "reportComment"
+    ],
+    "first": "<view class=\"page\">\n  <view wx:if=\"{{error}}\" class=\"error\">{{error}}<button bindtap=\"load\">重试</button></view>"
+  },
+  {
+    "page": "board/create/create",
+    "title": "发布需求",
+    "events": [
+      "agree",
+      "choose",
+      "choose",
+      "choose",
+      "choose",
+      "choose",
+      "choose",
+      "choose",
+      "choose",
+      "field",
+      "field",
+      "field",
+      "field",
+      "photos",
+      "scope",
+      "submit",
+      "toggleEnterHome"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">发布{{type === 'task' ? '悬赏任务' : type === 'carry' ? '出行帮带' : '求助'"
+  },
+  {
+    "page": "idle/list/list",
+    "title": "闲置交易",
+    "events": [
+      "create",
+      "load",
+      "mine",
+      "more",
+      "open",
+      "scope",
+      "scope"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">闲置交易</view>\n  <view wx:if=\"{{federationEnabled}}\" class=\"tabs\">"
+  },
+  {
+    "page": "idle/detail/detail",
+    "title": "闲置详情",
+    "events": [
+      "buy",
+      "carry",
+      "contact",
+      "edit",
+      "load",
+      "markSold",
+      "preview",
+      "remove",
+      "report",
+      "sales",
+      "want"
+    ],
+    "first": "<view class=\"page\">\n  <view wx:if=\"{{error}}\" class=\"error\">{{error}}<button bindtap=\"load\">重试</button></view>"
+  },
+  {
+    "page": "idle/create/create",
+    "title": "发布闲置",
+    "events": [
+      "condition",
+      "field",
+      "field",
+      "field",
+      "field",
+      "photos",
+      "scope",
+      "submit",
+      "switch",
+      "tradeMode"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">{{itemId ? '编辑闲置' : '发布闲置'}}</view>\n  <view wx:if=\"{{error}}\" c"
+  },
+  {
+    "page": "idle/mine/mine",
+    "title": "我的闲置",
+    "events": [
+      "create",
+      "income",
+      "load",
+      "open",
+      "sales"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">我的闲置</view>\n  <view wx:if=\"{{error}}\" class=\"error\">{{error}}<b"
+  },
+  {
+    "page": "idle/sales/sales",
+    "title": "担保交易订单",
+    "events": [
+      "load",
+      "open"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">担保交易订单</view><navigator class=\"card\" url=\"/idle/income/income\">卖家收"
+  },
+  {
+    "page": "idle/sale/sale",
+    "title": "卖家交付",
+    "events": [
+      "accept",
+      "deliver",
+      "load",
+      "note",
+      "photos",
+      "preview"
+    ],
+    "first": "<view class=\"page\"><view wx:if=\"{{error}}\" class=\"error\">{{error}}<button bindtap=\"load\">重试</button></view><bl"
+  },
+  {
+    "page": "idle/income/income",
+    "title": "卖家收入",
+    "events": [
+      "load",
+      "withdraw"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">卖家收入</view><view wx:if=\"{{error}}\" class=\"error\">{{error}}<button "
+  },
+  {
+    "page": "events/list/list",
+    "title": "社区活动",
+    "events": [
+      "load",
+      "open"
+    ],
+    "first": "<view class=\"page\"><view wx:if=\"{{error}}\" class=\"error\">{{error}}<button bindtap=\"load\">重试</button></view><vi"
+  },
+  {
+    "page": "events/detail/detail",
+    "title": "活动详情",
+    "events": [
+      "cancelSignup",
+      "load",
+      "signup",
+      "signup"
+    ],
+    "first": "<view class=\"page\"><view wx:if=\"{{error}}\" class=\"error\">{{error}}<button bindtap=\"load\">重试</button></view><vi"
+  },
+  {
+    "page": "events/manage/manage",
+    "title": "活动管理",
+    "events": [
+      "cancel",
+      "checkin",
+      "createActivity",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "load",
+      "publish",
+      "retryCancellation",
+      "scan",
+      "showSignups",
+      "typeChange"
+    ],
+    "first": "<view class=\"page\"><view wx:if=\"{{error}}\" class=\"error\">{{error}}<button bindtap=\"load\">重试</button></view><vi"
+  },
+  {
+    "page": "pet/order",
+    "title": "上门喂宠",
+    "events": [
+      "addPetDate",
+      "addressChange",
+      "change",
+      "change",
+      "change",
+      "change",
+      "change",
+      "change",
+      "change",
+      "load",
+      "removePetDate",
+      "retryQuote",
+      "slotChange",
+      "submit"
+    ],
+    "first": "<view class=\"page service-page\"><view wx:if=\"{{restoredDraft}}\" class=\"card restored\">已恢复上次未完成的填写内容</view><emp"
+  },
+  {
+    "page": "pet/work",
+    "title": "喂宠上门清单",
+    "events": [
+      "closeSecret",
+      "closeSecret",
+      "done",
+      "load",
+      "missed",
+      "reveal"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">喂宠上门清单</view><view wx:if=\"{{error}}\" class=\"error\">{{error}}<butto"
+  },
+  {
+    "page": "pet/reports",
+    "title": "喂宠服务记录",
+    "events": [
+      "load"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">喂宠服务记录</view><view wx:if=\"{{loading}}\">正在加载…</view><view wx:if=\"{{"
+  },
+  {
+    "page": "merchant/apply/apply",
+    "title": "商家入驻",
+    "events": [
+      "chooseCategory",
+      "input",
+      "input",
+      "input",
+      "input",
+      "input",
+      "submit",
+      "upload"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">商家入驻申请</view><view class=\"card\">审核通过后，商家详情会公示营业执照名称和统一社会信用代码。</vie"
+  },
+  {
+    "page": "merchant/workbench/workbench",
+    "title": "商家工作台",
+    "events": [
+      "apply",
+      "load",
+      "orders",
+      "services"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">商家工作台</view><view wx:if=\"{{error}}\" class=\"error\">{{error}}<button"
+  },
+  {
+    "page": "merchant/services/services",
+    "title": "服务管理",
+    "events": [
+      "chooseType",
+      "input",
+      "input",
+      "input",
+      "input",
+      "photos",
+      "save"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">服务管理</view><view class=\"card\"><input placeholder=\"服务名称\" data-field"
+  },
+  {
+    "page": "merchant/orders/orders",
+    "title": "商家预约订单",
+    "events": [
+      "chooseQuote",
+      "complete",
+      "input",
+      "input",
+      "load",
+      "quote",
+      "transition",
+      "transition"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">商家预约订单</view><view class=\"muted\">完成服务后需上传 1—3 张现场照片；住户确认后会进入人工周结。<"
+  },
+  {
+    "page": "shops/list/list",
+    "title": "社区商家",
+    "events": [
+      "load",
+      "open"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">社区商家</view><view class=\"muted\">商家公示的营业执照名称和统一社会信用代码可在详情查看。</view><"
+  },
+  {
+    "page": "shops/detail/detail",
+    "title": "商家详情",
+    "events": [
+      "book",
+      "load"
+    ],
+    "first": "<view class=\"page\"><view wx:if=\"{{error}}\" class=\"error\">{{error}}<button bindtap=\"load\">重试</button></view><bl"
+  },
+  {
+    "page": "shops/booking/booking",
+    "title": "提交预约",
+    "events": [
+      "address",
+      "input",
+      "submit"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">提交预约</view><view class=\"card\">请简要说明需求，商家会根据预约内容提供服务或报价。</view><pic"
+  },
+  {
+    "page": "station/apply/apply",
+    "title": "申请驿站账号",
+    "events": [
+      "chooseCommunity",
+      "chooseStation",
+      "load",
+      "submit"
+    ],
+    "first": "<view class=\"page\">\n  <view class=\"page-title\">申请驿站账号</view>\n  <view wx:if=\"{{loading}}\" class=\"card\">正在加载…</v"
+  },
+  {
+    "page": "station/workbench/workbench",
+    "title": "驿站工作台",
+    "events": [
+      "exportStatement",
+      "load",
+      "monthChange"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">批次进度</view><navigator class=\"card\" url=\"/station/create/create\"><v"
+  },
+  {
+    "page": "station/create/create",
+    "title": "创建送上门批次",
+    "events": [
+      "change",
+      "create"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">创建送上门批次</view><view class=\"card\"><view>每行输入一个门牌，格式：楼栋-单元-门牌</view>"
+  },
+  {
+    "page": "station/worker/worker",
+    "title": "驿站配送任务",
+    "events": [
+      "accept",
+      "load"
+    ],
+    "first": "<view class=\"page\"><view class=\"muted\">整批由一名服务员接单，逐户登记送达结果。</view><empty-state wx:if=\"{{error}}\" message=\"{{er"
+  },
+  {
+    "page": "station/batch/batch",
+    "title": "驿站批次",
+    "events": [
+      "delivered",
+      "failed",
+      "load",
+      "start"
+    ],
+    "first": "<view class=\"page\"><empty-state wx:if=\"{{loading}}\" message=\"正在加载…\"/><empty-state wx:if=\"{{error}}\" message=\"{"
+  },
+  {
+    "page": "elder/meal",
+    "title": "送餐上门",
+    "events": [
+      "addressChange",
+      "change",
+      "change",
+      "change",
+      "change",
+      "load",
+      "slotChange",
+      "submit"
+    ],
+    "first": "<view class=\"page service-page\"><empty-state wx:if=\"{{loading}}\" message=\"正在加载…\"/><view wx:if=\"{{error}}\" clas"
+  },
+  {
+    "page": "elder/escort",
+    "title": "陪诊预约",
+    "events": [
+      "addressChange",
+      "change",
+      "change",
+      "change",
+      "change",
+      "change",
+      "change",
+      "change",
+      "load",
+      "retryQuote",
+      "submit"
+    ],
+    "first": "<view class=\"page service-page\"><empty-state wx:if=\"{{loading}}\" message=\"正在加载…\"/><view wx:if=\"{{error}}\" clas"
+  },
+  {
+    "page": "recycle/order/order",
+    "title": "预约上门回收",
+    "events": [
+      "category",
+      "create",
+      "load",
+      "note",
+      "selectSlot"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">预约上门回收</view><view class=\"card muted\">服务免费；服务员称重后按小区标准发放环保积分。回收类别、"
+  },
+  {
+    "page": "notices/list/list",
+    "title": "小区公告",
+    "events": [
+      "load",
+      "loadMore"
+    ],
+    "first": "<view class=\"page\"><view class=\"page-title\">小区公告</view><view wx:if=\"{{loading && !list.length}}\">正在加载…</view><"
+  }
+]

@@ -1,1 +1,1 @@
-input,textarea{width:100%;box-sizing:border-box;padding:18rpx 0;border-bottom:1rpx solid #eee}textarea{min-height:140rpx}.picker{padding:20rpx 0}
+.ui-input,.ui-textarea{width:100%;box-sizing:border-box;padding:18rpx 0;border-bottom:1rpx solid #E6E9DF}.ui-input{padding-top:0;padding-bottom:0}.ui-textarea{min-height:140rpx}.picker{padding:20rpx 0}

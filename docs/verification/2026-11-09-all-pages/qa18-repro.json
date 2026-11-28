@@ -1,0 +1,116 @@
+[
+  {
+    "route": "pages/bind/bind",
+    "error": "合成网络失败",
+    "loading": false,
+    "emptyData": [
+      {
+        "field": "communities",
+        "empty": true
+      }
+    ],
+    "calls": [
+      [
+        "catalog",
+        "listCommunities"
+      ]
+    ]
+  },
+  {
+    "route": "provider/workbench/workbench",
+    "error": "合成网络失败",
+    "loading": false,
+    "emptyData": [
+      {
+        "field": "provider",
+        "empty": true
+      },
+      {
+        "field": "tasks",
+        "empty": true
+      }
+    ],
+    "calls": [
+      [
+        "provider",
+        "myStatus"
+      ]
+    ]
+  },
+  {
+    "route": "admin/reports/reports",
+    "error": "合成网络失败",
+    "loading": false,
+    "emptyData": [
+      {
+        "field": "rows",
+        "empty": true
+      }
+    ],
+    "calls": [
+      [
+        "content",
+        "listReports"
+      ]
+    ]
+  },
+  {
+    "route": "admin/stations/stations",
+    "error": "合成网络失败",
+    "loading": false,
+    "emptyData": [
+      {
+        "field": "rows",
+        "empty": true
+      }
+    ],
+    "calls": [
+      [
+        "station",
+        "listApplications"
+      ]
+    ]
+  },
+  {
+    "route": "station/apply/apply",
+    "error": "合成网络失败",
+    "loading": false,
+    "emptyData": [
+      {
+        "field": "communities",
+        "empty": true
+      },
+      {
+        "field": "application",
+        "empty": true
+      }
+    ],
+    "calls": [
+      [
+        "station",
+        "applicationOptions"
+      ],
+      [
+        "station",
+        "myApplication"
+      ]
+    ]
+  },
+  {
+    "route": "notices/list/list",
+    "error": "合成网络失败",
+    "loading": false,
+    "emptyData": [
+      {
+        "field": "list",
+        "empty": true
+      }
+    ],
+    "calls": [
+      [
+        "content",
+        "listNotices"
+      ]
+    ]
+  }
+]

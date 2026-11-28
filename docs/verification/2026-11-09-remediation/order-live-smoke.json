@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-09",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "fc2a313",
+  "identity": "real logged-in unbound resident",
+  "execution": "WeChat DevTools Console wx.cloud.callFunction and native order-page clicks",
+  "results": [
+    {
+      "action": "listMine",
+      "group": "ongoing",
+      "ok": true,
+      "count": 0,
+      "hasMore": false
+    },
+    {
+      "action": "listMine",
+      "group": "done",
+      "ok": true,
+      "count": 0,
+      "hasMore": false
+    },
+    {
+      "action": "listMine",
+      "group": "aftersale",
+      "ok": true,
+      "count": 0,
+      "hasMore": false
+    },
+    {
+      "action": "listMine",
+      "group": "invalid_group",
+      "ok": false,
+      "code": "E_INVALID_PARAM",
+      "message": "订单分组不正确"
+    }
+  ],
+  "uiObserved": [
+    "Order page opens without error",
+    "Ongoing, done and aftersale switch and finish at empty state",
+    "Status buttons appear vertically centered at current iPhone12/13(Pro) simulator size"
+  ],
+  "notVerified": [
+    "Nonempty orders and pagination",
+    "Create, pay, fulfill, cancel/refund success",
+    "Live concurrent membership activation and admin change; payCallback/admin still pending",
+    "Other physical devices and accessibility font sizes"
+  ],
+  "writes": "No business writes, orders, payments or refunds"
+}

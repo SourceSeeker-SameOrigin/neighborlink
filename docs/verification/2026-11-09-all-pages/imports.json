@@ -1,0 +1,5 @@
+{
+  "scope": "Actual VM exports of destructured relative imports in 69 page JS files, no cloud/UI",
+  "importStatements": 78,
+  "findings": []
+}

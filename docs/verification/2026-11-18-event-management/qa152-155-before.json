@@ -1,0 +1,30 @@
+{
+  "scope": "QA152-QA155 resident board and idle pages",
+  "method": "Actual page JavaScript in isolated Node VMs with two synthetic residents and intercepted APIs, uploads, modals and navigation",
+  "findings": [
+    {
+      "case": "QA152",
+      "page": "board/detail/detail",
+      "observed": "After resident B's detail read was denied, resident A's post and one old comment remained visible. The old comment action issued one request under B; an old close confirmation issued one request after switching to B."
+    },
+    {
+      "case": "QA153",
+      "pages": ["idle/detail/detail", "idle/mine/mine"],
+      "observed": "After B's reads were denied, A's item and list remained visible. The old contact action issued one request and called a synthetic phone callback under B; an old list card still navigated."
+    },
+    {
+      "case": "QA154",
+      "page": "idle/create/create",
+      "observed": "After switching A to B, A's draft stayed visible. B's image action used idle/A and B's create request retained A's community ID."
+    },
+    {
+      "case": "QA155",
+      "page": "board/create/create",
+      "observed": "After switching A to B, A's draft stayed visible. B's image action used board/A and B's create request retained A's community ID."
+    }
+  ],
+  "cloudCalls": 0,
+  "realCalls": "No real phone call, upload, post, item, payment or transaction",
+  "limits": "Service-side authorization may reject the stale requests; online incidence is unknown",
+  "status": "Reproduced in isolation; remediation awaits user decisions"
+}

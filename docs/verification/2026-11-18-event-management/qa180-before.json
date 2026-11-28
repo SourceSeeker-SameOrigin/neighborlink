@@ -1,0 +1,45 @@
+{
+  "scope": "actual P13 page, synthetic residents/files; all external actions intercepted",
+  "pass": 2,
+  "fail": 4,
+  "results": [
+    {
+      "case": "provider-apply-normal-load",
+      "pass": true
+    },
+    {
+      "case": "provider-apply-late-a-status-after-user-switch",
+      "pass": false,
+      "observed": {
+        "ready": true,
+        "provider": "application-a"
+      }
+    },
+    {
+      "case": "provider-apply-old-submit-after-user-switch",
+      "pass": false,
+      "observed": {
+        "calls": 1,
+        "communityId": "community-a"
+      }
+    },
+    {
+      "case": "provider-apply-old-photo-after-user-switch",
+      "pass": false,
+      "observed": {
+        "kycFileId": "synthetic-kyc-a"
+      }
+    },
+    {
+      "case": "provider-apply-old-phone-overwrites-current-user",
+      "pass": false,
+      "observed": {
+        "currentUser": "a"
+      }
+    },
+    {
+      "case": "provider-apply-late-status-after-unload",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "scope": "隔离真实页面方法及模板条件；非实景、非真实云写入",
+  "total": 14,
+  "passed": 13,
+  "results": [
+    {
+      "name": "QA17初次失败不显示未申请或业务状态",
+      "status": "PASS"
+    },
+    {
+      "name": "QA17恢复成功无申请才展示空态",
+      "status": "PASS"
+    },
+    {
+      "name": "QA17成功申请状态 pending",
+      "status": "PASS"
+    },
+    {
+      "name": "QA17成功申请状态 approved",
+      "status": "PASS"
+    },
+    {
+      "name": "QA17成功申请状态 rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "QA17成功后失败保留数据但不显示旧状态；重试可恢复",
+      "status": "PASS"
+    },
+    {
+      "name": "QA18空结果状态区分 pages/bind/bind",
+      "status": "PASS"
+    },
+    {
+      "name": "QA18空结果状态区分 provider/workbench/workbench",
+      "status": "PASS"
+    },
+    {
+      "name": "QA18空结果状态区分 admin/reports/reports",
+      "status": "FAIL",
+      "message": "暂无举报"
+    },
+    {
+      "name": "QA18空结果状态区分 admin/stations/stations",
+      "status": "PASS"
+    },
+    {
+      "name": "QA18空结果状态区分 notices/list/list",
+      "status": "PASS"
+    },
+    {
+      "name": "QA18驿站初次失败隐藏状态/表单/空态，恢复重新展示",
+      "status": "PASS"
+    },
+    {
+      "name": "QA18驿站提交失败仍保留表单选择及可重试状态",
+      "status": "PASS"
+    },
+    {
+      "name": "QA18驿站原申请读取失败不抹掉资料，恢复后正确显示",
+      "status": "PASS"
+    }
+  ]
+}

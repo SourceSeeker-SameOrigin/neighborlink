@@ -1,0 +1,23 @@
+{
+  "counts": {
+    "pages": 69,
+    "subpackages": 14,
+    "js": 184,
+    "json": 125,
+    "wxml": 77,
+    "wxss": 78,
+    "relativeRequires": 598,
+    "componentRefs": 54,
+    "staticRoutes": 110,
+    "eventBindings": 504,
+    "wcc": {
+      "files": 77,
+      "status": 0
+    },
+    "wcsc": {
+      "files": 78,
+      "status": 0
+    }
+  },
+  "issues": []
+}

@@ -1,0 +1,43 @@
+{
+  "scope": "Isolated frontend regression; no live cloud writes",
+  "total": 9,
+  "passed": 9,
+  "results": [
+    {
+      "name": "saveCommunity失败保留三类输入、滚顶、隐藏重载；原按钮可重试",
+      "status": "PASS"
+    },
+    {
+      "name": "saveGlobal失败保留三类输入、滚顶、隐藏重载；原按钮可重试",
+      "status": "PASS"
+    },
+    {
+      "name": "addBuilding失败保留三类输入、滚顶、隐藏重载；原按钮可重试",
+      "status": "PASS"
+    },
+    {
+      "name": "小区本地费率校验失败无API写入且保留输入",
+      "status": "PASS"
+    },
+    {
+      "name": "全局本地数字校验失败无API写入",
+      "status": "PASS"
+    },
+    {
+      "name": "加载失败保留重载入口并可恢复",
+      "status": "PASS"
+    },
+    {
+      "name": "切换加载失败显示重载而不当作保存失败",
+      "status": "PASS"
+    },
+    {
+      "name": "三类保存忙碌和无权限时不发请求",
+      "status": "PASS"
+    },
+    {
+      "name": "模板仅加载错误提供重新加载",
+      "status": "PASS"
+    }
+  ]
+}

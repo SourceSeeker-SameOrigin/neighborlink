@@ -27,7 +27,7 @@ function cleanEscort(detail, dutyWindows = [], now = new Date()) {
   const blocks = integer(detail.blocks, '陪诊时长档数', 1, 4);
   ensure(typeof detail.pickup === 'boolean', '请选择是否需要接送');
   const startAt = new Date(detail.date + 'T' + detail.start + ':00+08:00');
-  ensure(Number.isFinite(startAt.getTime()) && startAt > new Date(), '陪诊开始时间必须在未来');
+  ensure(Number.isFinite(startAt.getTime()) && startAt > now, '陪诊开始时间必须在未来');
   const endAt = new Date(startAt.getTime() + blocks * 2 * 60 * 60 * 1000);
   const withinDuty = Array.isArray(dutyWindows) && dutyWindows.some(window => {
     const duty = parseWindow({ date: detail.date, start: window.start, end: window.end });

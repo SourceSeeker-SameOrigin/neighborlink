@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-13",
+  "scope": "QA59 frontend only",
+  "originalProbe": {
+    "beforePassed": 1,
+    "afterPassed": 8,
+    "total": 8
+  },
+  "newRegression": {
+    "passed": 21,
+    "total": 21
+  },
+  "workspaceRoutes": {
+    "passed": 17,
+    "total": 17
+  },
+  "jest": {
+    "suitesPassed": 53,
+    "testsPassed": 624
+  },
+  "isolatedLifecycle": {
+    "pages": 69,
+    "scenarios": 207,
+    "uncaught": 0
+  },
+  "componentReferences": {
+    "pages": 69,
+    "templates": 77,
+    "problems": 0
+  },
+  "officialCompilation": {
+    "wxml": {
+      "files": 77,
+      "exitCode": 0,
+      "stderr": ""
+    },
+    "wxss": {
+      "files": 78,
+      "exitCode": 0,
+      "stderr": ""
+    }
+  },
+  "limits": [
+    "Synthetic tests do not prove real application or multi-role business success",
+    "Actual QA59 UI evidence is at width 430 only",
+    "No cloud function changes or deployment needed"
+  ]
+}

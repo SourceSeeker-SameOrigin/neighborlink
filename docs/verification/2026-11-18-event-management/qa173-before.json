@@ -1,0 +1,47 @@
+{
+  "scope": "actual P01 page, synthetic residents; CloudBase/native calls intercepted",
+  "pass": 2,
+  "fail": 4,
+  "results": [
+    {
+      "case": "home-normal-load",
+      "pass": true
+    },
+    {
+      "case": "home-old-community-after-user-switch",
+      "pass": false,
+      "observed": {
+        "pageCommunity": "community-a",
+        "globalCommunity": "community-a"
+      }
+    },
+    {
+      "case": "home-old-directory-entry-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/shops/list/list"
+        ]
+      }
+    },
+    {
+      "case": "home-old-ad-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": 1,
+        "adEvents": 1
+      }
+    },
+    {
+      "case": "home-old-hotline-after-user-switch",
+      "pass": false,
+      "observed": {
+        "dialCalls": 1
+      }
+    },
+    {
+      "case": "home-old-read-after-hide",
+      "pass": true
+    }
+  ]
+}

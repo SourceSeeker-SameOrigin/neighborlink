@@ -1,0 +1,122 @@
+[
+  [
+    "pages/orders/detail",
+    "orderId",
+    "id",
+    "订单",
+    "pages/orders/list",
+    "我的订单",
+    "switchTab",
+    "cancel pay serviceAction subscribeVisitReport subscribeVacantReport openChat openPetReports preview previewVacant"
+  ],
+  [
+    "provider/task/task",
+    "orderId",
+    "id",
+    "任务",
+    "provider/workbench/workbench",
+    "服务员工作台",
+    "redirect",
+    "uploadLocation vacantPhoto revealEntry submitVacantReport photo act openChat callResident openPetTasks"
+  ],
+  [
+    "admin/order/order",
+    "orderId",
+    "id",
+    "订单",
+    "admin/orders/orders",
+    "订单管理",
+    "redirect",
+    "assign cancel retryRefund resolve voidCard perform openChat"
+  ],
+  [
+    "board/detail/detail",
+    "postId",
+    "id",
+    "需求",
+    "board/list/list",
+    "需求广场",
+    "redirect",
+    "comment report reportComment close continuePayment preview"
+  ],
+  [
+    "idle/detail/detail",
+    "itemId",
+    "id",
+    "商品",
+    "idle/list/list",
+    "闲置列表",
+    "redirect",
+    "contact want buy carry edit markSold remove report preview"
+  ],
+  [
+    "idle/sale/sale",
+    "orderId",
+    "id",
+    "订单",
+    "idle/sales/sales",
+    "卖家订单",
+    "redirect",
+    "accept photos deliver preview"
+  ],
+  [
+    "events/detail/detail",
+    "eventId",
+    "id",
+    "活动",
+    "events/list/list",
+    "活动列表",
+    "redirect",
+    "reportContent signup cancelSignup"
+  ],
+  [
+    "pet/work",
+    "orderId",
+    "id",
+    "订单",
+    "provider/workbench/workbench",
+    "服务员工作台",
+    "redirect",
+    "reveal done missed"
+  ],
+  [
+    "pet/reports",
+    "orderId",
+    "id",
+    "订单",
+    "pages/orders/list",
+    "我的订单",
+    "switchTab",
+    ""
+  ],
+  [
+    "shops/detail/detail",
+    "merchantId",
+    "merchantId",
+    "商家",
+    "shops/list/list",
+    "商家列表",
+    "redirect",
+    "reportContent book"
+  ],
+  [
+    "station/batch/batch",
+    "batchId",
+    "id",
+    "批次",
+    "station/worker/worker",
+    "配送工作台",
+    "redirect",
+    "start delivered failed"
+  ],
+  [
+    "shops/booking/booking",
+    "serviceId",
+    "serviceId",
+    "服务",
+    "shops/list/list",
+    "商家列表",
+    "redirect",
+    "submit openOrder"
+  ]
+]

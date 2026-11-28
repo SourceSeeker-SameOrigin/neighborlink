@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-09",
+  "change": "approved unbound direct-entry guidance for board and idle lists",
+  "sourceHashes": {
+    "miniprogram/board/list/list.js": "a60a157a673c79a9abb3db6c9f71c67c26a228df6d83e66979d668eeb0c575e3",
+    "miniprogram/board/list/list.wxml": "69169a6906930d5cdd66e3c6e57ba533c137ed62c276c35cf67894defa27ba4e",
+    "miniprogram/idle/list/list.js": "872bef0473cabc6da25818452925457a6572508bd03db1cb650f93021438937b",
+    "miniprogram/idle/list/list.wxml": "f93b901fc9d47dd6faa919f4fa876e46d222a930aa2f759d2d50443d86415190"
+  },
+  "jest": {
+    "suites": 52,
+    "passed": 592,
+    "failed": 0
+  },
+  "isolatedPageChecks": {
+    "passed": 10,
+    "total": 10
+  },
+  "native": {
+    "actualIdentity": "real unbound resident",
+    "compile": "success after previously authorized compile-cache clear; old runtime code observed before clear",
+    "pages": [
+      "board/list/list",
+      "idle/list/list"
+    ],
+    "verified": [
+      "Clear binding guidance",
+      "Publish buttons hidden while unbound",
+      "Explicit bind action opens original binding page",
+      "Cancel/back returns to original guidance without automatic navigation",
+      "Visual layout and centered button text at current simulator size"
+    ],
+    "realBindingSubmitted": false,
+    "notVerified": [
+      "Actual address save, gift-coupon retry and persisted real binding",
+      "Other screen sizes, production and user visual signoff"
+    ]
+  },
+  "cloudCodeChanged": false,
+  "cloudDeploymentNeededForThisFrontendChange": false
+}

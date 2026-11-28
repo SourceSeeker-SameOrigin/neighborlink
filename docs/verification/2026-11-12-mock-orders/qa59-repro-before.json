@@ -1,0 +1,51 @@
+{
+  "source": "miniprogram/pages/me/me.js",
+  "mode": "actual-page-synthetic-only",
+  "passed": 1,
+  "total": 8,
+  "results": [
+    {
+      "name": "successful initial read",
+      "passed": true,
+      "evidence": {
+        "loading": false,
+        "unreadTotal": 7
+      }
+    },
+    {
+      "name": "older read cannot overwrite newer unread count",
+      "passed": false,
+      "error": "older response overwrote latest count; actual=1\n\n1 !== 7\n"
+    },
+    {
+      "name": "onHide blocks late success updates",
+      "passed": false,
+      "error": "late setData calls=2\n\n2 !== 0\n"
+    },
+    {
+      "name": "onHide blocks late identity failure updates",
+      "passed": false,
+      "error": "late setData calls=2\n\n2 !== 0\n"
+    },
+    {
+      "name": "onUnload blocks late success updates",
+      "passed": false,
+      "error": "late setData calls=2\n\n2 !== 0\n"
+    },
+    {
+      "name": "onUnload blocks late identity failure updates",
+      "passed": false,
+      "error": "late setData calls=2\n\n2 !== 0\n"
+    },
+    {
+      "name": "merchant failed application read is not silent absence",
+      "passed": false,
+      "error": "application=null, error=\"\""
+    },
+    {
+      "name": "station failed application read is not silent absence",
+      "passed": false,
+      "error": "application=null, error=\"\""
+    }
+  ]
+}

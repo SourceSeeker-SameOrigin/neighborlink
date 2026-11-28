@@ -1,0 +1,73 @@
+{
+  "scope": "仅隔离真实前端方法与合成API，未访问或写入云端",
+  "findings": [
+    {
+      "route": "idle/income/income",
+      "error": "合成读取失败",
+      "pending": "0.00",
+      "settled": "0.00",
+      "payoutEnabled": false,
+      "templateAlwaysDisplaysAmount": true
+    },
+    {
+      "route": "provider/earnings/earnings",
+      "error": "合成读取失败",
+      "pending": "0.00",
+      "settled": "0.00",
+      "payoutEnabled": false,
+      "templateAlwaysDisplaysAmount": true
+    },
+    {
+      "route": "board/create/create",
+      "initialLoadFailed": true,
+      "writeAttemptsAfterFailure": [
+        "board.create"
+      ]
+    },
+    {
+      "route": "idle/create/create",
+      "initialLoadFailed": true,
+      "writeAttemptsAfterFailure": [
+        "idle.create"
+      ]
+    },
+    {
+      "route": "merchant/apply/apply",
+      "initialLoadFailed": true,
+      "writeAttemptsAfterFailure": [
+        "merchant.apply"
+      ]
+    },
+    {
+      "route": "merchant/services/services",
+      "initialLoadFailed": true,
+      "writeAttemptsAfterFailure": [
+        "merchant.upsertService"
+      ]
+    },
+    {
+      "route": "chat/room/room",
+      "missingConversation": true,
+      "attempts": [
+        {
+          "action": "chat.send",
+          "hasConversation": false
+        }
+      ]
+    },
+    {
+      "route": "shops/booking/booking",
+      "mode": "lostResponse",
+      "attempts": 2,
+      "requestIdsDiffer": true,
+      "navigation": []
+    },
+    {
+      "route": "shops/booking/booking",
+      "mode": "paymentCancelled",
+      "attempts": 2,
+      "requestIdsDiffer": true,
+      "navigation": []
+    }
+  ]
+}

@@ -1,1 +1,1 @@
-<view class="bar"><view><view>合计 ¥{{amount}}</view><view class="reason">{{reason}}</view></view><button type="primary" loading="{{loading}}" disabled="{{disabled || loading}}" bindtap="submit">{{label}}</button></view>
+<view class="bar"><view class="price-copy"><view class="total">合计 <text class="amount">¥{{amount}}</text></view><view class="reason">{{reason}}</view></view><button class="submit-button {{disabled || loading ? 'is-disabled' : ''}}" type="primary" loading="{{loading}}" disabled="{{disabled || loading}}" bindtap="submit">{{label}}</button></view>

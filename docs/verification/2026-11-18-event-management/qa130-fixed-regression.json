@@ -1,0 +1,12 @@
+{
+  "scope": "reconstructed deployment source, synthetic database, no cloud calls",
+  "merchantServices": {
+    "pass": 45,
+    "fail": 0
+  },
+  "residentShops": {
+    "pass": 17,
+    "fail": 0
+  },
+  "baseline": "75 unchanged files verified against QA50 merchant source hashes; index.js from current QA130 change based on dfb0e34; live baseline still requires readback before deployment"
+}

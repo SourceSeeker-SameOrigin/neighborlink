@@ -32,8 +32,8 @@ function cleanVisitResult(event, order) {
   const videoFileId = event.videoFileId || null;
   ensure((videoFileId && photos.length === 0) || (!videoFileId && photos.length >= 2), '每次上门必须上传视频或至少 2 张照片');
   const folder = `pet/${order._id}/`;
-  for (const file of photos) ensure(typeof file === 'string' && file.startsWith('cloud://') && file.includes('/' + folder), '请重新上传本次上门照片');
-  if (videoFileId) ensure(typeof videoFileId === 'string' && videoFileId.startsWith('cloud://') && videoFileId.includes('/' + folder), '请重新上传本次上门视频');
+  for (const file of photos) require('./providerData').fileInFolder(file, folder.replace(/\/$/, ''));
+  if (videoFileId) require('./providerData').fileInFolder(videoFileId, folder.replace(/\/$/, ''));
   return { photos, videoFileId };
 }
 function revealSecret(secret, secretKey) { return decryptSecret(secret, secretKey); }

@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-09",
+  "sourceFile": "miniprogram/utils/service-form.js",
+  "sourceSha256": "47fac201ddfd569e7d0b57d3654da78a8a14ca5214bda291213195c509c81725",
+  "scope": "Native WeChat DevTools real authenticated cloud quote; form values set in page runtime; no submit",
+  "pages": [
+    {
+      "route": "pages/service/help",
+      "dutyHint": "当前暂无服务员值班，可选择服务时段预约，实际服务以接单确认为准",
+      "amount": "39.00",
+      "error": "",
+      "quoteError": "",
+      "slots": [
+        "2026-11-09 07:00—00:00",
+        "2026-11-10 07:00—00:00"
+      ],
+      "visual": "Scrolled page and inspected screenshot: full hint wraps without overlap; bottom price/button unobscured"
+    },
+    {
+      "route": "pages/service/express",
+      "dutyHint": "当前暂无服务员值班，可选择服务时段预约，实际服务以接单确认为准",
+      "amount": "1.00",
+      "error": "",
+      "quoteError": "",
+      "slots": [
+        "2026-11-09 07:00—00:00",
+        "2026-11-10 07:00—00:00"
+      ],
+      "visual": "Scrolled page and inspected screenshot: full hint wraps without overlap; bottom price/button unobscured"
+    },
+    {
+      "route": "pages/service/trash",
+      "dutyHint": "当前暂无服务员值班，可选择服务时段预约，实际服务以接单确认为准",
+      "amount": "1.00",
+      "error": "",
+      "quoteError": "",
+      "slots": [
+        "2026-11-09 07:00—00:00",
+        "2026-11-10 07:00—00:00"
+      ],
+      "visual": "Scrolled page and inspected screenshot: full hint wraps without overlap; bottom price/button unobscured"
+    },
+    {
+      "route": "pages/service/buy",
+      "dutyHint": "当前暂无服务员值班，可选择服务时段预约，实际服务以接单确认为准",
+      "amount": "11.00",
+      "error": "",
+      "quoteError": "",
+      "slots": [
+        "2026-11-09 07:00—00:00",
+        "2026-11-10 07:00—00:00"
+      ],
+      "visual": "Scrolled page and inspected screenshot: full hint wraps without overlap; bottom price/button unobscured"
+    }
+  ],
+  "console": {
+    "afterCompileErrors": 0,
+    "afterAllFourPagesErrors": 0,
+    "afterAllFourPagesWarnings": 9,
+    "observedWarningTypes": [
+      "automatic hot reload",
+      "SharedArrayBuffer deprecation",
+      "worker reportRealtimeAction unsupported"
+    ],
+    "priorExpectedUpdatedDataErrorReproduced": false,
+    "priorErrorRootCause": "unknown; no root-cause fix claimed"
+  },
+  "limits": [
+    "One simulator screen size only; not all-page or phone acceptance",
+    "On-duty and no-slot branches covered only by isolated 21-case regression",
+    "No cloud writes, payments, provider roles or feature changes",
+    "No cloud redeployment needed for text-only client change"
+  ]
+}

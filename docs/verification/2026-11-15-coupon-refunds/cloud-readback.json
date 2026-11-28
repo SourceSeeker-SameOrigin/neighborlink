@@ -1,0 +1,73 @@
+{
+  "sourceCommit": "46d657781c77c12a5f4d6b863c3ce97044df2e58",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "verifiedAt": "2026-11-15T01:44:41.329156+08:00",
+  "method": "逐文件比对 Git 提交、部署清单和微信开发者工具 CLI 下载结果的 SHA-256，并读取云端 wx-server-sdk 的 package.json。",
+  "functions": [
+    {
+      "function": "refundCallback",
+      "expected": 76,
+      "matched": 76,
+      "sdk": "4.0.2",
+      "zipSha256": "efe6238ab3009292dac9479db41644d594def02d5654f99591616d8bc0ea1fdc"
+    },
+    {
+      "function": "order",
+      "expected": 76,
+      "matched": 76,
+      "sdk": "4.0.2",
+      "zipSha256": "6b348a0c0132d0c13832362ea633c91c1a8607caef2726ff09f0ba222fcc9be2"
+    },
+    {
+      "function": "provider",
+      "expected": 76,
+      "matched": 76,
+      "sdk": "4.0.2",
+      "zipSha256": "43ae288fffd9fc3bc923839de3fd16a9b23962c4130c2da9e39f9c640de1216d"
+    },
+    {
+      "function": "pet",
+      "expected": 76,
+      "matched": 76,
+      "sdk": "4.0.2",
+      "zipSha256": "af131cdb76a0c64a87994f545e9f0892584d4dc4d01527a40d0cf0c1dc41b035"
+    },
+    {
+      "function": "board",
+      "expected": 76,
+      "matched": 76,
+      "sdk": "4.0.2",
+      "zipSha256": "85e0388021dbf6ddf5b7c5867c63e7a94cd8d9ff17b0e7896c708000d71fb33a"
+    },
+    {
+      "function": "event",
+      "expected": 76,
+      "matched": 76,
+      "sdk": "4.0.2",
+      "zipSha256": "cab39aa61537c66ec3f059ba3313f0d1ad84da062417af9ac70d17bb369c1fab"
+    },
+    {
+      "function": "payCallback",
+      "expected": 76,
+      "matched": 76,
+      "sdk": "4.0.2",
+      "zipSha256": "d616a29c342199fa179ea223cbc65d0dc431c7dbc207cdfb0c69a397b6a686b3"
+    },
+    {
+      "function": "timer",
+      "expected": 76,
+      "matched": 76,
+      "sdk": "4.0.2",
+      "zipSha256": "329f3e1c8323d0084b4c50a726c5de7735154c5060fed05ec1794124ba032f14"
+    },
+    {
+      "function": "admin",
+      "expected": 76,
+      "matched": 76,
+      "sdk": "4.0.2",
+      "zipSha256": "be89ca06606ed17007ea9136af181910c7dc9b30e502205f5c91d37145867659"
+    }
+  ],
+  "totalMatched": 684,
+  "scope": "仅部署代码及依赖验证；本批未执行退款、定时函数或历史账本修复。"
+}

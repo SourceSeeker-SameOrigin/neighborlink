@@ -1,0 +1,70 @@
+{
+  "commit": "dff61b2",
+  "environment": "微信开发者工具游客工程，真实页面导航与返回；合成照片、弹窗回调和支付接口",
+  "results": [
+    {
+      "afterReturn": {
+        "previewCalls": 0,
+        "previewErrorToasts": 0,
+        "mockPayCalls": 0,
+        "status": "pending_pay"
+      },
+      "fresh": {
+        "previewCalls": 1,
+        "previewErrorToasts": 0,
+        "mockPayCalls": 1,
+        "status": "paid"
+      },
+      "width": 320,
+      "returnedRoute": "pages/orders/detail"
+    },
+    {
+      "afterReturn": {
+        "previewCalls": 0,
+        "previewErrorToasts": 0,
+        "mockPayCalls": 0,
+        "status": "pending_pay"
+      },
+      "fresh": {
+        "previewCalls": 1,
+        "previewErrorToasts": 0,
+        "mockPayCalls": 1,
+        "status": "paid"
+      },
+      "width": 375,
+      "returnedRoute": "pages/orders/detail"
+    },
+    {
+      "afterReturn": {
+        "previewCalls": 0,
+        "previewErrorToasts": 0,
+        "mockPayCalls": 0,
+        "status": "pending_pay"
+      },
+      "fresh": {
+        "previewCalls": 1,
+        "previewErrorToasts": 0,
+        "mockPayCalls": 1,
+        "status": "paid"
+      },
+      "width": 390,
+      "returnedRoute": "pages/orders/detail"
+    },
+    {
+      "afterReturn": {
+        "previewCalls": 0,
+        "previewErrorToasts": 0,
+        "mockPayCalls": 0,
+        "status": "pending_pay"
+      },
+      "fresh": {
+        "previewCalls": 1,
+        "previewErrorToasts": 0,
+        "mockPayCalls": 1,
+        "status": "paid"
+      },
+      "width": 430,
+      "returnedRoute": "pages/orders/detail"
+    }
+  ]
+}

@@ -1,0 +1,590 @@
+{
+  "scope": "Actual page and production validator, synthetic files; no cloud writes",
+  "pass": 67,
+  "fail": 0,
+  "results": [
+    {
+      "name": "windows-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "windows-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "windows-attempts-4",
+      "pass": true,
+      "observed": {
+        "attempts": 4,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "windows-attempts-5",
+      "pass": true,
+      "observed": {
+        "attempts": 5,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "utilities-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "utilities-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "utilities-attempts-4",
+      "pass": true,
+      "observed": {
+        "attempts": 4,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "utilities-attempts-5",
+      "pass": true,
+      "observed": {
+        "attempts": 5,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "leakMold-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "leakMold-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "leakMold-attempts-4",
+      "pass": true,
+      "observed": {
+        "attempts": 4,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "leakMold-attempts-5",
+      "pass": true,
+      "observed": {
+        "attempts": 5,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "ventilation-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "ventilation-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "ventilation-attempts-4",
+      "pass": true,
+      "observed": {
+        "attempts": 4,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "ventilation-attempts-5",
+      "pass": true,
+      "observed": {
+        "attempts": 5,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "mail-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "mail-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "mail-attempts-4",
+      "pass": true,
+      "observed": {
+        "attempts": 4,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "mail-attempts-5",
+      "pass": true,
+      "observed": {
+        "attempts": 5,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "photos-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "photos-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "photos-attempts-4",
+      "pass": true,
+      "observed": {
+        "attempts": 4,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "photos-attempts-5",
+      "pass": true,
+      "observed": {
+        "attempts": 5,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "windows-remove-from-3",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "windows-remove-from-4",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "windows-remove-from-5",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "windows-invalid-submit-0",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "门窗检查：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "windows-invalid-submit-4",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "门窗检查：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "utilities-remove-from-3",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "utilities-remove-from-4",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "utilities-remove-from-5",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "utilities-invalid-submit-0",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "水电燃气：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "utilities-invalid-submit-4",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "水电燃气：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "leakMold-remove-from-3",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "leakMold-remove-from-4",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "leakMold-remove-from-5",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "leakMold-invalid-submit-0",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "漏水与霉斑：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "leakMold-invalid-submit-4",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "漏水与霉斑：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "ventilation-remove-from-3",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "ventilation-remove-from-4",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "ventilation-remove-from-5",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "ventilation-invalid-submit-0",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "开窗通风 30 分钟：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "ventilation-invalid-submit-4",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "开窗通风 30 分钟：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "mail-remove-from-3",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "mail-remove-from-4",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "mail-remove-from-5",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "mail-invalid-submit-0",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "代收快递信件：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "mail-invalid-submit-4",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "代收快递信件：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "photos-remove-from-3",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "photos-remove-from-4",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "photos-remove-from-5",
+      "pass": true,
+      "observed": {
+        "accepted": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "photos-invalid-submit-0",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "巡检拍照：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "photos-invalid-submit-4",
+      "pass": true,
+      "observed": {
+        "submitted": 0,
+        "error": "巡检拍照：每项需1—3张照片，请补拍或移除多余照片"
+      }
+    },
+    {
+      "name": "remove-guard-hidden",
+      "pass": true
+    },
+    {
+      "name": "remove-guard-unloaded",
+      "pass": true
+    },
+    {
+      "name": "remove-guard-busy",
+      "pass": true
+    },
+    {
+      "name": "remove-guard-uploading",
+      "pass": true
+    },
+    {
+      "name": "remove-guard-loading",
+      "pass": true
+    },
+    {
+      "name": "remove-guard-completed",
+      "pass": true
+    },
+    {
+      "name": "remove-guard-disabled",
+      "pass": true
+    },
+    {
+      "name": "remove-guard-wrong-key",
+      "pass": true
+    },
+    {
+      "name": "remove-guard-wrong-index",
+      "pass": true
+    },
+    {
+      "name": "remove-guard-old-file",
+      "pass": true
+    },
+    {
+      "name": "remove-after-identity-change-reloads-only",
+      "pass": true
+    },
+    {
+      "name": "remove-after-order-change-reloads-only",
+      "pass": true
+    },
+    {
+      "name": "photo-edit-template-contract-only",
+      "pass": true,
+      "observed": {
+        "actualVisualVerified": false
+      }
+    }
+  ]
+}

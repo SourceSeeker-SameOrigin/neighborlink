@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-12",
+  "baseline": {
+    "commit": "c8ba04b",
+    "sameFinalRegressionSuite": true,
+    "passed": 2,
+    "total": 18,
+    "evidence": "qa55-before.json"
+  },
+  "fixed": {
+    "passed": 18,
+    "total": 18,
+    "evidence": "qa55-regression.json"
+  },
+  "related": {
+    "passed": 25,
+    "total": 25,
+    "script": "../2026-11-09-all-pages/qa19-23.cjs",
+    "adjustment": "预约测试先await onShow，保留原幂等等断言"
+  },
+  "jest": {
+    "success": true,
+    "numPassedTestSuites": 53,
+    "numPassedTests": 624,
+    "numFailedTests": 0
+  },
+  "officialCompiler": [
+    {
+      "ext": ".wxml",
+      "count": 77,
+      "status": 0,
+      "stderr": ""
+    },
+    {
+      "ext": ".wxss",
+      "count": 78,
+      "status": 0,
+      "stderr": ""
+    }
+  ],
+  "scope": "本地验证不是完整云端/视觉验收；业务代码仅前端，无新增云包"
+}

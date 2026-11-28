@@ -1,0 +1,25 @@
+{
+  "function": "timer",
+  "sourceCommit": "110ebe8b562cb1b8304a056e89bac5994b00e95d",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "method": "official CLI download; every authorized ZIP source file SHA-256 compared",
+  "selectedPackageBytes": 119109,
+  "selectedPackageSha256": "0b237f89b88f2d47ae775839b45b44f2b7e62e233da95d4138e2d4466b4eb87c",
+  "comparedFiles": 72,
+  "matches": 72,
+  "mismatches": [],
+  "invoked": false,
+  "triggerConfigurationApplied": false,
+  "runtimeJobsVerified": false,
+  "consoleConfigReadback": {
+    "status": "normal",
+    "runtime": "Node.js 20.19",
+    "handler": "index.main",
+    "memoryMB": 256,
+    "timeoutSeconds": 3,
+    "standardTimerTriggers": "no data",
+    "wechatCloudTimerTriggers": "no data",
+    "httpRoutes": "no data",
+    "configurationModified": false
+  }
+}

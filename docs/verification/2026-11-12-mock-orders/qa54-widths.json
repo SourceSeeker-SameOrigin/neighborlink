@@ -1,0 +1,97 @@
+{
+  "date": "2026-11-12",
+  "scope": "模拟器回收预约恢复样本；本人最小本地凭据指向既有已关闭垃圾测试订单；不是真实回收业务",
+  "base320Evidence": "qa54-hot-reload.json",
+  "hotReloadOnFailure": {
+    "width": 375,
+    "observed": "重进空白，Page \"recycle/order/order\" has not been registered yet",
+    "runtimeKeys": [
+      "__webviewId__"
+    ],
+    "recoveryMethod": "undefined",
+    "receiptExists": true,
+    "rootCause": "未知；不认定业务代码或热重载是已确定根因"
+  },
+  "controlledHotReloadOff": [
+    {
+      "width": 375,
+      "card": {
+        "created": true,
+        "navigating": false,
+        "error": "预约已创建，暂未打开详情，请点击下方按钮重试。不会重复预约。",
+        "actualScreenshotObserved": true,
+        "originalFormHidden": true,
+        "visibleClippingOrOverlap": false
+      },
+      "actualRecoveryButtonClicked": true,
+      "detail": {
+        "route": "pages/orders/detail",
+        "loading": false,
+        "error": "",
+        "orderMatches": true,
+        "status": "closed",
+        "receiptExists": false
+      },
+      "actualBackHomeObserved": true,
+      "reentryAfterDetail": "未执行"
+    },
+    {
+      "width": 390,
+      "card": {
+        "created": true,
+        "navigating": false,
+        "error": "预约已创建，暂未打开详情，请点击下方按钮重试。不会重复预约。",
+        "actualScreenshotObserved": true,
+        "originalFormHidden": true,
+        "visibleClippingOrOverlap": false
+      },
+      "actualRecoveryButtonClicked": true,
+      "detail": {
+        "route": "pages/orders/detail",
+        "loading": false,
+        "error": "",
+        "orderMatches": true,
+        "status": "closed",
+        "receiptExists": false
+      },
+      "actualBackHomeObserved": true,
+      "reentryAfterDetail": "未执行"
+    },
+    {
+      "width": 430,
+      "card": {
+        "created": true,
+        "navigating": false,
+        "error": "预约已创建，暂未打开详情，请点击下方按钮重试。不会重复预约。",
+        "actualScreenshotObserved": true,
+        "originalFormHidden": true,
+        "visibleClippingOrOverlap": false
+      },
+      "actualRecoveryButtonClicked": true,
+      "detail": {
+        "route": "pages/orders/detail",
+        "loading": false,
+        "error": "",
+        "orderMatches": true,
+        "status": "closed",
+        "receiptExists": false
+      },
+      "actualBackHomeObserved": false,
+      "reentryAfterDetail": "未执行"
+    }
+  ],
+  "restored": {
+    "projectPrivateConfigExactOriginalBytes": true,
+    "compileHotReLoad": true,
+    "runtimeEnabledLog": "20:51:04启动日志确认已开启自动热重载",
+    "remainingRecoveryReceipt": false
+  },
+  "newCloudOrders": 0,
+  "realPaymentFen": 0,
+  "limits": [
+    "仅所列恢复卡片和按钮状态，不代表69页四宽通过",
+    "430详情后实际返回及重进未测",
+    "真机、实际应用重启、大字体、键盘、真实回收链路未测",
+    "截图通过工具观察，未持久保存截图文件"
+  ]
+}

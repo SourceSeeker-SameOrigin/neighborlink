@@ -1,0 +1,9 @@
+{
+  "method": "Actual adminServices function extracted unchanged; real validation and view functions; synthetic database only",
+  "available": 101,
+  "firstReturned": 100,
+  "secondReturned": 100,
+  "secondFirstId": "synthetic_service_0",
+  "hasMoreReturned": false,
+  "unreachableId": "synthetic_service_100"
+}

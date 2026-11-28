@@ -1,0 +1,167 @@
+{
+  "scope": "Local synthetic transactions and actual page handlers; not real cloud concurrency or resident check-in acceptance",
+  "total": 40,
+  "passed": 40,
+  "results": [
+    {
+      "name": "已发布正常签到，两文档原子写入且不改人数，重复拒绝",
+      "status": "PASS"
+    },
+    {
+      "name": "draft零写入",
+      "status": "PASS"
+    },
+    {
+      "name": "cancelled零写入",
+      "status": "PASS"
+    },
+    {
+      "name": "ended零写入",
+      "status": "PASS"
+    },
+    {
+      "name": "unknown零写入",
+      "status": "PASS"
+    },
+    {
+      "name": "报名pending_pay拒绝",
+      "status": "PASS"
+    },
+    {
+      "name": "报名checked_in拒绝",
+      "status": "PASS"
+    },
+    {
+      "name": "报名cancelled拒绝",
+      "status": "PASS"
+    },
+    {
+      "name": "报名refunded拒绝",
+      "status": "PASS"
+    },
+    {
+      "name": "错误签到码拒绝",
+      "status": "PASS"
+    },
+    {
+      "name": "property原组织者权限保留",
+      "status": "PASS"
+    },
+    {
+      "name": "merchant原组织者权限保留",
+      "status": "PASS"
+    },
+    {
+      "name": "住户角色拒绝",
+      "status": "PASS"
+    },
+    {
+      "name": "功能关闭仍拒绝",
+      "status": "PASS"
+    },
+    {
+      "name": "事务重读：取消先完成",
+      "status": "PASS"
+    },
+    {
+      "name": "事务重读：报名先取消",
+      "status": "PASS"
+    },
+    {
+      "name": "事务重读：报名转属其他活动",
+      "status": "PASS"
+    },
+    {
+      "name": "事务重读：签到码变化",
+      "status": "PASS"
+    },
+    {
+      "name": "事务重读：报名删除",
+      "status": "PASS"
+    },
+    {
+      "name": "事务重读：活动删除",
+      "status": "PASS"
+    },
+    {
+      "name": "组织者在事务前变化拒绝",
+      "status": "PASS"
+    },
+    {
+      "name": "已有版本递增",
+      "status": "PASS"
+    },
+    {
+      "name": "非法或耗尽版本拒绝 -1",
+      "status": "PASS"
+    },
+    {
+      "name": "非法或耗尽版本拒绝 1.5",
+      "status": "PASS"
+    },
+    {
+      "name": "非法或耗尽版本拒绝 9007199254740991",
+      "status": "PASS"
+    },
+    {
+      "name": "写入后冲突全部回滚",
+      "status": "PASS"
+    },
+    {
+      "name": "写入后失败全部回滚",
+      "status": "PASS"
+    },
+    {
+      "name": "签到先成功后取消写同一活动记录",
+      "status": "PASS"
+    },
+    {
+      "name": "页面忙碌/未就绪零请求 {\"busy\":true}",
+      "status": "PASS"
+    },
+    {
+      "name": "页面忙碌/未就绪零请求 {\"loading\":true}",
+      "status": "PASS"
+    },
+    {
+      "name": "页面忙碌/未就绪零请求 {\"ready\":false}",
+      "status": "PASS"
+    },
+    {
+      "name": "页面非法状态零请求 draft",
+      "status": "PASS"
+    },
+    {
+      "name": "页面非法状态零请求 cancelled",
+      "status": "PASS"
+    },
+    {
+      "name": "页面非法状态零请求 ended",
+      "status": "PASS"
+    },
+    {
+      "name": "页面非法状态零请求 unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "页面非法状态零请求 null",
+      "status": "PASS"
+    },
+    {
+      "name": "页面未扫码不调用",
+      "status": "PASS"
+    },
+    {
+      "name": "页面重复点击一请求，成功清码且解除忙碌",
+      "status": "PASS"
+    },
+    {
+      "name": "页面失败保留码，可明确重试，无自动重放",
+      "status": "PASS"
+    },
+    {
+      "name": "WXML仅published显示签到按钮并绑定禁用状态",
+      "status": "PASS"
+    }
+  ]
+}

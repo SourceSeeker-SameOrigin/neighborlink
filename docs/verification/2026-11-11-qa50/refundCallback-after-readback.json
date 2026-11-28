@@ -1,0 +1,10 @@
+{
+  "function": "refundCallback",
+  "expected": 76,
+  "matched": 76,
+  "mismatch": [],
+  "sdkVersion": "4.0.2",
+  "configurationModified": false,
+  "callbackInvoked": false,
+  "initialReadback": "Two downloads rejected while Updating; downloaded successfully after UI returned Normal"
+}

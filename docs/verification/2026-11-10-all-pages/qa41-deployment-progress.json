@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-11",
+  "function": "merchant",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "2d5ccccc1ecb354f1abfb9bc536ccddb9932fc14",
+  "authorization": "approved exact 128298-byte,76-file package",
+  "localPackageVerification": {
+    "bytes": 128298,
+    "files": 76,
+    "sha256": "19075dc0b69432147a79d4bc60761c5db259886cf7234ebc606f168d71cd8202",
+    "allMemberHashesMatched": true
+  },
+  "console": {
+    "functionStatus": "normal",
+    "runtime": "Node.js 20.19",
+    "handler": "index.main",
+    "memoryMB": 256,
+    "timeoutSeconds": 3,
+    "triggerRows": 0,
+    "customDomainRows": 0,
+    "configurationChanged": false,
+    "uploadDialogOpen": true,
+    "browserSelectionHashListenerReady": true
+  },
+  "uploadAttempt": {
+    "result": "denied by upload tool configured workspace roots",
+    "uploaded": false,
+    "deployed": false
+  },
+  "next": "Nonempty pagination and real UI acceptance pending; user no longer needs to execute Console probe",
+  "paused": [
+    "D05",
+    "D06"
+  ],
+  "browserSelection": {
+    "name": "merchant.zip",
+    "size": 128298,
+    "sha256": "19075dc0b69432147a79d4bc60761c5db259886cf7234ebc606f168d71cd8202",
+    "matched": true
+  },
+  "deployment": {
+    "confirmed": true,
+    "sourceReadbackMatched": 76,
+    "sdkVersion": "4.0.2",
+    "evidence": "qa41-merchant-cloud-readback.json"
+  },
+  "liveVerification": {
+    "executedBy": "agent through native Console",
+    "passed": 4,
+    "evidence": "qa41-live-pagination.json"
+  }
+}

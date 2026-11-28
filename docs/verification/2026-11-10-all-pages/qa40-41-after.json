@@ -1,0 +1,60 @@
+{
+  "scope": "Only synthetic API promises, no cloud calls, role changes or review actions",
+  "source": "QA40-QA42 working tree; baseline 8cd5817",
+  "total": 13,
+  "passed": 13,
+  "results": [
+    {
+      "name": "orders:新筛选失败不能在新标签下保留旧筛选可操作列表",
+      "status": "PASS"
+    },
+    {
+      "name": "providers:新筛选失败不能在新标签下保留旧筛选可操作列表",
+      "status": "PASS"
+    },
+    {
+      "name": "reports:快速切换状态，旧成功不得覆盖新状态结果",
+      "status": "PASS"
+    },
+    {
+      "name": "stations:重新加载后旧分页不得追加进新列表",
+      "status": "PASS"
+    },
+    {
+      "name": "orders:离页后的读取结果不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "providers:离页后的读取结果不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "reports:离页后的读取结果不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "merchants:离页后的读取结果不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "stations:离页后的读取结果不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "merchants:首20项且hasMore时可触达下一页",
+      "status": "PASS"
+    },
+    {
+      "name": "orders:已有序号保护拒绝旧成功覆盖新列表",
+      "status": "PASS"
+    },
+    {
+      "name": "providers:已有序号保护拒绝旧成功覆盖新列表",
+      "status": "PASS"
+    },
+    {
+      "name": "merchants:已有序号保护拒绝旧成功覆盖新列表",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,1 +1,72 @@
-<view class="page"><empty-state wx:if="{{loading}}" message="正在加载月卡…"/><empty-state wx:if="{{error}}" message="{{error}}" retry bind:retry="load"/><view wx:if="{{addresses.length > 1}}" class="card"><view class="section-title">服务地址</view><picker range="{{addresses}}" range-key="pickerLabel" value="{{addressIndex}}" bindchange="addressChange"><view class="picker">{{addressText}} · 切换地址</view></picker></view><view class="section-title">选择月卡</view><view class="card" wx:for="{{plans}}" wx:key="code"><view class="section-title">{{item.name}} · {{item.days}} 天</view><view class="price">¥{{item.priceText}} <text wx:if="{{item.first}}">首期优惠</text></view><view wx:if="{{item.first}}">续期价格 ¥{{item.originalText}}</view><view wx:if="{{item.serviceCode === 'express'}}">每日 {{item.dailyParcelQuota}} 件以内免费，超额整单按原价</view><block wx:if="{{item.serviceCode === 'trash'}}"><view>每天上门一次，请选择时段并提前分类放在门口</view><picker range="{{slots}}" value="{{slotIndex}}" bindchange="slot"><view class="picker">{{slots[slotIndex]}}</view></picker></block><block wx:if="{{item.serviceCode === 'visit'}}"><view>按月卡配置上门探访，服务地址：{{addressText}}</view><picker range="{{slots}}" value="{{slotIndex}}" bindchange="slot"><view class="picker">上门时段：{{slots[slotIndex]}}</view></picker></block><block wx:if="{{item.serviceCode === 'vacant'}}"><view>月卡自购买日起有效 30 天；有效期内每月 1 日、15 日按小区值班时段巡检。</view><picker range="{{entryOptions}}" value="0" bindchange="entry"><view class="picker">入户方式：{{entryOptions[entry === 'password' ? 0 : entry === 'key_handover' ? 1 : 2]}}</view></picker><input wx:if="{{entry === 'password'}}" password maxlength="100" value="{{entryPassword}}" bindinput="entryPassword" placeholder="填写门锁密码"/></block><button type="primary" data-code="{{item.code}}" bindtap="buy" disabled="{{busy}}" loading="{{busy}}">购买 / 续期</button></view><view class="muted">月卡暂不支持自行退款，如需处理请联系客服。</view><view class="section-title">我的月卡</view><view class="card" wx:for="{{cards}}" wx:key="_id"><view>{{item.name}} · {{item.statusText}}</view><view>开始：{{item.startText}}</view><view>到期：{{item.endText}}</view><view wx:if="{{item.visitAddressText}}">服务地址：{{item.visitAddressText}}</view><view wx:if="{{item.serviceCode === 'trash'}}">上门：{{item.slotText}}</view><button wx:if="{{item.serviceCode === 'trash' && item.status === 'active'}}" data-id="{{item._id}}" disabled="{{busy || item.skippedToday}}" bindtap="skip">{{item.skippedToday ? '今天已跳过' : '今天不用来'}}</button></view><empty-state wx:if="{{!loading && !cards.length}}" message="你还没有月卡"/></view>
+<view class="page">
+<view class="page-masthead">
+<image class="masthead-icon" src="/assets/icons/ticket.png"/>
+<view class="masthead-copy">
+<view class="page-title">我的月卡</view>
+<view class="masthead-subtitle">选择适合自己的服务月卡</view>
+</view>
+</view>
+<view wx:if="{{createdOrderId}}" class="card">
+<view class="section-title">月卡订单已创建</view>
+<view class="muted">请前往已有订单查看状态或继续支付，无需重复购买。</view>
+<view wx:if="{{navigationError}}" class="error">{{navigationError}}</view>
+<button class="ui-button" bindtap="openCreatedOrder" loading="{{navigating}}" disabled="{{busy || navigating}}">前往已有订单</button>
+</view>
+<view wx:if="{{recoveryPending && !createdOrderId}}" class="card">
+<view class="section-title">核对上次月卡购买</view>
+<view class="muted">{{recoveryHint}}</view>
+<view wx:if="{{recoveryPlanName}}">原计划：{{recoveryPlanName}} · {{addressText}}</view>
+<button class="ui-button" bindtap="load" disabled="{{loading || busy}}">重新查询原订单</button>
+<button class="ui-button" type="primary" bindtap="retryPending" disabled="{{loading || busy || !ready || !recoveryCanRetry}}">确认并用原编号提交</button>
+</view>
+<empty-state wx:if="{{loading}}" message="正在加载月卡…"/>
+<empty-state wx:if="{{!loading && error}}" message="{{error}}" retry bind:retry="load"/>
+<view wx:if="{{addresses.length > 1 && !createdOrderId}}" class="card">
+<view class="section-title">服务地址</view>
+<picker disabled="{{busy || recoveryPending}}" range="{{addresses}}" range-key="pickerLabel" value="{{addressIndex}}" bindchange="addressChange">
+<view class="picker">{{addressText}} · 切换地址</view>
+</picker>
+</view>
+<block wx:if="{{ready && !loading && !createdOrderId}}">
+<view class="section-title">选择月卡</view>
+<empty-state wx:if="{{!plans.length}}" message="当前地址暂无可购买月卡"/>
+<view class="card" wx:for="{{plans}}" wx:key="code">
+<view class="section-title">{{item.name}} · {{item.days}} 天</view>
+<view class="price">¥{{item.priceText}} <text wx:if="{{item.first}}">首期优惠</text>
+</view>
+<view wx:if="{{item.first}}">续期价格 ¥{{item.originalText}}</view>
+<view wx:if="{{item.serviceCode === 'express'}}">每日 {{item.dailyParcelQuota}} 件以内免费，超额整单按原价</view>
+<block wx:if="{{item.serviceCode === 'trash'}}">
+<view>每天上门一次，请选择时段并提前分类放在门口</view>
+<picker disabled="{{recoveryPending}}" range="{{slots}}" value="{{slotIndex}}" bindchange="slot">
+<view class="picker">{{slots[slotIndex]}}</view>
+</picker>
+</block>
+<block wx:if="{{item.serviceCode === 'visit'}}">
+<view>按月卡配置上门探访，服务地址：{{addressText}}</view>
+<picker disabled="{{recoveryPending}}" range="{{slots}}" value="{{slotIndex}}" bindchange="slot">
+<view class="picker">上门时段：{{slots[slotIndex]}}</view>
+</picker>
+</block>
+<block wx:if="{{item.serviceCode === 'vacant'}}">
+<view>月卡自购买日起有效 30 天；有效期内每月 1 日、15 日按小区值班时段巡检。</view>
+<picker disabled="{{recoveryPending}}" range="{{entryOptions}}" value="0" bindchange="entry">
+<view class="picker">入户方式：{{entryOptions[entry === 'password' ? 0 : entry === 'key_handover' ? 1 : 2]}}</view>
+</picker>
+<input wx:if="{{entry === 'password'}}" password maxlength="100" value="{{entryPassword}}" bindinput="entryPassword" placeholder="填写门锁密码"/>
+</block>
+<button class="ui-button" type="primary" data-code="{{item.code}}" bindtap="buy" disabled="{{busy || loading || !ready || recoveryPending}}" loading="{{busy}}">购买 / 续期</button>
+</view>
+<view class="muted">月卡暂不支持自行退款，如需处理请联系客服。</view>
+<view class="section-title">我的月卡</view>
+<view class="card" wx:for="{{cards}}" wx:key="_id">
+<view>{{item.name}} · {{item.statusText}}</view>
+<view>开始：{{item.startText}}</view>
+<view>到期：{{item.endText}}</view>
+<view wx:if="{{item.visitAddressText}}">服务地址：{{item.visitAddressText}}</view>
+<view wx:if="{{item.serviceCode === 'trash'}}">上门：{{item.slotText}}</view>
+<button class="ui-button" wx:if="{{item.serviceCode === 'trash' && item.status === 'active'}}" data-id="{{item._id}}" disabled="{{busy || loading || !ready || item.skippedToday}}" bindtap="skip">{{item.skippedToday ? '今天已跳过' : '今天不用来'}}</button>
+</view>
+<empty-state wx:if="{{!loading && !cards.length}}" message="你还没有月卡"/>
+</block>
+</view>

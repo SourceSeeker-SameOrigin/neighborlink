@@ -1,0 +1,57 @@
+{
+  "sourceCommit": "QA09-QA13 fixes based on 5b13305; see containing Git commit",
+  "jest": {
+    "suites": 52,
+    "passed": 605,
+    "failed": 0
+  },
+  "offlineRegressions": [
+    {
+      "name": "flows",
+      "total": 29,
+      "passed": 29
+    },
+    {
+      "name": "manual-phone",
+      "total": 16,
+      "passed": 16
+    },
+    {
+      "name": "list-binding",
+      "total": 10,
+      "passed": 10
+    },
+    {
+      "name": "admin-ui-regression",
+      "total": 15,
+      "passed": 15
+    },
+    {
+      "name": "d13-regression",
+      "total": 6,
+      "passed": 6
+    }
+  ],
+  "liveAcceptanceThisRun": false,
+  "applicationChanged": true,
+  "deployedThisRun": false,
+  "frontendOnly": true,
+  "qa09to13": {
+    "total": 26,
+    "passed": 26,
+    "timezones": [
+      "UTC",
+      "America/Los_Angeles",
+      "Asia/Shanghai"
+    ]
+  },
+  "isolatedPageLifecycle": {
+    "total": 207,
+    "uncaught": 0
+  },
+  "staticCompile": {
+    "wxml": 77,
+    "wxss": 78,
+    "issues": 0
+  }
+}

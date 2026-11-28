@@ -230,3 +230,24 @@ test('积分 100 点兑 1 元，最多抵扣五成，且实付至少 1 分', () 
   data.coupons = [{ couponId: 'free', discount: 349 }];
   expect(quote(data).payAmount).toBe(1);
 });
+
+
+describe('D13 按次帮把手', () => {
+  const visit = () => { const d=input('help'); d.prices.help={billingMode:'per_visit',perVisit:3900,includedMinutes:30}; d.detail={category:'carry',desc:'搬桶装水',billingMode:'per_visit',includedMinutes:30}; return d; };
+  test('39元包括30分钟，不享首单且不使用客户端价格或超时金额', () => {
+    const d=visit();d.user.firstPaidAt=null;Object.assign(d.detail,{perVisit:1,elapsedMinutes:90,overtimeFee:99999});
+    expect(quote(d)).toMatchObject({listPrice:3900,payAmount:3900,goodsCap:0});
+  });
+  test.each([{blocks:2},{includedMinutes:60},{billingMode:'per15min'},{billingMode:undefined}])('拒绝旧页面或改变服务范围 %p', patch => {
+    const d=visit();Object.assign(d.detail,patch);expect(()=>quote(d)).toThrow(expect.objectContaining({code:'E_CONFLICT'}));
+  });
+  test('订单详情只保存服务端包含时长和超时规则，配置修改不影响旧快照', () => {
+    const {cleanDetail}=require('../orderData');const d=visit();d.detail.overtimePolicy='automatic';
+    const saved=cleanDetail('help',d.detail,{prices:d.prices});d.prices.help.includedMinutes=60;
+    expect(saved).toEqual({category:'carry',desc:'搬桶装水',billingMode:'per_visit',includedMinutes:30,overtimePolicy:'new_order'});
+  });
+  test.each([{perVisit:0},{perVisit:39.5},{includedMinutes:0},{includedMinutes:'30'},{billingMode:'invalid'}])('拒绝无效配置 %p',patch=>{
+    const d=visit();Object.assign(d.prices.help,patch);expect(()=>quote(d)).toThrow();
+  });
+  test('旧模式拒绝按次页面，不把按次规则当作时长块数',()=>{const d=input('help');d.detail.billingMode='per_visit';expect(()=>quote(d)).toThrow(expect.objectContaining({code:'E_CONFLICT'}));});
+});

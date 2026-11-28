@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-12",
+  "route": "shops/booking/booking",
+  "width": 430,
+  "scope": "合成serviceId仅用于初始化及只读重试；未调用createBooking或支付",
+  "failureInjection": "临时令ensureSession抛出受控读取错误；finally立即恢复原方法",
+  "failure": {
+    "ready": false,
+    "loading": false,
+    "loadError": true,
+    "draftKept": true,
+    "error": "QA55受控地址读取失败",
+    "formAndSubmitHidden": true,
+    "retryVisible": true
+  },
+  "actualRetryButtonClicked": true,
+  "retry": {
+    "ready": true,
+    "loading": false,
+    "loadError": false,
+    "error": "",
+    "draftKept": true,
+    "addressAndFormVisible": true,
+    "submitVisible": true
+  },
+  "visual": "430截图观察到薄荷色页头、白色圆角卡片、常驻标签与绿色按钮；所见状态未见截断或重叠；未保存含地址截图",
+  "cleanup": {
+    "actualBackHomeObserved": true,
+    "temporaryEnsureSessionRestored": true,
+    "persistentTestStorageAdded": false
+  },
+  "newCloudOrders": 0,
+  "realPaymentFen": 0,
+  "pending": [
+    "320/375/390本页新版视觉",
+    "真机和键盘/大字体",
+    "真实多地址切换",
+    "有效商家服务预约、报价、付款及并发云端业务"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "date": "2026-11-09",
+  "scope": "actual developer environment, own resident+admin account remains bound to Junyue",
+  "config": {
+    "target": "demo_community",
+    "notices": true,
+    "events": true,
+    "otherLocalFlagsUnchanged": true,
+    "globalUnchanged": true,
+    "junyueUnchanged": true
+  },
+  "activity": {
+    "id": "ev_77e06a061cfb7cd3c103a7aa694d40bd",
+    "title": "验收测试｜免费邻里活动",
+    "fee": 0,
+    "capacity": 1,
+    "startAt": "2026-11-11T10:00:00+08:00",
+    "endAt": "2026-11-11T11:00:00+08:00",
+    "signupDeadline": "2026-11-10T18:00:00+08:00",
+    "createdAndPublished": true,
+    "signupCount": 0,
+    "cancelled": true,
+    "cancelJobStatus": "queued",
+    "cancelTaskProgress": "0/0",
+    "timerInvoked": false
+  },
+  "checks": {
+    "adminScopeSelection": "real picker switched to demo while binding remained Junyue",
+    "detailAcrossCommunity": {
+      "ok": false,
+      "code": "E_FORBIDDEN"
+    },
+    "signupAcrossCommunity": {
+      "ok": false,
+      "code": "E_INVALID_PARAM"
+    },
+    "adminListSignups": {
+      "ok": true,
+      "count": 0
+    },
+    "eventDetailPage": "Attempted real ID navigation returned to home while own-community events remained off; no successful detail UI claimed"
+  },
+  "notice": {
+    "submitted": true,
+    "visibleError": "服务开小差了，请稍后再试",
+    "listAfterFailure": [],
+    "status": "QA28 deployed; actual text notice published, read back and ended",
+    "initialFailure": "服务开小差了，请稍后再试",
+    "id": "4dc64f446af1e5a600303657670aee68",
+    "published": true,
+    "ended": true,
+    "listAfterEnd": [],
+    "currentError": ""
+  },
+  "limitations": [
+    "same-community resident signup/cancel not performed",
+    "second account capacity and non-admin isolation not performed",
+    "zero-signup cancellation is not completed background-task acceptance",
+    "content and event valid text samples do not establish all content-safety scenarios",
+    "390-width UI partial; multisize and final user acceptance pending"
+  ],
+  "cloudConsole": {
+    "status": "login restored",
+    "message": "User login state expired"
+  },
+  "D05": "paused",
+  "D06": "paused"
+}

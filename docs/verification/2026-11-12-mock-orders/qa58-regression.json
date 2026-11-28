@@ -1,0 +1,59 @@
+{
+  "scope": "QA58 actual page synthetic read-only responses",
+  "total": 13,
+  "passed": 13,
+  "results": [
+    {
+      "name": "closed unpaid quote is amount, no paid history",
+      "passed": true
+    },
+    {
+      "name": "pending payment not marked paid",
+      "passed": true
+    },
+    {
+      "name": "cancelled payment history remains payment fact with refund separate",
+      "passed": true
+    },
+    {
+      "name": "zero fee history never claims cash charge",
+      "passed": true
+    },
+    {
+      "name": "missing payment evidence stays unknown undefined",
+      "passed": true
+    },
+    {
+      "name": "missing payment evidence stays unknown []",
+      "passed": true
+    },
+    {
+      "name": "missing payment evidence stays unknown [{\"status\":\"completed\"}]",
+      "passed": true
+    },
+    {
+      "name": "placement door",
+      "passed": true
+    },
+    {
+      "name": "placement hand",
+      "passed": true
+    },
+    {
+      "name": "placement future_value",
+      "passed": true
+    },
+    {
+      "name": "goods cap included without changing cents",
+      "passed": true
+    },
+    {
+      "name": "processing failed refunds stay distinct and amounts unchanged",
+      "passed": true
+    },
+    {
+      "name": "template labels order amount and payment evidence, never quote as paid",
+      "passed": true
+    }
+  ]
+}

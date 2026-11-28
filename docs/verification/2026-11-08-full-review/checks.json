@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-08",
+  "jest": {
+    "numPassedTests": 570,
+    "numFailedTests": 0,
+    "numPassedTestSuites": 50,
+    "numFailedTestSuites": 0,
+    "success": true
+  },
+  "isolatedUserEntry": {
+    "passed": 24,
+    "failed": 0
+  },
+  "isolatedManualPhone": {
+    "passed": 16,
+    "failed": 0
+  },
+  "styleAudit": {
+    "pages": 69,
+    "issues": []
+  },
+  "ppt": {
+    "slides": 27,
+    "structureValidation": "passed",
+    "pdfConversion": "passed",
+    "visualReviewedSlides": 27,
+    "font": "Arial Unicode MS",
+    "fontCompatibility": "PDF regular CJK glyph loss corrected; all 27 slides re-rendered and reviewed"
+  },
+  "limits": [
+    "Real cloud manual binding pending new user deployment",
+    "69-page business acceptance not complete"
+  ]
+}

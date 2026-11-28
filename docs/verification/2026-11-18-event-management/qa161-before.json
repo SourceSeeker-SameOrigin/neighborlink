@@ -1,0 +1,17 @@
+{
+  "case": "QA161",
+  "page": "admin/recycle/recycle",
+  "method": "Actual page JavaScript in isolated Node VM with synthetic administrator A and resident B; APIs and navigation intercepted",
+  "passed": 1,
+  "failed": 3,
+  "results": [
+    "Normal administrator loads a community and navigates to the export page",
+    "Old export action still navigates after switching to resident B",
+    "A's late community list fills B's page and marks it ready",
+    "Denied recheck leaves A's community option visible"
+  ],
+  "cloudCalls": 0,
+  "realExports": 0,
+  "limits": "The target export page and cloud function may independently reject an unauthorized user; online incidence is unknown",
+  "status": "Reproduced in isolation; remediation recorded for unified user decision"
+}

@@ -1,0 +1,11 @@
+{
+  "function": "merchant",
+  "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "method": "official CLI download; every authorized ZIP source file SHA-256 compared",
+  "selectedPackageBytes": 127138,
+  "selectedPackageSha256": "0b52b1aac3a55062d29d3ef7ae0c43c0107b357ca8d5b2cfebbb0f14de0fde57",
+  "comparedFiles": 75,
+  "matches": 75,
+  "mismatches": []
+}

@@ -1,0 +1,61 @@
+{
+  "scope": "微信开发者工具游客工程。实际详情页、合成住户和 API、受控弹窗回调，测量举报按钮宽度。",
+  "results": [
+    {
+      "revision": "verified-write-readback",
+      "width": 320,
+      "oldPayCalls": 0,
+      "newResidentCanJoin": true,
+      "oldReportCalls": 0,
+      "freshCalls": [
+        "report-B",
+        "signup-B"
+      ],
+      "canResume": true,
+      "busy": false,
+      "reportWidth": 300
+    },
+    {
+      "revision": "verified-write-readback",
+      "width": 375,
+      "oldPayCalls": 0,
+      "newResidentCanJoin": true,
+      "oldReportCalls": 0,
+      "freshCalls": [
+        "report-B",
+        "signup-B"
+      ],
+      "canResume": true,
+      "busy": false,
+      "reportWidth": 351
+    },
+    {
+      "revision": "verified-write-readback",
+      "width": 390,
+      "oldPayCalls": 0,
+      "newResidentCanJoin": true,
+      "oldReportCalls": 0,
+      "freshCalls": [
+        "report-B",
+        "signup-B"
+      ],
+      "canResume": true,
+      "busy": false,
+      "reportWidth": 366
+    },
+    {
+      "revision": "verified-write-readback",
+      "width": 430,
+      "oldPayCalls": 0,
+      "newResidentCanJoin": true,
+      "oldReportCalls": 0,
+      "freshCalls": [
+        "report-B",
+        "signup-B"
+      ],
+      "canResume": true,
+      "busy": false,
+      "reportWidth": 404
+    }
+  ]
+}

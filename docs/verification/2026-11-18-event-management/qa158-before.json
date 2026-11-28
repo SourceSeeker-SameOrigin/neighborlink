@@ -1,0 +1,19 @@
+{
+  "case": "QA158",
+  "page": "admin/coupons/coupons",
+  "method": "Actual page JavaScript in isolated Node VM with synthetic admin A and resident B; coupon APIs intercepted",
+  "passed": 1,
+  "failed": 5,
+  "results": [
+    "Normal administrator read displays one synthetic template",
+    "After identity changes to resident B and read is denied, A's old template remains visible",
+    "A's late template read fills B's page",
+    "Old pause/resume action sends one saveTemplate request under B",
+    "Old save action sends one saveTemplate request under B",
+    "Old manual issue action sends one manualIssue request under B"
+  ],
+  "cloudCalls": 0,
+  "realCouponsIssued": 0,
+  "limits": "The cloud function may independently reject stale actions; online incidence and real device behavior are unknown",
+  "status": "Reproduced in isolation; remediation recorded for unified user decision"
+}

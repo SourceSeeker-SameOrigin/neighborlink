@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-26",
+  "source": "extracted fixed ZIP",
+  "sourceFiles": 72,
+  "matched": 72,
+  "changed": [
+    "lib/shared/station.js"
+  ],
+  "header": [
+    "批次编号",
+    "驿站编号",
+    "服务员编号",
+    "完成时间",
+    "纳入门牌数",
+    "送达件数",
+    "未送达件数",
+    "撤回授权跳过数",
+    "驿站应付（分）",
+    "服务员计件（分）"
+  ],
+  "row": [
+    "synthetic-batch",
+    "synthetic-station",
+    "synthetic-provider",
+    "2026-11-15T00:00:00.000Z",
+    "3",
+    "1",
+    "1",
+    "1",
+    "50",
+    "40"
+  ],
+  "gross": 50,
+  "provider": 40,
+  "realCloudCalls": 0
+}

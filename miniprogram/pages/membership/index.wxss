@@ -1,1 +1,1 @@
-button{margin:24rpx 0}.price{font-size:44rpx;color:#1F7A5C}
+.ui-button{margin:24rpx 0}.price{font-size:44rpx;color:#1F7A5C}

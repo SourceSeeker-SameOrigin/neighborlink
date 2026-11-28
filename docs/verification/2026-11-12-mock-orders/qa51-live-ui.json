@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-12",
+  "width": 390,
+  "device": "iPhone 12/13 Pro simulator",
+  "scope": "Constructed local recovery state using existing authorized closed order; synchronous navigation failure injected and immediately restored, actual button click navigated to real detail. No create/pay call or receipt storage writes during UI fixture.",
+  "pages": [
+    {
+      "route": "pages/service/express",
+      "recoveryCardVisible": true,
+      "errorWrappedWithoutObservedClipping": true,
+      "formAndCreateButtonHidden": true,
+      "actualRecoveryButtonClicked": true,
+      "detailOpened": true
+    },
+    {
+      "route": "pages/service/trash",
+      "recoveryCardVisible": true,
+      "errorWrappedWithoutObservedClipping": true,
+      "formAndCreateButtonHidden": true,
+      "actualRecoveryButtonClicked": true,
+      "detailOpened": true
+    },
+    {
+      "route": "pages/service/buy",
+      "recoveryCardVisible": true,
+      "errorWrappedWithoutObservedClipping": true,
+      "formAndCreateButtonHidden": true,
+      "actualRecoveryButtonClicked": true,
+      "detailOpened": true
+    },
+    {
+      "route": "pages/service/help",
+      "recoveryCardVisible": true,
+      "errorWrappedWithoutObservedClipping": true,
+      "formAndCreateButtonHidden": true,
+      "actualRecoveryButtonClicked": true,
+      "detailOpened": true
+    },
+    {
+      "route": "elder/meal",
+      "recoveryCardVisible": true,
+      "errorWrappedWithoutObservedClipping": true,
+      "formAndCreateButtonHidden": true,
+      "actualRecoveryButtonClicked": true,
+      "detailOpened": true
+    },
+    {
+      "route": "elder/escort",
+      "recoveryCardVisible": true,
+      "errorWrappedWithoutObservedClipping": true,
+      "formAndCreateButtonHidden": true,
+      "actualRecoveryButtonClicked": true,
+      "detailOpened": true
+    },
+    {
+      "route": "pet/order",
+      "recoveryCardVisible": true,
+      "errorWrappedWithoutObservedClipping": true,
+      "formAndCreateButtonHidden": true,
+      "actualRecoveryButtonClicked": true,
+      "detailOpened": true
+    }
+  ],
+  "limitations": [
+    "Not a newly created order per service",
+    "Not natural network/navigation failure reproduction",
+    "Other widths, large fonts, phone preview and full service business acceptance remain"
+  ],
+  "iteration": "Initial shared-template reference produced runtime missing-template warnings; final markup uses existing inline page structure. Final seven recovery cards rendered.",
+  "cleanup": "Temporary console helper removed; returned home. Final list query used unsupported tab parameter and therefore observed default ongoing empty state, not a final done-count assertion; done count2 was verified in earlier live retry phase."
+}

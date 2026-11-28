@@ -1,0 +1,348 @@
+{
+  "date": "2026-11-18",
+  "mode": "tourist project; synthetic API; actual page code",
+  "widths": [
+    {
+      "width": 320,
+      "states": [
+        {
+          "label": "lookup-error",
+          "recovery": "lookup",
+          "error": "合成网络中断，请重试核对",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 21,
+              "right": 299,
+              "top": 413,
+              "bottom": 450,
+              "width": 278,
+              "height": 37
+            }
+          ]
+        },
+        {
+          "label": "confirmed-missing",
+          "recovery": "confirm",
+          "error": "",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 21,
+              "right": 299,
+              "top": 1486,
+              "bottom": 1523,
+              "width": 278,
+              "height": 37
+            }
+          ]
+        },
+        {
+          "label": "create-response-lost",
+          "recovery": "lookup",
+          "error": "合成创建响应丢失",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 21,
+              "right": 299,
+              "top": 368,
+              "bottom": 405,
+              "width": 278,
+              "height": 37
+            }
+          ]
+        },
+        {
+          "label": "recovered-published",
+          "recovery": "done",
+          "error": "",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 21,
+              "right": 299,
+              "top": 298,
+              "bottom": 335,
+              "width": 278,
+              "height": 37
+            }
+          ]
+        }
+      ],
+      "calls": {
+        "create": 1,
+        "publish": 1,
+        "lookup": 5
+      },
+      "actualNewActivityClick": "AX confirmed empty create form",
+      "recoveredResultScreenshot": "observed current screenshot; no text clipping or button overflow"
+    },
+    {
+      "width": 375,
+      "states": [
+        {
+          "label": "lookup-error",
+          "recovery": "lookup",
+          "error": "合成网络中断，请重试核对",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 25,
+              "right": 350,
+              "top": 500,
+              "bottom": 544,
+              "width": 325,
+              "height": 44
+            }
+          ]
+        },
+        {
+          "label": "confirmed-missing",
+          "recovery": "confirm",
+          "error": "",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 25,
+              "right": 350,
+              "top": 1761,
+              "bottom": 1805,
+              "width": 325,
+              "height": 44
+            }
+          ]
+        },
+        {
+          "label": "create-response-lost",
+          "recovery": "lookup",
+          "error": "合成创建响应丢失",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 25,
+              "right": 350,
+              "top": 446,
+              "bottom": 490,
+              "width": 325,
+              "height": 44
+            }
+          ]
+        },
+        {
+          "label": "recovered-published",
+          "recovery": "done",
+          "error": "",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 25,
+              "right": 350,
+              "top": 362,
+              "bottom": 406,
+              "width": 325,
+              "height": 44
+            }
+          ]
+        }
+      ],
+      "calls": {
+        "create": 1,
+        "publish": 1,
+        "lookup": 5
+      },
+      "actualNewActivityClick": "AX confirmed empty create form",
+      "recoveredResultScreenshot": "observed current screenshot; no text clipping or button overflow"
+    },
+    {
+      "width": 390,
+      "states": [
+        {
+          "label": "lookup-error",
+          "recovery": "lookup",
+          "error": "合成网络中断，请重试核对",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 25,
+              "right": 365,
+              "top": 501,
+              "bottom": 546,
+              "width": 340,
+              "height": 45
+            }
+          ]
+        },
+        {
+          "label": "confirmed-missing",
+          "recovery": "confirm",
+          "error": "",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 25,
+              "right": 365,
+              "top": 1768,
+              "bottom": 1813,
+              "width": 340,
+              "height": 45
+            }
+          ]
+        },
+        {
+          "label": "create-response-lost",
+          "recovery": "lookup",
+          "error": "合成创建响应丢失",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 25,
+              "right": 365,
+              "top": 446,
+              "bottom": 491,
+              "width": 340,
+              "height": 45
+            }
+          ]
+        },
+        {
+          "label": "recovered-published",
+          "recovery": "done",
+          "error": "",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 25,
+              "right": 365,
+              "top": 362,
+              "bottom": 407,
+              "width": 340,
+              "height": 45
+            }
+          ]
+        }
+      ],
+      "calls": {
+        "create": 1,
+        "publish": 1,
+        "lookup": 5
+      },
+      "actualNewActivityClick": "AX confirmed empty create form",
+      "recoveredResultScreenshot": "observed current screenshot; no text clipping or button overflow"
+    },
+    {
+      "width": 430,
+      "states": [
+        {
+          "label": "lookup-error",
+          "recovery": "lookup",
+          "error": "合成网络中断，请重试核对",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 27,
+              "right": 403,
+              "top": 555,
+              "bottom": 605,
+              "width": 376,
+              "height": 50
+            }
+          ]
+        },
+        {
+          "label": "confirmed-missing",
+          "recovery": "confirm",
+          "error": "",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 27,
+              "right": 403,
+              "top": 1946,
+              "bottom": 1996,
+              "width": 376,
+              "height": 50
+            }
+          ]
+        },
+        {
+          "label": "create-response-lost",
+          "recovery": "lookup",
+          "error": "合成创建响应丢失",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 27,
+              "right": 403,
+              "top": 494,
+              "bottom": 544,
+              "width": 376,
+              "height": 50
+            }
+          ]
+        },
+        {
+          "label": "recovered-published",
+          "recovery": "done",
+          "error": "",
+          "busy": false,
+          "buttons": [
+            {
+              "id": "",
+              "dataset": {},
+              "left": 27,
+              "right": 403,
+              "top": 401,
+              "bottom": 451,
+              "width": 376,
+              "height": 50
+            }
+          ]
+        }
+      ],
+      "calls": {
+        "create": 1,
+        "publish": 1,
+        "lookup": 5
+      },
+      "actualNewActivityClick": "AX confirmed empty create form",
+      "recoveredResultScreenshot": "observed current screenshot; no text clipping or button overflow"
+    }
+  ],
+  "limits": [
+    "Only recovered-published state screenshot reviewed at all widths; other three state layouts need individual screenshot review",
+    "Long-form confirm button measured below viewport; physical scroll-and-click pending",
+    "No real cloud event creation, publishing, sponsor ledger or true-device verification"
+  ],
+  "captureIssue": "Stale screenshots resolved after resetting CUA session; device restored to 390"
+}

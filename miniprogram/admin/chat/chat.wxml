@@ -1,7 +1,9 @@
 <view class="page">
-  <view class="page-title">投诉/举报聊天记录</view>
-  <view class="muted">本次查看已记录审计日志；仅显示当前案件关联会话。</view>
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/admin.png"/><view class="masthead-copy"><view class="page-title">投诉/举报聊天记录</view><view class="masthead-subtitle">社区运营 · 按权限管理</view></view></view>
+  <view class="muted"><text wx:if="{{auditConfirmed}}">本次查看已记录审计日志；</text>仅显示当前案件关联会话。</view>
   <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view>
-  <view wx:for="{{messages}}" wx:key="_id" class="card"><view class="muted">{{item.timeText}} · {{item.type === 'text' ? '文字' : '图片'}} · {{item.from}}</view><view>{{item.contentText}}</view><image wx:if="{{item.fileId}}" class="photo" src="{{item.fileId}}" data-url="{{item.fileId}}" bindtap="preview" mode="widthFix"/></view>
+  <view wx:for="{{messages}}" wx:key="_id" class="card"><view class="muted">{{item.timeText}} · {{item.type === 'text' ? '文字' : '图片'}} · {{item.from}}</view><view>{{item.contentText}}</view><private-media wx:if="{{item.fileId}}" media-class="photo" src="{{item.fileId}}" data-url="{{item.fileId}}" bindtap="preview" mode="widthFix"/></view>
+  <view wx:if="{{pageError}}" class="error">{{pageError}}<button class="ui-button" bindtap="loadMore">重试加载更多</button></view>
+  <button wx:elif="{{hasMore && !loading}}" class="ui-button" bindtap="loadMore">加载更多</button>
   <view wx:if="{{loading}}">正在加载…</view><view wx:elif="{{!messages.length && !error}}">该会话暂无消息</view>
 </view>

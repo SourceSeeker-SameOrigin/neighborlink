@@ -1,0 +1,278 @@
+{
+  "scope": "actual pages; all financial, download and album actions intercepted; no real transfer or files",
+  "pass": 6,
+  "fail": 19,
+  "results": [
+    {
+      "name": "income-normal-read",
+      "pass": true,
+      "evidence": {
+        "ready": true,
+        "rows": 1,
+        "available": "10.00"
+      }
+    },
+    {
+      "name": "income-failed-read-blocks-payout",
+      "pass": true,
+      "evidence": {
+        "ready": false,
+        "writes": 0
+      }
+    },
+    {
+      "name": "income-late-read-onHide",
+      "pass": false,
+      "evidence": {
+        "updates": 3,
+        "ready": true,
+        "rows": [
+          "old-a"
+        ]
+      },
+      "error": "3 == 0"
+    },
+    {
+      "name": "income-late-read-onUnload",
+      "pass": false,
+      "evidence": {
+        "updates": 3,
+        "ready": true,
+        "rows": [
+          "old-a"
+        ]
+      },
+      "error": "3 == 0"
+    },
+    {
+      "name": "income-late-read-user",
+      "pass": false,
+      "evidence": {
+        "updates": 3,
+        "ready": true,
+        "rows": [
+          "old-a"
+        ]
+      },
+      "error": "3 == 0"
+    },
+    {
+      "name": "income-return-refresh-supersedes-old-read",
+      "pass": false,
+      "evidence": {
+        "reads": 1,
+        "rows": [
+          "old-a"
+        ]
+      },
+      "error": "'old-a' == 'new-b'"
+    },
+    {
+      "name": "income-payout-entry-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "transfers": 1,
+        "downloads": 0,
+        "saves": 0,
+        "toasts": 1
+      }
+    },
+    {
+      "name": "income-payout-entry-onHide",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "transfers": 1,
+        "downloads": 0,
+        "saves": 0,
+        "toasts": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "income-payout-entry-onUnload",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "transfers": 1,
+        "downloads": 0,
+        "saves": 0,
+        "toasts": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "income-payout-entry-user",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "transfers": 1,
+        "downloads": 0,
+        "saves": 0,
+        "toasts": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "income-payout-late-success-onHide",
+      "pass": false,
+      "evidence": {
+        "updates": 5,
+        "transfers": 1,
+        "downloads": 0,
+        "saves": 0,
+        "toasts": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "income-payout-late-failure-onHide",
+      "pass": false,
+      "evidence": {
+        "updates": 2,
+        "transfers": 0,
+        "downloads": 0,
+        "saves": 0,
+        "toasts": 0
+      },
+      "error": "2 == 0"
+    },
+    {
+      "name": "income-payout-late-success-user",
+      "pass": false,
+      "evidence": {
+        "updates": 5,
+        "transfers": 1,
+        "downloads": 0,
+        "saves": 0,
+        "toasts": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "income-payout-late-failure-user",
+      "pass": false,
+      "evidence": {
+        "updates": 2,
+        "transfers": 0,
+        "downloads": 0,
+        "saves": 0,
+        "toasts": 0
+      },
+      "error": "2 == 0"
+    },
+    {
+      "name": "poster-entry-same-page",
+      "pass": true,
+      "evidence": {
+        "transfers": 0,
+        "downloads": 1,
+        "saves": 1,
+        "toasts": 1
+      }
+    },
+    {
+      "name": "poster-entry-onHide",
+      "pass": false,
+      "evidence": {
+        "transfers": 0,
+        "downloads": 1,
+        "saves": 1,
+        "toasts": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "poster-entry-user",
+      "pass": false,
+      "evidence": {
+        "transfers": 0,
+        "downloads": 1,
+        "saves": 1,
+        "toasts": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "poster-late-api-onHide",
+      "pass": false,
+      "evidence": {
+        "transfers": 0,
+        "downloads": 1,
+        "saves": 1,
+        "toasts": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "poster-late-api-user",
+      "pass": false,
+      "evidence": {
+        "transfers": 0,
+        "downloads": 1,
+        "saves": 1,
+        "toasts": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "poster-late-download-same-page",
+      "pass": true,
+      "evidence": {
+        "transfers": 0,
+        "downloads": 1,
+        "saves": 1,
+        "toasts": 1
+      }
+    },
+    {
+      "name": "poster-late-download-onHide",
+      "pass": false,
+      "evidence": {
+        "transfers": 0,
+        "downloads": 1,
+        "saves": 1,
+        "toasts": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "poster-late-download-user",
+      "pass": false,
+      "evidence": {
+        "transfers": 0,
+        "downloads": 1,
+        "saves": 1,
+        "toasts": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "poster-save-error-same-page",
+      "pass": true,
+      "evidence": {
+        "updates": 1,
+        "error": "synthetic album failure"
+      }
+    },
+    {
+      "name": "poster-save-error-onHide",
+      "pass": false,
+      "evidence": {
+        "updates": 1,
+        "error": "synthetic album failure"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "poster-save-error-user",
+      "pass": false,
+      "evidence": {
+        "updates": 1,
+        "error": "synthetic album failure"
+      },
+      "error": "1 == 0"
+    }
+  ]
+}

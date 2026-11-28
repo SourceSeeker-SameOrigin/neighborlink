@@ -1,0 +1,89 @@
+{
+  "scope": "Isolated VM pagination diagnostic only",
+  "status": "New QA33 decision required; not fixed",
+  "results": [
+    {
+      "page": "dashboard",
+      "communityCount": 100,
+      "expectedCommunities": 101,
+      "lastCommunityAvailable": false,
+      "offsets": [
+        {
+          "action": "listCommunities",
+          "offset": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "page": "features",
+      "communityCount": 100,
+      "expectedCommunities": 101,
+      "lastCommunityAvailable": false,
+      "offsets": [
+        {
+          "action": "listCommunities",
+          "offset": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "page": "recycle",
+      "communityCount": 100,
+      "expectedCommunities": 101,
+      "lastCommunityAvailable": false,
+      "offsets": [
+        {
+          "action": "listCommunities",
+          "offset": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "page": "posters",
+      "communityCount": 100,
+      "expectedCommunities": 101,
+      "lastCommunityAvailable": false,
+      "providerCount": 20,
+      "expectedProviders": 21,
+      "offsets": [
+        {
+          "action": "listCommunities",
+          "offset": 0
+        },
+        {
+          "action": "listProviders",
+          "offset": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "page": "settlements",
+      "communityCount": 100,
+      "expectedCommunities": 101,
+      "lastCommunityAvailable": false,
+      "providerCount": 20,
+      "expectedProviders": 21,
+      "merchantCount": 20,
+      "expectedMerchants": 21,
+      "offsets": [
+        {
+          "action": "listCommunities",
+          "offset": 0
+        },
+        {
+          "action": "listProviders",
+          "offset": 0
+        },
+        {
+          "action": "adminList",
+          "offset": 0
+        }
+      ],
+      "error": ""
+    }
+  ]
+}

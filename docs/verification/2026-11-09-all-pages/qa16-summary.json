@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-09",
+  "baseCommit": "b3aa9e1",
+  "scope": "QA16已批准A，前端保存确认与后续回读分离",
+  "local": {
+    "qa16": {
+      "passed": 10,
+      "total": 10
+    },
+    "qa15": {
+      "passed": 9,
+      "total": 9
+    },
+    "existingFlows": {
+      "passed": 29,
+      "total": 29
+    },
+    "jest": {
+      "suites": 52,
+      "tests": 605
+    },
+    "officialCompile": {
+      "wxml": 77,
+      "wxss": 78,
+      "issues": 0
+    }
+  },
+  "live": {
+    "device": "微信开发工具iPhone12/13 Pro 75%",
+    "checks": [
+      {
+        "name": "真实managementConfig只读刷新",
+        "result": {
+          "readOk": true,
+          "draftsPreserved": true,
+          "pending": false
+        },
+        "boundary": "未执行保存，不能代替真实写成功后故障链路"
+      },
+      {
+        "name": "QA15非法全局数字本地校验",
+        "result": {
+          "error": "自动确认时限（小时）请填写非负整数",
+          "canReload": false,
+          "inputRetained": true,
+          "saving": false
+        },
+        "visual": "从底部滚顶，提示可见，无重新加载按钮",
+        "cleanup": "测试字段在finally恢复原值；未发配置写请求"
+      },
+      {
+        "name": "QA16失败态布局及只读按钮",
+        "setup": "仅临时setData设置提示/待刷新目标，不伪造身份或云端保存",
+        "visual": "提示和按钮可见、文字未裁切；实际点击重试后提示消失",
+        "boundary": "失败状态为本地构造，按钮调用真实读取；不是云保存故障实测"
+      }
+    ],
+    "consoleAfterRecompile": {
+      "errors": 0,
+      "warnings": 8
+    },
+    "diagnosticBeforeRecompile": "旧页面实例没有新方法，控制台检查出现TypeError，未发读取；正常编译后方法可用并通过只读检查"
+  },
+  "cloudWrites": 0,
+  "notVerified": [
+    "真实保存成功后回读故障及恢复完整链路",
+    "写请求超时且结果未知的幂等",
+    "多设备/大字体/真机/用户签收"
+  ]
+}

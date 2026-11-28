@@ -55,7 +55,10 @@ test('月度对账仅统计完成批次的实际送达件数并输出公式安�
   expect(result).toMatchObject({ gross: 50, provider: 40 });
   expect(result.rows[0].skipped).toBe(1);
   expect(result.rows).toHaveLength(1);
-  expect(statementCsv(result)).toContain("'=S1");
+  const csv = statementCsv(result);
+  expect(csv).toContain("'=S1");
+  expect(csv).toContain('"纳入门牌数"');
+  expect(csv).toContain('"b1","\'=S1","p1","2026-11-20T00:00:00.000Z","3","1","1","1","50","40"');
 });
 
 test('服务员批次响应只包含同意配送的履约字段', () => {

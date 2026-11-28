@@ -1,1 +1,4 @@
-input,.picker{margin:12rpx 0;padding:16rpx;background:#f7f8f7;border-radius:12rpx}button{margin-top:16rpx}
+.ui-input,.picker{margin:12rpx 0;padding:16rpx;background:#F7F6F1;border-radius:12rpx}.ui-button{margin-top:16rpx}
+.ui-input{padding-top:0;padding-bottom:0}
+.field-label{margin-top:24rpx;font-size:32rpx;font-weight:600;color:#263D34}
+.field-hint{margin-top:8rpx;font-size:32rpx;line-height:1.6;color:#62766A}

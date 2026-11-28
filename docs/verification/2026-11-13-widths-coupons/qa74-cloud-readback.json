@@ -1,0 +1,12 @@
+{
+  "function": "coupon",
+  "sourceCommit": "95a5516e0eac5d3451a1d6113c15d65b02d0ae9d",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "zipSha256": "c3c816496c49ee205ceaf2f297ef837876ec21dd74c4e6ee92d620f6b255d4e8",
+  "bytes": 124975,
+  "expected": 76,
+  "matched": 76,
+  "sdk": "4.0.2",
+  "verifiedAt": "2026-11-15T01:54:39.396951+08:00",
+  "method": "微信官方 CLI 回读，逐文件与授权清单及 Git 提交比对 SHA-256。"
+}

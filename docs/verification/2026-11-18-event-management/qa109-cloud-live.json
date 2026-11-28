@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-18T04:31:32.437Z",
+  "rows": [
+    {
+      "label": "未使用的本人请求编号",
+      "ok": true,
+      "code": null,
+      "result": "成功，未找到活动"
+    },
+    {
+      "label": "无效编号",
+      "ok": false,
+      "code": "E_INVALID_PARAM",
+      "result": "E_INVALID_PARAM"
+    }
+  ],
+  "scope": "Current WeChat session; event.lookupCreation only; no event create/publish"
+}

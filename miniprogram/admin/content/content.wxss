@@ -1,3 +1,4 @@
-input, textarea { width: 100%; box-sizing: border-box; padding: 18rpx; margin: 12rpx 0; background: #f7f8f7; border-radius: 10rpx; }
-textarea { min-height: 180rpx; }
+.ui-input, .ui-textarea { width: 100%; box-sizing: border-box; padding: 18rpx; margin: 12rpx 0; background: #F7F6F1; border-radius: 10rpx; }
+.ui-textarea { min-height: 180rpx; }
+.ui-input { padding-top: 0; padding-bottom: 0; }
 .row { display: flex; align-items: center; justify-content: space-between; margin: 12rpx 0; }

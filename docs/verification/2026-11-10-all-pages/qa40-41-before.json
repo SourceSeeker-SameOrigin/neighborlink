@@ -1,0 +1,70 @@
+{
+  "scope": "Only synthetic API promises, no cloud calls, role changes or review actions",
+  "source": "8cd5817",
+  "total": 13,
+  "passed": 3,
+  "results": [
+    {
+      "name": "orders:新筛选失败不能在新标签下保留旧筛选可操作列表",
+      "status": "FAIL",
+      "observed": "new statusIndex=1, old rows=old_pending, error=synthetic read failure"
+    },
+    {
+      "name": "providers:新筛选失败不能在新标签下保留旧筛选可操作列表",
+      "status": "FAIL",
+      "observed": "new statusIndex=1, old rows=old_pending, error=synthetic read failure"
+    },
+    {
+      "name": "reports:快速切换状态，旧成功不得覆盖新状态结果",
+      "status": "FAIL",
+      "observed": "status=upheld, row=old_pending"
+    },
+    {
+      "name": "stations:重新加载后旧分页不得追加进新列表",
+      "status": "FAIL",
+      "observed": "Expected values to be loosely deep-equal:\n\n[\n  'new0',\n  'old_page'\n]\n\nshould loosely deep-equal\n\n[\n  'new0'\n]"
+    },
+    {
+      "name": "orders:离页后的读取结果不更新页面",
+      "status": "FAIL",
+      "observed": "late setData count=2"
+    },
+    {
+      "name": "providers:离页后的读取结果不更新页面",
+      "status": "FAIL",
+      "observed": "late setData count=2"
+    },
+    {
+      "name": "reports:离页后的读取结果不更新页面",
+      "status": "FAIL",
+      "observed": "late setData count=2"
+    },
+    {
+      "name": "merchants:离页后的读取结果不更新页面",
+      "status": "FAIL",
+      "observed": "late setData count=2"
+    },
+    {
+      "name": "stations:离页后的读取结果不更新页面",
+      "status": "FAIL",
+      "observed": "late setData count=2"
+    },
+    {
+      "name": "merchants:首20项且hasMore时可触达下一页",
+      "status": "FAIL",
+      "observed": "rendered=20, API calls=1, onReachBottom=undefined"
+    },
+    {
+      "name": "orders:已有序号保护拒绝旧成功覆盖新列表",
+      "status": "PASS"
+    },
+    {
+      "name": "providers:已有序号保护拒绝旧成功覆盖新列表",
+      "status": "PASS"
+    },
+    {
+      "name": "merchants:已有序号保护拒绝旧成功覆盖新列表",
+      "status": "PASS"
+    }
+  ]
+}

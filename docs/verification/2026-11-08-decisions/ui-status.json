@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-08",
+  "project": "jinlin",
+  "branch": "fix/dev-integration",
+  "compileErrors": 0,
+  "runtimeSubpackages": 14,
+  "cacheActions": [
+    "清除项目文件列表缓存成功",
+    "清除编译缓存成功",
+    "清除文件存储成功"
+  ],
+  "kept": [
+    "数据缓存",
+    "授权数据",
+    "登录状态"
+  ],
+  "analysis": {
+    "total": "364KB",
+    "files": 329,
+    "main": "107KB",
+    "subpackages": {
+      "admin": "97KB",
+      "provider": "33KB",
+      "idle": "27KB",
+      "board": "20KB",
+      "station": "17KB",
+      "events": "15KB",
+      "merchant": "14KB",
+      "pet": "9KB",
+      "chat": "8KB",
+      "shops": "7KB",
+      "elder": "6KB",
+      "recycle": "5KB",
+      "coupons": "4KB",
+      "notices": "2KB"
+    },
+    "accepted": true,
+    "method": "Official developer tools code dependency analysis opened and refreshed on 2026-11-08; 14 subpackages match app.json",
+    "scope": "Local official package analysis; no preview upload or release acceptance"
+  },
+  "browser": "Local browser use is disabled in Work settings",
+  "cloudRedeployed": true,
+  "scope": "UI text observed through CUA; 0 compile errors does not prove complete business acceptance",
+  "reopen": {
+    "authorized": true,
+    "officialCli": "open succeeded",
+    "project": "/Users/waishixiaoxiaoya/IdeaProjects/jinlin",
+    "observed": "绑定页显示小区和楼栋，运行日志14分包",
+    "analysisAfterReopen": "364KB / 329 files / 14 subpackages / main 107KB",
+    "blocker": null
+  },
+  "componentStyleWarning": {
+    "observed": "private-media 标签选择器警告",
+    "localFix": "button改为.retry类",
+    "runtimeRecheck": "Recompiled at 2026-11-08 19:49:48; private-media warning absent in new full console tree"
+  },
+  "previousAnalysis": {
+    "total": "8KB",
+    "files": 106,
+    "subpackages": [
+      "admin",
+      "provider"
+    ],
+    "main": "6KB",
+    "accepted": false
+  },
+  "latestRuntime": {
+    "compileErrors": 0,
+    "warningsAfterCompile": 5,
+    "warningsAfterCloudUpload": 6,
+    "runtimeSubpackages": 14,
+    "warningsScope": "Tool/base-library notices including duplicated SharedArrayBuffer warning; no current private-media selector warning"
+  }
+}

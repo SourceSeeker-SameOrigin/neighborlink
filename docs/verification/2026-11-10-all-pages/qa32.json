@@ -1,0 +1,83 @@
+{
+  "scope": "Isolated VM only, not real cloud generation or visual acceptance",
+  "total": 19,
+  "passed": 19,
+  "results": [
+    {
+      "name": "空服务员生成显示中文，零API调用",
+      "status": "PASS"
+    },
+    {
+      "name": "未就绪或忙碌禁止生成 {\"loading\":true}",
+      "status": "PASS"
+    },
+    {
+      "name": "未就绪或忙碌禁止生成 {\"ready\":false}",
+      "status": "PASS"
+    },
+    {
+      "name": "未就绪或忙碌禁止生成 {\"busy\":true}",
+      "status": "PASS"
+    },
+    {
+      "name": "旧楼栋/未知类型/空目标不发生成请求",
+      "status": "PASS"
+    },
+    {
+      "name": "初始化失败后只读重试恢复，不自动生成",
+      "status": "PASS"
+    },
+    {
+      "name": "非管理员初始化拒绝且不能生成",
+      "status": "PASS"
+    },
+    {
+      "name": "空小区与空服务员完成加载，但不发详情或生成",
+      "status": "PASS"
+    },
+    {
+      "name": "快速选A再B：旧成功不覆盖B",
+      "status": "PASS"
+    },
+    {
+      "name": "快速选A再B：旧失败不覆盖B",
+      "status": "PASS"
+    },
+    {
+      "name": "切换失败可见、清旧楼栋，只读重试保持目标B",
+      "status": "PASS"
+    },
+    {
+      "name": "有效楼栋和服务员请求传对应编号",
+      "status": "PASS"
+    },
+    {
+      "name": "生成失败可见，明确重试后恢复，旧海报清除",
+      "status": "PASS"
+    },
+    {
+      "name": "生成中换服务员，迟到海报不显示",
+      "status": "PASS"
+    },
+    {
+      "name": "生成中换服务员，迟到错误不显示",
+      "status": "PASS"
+    },
+    {
+      "name": "生成中换小区，旧楼栋海报不能出现在新小区",
+      "status": "PASS"
+    },
+    {
+      "name": "离页后load迟到不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "离页后changeCommunity迟到不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "离页后generate迟到不更新页面",
+      "status": "PASS"
+    }
+  ]
+}

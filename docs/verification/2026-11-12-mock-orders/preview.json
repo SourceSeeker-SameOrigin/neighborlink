@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-12",
+  "sourceCommit": "c379b5654b3d49a3642160d8d41c1808d816a6b7",
+  "result": "Official CLI preview succeeded; QR inspected",
+  "qrBytes": 47509,
+  "qrSha256": "254b7967cf0af78c031109e6cb6dc69d1b3f48cae8cb9014e1f08c7aefe92d8a",
+  "size": {
+    "total": 1077089,
+    "packages": [
+      {
+        "name": "TOTAL",
+        "size": 1077089
+      },
+      {
+        "name": "main",
+        "size": 685427
+      },
+      {
+        "name": "/admin/",
+        "size": 168640
+      },
+      {
+        "name": "/board/",
+        "size": 24773
+      },
+      {
+        "name": "/chat/",
+        "size": 11868
+      },
+      {
+        "name": "/coupons/",
+        "size": 6365
+      },
+      {
+        "name": "/elder/",
+        "size": 5980
+      },
+      {
+        "name": "/events/",
+        "size": 23695
+      },
+      {
+        "name": "/idle/",
+        "size": 36232
+      },
+      {
+        "name": "/merchant/",
+        "size": 19457
+      },
+      {
+        "name": "/notices/",
+        "size": 2399
+      },
+      {
+        "name": "/pet/",
+        "size": 12525
+      },
+      {
+        "name": "/provider/",
+        "size": 41294
+      },
+      {
+        "name": "/recycle/",
+        "size": 5873
+      },
+      {
+        "name": "/shops/",
+        "size": 11505
+      },
+      {
+        "name": "/station/",
+        "size": 21056
+      }
+    ]
+  },
+  "priorAttempt": "/tmp output returned code 17 despite CLI exit 0; existing Downloads output files succeeded",
+  "scope": "Preview only, no release, no new cloud deployment, no order created",
+  "pending": "Phone trash quote and subsequent authorized maximum two mock orders; idempotency not verified"
+}

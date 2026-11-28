@@ -1,0 +1,35 @@
+{
+  "scope": "QA52 local checks only; no live monthly order or visual acceptance",
+  "regression": {
+    "passed": 44,
+    "total": 44
+  },
+  "relatedQA48": {
+    "passed": 12,
+    "total": 12
+  },
+  "jest": {
+    "suites": 53,
+    "passed": 624,
+    "total": 624
+  },
+  "compiler": [
+    {
+      "ext": ".wxml",
+      "count": 77,
+      "status": 0,
+      "stderr": ""
+    },
+    {
+      "ext": ".wxss",
+      "count": 78,
+      "status": 0,
+      "stderr": ""
+    }
+  ],
+  "pages": 69,
+  "isolatedLifecycleScenarios": 207,
+  "componentProblems": [],
+  "styleRuleProblems": [],
+  "liveUI": "390-width injected-receipt recovery, controlled failure display, actual button navigation, loaded closed-order identity, receipt cleanup and actual back/reload verified; see qa52-live-ui.json. Not real monthly purchase or true app restart."
+}

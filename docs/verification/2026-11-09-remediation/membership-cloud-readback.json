@@ -1,0 +1,11 @@
+{
+  "function": "membership",
+  "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "method": "official CLI download; every authorized ZIP source file SHA-256 compared",
+  "selectedPackageBytes": 124773,
+  "selectedPackageSha256": "126eb08ad206e899aee1dab8ef5b0eb1faa1eb9c737459d5198d3e9dce1b7033",
+  "comparedFiles": 75,
+  "matches": 75,
+  "mismatches": []
+}

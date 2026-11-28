@@ -1,0 +1,33 @@
+{
+  "scope": "Actual provider function against synthetic records; no network; not cloud deployed-state verification",
+  "results": [
+    {
+      "action": "start",
+      "mismatch": "provider-id",
+      "code": "E_FORBIDDEN",
+      "writes": 0,
+      "pass": true
+    },
+    {
+      "action": "start",
+      "mismatch": "provider-openid",
+      "code": "E_FORBIDDEN",
+      "writes": 0,
+      "pass": true
+    },
+    {
+      "action": "deliver",
+      "mismatch": "provider-id",
+      "code": "E_FORBIDDEN",
+      "writes": 0,
+      "pass": true
+    },
+    {
+      "action": "deliver",
+      "mismatch": "provider-openid",
+      "code": "E_FORBIDDEN",
+      "writes": 0,
+      "pass": true
+    }
+  ]
+}

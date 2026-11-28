@@ -1,0 +1,537 @@
+{
+  "scope": "actual merchant order page; all writes, photos and modal callbacks intercepted; no live authorization claim",
+  "pass": 63,
+  "fail": 0,
+  "results": [
+    {
+      "name": "read-normal",
+      "pass": true,
+      "evidence": {
+        "rows": 1,
+        "loading": false
+      }
+    },
+    {
+      "name": "read-denied-clears-old-order",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "error": "合成无权读取"
+      }
+    },
+    {
+      "name": "read-latest-result-wins",
+      "pass": true,
+      "evidence": {
+        "id": "new"
+      }
+    },
+    {
+      "name": "read-late-hidden",
+      "pass": true,
+      "evidence": {
+        "updates": 0
+      }
+    },
+    {
+      "name": "read-late-unloaded",
+      "pass": true,
+      "evidence": {
+        "updates": 0
+      }
+    },
+    {
+      "name": "quoteBooking-entry-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "quoteBooking-entry-user",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "quoteBooking-entry-hidden",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "quoteBooking-entry-unloaded",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "quoteBooking-entry-read-failed",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "merchantTransition-entry-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "merchantTransition-entry-user",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "merchantTransition-entry-hidden",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "merchantTransition-entry-unloaded",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "merchantTransition-entry-read-failed",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "completeBooking-entry-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "completeBooking-entry-user",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "completeBooking-entry-hidden",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "completeBooking-entry-unloaded",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "completeBooking-entry-read-failed",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "locksmith-confirm-late-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-a"
+      }
+    },
+    {
+      "name": "locksmith-confirm-late-user",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "currentUser": "merchant-user-b"
+      }
+    },
+    {
+      "name": "locksmith-confirm-late-hidden",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "currentUser": "merchant-user-a"
+      }
+    },
+    {
+      "name": "locksmith-confirm-late-unloaded",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "currentUser": "merchant-user-a"
+      }
+    },
+    {
+      "name": "locksmith-confirm-late-refresh",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "currentUser": "merchant-user-a"
+      }
+    },
+    {
+      "name": "completion-upload-late-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-a"
+      }
+    },
+    {
+      "name": "completion-upload-late-user",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "currentUser": "merchant-user-b"
+      }
+    },
+    {
+      "name": "completion-upload-late-hidden",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "currentUser": "merchant-user-a"
+      }
+    },
+    {
+      "name": "completion-upload-late-unloaded",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "currentUser": "merchant-user-a"
+      }
+    },
+    {
+      "name": "completion-upload-late-refresh",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "currentUser": "merchant-user-a"
+      }
+    },
+    {
+      "name": "locksmith-cancel-zero-write",
+      "pass": true,
+      "evidence": {
+        "writes": 0
+      }
+    },
+    {
+      "name": "complete-double-click",
+      "pass": true,
+      "evidence": {
+        "uploads": 1,
+        "writes": 1
+      }
+    },
+    {
+      "name": "quoteBooking-late-error-after-hide",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "error": ""
+      }
+    },
+    {
+      "name": "merchantTransition-late-error-after-hide",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "error": ""
+      }
+    },
+    {
+      "name": "completeBooking-late-error-after-hide",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "error": ""
+      }
+    },
+    {
+      "name": "native-return-result-first-success",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "busy": false,
+        "ready": true,
+        "error": ""
+      }
+    },
+    {
+      "name": "native-return-result-first-cancel",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": true,
+        "error": ""
+      }
+    },
+    {
+      "name": "native-return-result-first-failure",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": true,
+        "error": "合成上传失败"
+      }
+    },
+    {
+      "name": "native-return-show-first-success",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "busy": false,
+        "ready": true,
+        "error": ""
+      }
+    },
+    {
+      "name": "native-return-show-first-cancel",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": true,
+        "error": ""
+      }
+    },
+    {
+      "name": "native-return-show-first-failure",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": true,
+        "error": "合成上传失败"
+      }
+    },
+    {
+      "name": "native-return-invalid-user",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": true
+      }
+    },
+    {
+      "name": "native-return-invalid-merchant",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": true
+      }
+    },
+    {
+      "name": "native-return-invalid-status",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": true
+      }
+    },
+    {
+      "name": "native-return-invalid-feature",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": true
+      }
+    },
+    {
+      "name": "native-return-invalid-category",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": true
+      }
+    },
+    {
+      "name": "native-return-invalid-missing",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": true
+      }
+    },
+    {
+      "name": "native-return-invalid-denied",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": false
+      }
+    },
+    {
+      "name": "native-return-invalid-unloaded",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": false
+      }
+    },
+    {
+      "name": "native-return-invalid-manual-refresh",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "busy": false,
+        "ready": true
+      }
+    },
+    {
+      "name": "native-second-page-revalidated",
+      "pass": true,
+      "evidence": {
+        "offsets": [
+          0,
+          20,
+          0,
+          20,
+          0,
+          20,
+          0
+        ],
+        "writes": 1,
+        "busy": false
+      }
+    },
+    {
+      "name": "page-failure-retry-same-offset",
+      "pass": true,
+      "evidence": {
+        "offsets": [
+          0,
+          1,
+          1
+        ],
+        "count": 2,
+        "ready": true
+      }
+    },
+    {
+      "name": "page-denial-clears-E_FORBIDDEN",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false,
+        "busy": false
+      }
+    },
+    {
+      "name": "page-denial-clears-E_FEATURE_OFF",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false,
+        "busy": false
+      }
+    },
+    {
+      "name": "page-denial-clears-E_UNBOUND",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false,
+        "busy": false
+      }
+    },
+    {
+      "name": "late-next-page-hidden",
+      "pass": true,
+      "evidence": {
+        "unchanged": true
+      }
+    },
+    {
+      "name": "late-next-page-unloaded",
+      "pass": true,
+      "evidence": {
+        "unchanged": true
+      }
+    },
+    {
+      "name": "late-next-page-refresh",
+      "pass": true,
+      "evidence": {
+        "unchanged": true
+      }
+    },
+    {
+      "name": "late-next-page-user",
+      "pass": true,
+      "evidence": {
+        "unchanged": true
+      }
+    },
+    {
+      "name": "entry-rejects-invalid-status",
+      "pass": true,
+      "evidence": {
+        "writes": 0
+      }
+    },
+    {
+      "name": "entry-rejects-disabled",
+      "pass": true,
+      "evidence": {
+        "writes": 0
+      }
+    },
+    {
+      "name": "entry-rejects-unknown-order",
+      "pass": true,
+      "evidence": {
+        "writes": 0
+      }
+    },
+    {
+      "name": "entry-rejects-invalid-action",
+      "pass": true,
+      "evidence": {
+        "writes": 0
+      }
+    }
+  ]
+}

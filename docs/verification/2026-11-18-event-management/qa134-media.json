@@ -1,0 +1,236 @@
+{
+  "scope": "synthetic lifecycle and intercepted API/media only",
+  "pass": 28,
+  "fail": 0,
+  "results": [
+    {
+      "name": "normal-camera-return-result-first",
+      "pass": true,
+      "evidence": {
+        "records": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "delivered",
+              "photoFileId": "cloud://synthetic/station/batch-A/photo.jpg"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "normal-camera-return-show-first",
+      "pass": true,
+      "evidence": {
+        "records": [
+          {
+            "action": "recordDelivery",
+            "data": {
+              "batchId": "batch-A",
+              "itemId": "item-A",
+              "status": "delivered",
+              "photoFileId": "cloud://synthetic/station/batch-A/photo.jpg"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "camera-return-recheck-user",
+      "pass": true,
+      "evidence": {
+        "records": 0,
+        "busy": false
+      }
+    },
+    {
+      "name": "camera-return-recheck-batch",
+      "pass": true,
+      "evidence": {
+        "records": 0,
+        "busy": false
+      }
+    },
+    {
+      "name": "camera-return-recheck-denied",
+      "pass": true,
+      "evidence": {
+        "records": 0,
+        "busy": false
+      }
+    },
+    {
+      "name": "camera-return-item-delivered",
+      "pass": true,
+      "evidence": {
+        "records": 0
+      }
+    },
+    {
+      "name": "camera-return-item-failed",
+      "pass": true,
+      "evidence": {
+        "records": 0
+      }
+    },
+    {
+      "name": "camera-return-item-skipped",
+      "pass": true,
+      "evidence": {
+        "records": 0
+      }
+    },
+    {
+      "name": "camera-return-item-missing",
+      "pass": true,
+      "evidence": {
+        "records": 0
+      }
+    },
+    {
+      "name": "media-cancel",
+      "pass": true,
+      "evidence": {
+        "error": ""
+      }
+    },
+    {
+      "name": "media-error",
+      "pass": true,
+      "evidence": {
+        "error": "合成上传失败"
+      }
+    },
+    {
+      "name": "media-empty",
+      "pass": true,
+      "evidence": {
+        "error": "未取得配送照片，请重新拍照"
+      }
+    },
+    {
+      "name": "consent-withdrawn-before-camera",
+      "pass": true,
+      "evidence": {
+        "uploads": 0,
+        "records": 0
+      }
+    },
+    {
+      "name": "late-consent-hide",
+      "pass": true,
+      "evidence": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "late-consent-unload",
+      "pass": true,
+      "evidence": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "late-consent-user",
+      "pass": true,
+      "evidence": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "late-consent-batch",
+      "pass": true,
+      "evidence": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "late-consent-refresh",
+      "pass": true,
+      "evidence": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "late-submit-success-hide",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "toasts": 0
+      }
+    },
+    {
+      "name": "late-submit-success-unload",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "toasts": 0
+      }
+    },
+    {
+      "name": "late-submit-success-refresh",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "toasts": 0
+      }
+    },
+    {
+      "name": "late-submit-error-hide",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "toasts": 0
+      }
+    },
+    {
+      "name": "late-submit-error-unload",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "toasts": 0
+      }
+    },
+    {
+      "name": "late-submit-error-refresh",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "toasts": 0
+      }
+    },
+    {
+      "name": "double-confirm-opens-once",
+      "pass": true,
+      "evidence": {
+        "modals": 1,
+        "records": 1
+      }
+    },
+    {
+      "name": "double-camera-opens-once",
+      "pass": true,
+      "evidence": {
+        "uploads": 1,
+        "records": 1
+      }
+    },
+    {
+      "name": "wrong-batch-response-is-unusable",
+      "pass": true,
+      "evidence": {
+        "ready": false,
+        "batch": null
+      }
+    },
+    {
+      "name": "failed-reload-then-successful-retry",
+      "pass": true,
+      "evidence": {
+        "ready": true
+      }
+    }
+  ]
+}

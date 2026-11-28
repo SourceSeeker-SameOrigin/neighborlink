@@ -1,7 +1,8 @@
 {
-  "name": "jinlin",
+  "name": "neighborlink",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "description": "近邻帮微信小程序",
   "scripts": {
     "test": "jest --runInBand",

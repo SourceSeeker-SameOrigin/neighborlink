@@ -1,0 +1,176 @@
+{
+  "baseline": "a485e0c",
+  "scope": "Actual page code with isolated synthetic dependencies. No cloud writes, payments, uploads, or runtime role changes. Not visual or live success-flow acceptance.",
+  "total": 42,
+  "passed": 42,
+  "results": [
+    {
+      "name": "express：未取得报价时禁止创建订单",
+      "status": "PASS"
+    },
+    {
+      "name": "express：迟到报价不覆盖当前结果",
+      "status": "PASS"
+    },
+    {
+      "name": "express：隐藏后迟到报价不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "express：地址切换旧小区响应不得覆盖新地址",
+      "status": "PASS"
+    },
+    {
+      "name": "express：输入变化撤销旧报价，未知字段不写入",
+      "status": "PASS"
+    },
+    {
+      "name": "trash：未取得报价时禁止创建订单",
+      "status": "PASS"
+    },
+    {
+      "name": "trash：迟到报价不覆盖当前结果",
+      "status": "PASS"
+    },
+    {
+      "name": "trash：隐藏后迟到报价不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "trash：地址切换旧小区响应不得覆盖新地址",
+      "status": "PASS"
+    },
+    {
+      "name": "trash：输入变化撤销旧报价，未知字段不写入",
+      "status": "PASS"
+    },
+    {
+      "name": "buy：未取得报价时禁止创建订单",
+      "status": "PASS"
+    },
+    {
+      "name": "buy：迟到报价不覆盖当前结果",
+      "status": "PASS"
+    },
+    {
+      "name": "buy：隐藏后迟到报价不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "buy：地址切换旧小区响应不得覆盖新地址",
+      "status": "PASS"
+    },
+    {
+      "name": "buy：输入变化撤销旧报价，未知字段不写入",
+      "status": "PASS"
+    },
+    {
+      "name": "help：未取得报价时禁止创建订单",
+      "status": "PASS"
+    },
+    {
+      "name": "help：迟到报价不覆盖当前结果",
+      "status": "PASS"
+    },
+    {
+      "name": "help：隐藏后迟到报价不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "help：地址切换旧小区响应不得覆盖新地址",
+      "status": "PASS"
+    },
+    {
+      "name": "help：输入变化撤销旧报价，未知字段不写入",
+      "status": "PASS"
+    },
+    {
+      "name": "meal：未取得报价时禁止创建订单",
+      "status": "PASS"
+    },
+    {
+      "name": "meal：迟到报价不覆盖当前结果",
+      "status": "PASS"
+    },
+    {
+      "name": "meal：隐藏后迟到报价不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "meal：地址切换旧小区响应不得覆盖新地址",
+      "status": "PASS"
+    },
+    {
+      "name": "meal：输入变化撤销旧报价，未知字段不写入",
+      "status": "PASS"
+    },
+    {
+      "name": "escort：未取得报价时禁止创建订单",
+      "status": "PASS"
+    },
+    {
+      "name": "escort：迟到报价不覆盖当前结果",
+      "status": "PASS"
+    },
+    {
+      "name": "escort：隐藏后迟到报价不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "escort：地址切换旧小区响应不得覆盖新地址",
+      "status": "PASS"
+    },
+    {
+      "name": "escort：输入变化撤销旧报价，未知字段不写入",
+      "status": "PASS"
+    },
+    {
+      "name": "pet：未取得报价时禁止创建订单",
+      "status": "PASS"
+    },
+    {
+      "name": "pet：迟到报价不覆盖当前结果",
+      "status": "PASS"
+    },
+    {
+      "name": "pet：隐藏后迟到报价不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "pet：地址切换旧小区响应不得覆盖新地址",
+      "status": "PASS"
+    },
+    {
+      "name": "pet：输入变化撤销旧报价，未知字段不写入",
+      "status": "PASS"
+    },
+    {
+      "name": "我的：无provider角色不获得工作台资格",
+      "status": "PASS"
+    },
+    {
+      "name": "我的：无merchant角色不获得工作台资格",
+      "status": "PASS"
+    },
+    {
+      "name": "我的：无station角色不获得工作台资格",
+      "status": "PASS"
+    },
+    {
+      "name": "我的：无admin角色不获得工作台资格",
+      "status": "PASS"
+    },
+    {
+      "name": "我的：无property角色不获得工作台资格",
+      "status": "PASS"
+    },
+    {
+      "name": "我的：已批准管理员入口保留",
+      "status": "PASS"
+    },
+    {
+      "name": "服务员大厅：兼容公共小区features字段的驿站入口",
+      "status": "PASS"
+    }
+  ]
+}

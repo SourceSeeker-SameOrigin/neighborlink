@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-09",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "fc2a313",
+  "identity": "real logged-in unbound resident",
+  "execution": "WeChat DevTools Console wx.cloud.callFunction; real cloud read-only calls",
+  "results": [
+    {
+      "action": "mine",
+      "ok": true,
+      "count": 0
+    },
+    {
+      "action": "plans",
+      "ok": false,
+      "code": "E_INVALID_PARAM",
+      "message": "请先绑定有效小区"
+    }
+  ],
+  "notVerified": [
+    "Bound resident plan list",
+    "Purchase/payment/renewal/task generation",
+    "Live concurrent purchase, activation and admin config changes; order/payCallback/admin not yet updated"
+  ],
+  "writes": "No order, card, payment, address, role or operational configuration created"
+}

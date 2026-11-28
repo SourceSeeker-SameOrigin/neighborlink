@@ -17,11 +17,18 @@ function createPayFlow(cloud, server) {
   const nonce = () => crypto.randomBytes(16).toString('hex');
   const notify = createNotifier(cloud, server);
 
+  async function dispatchEventRefund(order) {
+    if (order.kind !== 'event_signup') return;
+    const refund = (order.refunds || []).find(item => item.key === 'event_auto_refund_' + order._id);
+    if (refund && (refund.status === 'failed' || (refund.status === 'processing' && !refund.dispatchedAt))) {
+      await dispatchRefund(order, refund);
+    }
+  }
+
   async function onPaid(order, payment) {
     const user = await server.one('users', { openid: order.userOpenid });
     ensure(user, '订单用户不存在', 'E_CONFIG');
     let changed = false;
-    let cancelledEventSignup = false;
     const result = await atomic(db, async transaction => {
       const current = await read(transaction, 'orders', order._id);
       ensure(current, '订单不存在');
@@ -42,7 +49,14 @@ function createPayFlow(cloud, server) {
       if (membership) Object.assign(patch, membership.orderPatch);
       await markCouponUsed(transaction, current, now);
       const eventResult = await activateEventSignup(transaction, current, now);
-      cancelledEventSignup = Boolean(eventResult && eventResult.cancelled);
+      if (eventResult?.cancelled && totalFee(current) > 0) {
+        const paid = { ...current, ...patch };
+        const reserved = reserveRefund(paid, totalFee(paid), '活动报名已截止或活动已取消', 'event_auto_refund_' + paid._id, now);
+        Object.assign(patch, transitionPatch(paid, 'cancelled', 'system', now), { refunds: reserved.refunds });
+        if (reserved.refund.status === 'success') {
+          await finalizeRefundDiscounts(transaction, { ...current, ...patch }, reserved.refunds, now, reserved.refund.outRefundNo);
+        }
+      }
       if (current.serviceCode === 'pet') await createPetVisits(transaction, { ...current, ...patch });
       await transaction.collection('users').doc(user._id).update({ data: {
         ...(first ? first.user : {}), ...(paidCount ? paidCount.user : {}), ...(membership ? membership.userPatch : {}),
@@ -51,17 +65,8 @@ function createPayFlow(cloud, server) {
       changed = true;
       return { ...current, ...patch };
     });
-    if (changed && cancelledEventSignup && result.pricing.payAmount + result.pricing.goodsCap > 0) {
-      await requestRefund(result, result.pricing.payAmount + result.pricing.goodsCap, '活动报名已截止或活动已取消', {
-        key: 'event_auto_refund_' + result._id, to: 'cancelled', actor: 'system'
-      });
-      return { ...result, status: 'cancelled' };
-    }
+    await dispatchEventRefund(result);
     if (changed && result.kind === 'service') await notify.newTask(result);
-    if (changed && result.kind === 'service') {
-      await notify.resident('accepted', result);
-      await notify.resident('delivered', result);
-    }
     return result;
   }
 
@@ -95,7 +100,8 @@ function createPayFlow(cloud, server) {
         item.outRefundNo === refund.outRefundNo && dispatched ? { ...item, dispatchedAt: new Date() } : item);
       await transaction.collection('orders').doc(orderId).update({ data: { refunds, updatedAt: new Date() } });
       if (status === 'success') {
-        await finalizeRefundDiscounts(transaction, order, refunds, new Date());
+        const alreadySuccessful = order.refunds.some(item => item.outRefundNo === refund.outRefundNo && item.status === 'success');
+        if (!alreadySuccessful) await finalizeRefundDiscounts(transaction, order, refunds, new Date(), refund.outRefundNo);
         await releaseReservation(transaction, order);
       }
       return { ...order, refunds };
@@ -138,7 +144,9 @@ function createPayFlow(cloud, server) {
       if (reserved.refund.status === 'success') await releaseReservation(transaction, resultingOrder);
       if (resultingOrder.serviceCode === 'pet' && resultingOrder.status === 'cancelled') await removePetSecret(transaction, resultingOrder);
       if (options.afterWrite) await options.afterWrite(transaction, resultingOrder);
-      await finalizeRefundDiscounts(transaction, resultingOrder, reserved.refunds, new Date());
+      if (reserved.refund.status === 'success') {
+        await finalizeRefundDiscounts(transaction, resultingOrder, reserved.refunds, new Date(), reserved.refund.outRefundNo);
+      }
       return { order: resultingOrder, refund: reserved.refund };
     });
     await dispatchRefund(result.order, result.refund);
@@ -182,7 +190,7 @@ function createPayFlow(cloud, server) {
     });
   }
 
-  return { onPaid, prepare, verifyPaid, requestRefund, dispatchRefund, verifyRefund, setRefundResult, closeUnpaid };
+  return { onPaid, dispatchEventRefund, prepare, verifyPaid, requestRefund, dispatchRefund, verifyRefund, setRefundResult, closeUnpaid };
 }
 
 module.exports = { createPayFlow };

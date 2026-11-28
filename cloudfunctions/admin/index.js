@@ -37,4 +37,4 @@ async function exportRecyclerStatement(event, { user }) {
   return { fileId: file.fileID, tempFileURL: urls.fileList[0].tempFileURL, count: result.rows.length, totalFen: result.totalFen };
 }
 exports.main = server.entry({ ...adminProviderActions(cloud, server), ...adminOrderActions(cloud, server),
-  ...dashboardActions, ...settlementActions, notificationTemplates, exportRecyclerStatement }, ['admin', 'property']);
+  ...dashboardActions, ...settlementActions, notificationTemplates, exportRecyclerStatement }, ['admin', 'property'], 'admin');

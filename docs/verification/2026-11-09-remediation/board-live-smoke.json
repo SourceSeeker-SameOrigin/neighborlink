@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-09",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "110ebe8",
+  "identity": "real logged-in unbound resident",
+  "execution": "WeChat DevTools Console wx.cloud.callFunction and native board-list page navigation",
+  "results": [
+    {
+      "action": "list",
+      "type": "ask",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "message": "该功能暂未开放"
+    },
+    {
+      "action": "list",
+      "type": "task",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "message": "该功能暂未开放"
+    },
+    {
+      "action": "list",
+      "type": "carry",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "message": "该功能暂未开放"
+    },
+    {
+      "action": "detail",
+      "ok": false,
+      "code": "E_INVALID_PARAM",
+      "message": "请先绑定小区门牌"
+    }
+  ],
+  "uiObserved": [
+    "Board list route opens; three category tabs and publish button are visible",
+    "Unbound direct route shows raw catalog validation message: 小区不能为空或超出长度限制",
+    "Back returns to home",
+    "Category/retry button text appears centered at current simulator size"
+  ],
+  "uiAcceptance": "partial; unbound direct-entry guidance issue pending user decision",
+  "consoleObservation": {
+    "errors": 0,
+    "warningsBefore": 15,
+    "warningsAfter": 17,
+    "allWarningsClassified": false
+  },
+  "notVerified": [
+    "Bound resident posts and comments, cross-community visibility and hidden records",
+    "Publish/comment/report/close and content moderation",
+    "Reward creation/payment/fulfillment",
+    "Other devices and full board UI acceptance"
+  ],
+  "writes": "No posts, comments, rewards or reports created; detail rejected at binding check before any expiry write"
+}

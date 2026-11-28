@@ -1,0 +1,48 @@
+{
+  "scope": "Offline checks; does not establish visual or real-cloud acceptance",
+  "jest": {
+    "numPassedTestSuites": 53,
+    "numFailedTestSuites": 0,
+    "numPassedTests": 624,
+    "numFailedTests": 0,
+    "success": true
+  },
+  "compiler": [
+    {
+      "ext": ".wxml",
+      "count": 77,
+      "status": 0,
+      "stderr": ""
+    },
+    {
+      "ext": ".wxss",
+      "count": 78,
+      "status": 0,
+      "stderr": ""
+    }
+  ],
+  "qa53Regression": {
+    "passed": 21,
+    "total": 21
+  },
+  "relatedRegression": {
+    "passed": 15,
+    "total": 15
+  },
+  "isolatedLifecycle": {
+    "pages": 69,
+    "cases": 207,
+    "uncaught": 0,
+    "referenceErrors": 0,
+    "unhandledRejections": 0
+  },
+  "componentReferences": {
+    "pages": 69,
+    "templates": 77,
+    "problems": 0
+  },
+  "styleRules": {
+    "pages": 69,
+    "issues": 0
+  }
+}

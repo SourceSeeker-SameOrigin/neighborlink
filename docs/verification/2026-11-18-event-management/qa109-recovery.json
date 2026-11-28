@@ -1,0 +1,113 @@
+{
+  "passed": 27,
+  "results": [
+    {
+      "name": "admin / reload / after-create",
+      "pass": true
+    },
+    {
+      "name": "admin / reload / before-publish",
+      "pass": true
+    },
+    {
+      "name": "admin / reload / after-publish",
+      "pass": true
+    },
+    {
+      "name": "admin / duplicate create and publish / sponsor once",
+      "pass": true
+    },
+    {
+      "name": "property / reload / after-create",
+      "pass": true
+    },
+    {
+      "name": "property / reload / before-publish",
+      "pass": true
+    },
+    {
+      "name": "property / reload / after-publish",
+      "pass": true
+    },
+    {
+      "name": "property / duplicate create and publish / sponsor once",
+      "pass": true
+    },
+    {
+      "name": "merchant / reload / after-create",
+      "pass": true
+    },
+    {
+      "name": "merchant / reload / before-publish",
+      "pass": true
+    },
+    {
+      "name": "merchant / reload / after-publish",
+      "pass": true
+    },
+    {
+      "name": "merchant / duplicate create and publish / sponsor once",
+      "pass": true
+    },
+    {
+      "name": "owner isolation and invalid request IDs",
+      "pass": true
+    },
+    {
+      "name": "legacy client and transaction ownership change",
+      "pass": true
+    },
+    {
+      "name": "absent result / lookup failure / explicit retry reuses ID",
+      "pass": true
+    },
+    {
+      "name": "late create / onHide",
+      "pass": true
+    },
+    {
+      "name": "late create / onUnload",
+      "pass": true
+    },
+    {
+      "name": "late create / identity",
+      "pass": true
+    },
+    {
+      "name": "late create / refresh",
+      "pass": true
+    },
+    {
+      "name": "storage unavailable / no request sent",
+      "pass": true
+    },
+    {
+      "name": "double click / one create",
+      "pass": true
+    },
+    {
+      "name": "transaction conflict then retry / one activity and ledger",
+      "pass": true
+    },
+    {
+      "name": "sponsor write fails / event transaction rolls back",
+      "pass": true
+    },
+    {
+      "name": "late publish after hide / success",
+      "pass": true
+    },
+    {
+      "name": "late publish after hide / lost response",
+      "pass": true
+    },
+    {
+      "name": "stored draft survives absent result and edits retain request ID",
+      "pass": true
+    },
+    {
+      "name": "review rejected / original activity can be resubmitted",
+      "pass": true
+    }
+  ]
+}

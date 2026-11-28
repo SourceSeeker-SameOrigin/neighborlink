@@ -1,0 +1,45 @@
+{
+  "scope": "synthetic identities/communities; API and navigation intercepted",
+  "pass": 3,
+  "fail": 3,
+  "results": [
+    {
+      "case": "normal-current-community-list",
+      "pass": true
+    },
+    {
+      "case": "older-read-cannot-overwrite-newer",
+      "pass": true
+    },
+    {
+      "case": "late-list-after-hide",
+      "pass": true
+    },
+    {
+      "case": "late-community-a-list-after-switch-to-b",
+      "pass": false,
+      "observed": {
+        "ids": [
+          "event-a"
+        ]
+      }
+    },
+    {
+      "case": "old-community-card-after-identity-change",
+      "pass": false,
+      "observed": {
+        "navigation": 1
+      }
+    },
+    {
+      "case": "same-community-other-user-pagination-does-not-reuse-old-rows",
+      "pass": false,
+      "observed": {
+        "ids": [
+          "event-a",
+          "event-b"
+        ]
+      }
+    }
+  ]
+}

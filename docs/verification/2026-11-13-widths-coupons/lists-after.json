@@ -1,0 +1,55 @@
+{
+  "mode": "actual-page-synthetic-only",
+  "total": 12,
+  "passed": 12,
+  "results": [
+    {
+      "name": "coupons/mine/mine successful list load",
+      "passed": true
+    },
+    {
+      "name": "coupons/mine/mine old response cannot replace new list",
+      "passed": true
+    },
+    {
+      "name": "coupons/mine/mine onHide suppresses late writes",
+      "passed": true
+    },
+    {
+      "name": "coupons/mine/mine onUnload suppresses late writes",
+      "passed": true
+    },
+    {
+      "name": "coupons/center/center successful list load",
+      "passed": true
+    },
+    {
+      "name": "coupons/center/center old response cannot replace new list",
+      "passed": true
+    },
+    {
+      "name": "coupons/center/center onHide suppresses late writes",
+      "passed": true
+    },
+    {
+      "name": "coupons/center/center onUnload suppresses late writes",
+      "passed": true
+    },
+    {
+      "name": "notices/list/list successful list load",
+      "passed": true
+    },
+    {
+      "name": "notices/list/list old response cannot replace new list",
+      "passed": true
+    },
+    {
+      "name": "notices/list/list onHide suppresses late writes",
+      "passed": true
+    },
+    {
+      "name": "notices/list/list onUnload suppresses late writes",
+      "passed": true
+    }
+  ]
+}

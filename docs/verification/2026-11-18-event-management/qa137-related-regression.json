@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-25",
+  "scope": "synthetic actual-code regressions; no cloud or native calls",
+  "results": [
+    {
+      "test": "station-delivery-cloud",
+      "pass": 28,
+      "fail": 0
+    },
+    {
+      "test": "station-create-boundaries",
+      "pass": 24,
+      "fail": 0
+    },
+    {
+      "test": "station-create-recovery",
+      "pass": 20,
+      "fail": 0
+    },
+    {
+      "test": "station-batch-boundaries",
+      "pass": 26,
+      "fail": 0
+    },
+    {
+      "test": "station-batch-media",
+      "pass": 28,
+      "fail": 0
+    },
+    {
+      "test": "station-worker-boundaries",
+      "pass": 40,
+      "fail": 0
+    },
+    {
+      "test": "station-workbench-boundaries",
+      "pass": 38,
+      "fail": 0
+    }
+  ],
+  "jest": {
+    "suites": 55,
+    "tests": 652,
+    "fail": 0
+  }
+}

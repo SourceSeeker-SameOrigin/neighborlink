@@ -1,0 +1,105 @@
+{
+  "scope": "actual P07-P10 pages; synthetic accounts, all external actions intercepted",
+  "pass": 5,
+  "fail": 10,
+  "results": [
+    {
+      "case": "orders-normal-list",
+      "pass": true
+    },
+    {
+      "case": "orders-late-list-after-user-switch",
+      "pass": false,
+      "observed": {
+        "ids": [
+          "order-a"
+        ]
+      }
+    },
+    {
+      "case": "orders-late-badge-after-user-switch",
+      "pass": false,
+      "observed": {
+        "badge": "7"
+      }
+    },
+    {
+      "case": "detail-normal-read",
+      "pass": true
+    },
+    {
+      "case": "detail-late-order-after-user-switch",
+      "pass": false,
+      "observed": {
+        "orderId": "order-a"
+      }
+    },
+    {
+      "case": "detail-old-payment-after-user-switch",
+      "pass": false,
+      "observed": {
+        "retryPayment": 1
+      }
+    },
+    {
+      "case": "detail-old-contact-after-user-switch",
+      "pass": false,
+      "observed": {
+        "dialCalls": 1,
+        "navigation": 1
+      }
+    },
+    {
+      "case": "membership-normal-load",
+      "pass": true
+    },
+    {
+      "case": "membership-late-plans-after-user-switch",
+      "pass": false,
+      "observed": {
+        "ready": true,
+        "plans": 1
+      }
+    },
+    {
+      "case": "membership-old-order-entry-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/pages/orders/detail?id=order-a"
+        ]
+      }
+    },
+    {
+      "case": "membership-old-skip-after-user-switch",
+      "pass": false,
+      "observed": {
+        "skips": 1
+      }
+    },
+    {
+      "case": "me-normal-load",
+      "pass": true
+    },
+    {
+      "case": "me-old-workspace-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/provider/workbench/workbench"
+        ]
+      }
+    },
+    {
+      "case": "me-old-door-delivery-after-user-switch",
+      "pass": false,
+      "observed": {
+        "writes": 1
+      }
+    },
+    {
+      "case": "orders-late-list-after-hide",
+      "pass": true
+    }
+  ]
+}

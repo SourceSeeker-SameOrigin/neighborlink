@@ -1,0 +1,23 @@
+{
+  "scope": "Actual recycle page with synthetic API/navigation; no actual duplicate cloud orders claimed",
+  "results": [
+    {
+      "scenario": "created_then_navigation_failure",
+      "createCalls": 2,
+      "uniqueRequestIds": 2,
+      "navigationCalls": 2,
+      "visibleError": "",
+      "hasRecoveryOrder": false,
+      "observedRisk": true
+    },
+    {
+      "scenario": "create_response_unknown_then_retry",
+      "createCalls": 2,
+      "uniqueRequestIds": 2,
+      "navigationCalls": 1,
+      "visibleError": "",
+      "hasRecoveryOrder": false,
+      "observedRisk": true
+    }
+  ]
+}

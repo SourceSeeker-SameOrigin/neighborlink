@@ -1,0 +1,8 @@
+{
+  "scope": "QA113 final offline load/cleanup scan; not UI/cloud/phone acceptance",
+  "pageCount": 69,
+  "scenarioCount": 207,
+  "unhandled": [],
+  "failures": [],
+  "referenceFailures": []
+}

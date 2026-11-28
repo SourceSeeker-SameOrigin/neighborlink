@@ -1,0 +1,18 @@
+{
+  "scope": "Isolated diagnostic only; no real cloud or generated poster",
+  "emptyProvider": {
+    "unhandled": "Cannot read properties of undefined (reading '_id')",
+    "visibleError": "",
+    "apiCalls": 0
+  },
+  "selectionRace": {
+    "lastChosen": "synthetic_b",
+    "actual": "synthetic_a",
+    "building": "building_a"
+  },
+  "selectionFailure": {
+    "unhandled": "合成网络失败",
+    "visibleError": ""
+  },
+  "status": "QA32 proposed in conversation; awaiting user decision; application code unchanged"
+}

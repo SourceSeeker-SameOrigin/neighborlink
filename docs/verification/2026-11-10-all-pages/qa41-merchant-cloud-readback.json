@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-11T07:26:55.309Z",
+  "function": "merchant",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "2d5ccccc1ecb354f1abfb9bc536ccddb9932fc14",
+  "packageSha256": "19075dc0b69432147a79d4bc60761c5db259886cf7234ebc606f168d71cd8202",
+  "expectedFiles": 76,
+  "matchedFiles": 76,
+  "mismatch": [],
+  "sdkVersion": "4.0.2",
+  "downloadMethod": "official WeChat CLI functions download; file-like .zip suffix required; result extracted directory",
+  "runtimeVerification": "4 readonly real-session cloud checks passed; empty pagination and negative offset rejection only; qa41-live-pagination.json",
+  "configurationChanges": false
+}

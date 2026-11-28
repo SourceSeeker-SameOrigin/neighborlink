@@ -1,4 +1,5 @@
 const { ensure, record, text } = require('./validate');
+const { fileInFolder } = require('./providerData');
 
 const CHECKLIST = Object.freeze({ windows: '门窗检查', utilities: '水电燃气', leakMold: '漏水与霉斑', ventilation: '开窗通风30分钟', mail: '代收快递信件', photos: '巡检拍照' });
 
@@ -19,8 +20,7 @@ function cleanReport(event, order) {
     ensure(event.checklist[key] === true, `${CHECKLIST[key]}未完成勾选`);
     const photos = Array.isArray(event.photoByItem[key]) ? event.photoByItem[key] : [];
     ensure(photos.length >= 1 && photos.length <= 3, `${CHECKLIST[key]}至少上传 1 张照片`);
-    for (const fileId of photos) ensure(typeof fileId === 'string' && fileId.startsWith('cloud://') &&
-      fileId.includes(`/vacant/${order._id}/`), '请上传本次巡检照片');
+    for (const fileId of photos) fileInFolder(fileId, 'vacant/' + order._id, '请上传本次巡检照片');
     checklist[key] = event.checklist[key]; photoByItem[key] = [...new Set(photos)];
     ensure(photoByItem[key].length === photos.length, '照片不能重复');
   }

@@ -1,1 +1,1 @@
-.section-title{font-size:32rpx;font-weight:600}input{padding:16rpx 0;border-bottom:1rpx solid #eee}
+.section-title{font-size:32rpx;font-weight:600}.ui-input{padding:0;border-bottom:1rpx solid #E6E9DF}

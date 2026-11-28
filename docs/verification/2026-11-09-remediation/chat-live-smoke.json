@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-09",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "fc2a313",
+  "identity": "real logged-in unbound resident",
+  "execution": "WeChat DevTools Console wx.cloud.callFunction and native chat-page clicks",
+  "results": [
+    {
+      "action": "list",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "message": "该功能暂未开放"
+    },
+    {
+      "action": "pull",
+      "ok": false,
+      "code": "E_INVALID_PARAM",
+      "message": "会话不能为空或超出长度限制"
+    },
+    {
+      "action": "adminPull",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "只有管理员可处理聊天举报或投诉"
+    }
+  ],
+  "uiObserved": [
+    "Chat list opens and displays feature-off message",
+    "Retry shows loading and returns to feature-off message",
+    "Back returns to orders page",
+    "Retry text appears vertically centered at current simulator size"
+  ],
+  "consoleObservation": {
+    "errors": 0,
+    "warningsBefore": 7,
+    "warningsAfter": 10,
+    "visibleWarning": "SharedArrayBuffer cross-origin-isolation deprecation; not all existing warnings classified"
+  },
+  "notVerified": [
+    "Enabled conversation list, nonempty pagination and unread counts",
+    "Send/receive, image review, muted sender and hidden message behavior",
+    "Case-bound admin review success and audit log writes",
+    "Other devices and accessibility font sizes"
+  ],
+  "writes": "No conversations created, messages sent, markRead, audit or moderation writes; pull rejected before conversation read and adminPull rejected before audit path"
+}

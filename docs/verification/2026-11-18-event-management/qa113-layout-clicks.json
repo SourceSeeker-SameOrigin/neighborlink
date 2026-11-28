@@ -1,0 +1,329 @@
+{
+  "scope": "Real button clicks in tourist simulator; synthetic modal and API; navigation excluded",
+  "visualPassed": [
+    375
+  ],
+  "visualPending": [
+    320,
+    390,
+    430
+  ],
+  "raw": [
+    {
+      "width": 320,
+      "confirmations": 3,
+      "writes": 1,
+      "records": [
+        {
+          "state": "shown",
+          "busy": false,
+          "ready": true,
+          "error": "",
+          "rect": {
+            "left": 10,
+            "right": 310,
+            "top": 257,
+            "bottom": 294,
+            "width": 300,
+            "height": 37,
+            "disabled": false
+          }
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 10,
+            "right": 310,
+            "top": 257,
+            "bottom": 294,
+            "width": 300,
+            "height": 37,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": ""
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 10,
+            "right": 310,
+            "top": 257,
+            "bottom": 294,
+            "width": 300,
+            "height": 37,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": "放弃任务失败（本地合成）"
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 10,
+            "right": 310,
+            "top": 257,
+            "bottom": 294,
+            "width": 300,
+            "height": 37,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "confirmations": 3,
+      "writes": 1,
+      "records": [
+        {
+          "state": "shown",
+          "busy": false,
+          "ready": true,
+          "error": "",
+          "rect": {
+            "left": 12,
+            "right": 363,
+            "top": 312,
+            "bottom": 356,
+            "width": 351,
+            "height": 44,
+            "disabled": false
+          }
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 12,
+            "right": 363,
+            "top": 312,
+            "bottom": 356,
+            "width": 351,
+            "height": 44,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": ""
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 12,
+            "right": 363,
+            "top": 312,
+            "bottom": 356,
+            "width": 351,
+            "height": 44,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": "放弃任务失败（本地合成）"
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 12,
+            "right": 363,
+            "top": 312,
+            "bottom": 356,
+            "width": 351,
+            "height": 44,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "confirmations": 3,
+      "writes": 1,
+      "records": [
+        {
+          "state": "shown",
+          "busy": false,
+          "ready": true,
+          "error": "",
+          "rect": {
+            "left": 12,
+            "right": 378,
+            "top": 313,
+            "bottom": 358,
+            "width": 366,
+            "height": 45,
+            "disabled": false
+          }
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 12,
+            "right": 378,
+            "top": 313,
+            "bottom": 358,
+            "width": 366,
+            "height": 45,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": ""
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 12,
+            "right": 378,
+            "top": 313,
+            "bottom": 358,
+            "width": 366,
+            "height": 45,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": "放弃任务失败（本地合成）"
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 12,
+            "right": 378,
+            "top": 313,
+            "bottom": 358,
+            "width": 366,
+            "height": 45,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "width": 430,
+      "confirmations": 3,
+      "writes": 1,
+      "records": [
+        {
+          "state": "shown",
+          "busy": false,
+          "ready": true,
+          "error": "",
+          "rect": {
+            "left": 13,
+            "right": 417,
+            "top": 348,
+            "bottom": 398,
+            "width": 404,
+            "height": 50,
+            "disabled": false
+          }
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 13,
+            "right": 417,
+            "top": 348,
+            "bottom": 398,
+            "width": 404,
+            "height": 50,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": ""
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 13,
+            "right": 417,
+            "top": 348,
+            "bottom": 398,
+            "width": 404,
+            "height": 50,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": "放弃任务失败（本地合成）"
+        },
+        {
+          "state": "busy",
+          "busy": true,
+          "rect": {
+            "left": 13,
+            "right": 417,
+            "top": 348,
+            "bottom": 398,
+            "width": 404,
+            "height": 50,
+            "disabled": true
+          }
+        },
+        {
+          "state": "settled",
+          "visible": true,
+          "busy": false,
+          "error": ""
+        }
+      ]
+    }
+  ]
+}

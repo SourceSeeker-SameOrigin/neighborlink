@@ -1,1 +1,1 @@
-.tabs{display:flex;gap:16rpx;margin-bottom:20rpx}.tabs button{flex:1}.price{color:#c05621;font-size:36rpx;font-weight:600;margin-top:12rpx}
+.tabs{display:flex;gap:16rpx;margin-bottom:20rpx}.tabs .ui-button{flex:1}.price{color:#9C6130;font-size:36rpx;font-weight:600;margin-top:12rpx}

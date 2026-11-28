@@ -9,6 +9,10 @@ const { dueTasks } = require('./schedule');
 const { isEnabled } = require('./features');
 
 async function activateMembership(transaction, order, user, now) {
+  const community = await read(transaction, 'communities', order.communityId);
+  ensure(community, '月卡所属小区不存在', 'E_CONFIG');
+  const { nextMembershipRevision } = require('./membershipRevision');
+  await transaction.collection('communities').doc(community._id).update({data:{membershipRevision:nextMembershipRevision(community)}});
   const key = membershipKey(order.communityId, order.planCode);
   const refs = user.membershipRefs || {};
   const existing = refs[key] ? await read(transaction, 'memberships', refs[key]) : null;

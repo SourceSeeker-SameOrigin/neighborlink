@@ -1,0 +1,242 @@
+{
+  "functions": 21,
+  "actions": 165,
+  "boundaryChecks": 288,
+  "dbCalls": 0,
+  "netCalls": 0,
+  "staticAPICalls": 188,
+  "dynamicAPICalls": [
+    {
+      "file": "miniprogram/admin/exports/exports.js",
+      "line": 19
+    },
+    {
+      "file": "miniprogram/admin/exports/exports.js",
+      "line": 61
+    },
+    {
+      "file": "miniprogram/admin/order/order.js",
+      "line": 72
+    },
+    {
+      "file": "miniprogram/admin/providers/providers.js",
+      "line": 49
+    },
+    {
+      "file": "miniprogram/events/manage/manage.js",
+      "line": 35
+    },
+    {
+      "file": "miniprogram/pages/orders/detail.js",
+      "line": 124
+    },
+    {
+      "file": "miniprogram/provider/task/task.js",
+      "line": 105
+    }
+  ],
+  "sharedCopies": 1449,
+  "copyMismatches": [],
+  "failures": [],
+  "actionMap": {
+    "admin": [
+      "listProviders",
+      "reviewProvider",
+      "suspendProvider",
+      "setInsurance",
+      "setCerts",
+      "cleanupProviderKyc",
+      "listOrders",
+      "exportSubsidyOrders",
+      "assign",
+      "forceCancel",
+      "retryRefund",
+      "resolveComplaint",
+      "voidMembership",
+      "dashboard",
+      "updateCommunity",
+      "upsertBuilding",
+      "updateConfig",
+      "getFeatures",
+      "genPoster",
+      "settlementPreview",
+      "settlementCreate",
+      "settlementMarkPaid",
+      "exportCsv",
+      "listSettlements",
+      "notificationTemplates",
+      "exportRecyclerStatement"
+    ],
+    "board": [
+      "list",
+      "detail",
+      "create",
+      "comment",
+      "close",
+      "report"
+    ],
+    "catalog": [
+      "listCommunities",
+      "nearbyCommunities",
+      "getCommunity",
+      "resolveScene",
+      "templates"
+    ],
+    "chat": [
+      "open",
+      "openIdle",
+      "pull",
+      "send",
+      "list",
+      "markRead",
+      "adminPull"
+    ],
+    "content": [
+      "report",
+      "listReports",
+      "resolveReport",
+      "moderateUser",
+      "moderateContent",
+      "homeContent",
+      "adEvent",
+      "listNotices",
+      "saveNotice",
+      "endNotice",
+      "listAds",
+      "saveAd",
+      "endAd",
+      "markAdReceived"
+    ],
+    "coupon": [
+      "center",
+      "claim",
+      "mine",
+      "adminTemplates",
+      "saveTemplate",
+      "manualIssue"
+    ],
+    "event": [
+      "list",
+      "detail",
+      "create",
+      "update",
+      "publish",
+      "review",
+      "adminList",
+      "signup",
+      "cancelSignup",
+      "checkin",
+      "listSignups",
+      "templates",
+      "cancelEvent",
+      "retryCancellation"
+    ],
+    "idle": [
+      "list",
+      "detail",
+      "contact",
+      "create",
+      "update",
+      "mine",
+      "report",
+      "buy",
+      "sales",
+      "earnings",
+      "acceptSale",
+      "deliverSale",
+      "markSold",
+      "remove"
+    ],
+    "membership": [
+      "plans",
+      "buy",
+      "mine",
+      "skipToday"
+    ],
+    "merchant": [
+      "apply",
+      "myApplication",
+      "listForCommunity",
+      "servicesForMerchant",
+      "adminList",
+      "review",
+      "upsertService",
+      "myServices",
+      "setServiceStatus",
+      "adminServices",
+      "createBooking",
+      "quoteBooking",
+      "merchantOrders",
+      "merchantTransition",
+      "completeBooking"
+    ],
+    "order": [
+      "quote",
+      "create",
+      "mockPay",
+      "listMine",
+      "detail",
+      "cancel",
+      "retryPayment",
+      "subscriptionTemplates",
+      "subscribeVisitReport",
+      "confirm",
+      "rate",
+      "complain"
+    ],
+    "payout": [
+      "create",
+      "get",
+      "list"
+    ],
+    "pet": [
+      "listVisits",
+      "revealEntry",
+      "markDone",
+      "markMissed"
+    ],
+    "provider": [
+      "apply",
+      "myStatus",
+      "subscriptionTemplates",
+      "referralPoster",
+      "setDuty",
+      "hall",
+      "accept",
+      "release",
+      "start",
+      "deliver",
+      "myTasks",
+      "earnings",
+      "updateLocation"
+    ],
+    "station": [
+      "setDoorDelivery",
+      "listMyBatches",
+      "exportStatement",
+      "providerHall",
+      "acceptBatch",
+      "providerBatch",
+      "createBatch",
+      "startBatch",
+      "checkDoorDeliveryConsent",
+      "recordDelivery",
+      "applicationOptions",
+      "myApplication",
+      "apply",
+      "listApplications",
+      "reviewApplication"
+    ],
+    "user": [
+      "login",
+      "bindPhone",
+      "setAddress",
+      "recordScene"
+    ],
+    "vacant": [
+      "revealEntry",
+      "recordReport",
+      "subscribeReport"
+    ]
+  }
+}

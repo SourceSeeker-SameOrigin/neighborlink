@@ -1,23 +1,23 @@
-<view class="page">
-  <picker range="{{statuses}}" value="{{statusIndex}}" bindchange="filter"><view class="picker">{{statuses[statusIndex]}} ▾</view></picker>
+<view class="page"><view class="page-masthead"><image class="masthead-icon" src="/assets/icons/admin.png"/><view class="masthead-copy"><view class="page-title">服务员审核</view><view class="masthead-subtitle">社区运营 · 按权限管理</view></view></view>
+  <picker disabled="{{busy}}" range="{{statuses}}" value="{{statusIndex}}" bindchange="filter"><view class="picker">{{statuses[statusIndex]}} ▾</view></picker>
   <empty-state wx:if="{{error}}" message="{{error}}" retry bind:retry="retry"/>
   <view class="card" wx:for="{{rows}}" wx:key="_id">
     <view class="section-title">{{item.realName}} · {{item.phone}}</view>
     <view>申请等级：{{item.appliedLevel === 2 ? '认证服务员' : '邻居帮手'}}</view>
     <view>身份证后四位：{{item.idLast4}}</view>
     <view>保险到期：{{item.insuranceText || '未登记'}}</view>
-    <image class="photo" wx:for="{{item.kycFileIds}}" wx:for-item="photo" wx:key="*this" src="{{photo}}" data-url="{{photo}}" bindtap="preview"/>
+    <private-media media-class="photo" wx:for="{{item.kycFileIds}}" wx:for-item="photo" wx:key="*this" src="{{photo}}" data-url="{{photo}}" bindtap="preview"/>
     <block wx:if="{{item.status === 'pending'}}">
       <textarea maxlength="200" value="{{item.note}}" data-index="{{index}}" bindinput="note" placeholder="审核备注"/>
-      <checkbox-group data-index="{{index}}" bindchange="certs"><label><checkbox value="escort" checked="{{item.escortCert}}"/>陪诊证书</label><label><checkbox value="pet" checked="{{item.petCert}}"/>宠物照护经验</label></checkbox-group>
-      <button type="primary" data-index="{{index}}" data-level="1" bindtap="review" disabled="{{busy}}">通过为邻居帮手</button>
-      <button type="primary" data-index="{{index}}" data-level="2" bindtap="review" disabled="{{busy}}">通过为认证服务员</button>
-      <button data-index="{{index}}" data-level="0" bindtap="review" disabled="{{busy}}">拒绝申请</button>
+      <checkbox-group data-index="{{index}}" bindchange="certs"><label><checkbox value="escort" checked="{{item.escortCert}}" disabled="{{busy || loading}}"/>陪诊证书</label><label><checkbox value="pet" checked="{{item.petCert}}" disabled="{{busy || loading}}"/>宠物照护经验</label></checkbox-group>
+      <button class="ui-button" type="primary" data-index="{{index}}" data-level="1" bindtap="review" disabled="{{busy || loading}}">通过为邻居帮手</button>
+      <button class="ui-button" type="primary" data-index="{{index}}" data-level="2" bindtap="review" disabled="{{busy || loading}}">通过为认证服务员</button>
+      <button class="ui-button" data-index="{{index}}" data-level="0" bindtap="review" disabled="{{busy || loading}}">拒绝申请</button>
     </block>
-    <block wx:if="{{item.status === 'approved'}}"><view class="section-title">服务证书</view><checkbox-group data-index="{{index}}" bindchange="certs"><label><checkbox value="escort" checked="{{item.escortCert}}"/>陪诊证书</label><label><checkbox value="pet" checked="{{item.petCert}}"/>宠物照护经验</label></checkbox-group></block>
-    <button wx:if="{{item.cleanupPending}}" data-id="{{item._id}}" bindtap="cleanup" disabled="{{busy}}">重试清理证件照片</button>
+    <block wx:if="{{item.status === 'approved'}}"><view class="section-title">服务证书{{busy ? ' · 保存中' : ''}}</view><checkbox-group data-index="{{index}}" bindchange="certs"><label><checkbox value="escort" checked="{{item.escortCert}}" disabled="{{busy || loading}}"/>陪诊证书</label><label><checkbox value="pet" checked="{{item.petCert}}" disabled="{{busy || loading}}"/>宠物照护经验</label></checkbox-group></block>
+    <button class="ui-button" wx:if="{{item.cleanupPending}}" data-id="{{item._id}}" bindtap="cleanup" disabled="{{busy || loading}}">重试清理证件照片</button>
     <picker mode="date" value="{{item.insuranceText}}" data-id="{{item._id}}" bindchange="insurance"><view class="picker">设置保险到期日</view></picker>
-    <button wx:if="{{item.status === 'approved'}}" data-id="{{item._id}}" bindtap="suspend" disabled="{{busy}}">停用服务员</button>
+    <button class="ui-button" wx:if="{{item.status === 'approved'}}" data-id="{{item._id}}" bindtap="suspend" disabled="{{busy || loading}}">停用服务员</button>
   </view>
   <empty-state wx:if="{{loading}}" message="正在加载…"/><empty-state wx:elif="{{!error && !rows.length}}" message="暂无记录"/>
 </view>

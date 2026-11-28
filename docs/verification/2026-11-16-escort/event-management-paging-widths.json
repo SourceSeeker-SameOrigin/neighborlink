@@ -1,0 +1,121 @@
+{
+  "scope": "微信开发者工具游客工程。使用实际活动列表页面、合成 API 和页面方法，测量首批与续页出错时按钮的渲染边界。",
+  "results": [
+    {
+      "width": 320,
+      "initial": 20,
+      "first": {
+        "id": "",
+        "dataset": {},
+        "left": 21,
+        "right": 299,
+        "top": 5343,
+        "bottom": 5380,
+        "width": 278,
+        "height": 37
+      },
+      "retry": {
+        "id": "",
+        "dataset": {},
+        "left": 21,
+        "right": 299,
+        "top": 5401,
+        "bottom": 5438,
+        "width": 278,
+        "height": 37
+      },
+      "retained": 20,
+      "error": "合成网络中断",
+      "loaded": 21,
+      "roster": "联调活动21",
+      "attendees": 1
+    },
+    {
+      "width": 375,
+      "initial": 20,
+      "first": {
+        "id": "",
+        "dataset": {},
+        "left": 25,
+        "right": 350,
+        "top": 6379,
+        "bottom": 6423,
+        "width": 325,
+        "height": 44
+      },
+      "retry": {
+        "id": "",
+        "dataset": {},
+        "left": 25,
+        "right": 350,
+        "top": 6449,
+        "bottom": 6493,
+        "width": 325,
+        "height": 44
+      },
+      "retained": 20,
+      "error": "合成网络中断",
+      "loaded": 21,
+      "roster": "联调活动21",
+      "attendees": 1
+    },
+    {
+      "width": 390,
+      "initial": 20,
+      "first": {
+        "id": "",
+        "dataset": {},
+        "left": 25,
+        "right": 365,
+        "top": 6448,
+        "bottom": 6493,
+        "width": 340,
+        "height": 45
+      },
+      "retry": {
+        "id": "",
+        "dataset": {},
+        "left": 25,
+        "right": 365,
+        "top": 6518,
+        "bottom": 6563,
+        "width": 340,
+        "height": 45
+      },
+      "retained": 20,
+      "error": "合成网络中断",
+      "loaded": 21,
+      "roster": "联调活动21",
+      "attendees": 1
+    },
+    {
+      "width": 430,
+      "initial": 20,
+      "first": {
+        "id": "",
+        "dataset": {},
+        "left": 27,
+        "right": 403,
+        "top": 7126,
+        "bottom": 7176,
+        "width": 376,
+        "height": 50
+      },
+      "retry": {
+        "id": "",
+        "dataset": {},
+        "left": 27,
+        "right": 403,
+        "top": 7203,
+        "bottom": 7253,
+        "width": 376,
+        "height": 50
+      },
+      "retained": 20,
+      "error": "合成网络中断",
+      "loaded": 21,
+      "roster": "联调活动21",
+      "attendees": 1
+    }
+  ]
+}

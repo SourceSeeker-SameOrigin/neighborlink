@@ -1,0 +1,367 @@
+{
+  "scope": "isolated, no cloud writes",
+  "total": 72,
+  "passed": 72,
+  "results": [
+    {
+      "route": "pages/orders/detail",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "pages/orders/detail",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "pages/orders/detail",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "pages/orders/detail",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "pages/orders/detail",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "pages/orders/detail",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    },
+    {
+      "route": "provider/task/task",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "provider/task/task",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "provider/task/task",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "provider/task/task",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "provider/task/task",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "provider/task/task",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    },
+    {
+      "route": "admin/order/order",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "admin/order/order",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "admin/order/order",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "admin/order/order",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "admin/order/order",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "admin/order/order",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    },
+    {
+      "route": "board/detail/detail",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "board/detail/detail",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "board/detail/detail",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "board/detail/detail",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "board/detail/detail",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "board/detail/detail",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    },
+    {
+      "route": "idle/detail/detail",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "idle/detail/detail",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "idle/detail/detail",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "idle/detail/detail",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "idle/detail/detail",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "idle/detail/detail",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    },
+    {
+      "route": "idle/sale/sale",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "idle/sale/sale",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "idle/sale/sale",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "idle/sale/sale",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "idle/sale/sale",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "idle/sale/sale",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    },
+    {
+      "route": "events/detail/detail",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "events/detail/detail",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "events/detail/detail",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "events/detail/detail",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "events/detail/detail",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "events/detail/detail",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    },
+    {
+      "route": "pet/work",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "pet/work",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "pet/work",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "pet/work",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "pet/work",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "pet/work",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    },
+    {
+      "route": "pet/reports",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "pet/reports",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "pet/reports",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "pet/reports",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "pet/reports",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "pet/reports",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    },
+    {
+      "route": "shops/detail/detail",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "shops/detail/detail",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "shops/detail/detail",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "shops/detail/detail",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "shops/detail/detail",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "shops/detail/detail",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    },
+    {
+      "route": "station/batch/batch",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "station/batch/batch",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "station/batch/batch",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "station/batch/batch",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "station/batch/batch",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "station/batch/batch",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    },
+    {
+      "route": "shops/booking/booking",
+      "case": "missing:undefined",
+      "pass": true
+    },
+    {
+      "route": "shops/booking/booking",
+      "case": "missing:",
+      "pass": true
+    },
+    {
+      "route": "shops/booking/booking",
+      "case": "missing:   ",
+      "pass": true
+    },
+    {
+      "route": "shops/booking/booking",
+      "case": "missing:null",
+      "pass": true
+    },
+    {
+      "route": "shops/booking/booking",
+      "case": "missing:123",
+      "pass": true
+    },
+    {
+      "route": "shops/booking/booking",
+      "case": "valid identifier retains API + guarded template + return route",
+      "pass": true
+    }
+  ]
+}

@@ -1,1 +1,1 @@
-.empty{text-align:center;padding:56rpx 24rpx;color:#65706a;font-size:32rpx}button{margin-top:24rpx;min-height:88rpx;font-size:32rpx;}
+.empty{text-align:center;padding:56rpx 24rpx;color:#687466;font-size:32rpx;line-height:1.65;border-radius:24rpx;background:#F0F3E8;margin:24rpx 0}.empty-icon{width:100rpx;height:100rpx;opacity:.8;margin-bottom:16rpx}.message{overflow-wrap:break-word}.retry-action{margin-top:24rpx;min-height:88rpx;font-size:32rpx;padding:16rpx 24rpx;line-height:1.6;background:#1F7A5C;color:#FFF;border-radius:18rpx}.retry-action::after{border:0}

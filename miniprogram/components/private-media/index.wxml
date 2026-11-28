@@ -1,0 +1,4 @@
+<image wx:if="{{url && kind === 'image'}}" class="media-class" src="{{url}}" mode="{{mode}}" binderror="failed" bindload="loaded"/>
+<video wx:if="{{url && kind === 'video'}}" class="media-class" src="{{url}}" controls="{{controls}}" binderror="failed"/>
+<view wx:if="{{loading}}" class="hint">正在加载图片…</view>
+<view wx:if="{{error}}" class="hint">{{error}}<button class="retry" catchtap="retry" disabled="{{loading}}">重新加载图片</button></view>

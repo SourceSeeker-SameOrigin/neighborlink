@@ -1,0 +1,518 @@
+{
+  "scope": "Native simulator clicks; actual page with synthetic API; 320/375/390 visual checked; 430 initial layout only, modal blocks clicks; no cloud writes",
+  "records": [
+    {
+      "width": 320,
+      "writes": [
+        {
+          "action": "start",
+          "orderId": "synthetic-order"
+        },
+        {
+          "action": "deliver",
+          "orderId": "synthetic-order"
+        },
+        {
+          "action": "deliver",
+          "orderId": "synthetic-order"
+        }
+      ],
+      "records": [
+        {
+          "status": "accepted",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 10,
+              "right": 310,
+              "top": 329,
+              "bottom": 366,
+              "width": 300,
+              "height": 37,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 10,
+              "right": 310,
+              "top": 416,
+              "bottom": 453,
+              "width": 300,
+              "height": 37,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 10,
+              "right": 310,
+              "top": 416,
+              "bottom": 453,
+              "width": 300,
+              "height": 37,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": null,
+          "ready": false,
+          "loading": false,
+          "busy": false,
+          "error": "任务读取失败（本地合成），请重试",
+          "rects": [
+            {
+              "left": 10,
+              "right": 310,
+              "top": 225,
+              "bottom": 262,
+              "width": 300,
+              "height": 37,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 10,
+              "right": 310,
+              "top": 416,
+              "bottom": 453,
+              "width": 300,
+              "height": 37,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "完成提交失败（本地合成），请重试",
+          "rects": [
+            {
+              "left": 10,
+              "right": 310,
+              "top": 604,
+              "bottom": 641,
+              "width": 300,
+              "height": 37,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "delivered",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 10,
+              "right": 310,
+              "top": 289,
+              "bottom": 326,
+              "width": 300,
+              "height": 37,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "delivered",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 10,
+              "right": 310,
+              "top": 289,
+              "bottom": 326,
+              "width": 300,
+              "height": 37,
+              "disabled": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "writes": [
+        {
+          "action": "start",
+          "orderId": "synthetic-order"
+        },
+        {
+          "action": "deliver",
+          "orderId": "synthetic-order"
+        },
+        {
+          "action": "deliver",
+          "orderId": "synthetic-order"
+        }
+      ],
+      "records": [
+        {
+          "status": "accepted",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 363,
+              "top": 398,
+              "bottom": 442,
+              "width": 351,
+              "height": 44,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 363,
+              "top": 504,
+              "bottom": 548,
+              "width": 351,
+              "height": 44,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 363,
+              "top": 504,
+              "bottom": 548,
+              "width": 351,
+              "height": 44,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": null,
+          "ready": false,
+          "loading": false,
+          "busy": false,
+          "error": "任务读取失败（本地合成），请重试",
+          "rects": [
+            {
+              "left": 12,
+              "right": 363,
+              "top": 271,
+              "bottom": 315,
+              "width": 351,
+              "height": 44,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 363,
+              "top": 504,
+              "bottom": 548,
+              "width": 351,
+              "height": 44,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "完成提交失败（本地合成），请重试",
+          "rects": [
+            {
+              "left": 12,
+              "right": 363,
+              "top": 731,
+              "bottom": 775,
+              "width": 351,
+              "height": 44,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "delivered",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 363,
+              "top": 350,
+              "bottom": 394,
+              "width": 351,
+              "height": 44,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "delivered",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 363,
+              "top": 350,
+              "bottom": 394,
+              "width": 351,
+              "height": 44,
+              "disabled": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "writes": [
+        {
+          "action": "start",
+          "orderId": "synthetic-order"
+        },
+        {
+          "action": "deliver",
+          "orderId": "synthetic-order"
+        },
+        {
+          "action": "deliver",
+          "orderId": "synthetic-order"
+        }
+      ],
+      "records": [
+        {
+          "status": "accepted",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 378,
+              "top": 434,
+              "bottom": 479,
+              "width": 366,
+              "height": 45,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 378,
+              "top": 540,
+              "bottom": 585,
+              "width": 366,
+              "height": 45,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 378,
+              "top": 540,
+              "bottom": 585,
+              "width": 366,
+              "height": 45,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": null,
+          "ready": false,
+          "loading": false,
+          "busy": false,
+          "error": "任务读取失败（本地合成），请重试",
+          "rects": [
+            {
+              "left": 12,
+              "right": 378,
+              "top": 310,
+              "bottom": 355,
+              "width": 366,
+              "height": 45,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 378,
+              "top": 540,
+              "bottom": 585,
+              "width": 366,
+              "height": 45,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "in_service",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "完成提交失败（本地合成），请重试",
+          "rects": [
+            {
+              "left": 12,
+              "right": 378,
+              "top": 772,
+              "bottom": 817,
+              "width": 366,
+              "height": 45,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "delivered",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 378,
+              "top": 384,
+              "bottom": 429,
+              "width": 366,
+              "height": 45,
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "status": "delivered",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 12,
+              "right": 378,
+              "top": 384,
+              "bottom": 429,
+              "width": 366,
+              "height": 45,
+              "disabled": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "width": 430,
+      "writes": [],
+      "records": [
+        {
+          "status": "accepted",
+          "ready": true,
+          "loading": false,
+          "busy": false,
+          "error": "",
+          "rects": [
+            {
+              "left": 13,
+              "right": 417,
+              "top": 478,
+              "bottom": 528,
+              "width": 404,
+              "height": 50,
+              "disabled": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

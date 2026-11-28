@@ -1,0 +1,53 @@
+{
+  "scope": "local synthetic records only; no cloud writes",
+  "results": [
+    {
+      "eventStatus": "draft",
+      "result": {
+        "ok": true,
+        "data": {
+          "signupId": "s",
+          "status": "checked_in"
+        }
+      },
+      "signupStatus": "checked_in",
+      "writes": 1
+    },
+    {
+      "eventStatus": "published",
+      "result": {
+        "ok": true,
+        "data": {
+          "signupId": "s",
+          "status": "checked_in"
+        }
+      },
+      "signupStatus": "checked_in",
+      "writes": 1
+    },
+    {
+      "eventStatus": "cancelled",
+      "result": {
+        "ok": true,
+        "data": {
+          "signupId": "s",
+          "status": "checked_in"
+        }
+      },
+      "signupStatus": "checked_in",
+      "writes": 1
+    },
+    {
+      "eventStatus": "ended",
+      "result": {
+        "ok": true,
+        "data": {
+          "signupId": "s",
+          "status": "checked_in"
+        }
+      },
+      "signupStatus": "checked_in",
+      "writes": 1
+    }
+  ]
+}

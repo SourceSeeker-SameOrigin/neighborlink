@@ -1,0 +1,241 @@
+{
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "6d34386",
+  "functions": [
+    {
+      "function": "order",
+      "matchedSourceFiles": 76,
+      "selectedZipSha256": "283e853a64ced8fc6d70ba69643b0bf7d7999261fdab78d04f65ed52e4bb1a7f",
+      "downloadedZipSha256": "a4ddcdc7f45cff95a34fd78496c1b34b3523960915038aa4f121c12257d74c11",
+      "downloadedBytes": 7404695,
+      "sdk": "4.0.2"
+    },
+    {
+      "function": "payCallback",
+      "matchedSourceFiles": 76,
+      "selectedZipSha256": "dd3c1081661b473347a1a5bba82a64f5b227e38ae7503e5eb6b67eb0e4a56cdd",
+      "downloadedZipSha256": "036afbacc781b0da8b915db04977aae48e74a5c0c2226ecab44fde2c1dbc2e07",
+      "downloadedBytes": 7400589,
+      "sdk": "4.0.2"
+    },
+    {
+      "function": "timer",
+      "matchedSourceFiles": 76,
+      "selectedZipSha256": "d9195fc8991476da884f0ef195edb0e679e13bf14692b1050100292a1e899535",
+      "downloadedZipSha256": "8c1f7269c3aefc9ebf07ade1b08522226e3dfc572f6b90583fb4fa82b1a37c79",
+      "downloadedBytes": 7402807,
+      "sdk": "4.0.2"
+    }
+  ],
+  "experience": {
+    "version": "0.1.11",
+    "verifiedLabel": "体验版",
+    "remarks": "活动取消确认与住户身份核对"
+  },
+  "isolatedCasesUsingDownloadedFunctions": [
+    {
+      "mode": "mock",
+      "condition": "deadline",
+      "fault": "none",
+      "responses": [
+        true,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 0
+    },
+    {
+      "mode": "mock",
+      "condition": "deadline",
+      "fault": "commit",
+      "responses": [
+        false,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 0
+    },
+    {
+      "mode": "mock",
+      "condition": "cancelled",
+      "fault": "none",
+      "responses": [
+        true,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 0
+    },
+    {
+      "mode": "mock",
+      "condition": "cancelled",
+      "fault": "commit",
+      "responses": [
+        false,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 0
+    },
+    {
+      "mode": "wechat",
+      "condition": "deadline",
+      "fault": "none",
+      "responses": [
+        true,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 1
+    },
+    {
+      "mode": "wechat",
+      "condition": "deadline",
+      "fault": "commit",
+      "responses": [
+        false,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 1
+    },
+    {
+      "mode": "wechat",
+      "condition": "deadline",
+      "fault": "ack",
+      "responses": [
+        true,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 2
+    },
+    {
+      "mode": "wechat",
+      "condition": "deadline",
+      "fault": "delivery",
+      "responses": [
+        true,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 2
+    },
+    {
+      "mode": "wechat",
+      "condition": "cancelled",
+      "fault": "none",
+      "responses": [
+        true,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 1
+    },
+    {
+      "mode": "wechat",
+      "condition": "cancelled",
+      "fault": "commit",
+      "responses": [
+        false,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 1
+    },
+    {
+      "mode": "wechat",
+      "condition": "cancelled",
+      "fault": "ack",
+      "responses": [
+        true,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 2
+    },
+    {
+      "mode": "wechat",
+      "condition": "cancelled",
+      "fault": "delivery",
+      "responses": [
+        true,
+        true,
+        true
+      ],
+      "paid": true,
+      "order": "cancelled",
+      "signup": "cancelled",
+      "reserved": 0,
+      "refunds": 1,
+      "refundFen": 500,
+      "refundRequests": 2
+    }
+  ]
+}

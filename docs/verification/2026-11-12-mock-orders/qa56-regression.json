@@ -1,0 +1,139 @@
+{
+  "scope": "Actual page code with synthetic API/media; no cloud writes, UI or real camera acceptance",
+  "total": 33,
+  "passed": 33,
+  "results": [
+    {
+      "name": "merchant late submit onHide",
+      "passed": true
+    },
+    {
+      "name": "merchant late submit onUnload",
+      "passed": true
+    },
+    {
+      "name": "merchant late failed submit after hide is silent then readonly reload",
+      "passed": true
+    },
+    {
+      "name": "merchant unload cancels session continuation",
+      "passed": true
+    },
+    {
+      "name": "merchant stale read cannot overwrite reentry",
+      "passed": true
+    },
+    {
+      "name": "merchant pending submit blocks duplicate and reload",
+      "passed": true
+    },
+    {
+      "name": "merchant returning before pending submit resolves only refreshes",
+      "passed": true
+    },
+    {
+      "name": "merchant failed initialization blocks submit",
+      "passed": true
+    },
+    {
+      "name": "merchant visible submission still succeeds",
+      "passed": true
+    },
+    {
+      "name": "station late submit onHide",
+      "passed": true
+    },
+    {
+      "name": "station late submit onUnload",
+      "passed": true
+    },
+    {
+      "name": "station late failed submit after hide is silent then readonly reload",
+      "passed": true
+    },
+    {
+      "name": "station unload cancels session continuation",
+      "passed": true
+    },
+    {
+      "name": "station stale read cannot overwrite reentry",
+      "passed": true
+    },
+    {
+      "name": "station pending submit blocks duplicate and reload",
+      "passed": true
+    },
+    {
+      "name": "station returning before pending submit resolves only refreshes",
+      "passed": true
+    },
+    {
+      "name": "station failed initialization blocks submit",
+      "passed": true
+    },
+    {
+      "name": "station visible submission still succeeds",
+      "passed": true
+    },
+    {
+      "name": "merchant late upload onHide",
+      "passed": true
+    },
+    {
+      "name": "merchant late upload onUnload",
+      "passed": true
+    },
+    {
+      "name": "merchant camera return accepts pending upload without duplicate",
+      "passed": true
+    },
+    {
+      "name": "merchant upload failure keeps prior file and releases busy",
+      "passed": true
+    },
+    {
+      "name": "merchant drafts survive readonly retry",
+      "passed": true
+    },
+    {
+      "name": "station selection preserved by IDs through reordered refresh",
+      "passed": true
+    },
+    {
+      "name": "merchant late API permission callback is inactive",
+      "passed": true
+    },
+    {
+      "name": "station late API permission callback is inactive",
+      "passed": true
+    },
+    {
+      "name": "merchant hidden upload completion waits for successful same-user read",
+      "passed": true
+    },
+    {
+      "name": "merchant deferred upload cannot cross user identity",
+      "passed": true
+    },
+    {
+      "name": "real API forbidden side effects active=true",
+      "passed": true
+    },
+    {
+      "name": "real API forbidden side effects active=false",
+      "passed": true
+    },
+    {
+      "name": "real media upload loading=undefined",
+      "passed": true
+    },
+    {
+      "name": "real media upload loading=false",
+      "passed": true
+    },
+    {
+      "name": "merchant upload uses page busy indicator instead of global loading",
+      "passed": true
+    }
+  ]
+}

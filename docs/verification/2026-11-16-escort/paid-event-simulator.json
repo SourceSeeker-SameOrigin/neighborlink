@@ -1,0 +1,78 @@
+[
+  {
+    "width": 320,
+    "initial": true,
+    "afterCancel": {
+      "canPay": true,
+      "payCalls": 0,
+      "status": "pending_pay"
+    },
+    "afterReturn": {
+      "canPay": true,
+      "payCalls": 0,
+      "status": "pending_pay"
+    },
+    "fresh": {
+      "canPay": false,
+      "payCalls": 1,
+      "status": "signed"
+    }
+  },
+  {
+    "width": 375,
+    "initial": true,
+    "afterCancel": {
+      "canPay": true,
+      "payCalls": 0,
+      "status": "pending_pay"
+    },
+    "afterReturn": {
+      "canPay": true,
+      "payCalls": 0,
+      "status": "pending_pay"
+    },
+    "fresh": {
+      "canPay": false,
+      "payCalls": 1,
+      "status": "signed"
+    }
+  },
+  {
+    "width": 390,
+    "initial": true,
+    "afterCancel": {
+      "canPay": true,
+      "payCalls": 0,
+      "status": "pending_pay"
+    },
+    "afterReturn": {
+      "canPay": true,
+      "payCalls": 0,
+      "status": "pending_pay"
+    },
+    "fresh": {
+      "canPay": false,
+      "payCalls": 1,
+      "status": "signed"
+    }
+  },
+  {
+    "width": 430,
+    "initial": true,
+    "afterCancel": {
+      "canPay": true,
+      "payCalls": 0,
+      "status": "pending_pay"
+    },
+    "afterReturn": {
+      "canPay": true,
+      "payCalls": 0,
+      "status": "pending_pay"
+    },
+    "fresh": {
+      "canPay": false,
+      "payCalls": 1,
+      "status": "signed"
+    }
+  }
+]

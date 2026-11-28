@@ -1,0 +1,54 @@
+{
+  "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "authorizedFunctions": [
+    "membership",
+    "order",
+    "payCallback",
+    "content",
+    "chat",
+    "merchant",
+    "admin"
+  ],
+  "uploaded": [
+    "membership",
+    "order",
+    "payCallback",
+    "content",
+    "chat",
+    "merchant",
+    "admin"
+  ],
+  "verified": [
+    "membership",
+    "order",
+    "payCallback",
+    "content",
+    "chat",
+    "merchant",
+    "admin"
+  ],
+  "supersedesOld110ebe8": [
+    "order",
+    "membership",
+    "merchant"
+  ],
+  "oldBatchStillPending": [],
+  "nextUserAction": null,
+  "lastObservedSelection": "admin.zip SHA-256 matched authorized manifest before deployment",
+  "deploymentOrderRule": "membership/order/payCallback before admin; admin last",
+  "noRoleTriggerHttpKeyFeaturePlanChanges": true,
+  "oldBatchVerifiedThisRound": [
+    "user",
+    "provider",
+    "idle",
+    "board",
+    "timer"
+  ],
+  "nextFunction": null,
+  "browserPageId": 2,
+  "hashListener": "window.__jinlin110ebe8Proof",
+  "nextPackageSource": null,
+  "authorizedScopeCodeUpdatesComplete": true,
+  "businessAcceptanceComplete": false
+}

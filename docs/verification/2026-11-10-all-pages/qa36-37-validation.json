@@ -1,0 +1,16 @@
+{
+  "jest": {
+    "success": true,
+    "numPassedTestSuites": 53,
+    "numPassedTests": 624,
+    "numFailedTests": 0
+  },
+  "associatedRegression": {
+    "qa34": 9,
+    "qa35": 9
+  },
+  "newRegression": 15,
+  "wxml": 77,
+  "cloudDeployment": "not needed; frontend only",
+  "liveUI": "not complete; Mac locked"
+}

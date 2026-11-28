@@ -1,0 +1,201 @@
+{
+  "source": "微信开发者工具游客工程，合成订单，选择器回读。amount 为页面数据，仅 numeric 为 1 时渲染该金额。",
+  "runs": [
+    {
+      "width": 320,
+      "frames": [
+        {
+          "mode": "fixed",
+          "error": 0,
+          "note": 1,
+          "pay": 1,
+          "pending": 0,
+          "numeric": 1,
+          "amount": "5.00",
+          "cardPending": 0,
+          "cardNumeric": 1
+        },
+        {
+          "mode": "fail",
+          "error": 1,
+          "note": 0,
+          "pay": 0,
+          "pending": 0,
+          "numeric": 0,
+          "amount": "",
+          "cardPending": 0,
+          "cardNumeric": 0
+        },
+        {
+          "mode": "pending",
+          "error": 0,
+          "note": 1,
+          "pay": 0,
+          "pending": 1,
+          "numeric": 0,
+          "amount": "0.00",
+          "cardPending": 1,
+          "cardNumeric": 0
+        },
+        {
+          "mode": "quoted",
+          "error": 0,
+          "note": 1,
+          "pay": 1,
+          "pending": 0,
+          "numeric": 1,
+          "amount": "7.30",
+          "cardPending": 0,
+          "cardNumeric": 1
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "frames": [
+        {
+          "mode": "fixed",
+          "error": 0,
+          "note": 1,
+          "pay": 1,
+          "pending": 0,
+          "numeric": 1,
+          "amount": "5.00",
+          "cardPending": 0,
+          "cardNumeric": 1
+        },
+        {
+          "mode": "fail",
+          "error": 1,
+          "note": 0,
+          "pay": 0,
+          "pending": 0,
+          "numeric": 0,
+          "amount": "",
+          "cardPending": 0,
+          "cardNumeric": 0
+        },
+        {
+          "mode": "pending",
+          "error": 0,
+          "note": 1,
+          "pay": 0,
+          "pending": 1,
+          "numeric": 0,
+          "amount": "0.00",
+          "cardPending": 1,
+          "cardNumeric": 0
+        },
+        {
+          "mode": "quoted",
+          "error": 0,
+          "note": 1,
+          "pay": 1,
+          "pending": 0,
+          "numeric": 1,
+          "amount": "7.30",
+          "cardPending": 0,
+          "cardNumeric": 1
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "frames": [
+        {
+          "mode": "fixed",
+          "error": 0,
+          "note": 1,
+          "pay": 1,
+          "pending": 0,
+          "numeric": 1,
+          "amount": "5.00",
+          "cardPending": 0,
+          "cardNumeric": 1
+        },
+        {
+          "mode": "fail",
+          "error": 1,
+          "note": 0,
+          "pay": 0,
+          "pending": 0,
+          "numeric": 0,
+          "amount": "",
+          "cardPending": 0,
+          "cardNumeric": 0
+        },
+        {
+          "mode": "pending",
+          "error": 0,
+          "note": 1,
+          "pay": 0,
+          "pending": 1,
+          "numeric": 0,
+          "amount": "0.00",
+          "cardPending": 1,
+          "cardNumeric": 0
+        },
+        {
+          "mode": "quoted",
+          "error": 0,
+          "note": 1,
+          "pay": 1,
+          "pending": 0,
+          "numeric": 1,
+          "amount": "7.30",
+          "cardPending": 0,
+          "cardNumeric": 1
+        }
+      ]
+    },
+    {
+      "width": 430,
+      "frames": [
+        {
+          "mode": "fixed",
+          "error": 0,
+          "note": 1,
+          "pay": 1,
+          "pending": 0,
+          "numeric": 1,
+          "amount": "5.00",
+          "cardPending": 0,
+          "cardNumeric": 1
+        },
+        {
+          "mode": "fail",
+          "error": 1,
+          "note": 0,
+          "pay": 0,
+          "pending": 0,
+          "numeric": 0,
+          "amount": "",
+          "cardPending": 0,
+          "cardNumeric": 0
+        },
+        {
+          "mode": "pending",
+          "error": 0,
+          "note": 1,
+          "pay": 0,
+          "pending": 1,
+          "numeric": 0,
+          "amount": "0.00",
+          "cardPending": 1,
+          "cardNumeric": 0
+        },
+        {
+          "mode": "quoted",
+          "error": 0,
+          "note": 1,
+          "pay": 1,
+          "pending": 0,
+          "numeric": 1,
+          "amount": "7.30",
+          "cardPending": 0,
+          "cardNumeric": 1
+        }
+      ]
+    }
+  ]
+}

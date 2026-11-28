@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-09",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "fc2a313",
+  "identity": "real logged-in unbound resident without approved merchant",
+  "execution": "WeChat DevTools Console wx.cloud.callFunction and native merchant-order page navigation",
+  "results": [
+    {
+      "action": "myApplication",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "message": "该功能暂未开放"
+    },
+    {
+      "action": "listForCommunity",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "message": "该功能暂未开放"
+    },
+    {
+      "action": "myServices",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "商家账号尚未通过审核"
+    },
+    {
+      "action": "merchantOrders",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "商家账号尚未通过审核"
+    },
+    {
+      "action": "adminList",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    },
+    {
+      "action": "adminServices",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    },
+    {
+      "action": "servicesForMerchant",
+      "ok": false,
+      "code": "E_INVALID_PARAM",
+      "message": "商家不能为空或超出长度限制"
+    }
+  ],
+  "uiObserved": [
+    "Merchant orders route opens then returns to home after E_FORBIDDEN, matching miniprogram/utils/api.js"
+  ],
+  "consoleObservation": {
+    "errors": 0,
+    "warningsBefore": 11,
+    "warningsAfter": 13,
+    "allWarningsClassified": false
+  },
+  "notVerified": [
+    "Approved merchant application, review and service management success",
+    "Bound resident merchant/service display and moderationHidden behavior",
+    "Booking, quoting, fulfillment, payment and refund",
+    "Other devices and full merchant UI acceptance"
+  ],
+  "writes": "No application, review, service, booking, payment, role or feature changes"
+}

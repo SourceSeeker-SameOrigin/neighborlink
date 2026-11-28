@@ -1,1 +1,5 @@
-.field{margin:24rpx 0}.label{display:block;color:#666;margin-bottom:8rpx}.muted{color:#777;font-size:26rpx;line-height:1.6;margin:24rpx 0}
+.statement-picker { gap:20rpx; }
+.statement-value { flex:1; min-width:0; overflow-wrap:break-word; }
+.statement-arrow { flex-shrink:0; color:#71816D; font-size:40rpx; line-height:1; }
+.statement-note { margin-bottom:28rpx; }
+.statement-link { text-align:left; }

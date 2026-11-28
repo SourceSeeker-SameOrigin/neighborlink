@@ -1,0 +1,29 @@
+{
+  "scope": "Isolated actual page code, synthetic API/media only; zero cloud writes",
+  "results": [
+    {
+      "kind": "merchant",
+      "scenario": "submit result after leaving",
+      "applyCalls": 1,
+      "lateToasts": 0,
+      "lateNavigateBack": 0,
+      "lateSetData": 0,
+      "lateApiReads": 0
+    },
+    {
+      "kind": "station",
+      "scenario": "submit result after leaving",
+      "applyCalls": 1,
+      "lateToasts": 0,
+      "lateNavigateBack": 0,
+      "lateSetData": 0,
+      "lateApiReads": 0
+    },
+    {
+      "kind": "merchant",
+      "scenario": "upload result after leaving",
+      "lateSetData": 0,
+      "lateFileAssigned": false
+    }
+  ]
+}

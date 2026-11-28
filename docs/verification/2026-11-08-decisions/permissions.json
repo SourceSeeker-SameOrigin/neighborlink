@@ -1,0 +1,206 @@
+{
+  "functions": 21,
+  "scope": "21函数源码声明核对；本批13个非空声明已获开发工具同步成功提示并回读源码；实际权限独立回读/业务API调用尚未验收",
+  "rows": [
+    {
+      "name": "admin",
+      "apis": [
+        "wxacode.getUnlimited",
+        "subscribeMessage.send"
+      ],
+      "reason": "海报码及管理通知；聊天导入模块不等于管理员发送 UGC",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "board",
+      "apis": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync",
+        "subscribeMessage.send"
+      ],
+      "reason": "帖子/评论文本及图片审核；零元或模拟支付任务通知",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "catalog",
+      "apis": [],
+      "reason": "仅读取配置和二维码解析",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收"
+    },
+    {
+      "name": "chat",
+      "apis": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync"
+      ],
+      "reason": "聊天文本和图片审核",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "content",
+      "apis": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync"
+      ],
+      "reason": "公告/广告文本及图片审核",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "coupon",
+      "apis": [],
+      "reason": "券配置/发放无 openapi 调用",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收"
+    },
+    {
+      "name": "event",
+      "apis": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync",
+        "subscribeMessage.send",
+        "wxacode.getUnlimited"
+      ],
+      "reason": "活动内容审核、签到二维码和模拟支付后的活动通知",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "idle",
+      "apis": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync"
+      ],
+      "reason": "闲置内容审核；交易 kind 不触发服务任务通知",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "mediaCallback",
+      "apis": [],
+      "reason": "接收审核回调，不发起内容安全请求",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收"
+    },
+    {
+      "name": "membership",
+      "apis": [],
+      "reason": "月卡付款激活无服务订单通知分支",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收"
+    },
+    {
+      "name": "merchant",
+      "apis": [
+        "security.msgSecCheck",
+        "security.mediaCheckAsync"
+      ],
+      "reason": "商家服务及预约文本、图片审核",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "order",
+      "apis": [
+        "security.msgSecCheck",
+        "subscribeMessage.send"
+      ],
+      "reason": "下单/评价/投诉文本审核及服务通知",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "payCallback",
+      "apis": [
+        "subscribeMessage.send"
+      ],
+      "reason": "真实付款后新任务与回收住户通知",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "payout",
+      "apis": [],
+      "reason": "签名请求微信支付 HTTP API，不是 openapi 云调用",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收"
+    },
+    {
+      "name": "pet",
+      "apis": [
+        "subscribeMessage.send"
+      ],
+      "reason": "喂宠履约住户通知",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "provider",
+      "apis": [
+        "subscribeMessage.send",
+        "wxacode.getUnlimited"
+      ],
+      "reason": "接单/完成住户通知与推荐码生成；没有可达文本审核调用",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "refundCallback",
+      "apis": [],
+      "reason": "退款回调不触发付款通知分支",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收"
+    },
+    {
+      "name": "station",
+      "apis": [],
+      "reason": "驿站申请及配送当前无 openapi 调用",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收"
+    },
+    {
+      "name": "timer",
+      "apis": [
+        "subscribeMessage.send"
+      ],
+      "reason": "自动补偿与定时通知；本批不启用触发器",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收"
+    },
+    {
+      "name": "user",
+      "apis": [
+        "phonenumber.getPhoneNumber"
+      ],
+      "reason": "真实手机号 code 换取手机号",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    },
+    {
+      "name": "vacant",
+      "apis": [
+        "subscribeMessage.send"
+      ],
+      "reason": "巡检报告通知",
+      "cloudEffectivePermission": "未核验",
+      "realApiCall": "未验收",
+      "developerToolsSync": "成功提示已核实；见cloud-permission-sync.json"
+    }
+  ]
+}

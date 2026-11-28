@@ -1,2 +1,2 @@
 /* 通用页面样式位于 app.wxss。 */
-.poster{width:100%;margin:20rpx 0}button{margin:16rpx 0}
+.poster{width:100%;margin:20rpx 0}.ui-button{margin:16rpx 0}

@@ -1,0 +1,123 @@
+{
+  "scope": "Actual page code with synthetic API/media; no cloud writes, UI or real camera acceptance",
+  "total": 24,
+  "passed": 4,
+  "results": [
+    {
+      "name": "merchant late submit onHide",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "merchant late submit onUnload",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "merchant late failed submit after hide is silent then readonly reload",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ '{\"loading\":false,\"ready\":true,\"loadError\":false,\"busy\":false,\"error\":\"synthetic apply failure\",\"categories\":[\"家政\",\"维修\",\"洗衣\",\"开锁\",\"清运\",\"食堂\",\"回收企业\",\"其他\"],\"categoryIndex\":0,\"name\":\"\",\"licenseName\":\"\",\"creditCode\":\"\",\"contactName\":\"\",\"phone\":\"\",\"licenseFileId\":\"\",\"merchantStatusNames\":{\"pending\":\"待审核\",\"approved\":\"已通过\",\"rejected\":\"已拒绝\",\"suspended\":\"已停用\"},\"existing\":null}'\n- '{\"loading\":false,\"ready\":true,\"loadError\":false,\"busy\":true,\"error\":\"\",\"categories\":[\"家政\",\"维修\",\"洗衣\",\"开锁\",\"清运\",\"食堂\",\"回收企业\",\"其他\"],\"categoryIndex\":0,\"name\":\"\",\"licenseName\":\"\",\"creditCode\":\"\",\"contactName\":\"\",\"phone\":\"\",\"licenseFileId\":\"\",\"merchantStatusNames\":{\"pending\":\"待审核\",\"approved\":\"已通过\",\"rejected\":\"已拒绝\",\"suspended\":\"已停用\"},\"existing\":null}'\n"
+    },
+    {
+      "name": "merchant unload cancels session continuation",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "merchant stale read cannot overwrite reentry",
+      "passed": false,
+      "error": "r.p.onShow is not a function"
+    },
+    {
+      "name": "merchant pending submit blocks duplicate and reload",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n3 !== 2\n"
+    },
+    {
+      "name": "merchant returning before pending submit resolves only refreshes",
+      "passed": false,
+      "error": "r.p.onShow is not a function"
+    },
+    {
+      "name": "merchant failed initialization blocks submit",
+      "passed": true
+    },
+    {
+      "name": "merchant visible submission still succeeds",
+      "passed": true
+    },
+    {
+      "name": "station late submit onHide",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "station late submit onUnload",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "station late failed submit after hide is silent then readonly reload",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ '{\"loading\":false,\"busy\":false,\"error\":\"synthetic apply failure\",\"loadError\":false,\"communities\":[{\"_id\":\"a\",\"stations\":[{\"code\":\"s\"}]}],\"communityIndex\":0,\"stationIndex\":0,\"application\":null}'\n- '{\"loading\":false,\"busy\":true,\"error\":\"\",\"loadError\":false,\"communities\":[{\"_id\":\"a\",\"stations\":[{\"code\":\"s\"}]}],\"communityIndex\":0,\"stationIndex\":0,\"application\":null}'\n"
+    },
+    {
+      "name": "station unload cancels session continuation",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "station stale read cannot overwrite reentry",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ '{\"loading\":false,\"busy\":false,\"error\":\"stale\",\"loadError\":true,\"communities\":[],\"communityIndex\":0,\"stationIndex\":0,\"application\":null}'\n- '{\"loading\":true,\"busy\":false,\"error\":\"\",\"loadError\":false,\"communities\":[],\"communityIndex\":0,\"stationIndex\":0,\"application\":null}'\n"
+    },
+    {
+      "name": "station pending submit blocks duplicate and reload",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n5 !== 3\n"
+    },
+    {
+      "name": "station returning before pending submit resolves only refreshes",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "station failed initialization blocks submit",
+      "passed": true
+    },
+    {
+      "name": "station visible submission still succeeds",
+      "passed": true
+    },
+    {
+      "name": "merchant late upload onHide",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ '{\"loading\":false,\"ready\":true,\"loadError\":false,\"busy\":false,\"error\":\"\",\"categories\":[\"家政\",\"维修\",\"洗衣\",\"开锁\",\"清运\",\"食堂\",\"回收企业\",\"其他\"],\"categoryIndex\":0,\"name\":\"\",\"licenseName\":\"\",\"creditCode\":\"\",\"contactName\":\"\",\"phone\":\"\",\"licenseFileId\":\"synthetic-file\",\"merchantStatusNames\":{\"pending\":\"待审核\",\"approved\":\"已通过\",\"rejected\":\"已拒绝\",\"suspended\":\"已停用\"},\"existing\":null}'\n- '{\"loading\":false,\"ready\":true,\"loadError\":false,\"busy\":false,\"error\":\"\",\"categories\":[\"家政\",\"维修\",\"洗衣\",\"开锁\",\"清运\",\"食堂\",\"回收企业\",\"其他\"],\"categoryIndex\":0,\"name\":\"\",\"licenseName\":\"\",\"creditCode\":\"\",\"contactName\":\"\",\"phone\":\"\",\"licenseFileId\":\"\",\"merchantStatusNames\":{\"pending\":\"待审核\",\"approved\":\"已通过\",\"rejected\":\"已拒绝\",\"suspended\":\"已停用\"},\"existing\":null}'\n"
+    },
+    {
+      "name": "merchant late upload onUnload",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ '{\"loading\":false,\"ready\":true,\"loadError\":false,\"busy\":false,\"error\":\"\",\"categories\":[\"家政\",\"维修\",\"洗衣\",\"开锁\",\"清运\",\"食堂\",\"回收企业\",\"其他\"],\"categoryIndex\":0,\"name\":\"\",\"licenseName\":\"\",\"creditCode\":\"\",\"contactName\":\"\",\"phone\":\"\",\"licenseFileId\":\"synthetic-file\",\"merchantStatusNames\":{\"pending\":\"待审核\",\"approved\":\"已通过\",\"rejected\":\"已拒绝\",\"suspended\":\"已停用\"},\"existing\":null}'\n- '{\"loading\":false,\"ready\":true,\"loadError\":false,\"busy\":false,\"error\":\"\",\"categories\":[\"家政\",\"维修\",\"洗衣\",\"开锁\",\"清运\",\"食堂\",\"回收企业\",\"其他\"],\"categoryIndex\":0,\"name\":\"\",\"licenseName\":\"\",\"creditCode\":\"\",\"contactName\":\"\",\"phone\":\"\",\"licenseFileId\":\"\",\"merchantStatusNames\":{\"pending\":\"待审核\",\"approved\":\"已通过\",\"rejected\":\"已拒绝\",\"suspended\":\"已停用\"},\"existing\":null}'\n"
+    },
+    {
+      "name": "merchant camera return accepts pending upload without duplicate",
+      "passed": false,
+      "error": "r.p.onShow is not a function"
+    },
+    {
+      "name": "merchant upload failure keeps prior file and releases busy",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- false\n"
+    },
+    {
+      "name": "merchant drafts survive readonly retry",
+      "passed": false,
+      "error": "r.p.onShow is not a function"
+    },
+    {
+      "name": "station selection preserved by IDs through reordered refresh",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n\n0 !== 1\n"
+    }
+  ]
+}

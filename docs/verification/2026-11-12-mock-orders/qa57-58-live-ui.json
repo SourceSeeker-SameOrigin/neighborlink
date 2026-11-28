@@ -1,0 +1,195 @@
+{
+  "date": "2026-11-12",
+  "source": "working tree based on 07da819",
+  "scope": "QA57 lists and QA58 admin detail; only existing orders read",
+  "writes": {
+    "orders": 0,
+    "payments": 0,
+    "applications": 0,
+    "uploads": 0
+  },
+  "hotReload": "unchanged true",
+  "resident": {
+    "320": {
+      "widthRead": 320,
+      "observed": [
+        "ongoing empty screenshot",
+        "actual done filter click",
+        "cancelled and closed cards",
+        "bottom scroll shows second detail link clear of tabbar"
+      ],
+      "tabs": {
+        "top": 18,
+        "height": 37,
+        "width": 94,
+        "count": 3
+      },
+      "notVerified": [
+        "detail return at this width",
+        "unread nonzero real data",
+        "full page states"
+      ]
+    },
+    "375": {
+      "widthRead": 375,
+      "observed": [
+        "actual done filter click",
+        "two terminal cards",
+        "bottom scroll shows second detail link clear of tabbar"
+      ],
+      "tabs": {
+        "top": 14,
+        "height": 44,
+        "width": 109.671875,
+        "count": 3
+      },
+      "notVerified": [
+        "detail return at this width",
+        "full page states"
+      ]
+    },
+    "390": {
+      "widthRead": 390,
+      "observed": [
+        "ongoing empty",
+        "done two terminal cards",
+        "aftersale empty clears cards",
+        "actual closed detail open and back, group done retained"
+      ],
+      "tabs": {
+        "top": 107,
+        "height": 45,
+        "width": 114.671875,
+        "count": 3
+      },
+      "returnState": {
+        "group": "done",
+        "count": 2,
+        "loading": false,
+        "error": "",
+        "hidden": false,
+        "hasMore": false
+      }
+    },
+    "430": {
+      "widthRead": 430,
+      "sourceCommit": "419f0d0",
+      "observed": [
+        "ongoing empty screenshot",
+        "actual done filter click",
+        "two terminal cards and both detail links screenshot without overlap",
+        "actual closed detail open and return",
+        "actual aftersale filter: empty screenshot, prior cards cleared"
+      ],
+      "tabs": {
+        "top": 118,
+        "height": 50,
+        "width": 127.328125,
+        "count": 3
+      },
+      "returnState": {
+        "group": "done",
+        "count": 2,
+        "loading": false,
+        "error": "",
+        "hidden": false
+      },
+      "notVerified": [
+        "real nonzero unread",
+        "real multi-page list",
+        "large-font and full states"
+      ]
+    }
+  },
+  "admin": {
+    "width": 390,
+    "observed": [
+      "all two terminal orders",
+      "native picker selects pending_quote, empty and old rows removed",
+      "picker returns all",
+      "actual closed card opens admin detail",
+      "actual navigation back"
+    ],
+    "returnState": {
+      "statusIndex": 0,
+      "count": 2,
+      "loading": false,
+      "error": "",
+      "hidden": false
+    }
+  },
+  "qa58": {
+    "before": "390 screenshot: closed unpaid order incorrectly labelled paid 1.00, placement door",
+    "after": {
+      "sourceCommit": "419f0d0",
+      "width": 430,
+      "unpaid": {
+        "observed": [
+          "actual closed card open",
+          "订单金额 ¥1.00",
+          "支付记录：未见支付成功记录",
+          "交付方式：放门口",
+          "screenshot no overlap",
+          "actual refresh clicked",
+          "actual back to list"
+        ],
+        "status": "closed"
+      },
+      "refunded": {
+        "observed": [
+          "actual cancelled card open",
+          "long payment explanation wraps within card",
+          "refund card separate",
+          "actual refresh and readback",
+          "actual back to list loading"
+        ],
+        "state": {
+          "status": "cancelled",
+          "amount": "1.00",
+          "paymentRecord": "已记录支付成功（不代表真实扣款）",
+          "refunds": [
+            {
+              "amount": "1.00",
+              "status": "成功"
+            }
+          ],
+          "loading": false,
+          "error": ""
+        }
+      },
+      "notVerified": [
+        "other widths for new QA58 text",
+        "real payment mode or cash charge",
+        "processing/failed refund real data",
+        "all admin actions"
+      ],
+      "adminReturn": {
+        "route": "admin/orders/orders",
+        "count": 2,
+        "statusIndex": 0,
+        "loading": false,
+        "error": ""
+      }
+    }
+  },
+  "limitations": [
+    "synthetic stale-response tests do not prove real multi-account concurrency",
+    "no unread messages created",
+    "no large-font or real device acceptance in this run",
+    "69 pages not fully accepted",
+    "device switches restart simulator; no cross-restart continuity claim"
+  ],
+  "followup": "2026-11-12 23:47 Asia/Shanghai; actual UI after user unlock, no new business writes",
+  "console": {
+    "errors": 0,
+    "warnings": 12,
+    "observedWarningKinds": [
+      "getSystemInfo platform notice",
+      "gray base library 3.18.0",
+      "SharedArrayBuffer deprecation",
+      "reportRealtimeAction fail not support"
+    ],
+    "note": "not zero warnings; did not change base library or tool settings",
+    "warningsAtFinalScreenshot": 14
+  }
+}

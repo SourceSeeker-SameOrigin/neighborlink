@@ -1,0 +1,99 @@
+[
+  {
+    "state": "start:load",
+    "detail": "",
+    "stack": [
+      "probe/nav/start"
+    ]
+  },
+  {
+    "state": "start:show",
+    "detail": "",
+    "stack": [
+      "probe/nav/start"
+    ]
+  },
+  {
+    "state": "start:click",
+    "detail": "",
+    "stack": [
+      "probe/nav/start"
+    ]
+  },
+  {
+    "state": "start:hide",
+    "detail": "",
+    "stack": [
+      "probe/nav/start"
+    ]
+  },
+  {
+    "state": "away:load",
+    "detail": "",
+    "stack": [
+      "probe/nav/start",
+      "probe/nav/away"
+    ]
+  },
+  {
+    "state": "away:show",
+    "detail": "",
+    "stack": [
+      "probe/nav/start",
+      "probe/nav/away"
+    ]
+  },
+  {
+    "state": "start:success",
+    "detail": "navigateTo:ok",
+    "stack": [
+      "probe/nav/start",
+      "probe/nav/away"
+    ]
+  },
+  {
+    "state": "start:complete",
+    "detail": "navigateTo:ok",
+    "stack": [
+      "probe/nav/start",
+      "probe/nav/away"
+    ]
+  },
+  {
+    "state": "away:click",
+    "detail": "",
+    "stack": [
+      "probe/nav/start",
+      "probe/nav/away"
+    ]
+  },
+  {
+    "state": "away:unload",
+    "detail": "",
+    "stack": [
+      "probe/nav/start",
+      "probe/nav/away"
+    ]
+  },
+  {
+    "state": "start:show",
+    "detail": "",
+    "stack": [
+      "probe/nav/start"
+    ]
+  },
+  {
+    "state": "away:success",
+    "detail": "navigateBack:ok",
+    "stack": [
+      "probe/nav/start"
+    ]
+  },
+  {
+    "state": "away:complete",
+    "detail": "navigateBack:ok",
+    "stack": [
+      "probe/nav/start"
+    ]
+  }
+]

@@ -1,5 +1,5 @@
 <view class="page">
-  <view class="page-title">站内消息<text wx:if="{{unreadTotal}}" class="unread"> · {{unreadTotal}} 条未读</text></view>
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/chat.png"/><view class="masthead-copy"><view class="page-title">站内消息<text wx:if="{{unreadTotal}}" class="unread"> · {{unreadTotal}} 条未读</text></view><view class="masthead-subtitle">邻里沟通，及时联系</view></view></view>
   <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view>
   <view wx:for="{{list}}" wx:key="conversationId" class="card row" data-id="{{item.conversationId}}" bindtap="open">
     <view class="grow"><view class="section-title">{{item.serviceName}}<text wx:if="{{item.readOnly}}"> · 已关闭</text></view><view class="muted">{{item.lastText}}</view></view>
@@ -7,4 +7,6 @@
   </view>
   <view wx:if="{{loading}}">正在加载…</view>
   <view wx:elif="{{!list.length && !error}}" class="empty">暂无聊天消息</view>
+  <view wx:if="{{moreError}}" class="error">{{moreError}}</view>
+  <button wx:if="{{hasMore}}" class="ui-button" disabled="{{loadingMore}}" loading="{{loadingMore}}" bindtap="loadMore">{{moreError ? '重试加载更多' : '加载更多'}}</button>
 </view>

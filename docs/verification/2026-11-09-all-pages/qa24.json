@@ -1,0 +1,20 @@
+{
+  "scope": "隔离页面报价和真实组件方法，非真实下单",
+  "results": [
+    {
+      "route": "pet/order",
+      "status": "PASS",
+      "checks": "注册/无报价禁用/有效合成报价金额/失败恢复禁用"
+    },
+    {
+      "route": "elder/meal",
+      "status": "PASS",
+      "checks": "注册/无报价禁用/有效合成报价金额/失败恢复禁用"
+    },
+    {
+      "route": "components/price-bar/index",
+      "status": "PASS",
+      "checks": "禁用/忙碌不触发提交，就绪仅触发一次"
+    }
+  ]
+}

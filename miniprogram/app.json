@@ -144,9 +144,9 @@
   ],
   "window": {
     "navigationBarTitleText": "近邻帮",
-    "navigationBarBackgroundColor": "#1F7A5C",
-    "navigationBarTextStyle": "white",
-    "backgroundColor": "#f7f8f7"
+    "navigationBarBackgroundColor": "#F7F6F1",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F7F6F1"
   },
   "requiredPrivateInfos": [
     "getLocation",
@@ -154,13 +154,13 @@
   ],
   "permission": {
     "scope.userLocation": {
-      "desc": "用于附近小区排序、管理员选择小区位置，以及服务员在进行中的订单里向该订单住户共享位置。"
+      "desc": "用于附近小区排序、小区位置设置及服务中向订单住户共享位置"
     }
   },
   "tabBar": {
-    "color": "#777777",
+    "color": "#687466",
     "selectedColor": "#1F7A5C",
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#FFFFFF",
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -180,6 +180,10 @@
         "iconPath": "assets/tab/me.png",
         "selectedIconPath": "assets/tab/me-selected.png"
       }
-    ]
+    ],
+    "borderStyle": "white"
+  },
+  "usingComponents": {
+    "private-media": "/components/private-media/index"
   }
 }

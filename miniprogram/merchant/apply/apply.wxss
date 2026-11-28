@@ -1,1 +1,1 @@
-input{padding:20rpx 0;border-bottom:1rpx solid #eee}.picker{padding:24rpx 0}
+.ui-input{padding:0;border-bottom:1rpx solid #E6E9DF}.picker{padding:24rpx 0}

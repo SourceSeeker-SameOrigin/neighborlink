@@ -1,2 +1,4 @@
 /* 通用页面样式位于 app.wxss。 */
-textarea{min-height:180rpx;white-space:pre-wrap}button{margin:20rpx 0}
+.ui-textarea{min-height:180rpx;white-space:pre-wrap}.ui-button{margin:20rpx 0}
+
+.config-row{border-bottom:1rpx solid #E3E7DB;padding:24rpx 0;margin-bottom:20rpx}.config-row:last-child{border-bottom:0}

@@ -1,0 +1,25 @@
+{
+  "function": "merchant",
+  "sourceCommit": "dfb0e34",
+  "environment": "开发云",
+  "approvedZipBytes": 128646,
+  "approvedZipSha256": "ce6f759c215b4cbadd56a00afbacf36e60abb661add11e09c4a3ace8142ec312",
+  "matchingSourceFiles": 76,
+  "extraSourceFiles": 0,
+  "wxServerSdk": "4.0.2",
+  "readOnlyLookupBooking": {
+    "at": "2026-11-17T04:07:06.127Z",
+    "rows": [
+      {
+        "label": "未使用的本人请求编号",
+        "result": "成功，未找到订单"
+      },
+      {
+        "label": "无效编号",
+        "result": "E_INVALID_PARAM"
+      }
+    ]
+  },
+  "existingBookingLookup": "真实非空样本待验",
+  "newOrders": 0
+}

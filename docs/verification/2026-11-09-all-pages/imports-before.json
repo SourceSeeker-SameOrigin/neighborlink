@@ -1,0 +1,16 @@
+{
+  "scope": "Actual VM exports of destructured relative imports in 69 page JS files, no cloud/UI",
+  "importStatements": 71,
+  "findings": [
+    {
+      "route": "board/create/create",
+      "module": "../../utils/time",
+      "missingExport": "ymd"
+    },
+    {
+      "route": "board/create/create",
+      "module": "../../utils/time",
+      "missingExport": "addDays"
+    }
+  ]
+}

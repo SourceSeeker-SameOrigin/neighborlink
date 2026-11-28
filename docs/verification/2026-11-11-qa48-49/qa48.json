@@ -1,0 +1,55 @@
+{
+  "scope": "Isolated actual page code. No cloud writes or payment.",
+  "total": 12,
+  "passed": 12,
+  "results": [
+    {
+      "name": "A迟到成功不得覆盖B方案",
+      "status": "PASS"
+    },
+    {
+      "name": "A迟到失败不得覆盖B成功",
+      "status": "PASS"
+    },
+    {
+      "name": "切换读取中清除旧方案且禁止购买",
+      "status": "PASS"
+    },
+    {
+      "name": "读取失败保持B选择及草稿，重试仍为B且不购买",
+      "status": "PASS"
+    },
+    {
+      "name": "初始化迟到响应不覆盖新地址",
+      "status": "PASS"
+    },
+    {
+      "name": "离页后load不更新状态",
+      "status": "PASS"
+    },
+    {
+      "name": "离页后addressChange不更新状态",
+      "status": "PASS"
+    },
+    {
+      "name": "当前不存在的方案编号禁止购买",
+      "status": "PASS"
+    },
+    {
+      "name": "忙碌期间不能切换地址",
+      "status": "PASS"
+    },
+    {
+      "name": "相同地址不重读、不撤销重试编号",
+      "status": "PASS"
+    },
+    {
+      "name": "读取不修改全局用户地址对象",
+      "status": "PASS"
+    },
+    {
+      "name": "未绑定仍返回绑定页且不读取计划",
+      "status": "PASS"
+    }
+  ]
+}

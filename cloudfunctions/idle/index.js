@@ -23,11 +23,12 @@ function offset(event) { return integer(event.offset === undefined ? 0 : event.o
 function itemId(openid, requestId) {
   return 'id_' + crypto.createHash('sha256').update(openid + ':' + requestId).digest('hex').slice(0, 36);
 }
-async function context(user) {
+async function context(user, checkFeature = true) {
+  if (checkFeature && !user.communityId) await server.feature('idle');
   ensure(user.communityId, '请先绑定小区门牌');
   const community = await server.get('communities', user.communityId);
   ensure(community && community.status === 'active', '小区暂不可用');
-  await server.feature('idle', community._id);
+  if (checkFeature) await server.feature('idle', community._id);
   return community;
 }
 async function canView(item, community) {
@@ -60,20 +61,22 @@ async function list(event, { user, openid }) {
     communityIds = enabled.map(item => item._id);
     names = new Map(enabled.map(item => [item._id, item.name || '']));
   }
+  const pageOffset = offset(event);
   const filter = { communityId: command.in(communityIds), scope, status: 'on_sale' };
   const result = await db.collection('idleItems').where(filter).orderBy('createdAt', 'desc')
-    .skip(offset(event)).limit(20).get();
+    .skip(pageOffset).limit(20).get();
   const rows = result.data.filter(item => !item.moderationHidden || item.sellerOpenid === openid)
     .map(item => view(item, openid, item.communityId === community._id ? '' : names.get(item.communityId) || ''));
-  return { list: rows, hasMore: result.data.length === 20 };
+  return { list: rows, hasMore: result.data.length === 20, nextOffset: pageOffset + result.data.length };
 }
 async function detail(event, { user, openid }) {
-  const community = await context(user);
+  const community = await context(user, false);
   const id = text(event.itemId, '闲置商品');
   const item = await server.get('idleItems', id);
   ensure(item && await canView(item, community), '内容不存在或不在可见范围', 'E_FORBIDDEN');
   ensure(item.status !== 'removed' || item.sellerOpenid === openid, '商品已下架', 'E_FORBIDDEN');
   ensure(!item.moderationHidden || item.sellerOpenid === openid || user.roles.includes('admin'), '内容正在审核中', 'E_FORBIDDEN');
+  await server.feature('idle', item.communityId);
   const source = item.communityId === community._id ? community : await server.get('communities', item.communityId);
   const seller = await server.one('users', { openid: item.sellerOpenid });
   const config = await server.config();
@@ -82,11 +85,12 @@ async function detail(event, { user, openid }) {
   return { item: view(item, openid, source && source.name || '', phone) };
 }
 async function contact(event, { user, openid }) {
-  const community = await context(user);
+  const community = await context(user, false);
   const id = text(event.itemId, '闲置商品');
   const item = await server.get('idleItems', id);
   ensure(item && await canView(item, community) && item.sellerOpenid !== openid, '商品不存在或不能联系自己', 'E_FORBIDDEN');
   ensure(!item.moderationHidden, '内容正在审核中', 'E_FORBIDDEN');
+  await server.feature('idle', item.communityId);
   ensure(item.status === 'on_sale' && item.tradeMode === 'offline', '该商品当前不能联系', 'E_BAD_STATE');
   const sellerCommunity = await server.get('communities', item.communityId);
   const config = await server.config();
@@ -145,12 +149,22 @@ async function create(event, { user, openid }) {
   }
   return { itemId: item._id, status: item.status, imageWarnings };
 }
+async function lookupRequest(event, { user, openid }) {
+  text(event.requestId, '请求编号', 80);
+  ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
+  const item = await server.get('idleItems', itemId(openid, event.requestId));
+  if (!item) return { itemId: null };
+  ensure(item.sellerOpenid === openid && item.communityId === user.communityId,
+    '无权查看此发布结果', 'E_FORBIDDEN');
+  return { itemId: item._id };
+}
 async function update(event, { user, openid }) {
-  const community = await context(user);
+  const community = await context(user, false);
   ensureCanPublish(user);
   const id = text(event.itemId, '闲置商品');
   const item = await server.get('idleItems', id);
   ensure(item && item.communityId === community._id && item.sellerOpenid === openid, '无权修改此商品', 'E_FORBIDDEN');
+  await server.feature('idle', item.communityId);
   ensure(item.status === 'on_sale', '该商品当前不能编辑', 'E_BAD_STATE');
   const config = await server.config();
   const input = { ...event.item, scope: event.item && event.item.scope || item.scope };
@@ -186,11 +200,12 @@ async function update(event, { user, openid }) {
   return { itemId: item._id, status: 'on_sale' };
 }
 async function changeStatus(event, { user, openid }, status) {
-  const community = await context(user);
+  const community = await context(user, false);
   const id = text(event.itemId, '闲置商品');
   return atomic(db, async transaction => {
     const item = await read(transaction, 'idleItems', id);
     ensure(item && item.communityId === community._id && item.sellerOpenid === openid, '无权操作此商品', 'E_FORBIDDEN');
+  await server.feature('idle', item.communityId);
     ensure(item.status === 'on_sale', '商品状态已变化，请刷新', 'E_CONFLICT');
     ensure(status !== 'sold' || item.tradeMode === 'offline', '担保交易须通过订单完成', 'E_BAD_STATE');
     await transaction.collection('idleItems').doc(id).update({ data: { status, updatedAt: new Date() } });
@@ -199,13 +214,22 @@ async function changeStatus(event, { user, openid }, status) {
 }
 
 async function buy(event, { user, openid }) {
-  const community = await context(user);
+  const community = await context(user, false);
   text(event.requestId, '请求编号', 80);
   ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
   const itemIdValue = text(event.itemId, '闲置商品');
+  const id = 'ip_' + crypto.createHash('sha256').update(openid + ':' + event.requestId).digest('hex').slice(0, 36);
+  const previousOrder = await server.get('orders', id);
+  if (previousOrder) {
+    ensure(previousOrder.kind === 'idle_purchase' && previousOrder.userOpenid === openid &&
+      previousOrder.communityId === community._id && previousOrder.idleItemId === itemIdValue,
+    '请求编号已用于其他订单', 'E_CONFLICT');
+    return { orderId: previousOrder._id, status: previousOrder.status, recovered: true };
+  }
   const item = await server.get('idleItems', itemIdValue);
   ensure(item && item.communityId === community._id && item.scope === 'community' && item.tradeMode === 'escrow',
     '该商品不支持本小区担保交易', 'E_FORBIDDEN');
+  await server.feature('idle', item.communityId);
   await server.feature('idleEscrow', community._id);
   ensure(item.sellerOpenid !== openid, '不能购买自己发布的商品', 'E_FORBIDDEN');
   ensure(item.status === 'on_sale' && !item.moderationHidden, '商品已被购买或暂不可交易', 'E_BAD_STATE');
@@ -214,14 +238,15 @@ async function buy(event, { user, openid }) {
   ensure(buyer && buyer.communityId === community._id, '请先绑定本小区门牌');
   const commissionRate = config.idleCommissionRate === undefined ? 0 : config.idleCommissionRate;
   const commissionFen = commission(item.price, commissionRate);
-  const id = 'ip_' + crypto.createHash('sha256').update(openid + ':' + event.requestId).digest('hex').slice(0, 36);
   const requestHash = crypto.createHash('sha256').update(JSON.stringify({ itemId: item._id, price: item.price,
     commissionRate, communityId: community._id })).digest('hex');
-  const order = await atomic(db, async transaction => {
+  const result = await atomic(db, async transaction => {
     const previous = await read(transaction, 'orders', id);
     if (previous) {
-      ensure(previous.userOpenid === openid && previous.requestHash === requestHash, '请求编号已用于其他订单', 'E_CONFLICT');
-      return previous;
+      ensure(previous.kind === 'idle_purchase' && previous.userOpenid === openid &&
+        previous.communityId === community._id && previous.idleItemId === itemIdValue,
+      '请求编号已用于其他订单', 'E_CONFLICT');
+      return { order: previous, recovered: true };
     }
     const current = await read(transaction, 'idleItems', item._id);
     ensure(current && current.status === 'on_sale' && current.tradeMode === 'escrow' && !current.moderationHidden &&
@@ -254,16 +279,31 @@ async function buy(event, { user, openid }) {
     await transaction.collection('idleItems').doc(item._id).update({ data: { status: 'reserved', purchaseOrderId: id, updatedAt: now } });
     await insert(transaction, 'orders', purchase);
     await transaction.collection('users').doc(currentBuyer._id).update({ data: { orderRevision: (currentBuyer.orderRevision || 0) + 1 } });
-    return purchase;
+    return { order: purchase, recovered: false };
   });
+  if (result.recovered) return { orderId: result.order._id, status: result.order.status, recovered: true };
+  const order = result.order;
   try { return await payments.prepare(order); }
   catch (error) { return { orderId: order._id, paymentError: error.code || 'E_PAYMENT' }; }
 }
 
-async function sales(event, { openid }) {
+async function lookupPurchase(event, { user, openid }) {
+  const community = await context(user, false);
+  text(event.requestId, '请求编号', 80);
+  ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
+  const itemIdValue = text(event.itemId, '闲置商品');
+  const id = 'ip_' + crypto.createHash('sha256').update(openid + ':' + event.requestId).digest('hex').slice(0, 36);
+  const order = await server.get('orders', id);
+  ensure(!order || order.kind === 'idle_purchase' && order.userOpenid === openid &&
+    order.communityId === community._id && order.idleItemId === itemIdValue,
+  '请求编号已用于其他订单', 'E_CONFLICT');
+  return { orderId: order?._id || null, status: order?.status || null };
+}
+
+async function sales(event, { openid, user }) {
   const pageOffset = offset(event);
   const result = await db.collection('orders').where({ kind: 'idle_purchase', sellerOpenid: openid })
-    .orderBy('createdAt', 'desc').skip(pageOffset).limit(20).get();
+    .orderBy('createdAt', 'desc').orderBy('_id', 'desc').skip(pageOffset).limit(20).get();
   return { list: result.data.map(order => ({ _id: order._id, orderNo: order.orderNo, itemId: order.idleItemId,
     title: order.detail.title, price: order.pricing.payAmount, status: order.status, createdAt: order.createdAt,
     deliveredAt: order.deliveredAt, delivery: order.idleDelivery || null })), hasMore: result.data.length === 20 };
@@ -290,6 +330,8 @@ async function acceptSale(event, { openid }) {
   const id = text(event.orderId, '担保订单');
   const order = await server.get('orders', id);
   ensure(order && order.kind === 'idle_purchase' && order.sellerOpenid === openid, '担保订单不存在', 'E_FORBIDDEN');
+  await server.feature('idle', order.communityId);
+  await server.feature('idleEscrow', order.communityId);
   return conditionalTransition(server, order, 'accepted', openid, { sellerAcceptedAt: new Date() }, {}, '订单状态已变化，请刷新');
 }
 
@@ -297,7 +339,10 @@ async function deliverSale(event, { user, openid }) {
   const id = text(event.orderId, '担保订单');
   const order = await server.get('orders', id);
   ensure(order && order.kind === 'idle_purchase' && order.sellerOpenid === openid, '担保订单不存在', 'E_FORBIDDEN');
-  ensure(order.status === 'accepted', '请先确认接单，再提交交付凭证', 'E_BAD_STATE');
+  await server.feature('idle', order.communityId);
+  await server.feature('idleEscrow', order.communityId);
+  ensure(order.status === 'accepted' || order.status === 'delivered',
+    '请先确认接单，再提交交付凭证', 'E_BAD_STATE');
   const photos = Array.isArray(event.photos) ? [...new Set(event.photos)] : [];
   ensure(photos.length >= 1 && photos.length <= 3, '请上传 1—3 张交付凭证');
   photos.forEach(fileId => fileInFolder(fileId, 'idle-delivery/' + order._id));
@@ -305,8 +350,16 @@ async function deliverSale(event, { user, openid }) {
   ensure(typeof note === 'string' && [...note].length <= 300, '交付说明不能超过 300 字');
   return atomic(db, async transaction => {
     const current = await read(transaction, 'orders', order._id);
-    ensure(current && current.kind === 'idle_purchase' && current.sellerOpenid === openid && current.status === 'accepted',
+    ensure(current && current.kind === 'idle_purchase' && current.sellerOpenid === openid,
       '订单状态已变化，请刷新后重试', 'E_CONFLICT');
+    if (current.status === 'delivered') {
+      const delivery = current.idleDelivery || {};
+      ensure(Array.isArray(delivery.photos) && delivery.photos.length === photos.length &&
+        delivery.photos.every((fileId, index) => fileId === photos[index]) && delivery.note === note.trim(),
+      '交付凭证已提交，请刷新订单', 'E_CONFLICT');
+      return { orderId: current._id, status: 'delivered' };
+    }
+    ensure(current.status === 'accepted', '订单状态已变化，请刷新后重试', 'E_CONFLICT');
     const now = new Date();
     const patch = { ...transitionPatch(current, 'delivered', openid, now), deliveredAt: now,
       idleDelivery: { photos, note: note.trim(), at: now } };
@@ -317,14 +370,15 @@ async function deliverSale(event, { user, openid }) {
 async function mine(event, { user, openid }) {
   const community = await context(user);
   const result = await db.collection('idleItems').where({ sellerOpenid: openid, communityId: community._id })
-    .orderBy('createdAt', 'desc').skip(offset(event)).limit(20).get();
+    .orderBy('createdAt', 'desc').orderBy('_id', 'desc').skip(offset(event)).limit(20).get();
   return { list: result.data.map(item => view(item, openid)), hasMore: result.data.length === 20 };
 }
 async function report(event, { user, openid }) {
-  const community = await context(user);
+  const community = await context(user, false);
   const id = text(event.itemId, '举报内容');
   const item = await server.get('idleItems', id);
   ensure(item && await canView(item, community), '内容不存在或不在可见范围');
+  await server.feature('idle', item.communityId);
   ensure(item.sellerOpenid !== openid, '不能举报自己的内容');
   const reportId = 'r_' + crypto.createHash('sha256').update('idle:' + item._id + ':' + openid).digest('hex').slice(0, 36);
   const record = reportData('idle', item._id, openid, event.reason || '不当内容', event.text || '');
@@ -341,6 +395,6 @@ async function report(event, { user, openid }) {
   });
 }
 
-exports.main = server.entry({ list, detail, contact, create, update, mine, report, buy, sales, earnings, acceptSale, deliverSale,
+exports.main = server.entry({ list, detail, contact, create, lookupRequest, lookupPurchase, update, mine, report, buy, sales, earnings, acceptSale, deliverSale,
   markSold: (event, contextValue) => changeStatus(event, contextValue, 'sold'),
-  remove: (event, contextValue) => changeStatus(event, contextValue, 'removed') }, ['resident', 'admin', 'property']);
+  remove: (event, contextValue) => changeStatus(event, contextValue, 'removed') }, ['resident', 'admin', 'property'], 'idle');

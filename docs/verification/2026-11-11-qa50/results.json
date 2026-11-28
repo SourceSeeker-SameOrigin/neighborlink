@@ -1,0 +1,72 @@
+{
+  "mode": "working tree",
+  "scope": "offline actual entry integration; synthetic records only; no cloud or real notifications",
+  "passed": 16,
+  "total": 16,
+  "cases": [
+    {
+      "name": "payment success: paid status without premature resident messages",
+      "passed": true
+    },
+    {
+      "name": "duplicate payment does not notify or increment statistics",
+      "passed": true
+    },
+    {
+      "name": "payment transaction conflict sends nothing",
+      "passed": true
+    },
+    {
+      "name": "new-task delivery failure does not undo payment",
+      "passed": true
+    },
+    {
+      "name": "payment without templates sends no messages",
+      "passed": true
+    },
+    {
+      "name": "provider success notifies accepted only after persistence",
+      "passed": true
+    },
+    {
+      "name": "provider duplicate action sends no additional notification",
+      "passed": true
+    },
+    {
+      "name": "provider conditional update conflict sends nothing",
+      "passed": true
+    },
+    {
+      "name": "provider notification failure does not roll back accepted order",
+      "passed": true
+    },
+    {
+      "name": "provider missing template skips notification",
+      "passed": true
+    },
+    {
+      "name": "admin success notifies accepted only after persistence",
+      "passed": true
+    },
+    {
+      "name": "admin duplicate action sends no additional notification",
+      "passed": true
+    },
+    {
+      "name": "admin conditional update conflict sends nothing",
+      "passed": true
+    },
+    {
+      "name": "admin notification failure does not roll back accepted order",
+      "passed": true
+    },
+    {
+      "name": "admin missing template skips notification",
+      "passed": true
+    },
+    {
+      "name": "completion sends delivered after persistence; repeat sends nothing",
+      "passed": true
+    }
+  ]
+}

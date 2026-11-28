@@ -1,0 +1,43 @@
+{
+  "scope": "Isolated actual frontend methods; no live business acceptance",
+  "total": 9,
+  "passed": 9,
+  "results": [
+    {
+      "name": "缺少日期保留输入、拒绝请求并滚动 startDate",
+      "status": "PASS"
+    },
+    {
+      "name": "缺少日期保留输入、拒绝请求并滚动 endDate",
+      "status": "PASS"
+    },
+    {
+      "name": "缺少日期保留输入、拒绝请求并滚动 deadlineDate",
+      "status": "PASS"
+    },
+    {
+      "name": "非法日期拒绝并滚动",
+      "status": "PASS"
+    },
+    {
+      "name": "服务端拒绝保留草稿且不自动发布重试",
+      "status": "PASS"
+    },
+    {
+      "name": "忙碌时不重复请求或滚动",
+      "status": "PASS"
+    },
+    {
+      "name": "列表失败仍可重试，成功后清除错误并保留草稿",
+      "status": "PASS"
+    },
+    {
+      "name": "其他操作错误恢复原重试展示",
+      "status": "PASS"
+    },
+    {
+      "name": "模板只在非表单错误显示列表重试",
+      "status": "PASS"
+    }
+  ]
+}

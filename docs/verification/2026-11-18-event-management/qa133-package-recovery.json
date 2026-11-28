@@ -1,0 +1,148 @@
+{
+  "scope": "synthetic database and page only; no real business records",
+  "pass": 20,
+  "fail": 0,
+  "results": [
+    {
+      "name": "lookup-only-minimal-result-and-no-writes",
+      "pass": true,
+      "evidence": {
+        "keys": [
+          "batchId",
+          "eligibleCount",
+          "repeated",
+          "skippedCount"
+        ]
+      }
+    },
+    {
+      "name": "lookup-isolated-user",
+      "pass": true,
+      "evidence": {
+        "code": "E_FORBIDDEN",
+        "found": false
+      }
+    },
+    {
+      "name": "lookup-isolated-station",
+      "pass": true,
+      "evidence": {
+        "code": null,
+        "found": false
+      }
+    },
+    {
+      "name": "lookup-isolated-community",
+      "pass": true,
+      "evidence": {
+        "code": "E_FORBIDDEN",
+        "found": false
+      }
+    },
+    {
+      "name": "lookup-isolated-role",
+      "pass": true,
+      "evidence": {
+        "code": "E_FORBIDDEN",
+        "found": false
+      }
+    },
+    {
+      "name": "changed-input-refused-original-retained",
+      "pass": true,
+      "evidence": {
+        "code": "E_CONFLICT"
+      }
+    },
+    {
+      "name": "lookup-after-feature-off-but-new-create-refused",
+      "pass": true,
+      "evidence": {}
+    },
+    {
+      "name": "legacy-create-compatible-lookup-conservative",
+      "pass": true,
+      "evidence": {
+        "code": "E_FORBIDDEN"
+      }
+    },
+    {
+      "name": "transaction-rechecks-actor-role",
+      "pass": true,
+      "evidence": {
+        "code": "E_FORBIDDEN"
+      }
+    },
+    {
+      "name": "transaction-rechecks-actor-station",
+      "pass": true,
+      "evidence": {
+        "code": "E_FORBIDDEN"
+      }
+    },
+    {
+      "name": "transaction-rechecks-actor-community",
+      "pass": true,
+      "evidence": {
+        "code": "E_FORBIDDEN"
+      }
+    },
+    {
+      "name": "transaction-rechecks-actor-blocked",
+      "pass": true,
+      "evidence": {
+        "code": "E_FORBIDDEN"
+      }
+    },
+    {
+      "name": "transaction-rechecks-resident-consent",
+      "pass": true,
+      "evidence": {}
+    },
+    {
+      "name": "response-and-lookup-lost-reentry-read-only",
+      "pass": true,
+      "evidence": {
+        "batches": 1,
+        "creates": 1,
+        "savedFields": [
+          "requestId"
+        ]
+      }
+    },
+    {
+      "name": "request-not-delivered-confirm-original-number",
+      "pass": true,
+      "evidence": {
+        "sameId": true
+      }
+    },
+    {
+      "name": "storage-failure-blocks-create",
+      "pass": true,
+      "evidence": {}
+    },
+    {
+      "name": "next-batch-explicit-and-clear-failure-safe",
+      "pass": true,
+      "evidence": {
+        "batches": 2
+      }
+    },
+    {
+      "name": "return-preserves-own-draft-change-owner-clears",
+      "pass": true,
+      "evidence": {}
+    },
+    {
+      "name": "old-lookup-does-not-overwrite-new-context",
+      "pass": true,
+      "evidence": {}
+    },
+    {
+      "name": "invalid-request-and-no-record",
+      "pass": true,
+      "evidence": {}
+    }
+  ]
+}

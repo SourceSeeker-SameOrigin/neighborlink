@@ -1,0 +1,31 @@
+{
+  "scope": "Offline actual page handlers; synthetic data; no cloud writes",
+  "total": 6,
+  "passed": 6,
+  "results": [
+    {
+      "name": "按次表单忽略旧草稿blocks，发送当前小区模式和分钟数",
+      "status": "PASS"
+    },
+    {
+      "name": "切回旧计价小区保留原时长参数，不发送按次模式",
+      "status": "PASS"
+    },
+    {
+      "name": "管理配置切换模式只移除不适用的帮把手字段，保留其他价格",
+      "status": "PASS"
+    },
+    {
+      "name": "管理保存按次模式，再加载保留选项及整数分",
+      "status": "PASS"
+    },
+    {
+      "name": "QA06 核心卡片无url仍按服务代码导航，绑定显式路由优先",
+      "status": "PASS"
+    },
+    {
+      "name": "D13 实际order.quote入口校验四项已批准价格和首单商品款分离（离线）",
+      "status": "PASS"
+    }
+  ]
+}

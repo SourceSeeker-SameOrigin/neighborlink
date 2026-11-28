@@ -1,1 +1,3 @@
-button{margin:20rpx 0}.photo{width:200rpx;height:200rpx;margin:8rpx}navigator{color:#1F7A5C;display:block;padding:20rpx 0}
+.ui-button{margin:20rpx 0}.photo{width:200rpx;height:200rpx;margin:8rpx}.ui-navigator{color:#1F7A5C;display:block;padding:20rpx 0}
+
+.inspection-item{margin:24rpx 0;padding:16rpx 0;border-bottom:1rpx solid #e5e9df}.inspection-count{margin:12rpx 0;font-size:32rpx;color:#677367}.inspection-photos{display:flex;flex-wrap:wrap;gap:16rpx}.inspection-photo{display:flex;flex-direction:column;align-items:center;max-width:100%}.inspection-photo .ui-button{min-height:88rpx;margin:8rpx 0}

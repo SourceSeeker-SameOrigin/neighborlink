@@ -1,10 +1,16 @@
 const { ensure, integer, text } = require('./validate');
 const { totalFee } = require('./paymentState');
 
+function refundParts(refund) {
+  const goods = refund.goodsAmount === undefined && refund.key === 'goods_difference'
+    ? refund.amount : (refund.goodsAmount || 0);
+  const service = refund.serviceAmount === undefined ? refund.amount - goods : refund.serviceAmount;
+  return { goods, service };
+}
+
 function refundTotals(order) {
   return order.refunds.reduce((sum, refund) => {
-    const goods = refund.goodsAmount === undefined && refund.key === 'goods_difference' ? refund.amount : (refund.goodsAmount || 0);
-    const service = refund.serviceAmount === undefined ? refund.amount - goods : refund.serviceAmount;
+    const { goods, service } = refundParts(refund);
     integer(goods, '已申请商品退款');
     integer(service, '已申请服务退款');
     ensure(goods + service === refund.amount, '退款分项记录不一致', 'E_CONFIG');
@@ -89,4 +95,4 @@ function verifiedRefund(order, refund, response, subMchId) {
   ensure(false, '微信退款记录尚未确认', 'E_PAYMENT');
 }
 
-module.exports = { reserveRefund, refundResult, refundTotals, field, success, verifiedPayment, verifiedRefund };
+module.exports = { reserveRefund, refundResult, refundTotals, refundParts, field, success, verifiedPayment, verifiedRefund };

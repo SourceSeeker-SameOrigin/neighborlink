@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-12",
+  "scope": "Existing two terminal mock orders only; current WeChat session identity matched",
+  "requests": 12,
+  "results": [
+    {
+      "order": 1,
+      "initial": "closed",
+      "mockPay": {
+        "repeats": 3,
+        "ok": false,
+        "code": "E_BAD_STATE"
+      },
+      "cancel": {
+        "repeats": 3,
+        "ok": false,
+        "code": "E_BAD_STATE"
+      },
+      "after": "closed",
+      "unchanged": true,
+      "refundCount": 0,
+      "timelineCount": 2
+    },
+    {
+      "order": 2,
+      "initial": "cancelled",
+      "mockPay": {
+        "repeats": 3,
+        "ok": true,
+        "status": "cancelled"
+      },
+      "cancel": {
+        "repeats": 3,
+        "ok": false,
+        "code": "E_BAD_STATE"
+      },
+      "after": "cancelled",
+      "unchanged": true,
+      "refundCount": 1,
+      "refundAmountFen": 100,
+      "refundStatus": "success",
+      "timelineCount": 3
+    }
+  ],
+  "doneListCount": 2,
+  "hasMore": false,
+  "limits": [
+    "No new orders created",
+    "No active-payment concurrency or refund callback replay in cloud",
+    "Cloud user paidOrderCount has not yet been re-read after retries",
+    "Not real WeChat payment or fulfillment acceptance"
+  ],
+  "postRetryUserStatistics": {
+    "source": "Official CloudBase rendered own users record after Refresh collection",
+    "paidOrderCount": 1,
+    "firstPaidOrderMatchesSecondTestOrder": true,
+    "unchangedFromBeforeRetries": true
+  }
+}

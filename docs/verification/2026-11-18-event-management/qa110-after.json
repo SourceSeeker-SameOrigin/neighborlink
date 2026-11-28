@@ -1,0 +1,482 @@
+{
+  "pass": 95,
+  "fail": 0,
+  "scope": "synthetic actual-page handlers; no cloud writes",
+  "results": [
+    {
+      "action": "publish",
+      "boundary": "same-page",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "switch-user-readonly-then-explicit-click",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "identity-changes-during-session-check",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "double-click",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "visible-error-and-readonly-reconcile",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "hide-late-success",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "hide-late-error",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "unload-late-success",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "unload-late-error",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "refresh-late-success",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "refresh-late-error",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "hide-show-late-success",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "hide-show-late-error",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "refresh-failed-late-success",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "refresh-failed-late-error",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "identity-changes-after-send-readonly-reconcile",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "unknown-record-blocked",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "unavailable-status-blocked",
+      "pass": true
+    },
+    {
+      "action": "publish",
+      "boundary": "old-completion-cannot-release-new-operation",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "same-page",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "switch-user-readonly-then-explicit-click",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "identity-changes-during-session-check",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "double-click",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "visible-error-and-readonly-reconcile",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "hide-late-success",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "hide-late-error",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "unload-late-success",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "unload-late-error",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "refresh-late-success",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "refresh-late-error",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "hide-show-late-success",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "hide-show-late-error",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "refresh-failed-late-success",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "refresh-failed-late-error",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "identity-changes-after-send-readonly-reconcile",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "unknown-record-blocked",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "unavailable-status-blocked",
+      "pass": true
+    },
+    {
+      "action": "review",
+      "boundary": "old-completion-cannot-release-new-operation",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "same-page",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "switch-user-readonly-then-explicit-click",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "identity-changes-during-session-check",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "double-click",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "visible-error-and-readonly-reconcile",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "hide-late-success",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "hide-late-error",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "unload-late-success",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "unload-late-error",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "refresh-late-success",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "refresh-late-error",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "hide-show-late-success",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "hide-show-late-error",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "refresh-failed-late-success",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "refresh-failed-late-error",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "identity-changes-after-send-readonly-reconcile",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "unknown-record-blocked",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "unavailable-status-blocked",
+      "pass": true
+    },
+    {
+      "action": "cancelEvent",
+      "boundary": "old-completion-cannot-release-new-operation",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "same-page",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "switch-user-readonly-then-explicit-click",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "identity-changes-during-session-check",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "double-click",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "visible-error-and-readonly-reconcile",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "hide-late-success",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "hide-late-error",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "unload-late-success",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "unload-late-error",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "refresh-late-success",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "refresh-late-error",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "hide-show-late-success",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "hide-show-late-error",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "refresh-failed-late-success",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "refresh-failed-late-error",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "identity-changes-after-send-readonly-reconcile",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "unknown-record-blocked",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "unavailable-status-blocked",
+      "pass": true
+    },
+    {
+      "action": "retryCancellation",
+      "boundary": "old-completion-cannot-release-new-operation",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "same-page",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "switch-user-readonly-then-explicit-click",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "identity-changes-during-session-check",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "double-click",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "visible-error-and-readonly-reconcile",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "hide-late-success",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "hide-late-error",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "unload-late-success",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "unload-late-error",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "refresh-late-success",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "refresh-late-error",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "hide-show-late-success",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "hide-show-late-error",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "refresh-failed-late-success",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "refresh-failed-late-error",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "identity-changes-after-send-readonly-reconcile",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "unknown-record-blocked",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "unavailable-status-blocked",
+      "pass": true
+    },
+    {
+      "action": "checkin",
+      "boundary": "old-completion-cannot-release-new-operation",
+      "pass": true
+    }
+  ]
+}

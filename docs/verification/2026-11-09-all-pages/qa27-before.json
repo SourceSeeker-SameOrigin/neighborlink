@@ -1,0 +1,7 @@
+{
+  "scope": "isolated actual cancellation worker; no cloud writes",
+  "signupStatus": "signed",
+  "signupCount": 1,
+  "taskStatus": "retry",
+  "errorCode": "E_CONFIG"
+}

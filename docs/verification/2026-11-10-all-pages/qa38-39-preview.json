@@ -1,0 +1,79 @@
+{
+  "sourceCommit": "eccdaf0",
+  "date": "2026-11-11",
+  "authorization": "Existing official preview workflow plus user-approved QA38/QA39 remediation and regression; no release or new cloud deployment",
+  "result": "Official CLI preview success, QR image inspected and delivered",
+  "qrFormat": "JPEG, CLI wrote to .png output; byte-identical .jpg copy provided",
+  "qrBytes": 47274,
+  "qrSha256": "9be480e1ad62149933a74604d2fa1a4e1d48b49ce8e074bb0bdd151f086ce016",
+  "size": {
+    "total": 1064883,
+    "packages": [
+      {
+        "name": "TOTAL",
+        "size": 1064883
+      },
+      {
+        "name": "main",
+        "size": 683181
+      },
+      {
+        "name": "/admin/",
+        "size": 160150
+      },
+      {
+        "name": "/board/",
+        "size": 24773
+      },
+      {
+        "name": "/chat/",
+        "size": 11868
+      },
+      {
+        "name": "/coupons/",
+        "size": 6365
+      },
+      {
+        "name": "/elder/",
+        "size": 5980
+      },
+      {
+        "name": "/events/",
+        "size": 23695
+      },
+      {
+        "name": "/idle/",
+        "size": 36232
+      },
+      {
+        "name": "/merchant/",
+        "size": 19457
+      },
+      {
+        "name": "/notices/",
+        "size": 2399
+      },
+      {
+        "name": "/pet/",
+        "size": 12525
+      },
+      {
+        "name": "/provider/",
+        "size": 39824
+      },
+      {
+        "name": "/recycle/",
+        "size": 5873
+      },
+      {
+        "name": "/shops/",
+        "size": 11505
+      },
+      {
+        "name": "/station/",
+        "size": 21056
+      }
+    ]
+  },
+  "limits": "Preview package success only; new phone UI/interaction feedback pending. D05/D06 paused."
+}

@@ -93,12 +93,54 @@ test('被推荐人首笔付费订单完成时给推荐人发券，并以订单�
   const order = { _id: 'first-paid-order', kind: 'service', communityId: 'c1', pricing: { payAmount: 99 } };
   const referred = { _id: 'referred-user', firstPaidOrderId: order._id };
   const referrer = { _id: 'provider-1', openid: 'referrer', communityId: 'c1' };
-  expect(await awardReferralCoupons(tx, order, referred, referrer, now, true)).toBe(1);
-  expect(await awardReferralCoupons(tx, order, referred, referrer, now, true)).toBe(0);
+  const candidates = { providerId: referrer._id, openid: referrer.openid, recipientId: 'referrer-user',
+    templateIds: ['referral-template'] };
+  expect(await awardReferralCoupons(tx, order, referred, referrer, now, true, candidates)).toBe(1);
+  expect(await awardReferralCoupons(tx, order, referred, referrer, now, true, candidates)).toBe(0);
   expect(await awardReferralCoupons(tx, { ...order, _id: 'later-order' },
     { ...referred, firstPaidOrderId: 'later-order' }, referrer, now, false)).toBe(0);
   const issued = [...data.coupons.values()][0];
   expect(issued).toMatchObject({ openid: 'referrer', referralOrderId: order._id, status: 'unused' });
   expect(data.users.get('referrer-user').couponCounts['referral-template']).toBe(1);
   expect(data.couponTemplates.get('referral-template').issued).toBe(1);
+});
+
+test.each([[0,1,2], [0,2,1], [1,0,2], [1,2,0], [2,0,1], [2,1,0]])(
+  '分笔退款按回调顺序 %i %i %i 处理，每步仅累计成功服务费', async (...sequence) => {
+    const now = new Date();
+    const order = { _id: 'o', userId: 'u', pricing: { pointsRedeemed: 100, payAmount: 300, goodsCap: 200 } };
+    const { tx, data } = memoryTransaction({ users: [{ _id: 'u', pointsBalance: 0 }] });
+    const refunds = [
+      { outRefundNo: 'R1', amount: 100 },
+      { outRefundNo: 'R2', amount: 200 },
+      { outRefundNo: 'R3', amount: 200, key: 'goods_difference' }
+    ];
+    let service = 0;
+    for (const index of sequence) {
+      const refund = refunds[index];
+      refund.status = 'success';
+      if (index !== 2) service += refund.amount;
+      for (let replay = 0; replay < 2; replay++) {
+        const full = await finalizeRefundDiscounts(tx, order, refunds, now, refund.outRefundNo);
+        expect(full).toBe(refunds.every(item => item.status === 'success'));
+        expect(data.users.get('u').pointsBalance).toBe(Math.floor(100 * service / 300));
+        expect(data.pointsLedger.size).toBe(refunds.filter(item => item.status === 'success').length);
+      }
+    }
+    expect(data.pointsLedger.get('points_restore_R3').delta).toBe(0);
+  }
+);
+
+test('只退商品差额时保留历史积分账，不追补历史余额', async () => {
+  const order = { _id: 'o', userId: 'u', pricing: { pointsRedeemed: 100, payAmount: 300, goodsCap: 200 } };
+  const historical = { _id: 'points_restore_R1', delta: 99 };
+  const { tx, data } = memoryTransaction({ users: [{ _id: 'u', pointsBalance: 99 }], pointsLedger: [historical] });
+  const refunds = [{ outRefundNo: 'R1', amount: 299, status: 'success' },
+    { outRefundNo: 'R2', amount: 1, status: 'success' },
+    { outRefundNo: 'G', key: 'goods_difference', amount: 200, status: 'success' }];
+  await finalizeRefundDiscounts(tx, order, refunds, new Date(), 'G');
+  expect(data.pointsLedger.get(historical._id)).toEqual(historical);
+  expect(data.pointsLedger.has('points_restore_R2')).toBe(false);
+  expect(data.pointsLedger.get('points_restore_G').delta).toBe(0);
+  expect(data.users.get('u').pointsBalance).toBe(99);
 });

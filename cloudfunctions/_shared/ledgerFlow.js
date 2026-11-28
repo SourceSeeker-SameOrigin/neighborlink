@@ -5,7 +5,7 @@ const { ensure } = require('./validate');
 const { referralAward } = require('./paymentState');
 const { orderConversationId } = require('./chatData');
 const { isEnabled } = require('./features');
-const { awardReferralCoupons } = require('./couponFlow');
+const { findReferralCandidates, awardReferralCoupons } = require('./couponFlow');
 const { removePetSecret } = require('./petFlow');
 
 function createLedgerFlow(server) {
@@ -29,6 +29,7 @@ function createLedgerFlow(server) {
 
   async function complete(order, actor) {
     const config = await server.config();
+    const candidates = await findReferralCandidates(server, order, config.features && config.features.coupons);
     return atomic(server.db, async transaction => {
       const current = await read(transaction, 'orders', order._id);
       ensure(current, '订单不存在');
@@ -49,8 +50,10 @@ function createLedgerFlow(server) {
         const referrer = await read(transaction, 'providers', user.source.referrerProviderId);
         const award = referralAward(current, user, referrer, config.referralBonus || 0);
         if (award && !(await read(transaction, 'ledger', award._id))) await insert(transaction, 'ledger', { ...award, createdAt: now });
+        const settings = await read(transaction, 'config', 'global');
+        ensure(settings, '请先初始化全局配置', 'E_CONFIG');
         await awardReferralCoupons(transaction, current, user, referrer, now,
-          Boolean(config.features && config.features.coupons));
+          Boolean(settings.features && settings.features.coupons), candidates);
       }
       if (!current.completedAt && current.providerId) {
         const provider = await read(transaction, 'providers', current.providerId);

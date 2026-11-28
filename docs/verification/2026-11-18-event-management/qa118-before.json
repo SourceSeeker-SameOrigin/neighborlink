@@ -1,0 +1,211 @@
+{
+  "scope": "Actual page and production validator, synthetic files; no cloud writes",
+  "pass": 12,
+  "fail": 12,
+  "results": [
+    {
+      "name": "windows-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "windows-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "windows-attempts-4",
+      "pass": false,
+      "error": "{\"attempts\":4,\"photos\":4,\"uploads\":4,\"submitted\":1,\"accepted\":0,\"error\":\"门窗检查至少上传 1 张照片\"}"
+    },
+    {
+      "name": "windows-attempts-5",
+      "pass": false,
+      "error": "{\"attempts\":5,\"photos\":5,\"uploads\":5,\"submitted\":1,\"accepted\":0,\"error\":\"门窗检查至少上传 1 张照片\"}"
+    },
+    {
+      "name": "utilities-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "utilities-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "utilities-attempts-4",
+      "pass": false,
+      "error": "{\"attempts\":4,\"photos\":4,\"uploads\":4,\"submitted\":1,\"accepted\":0,\"error\":\"水电燃气至少上传 1 张照片\"}"
+    },
+    {
+      "name": "utilities-attempts-5",
+      "pass": false,
+      "error": "{\"attempts\":5,\"photos\":5,\"uploads\":5,\"submitted\":1,\"accepted\":0,\"error\":\"水电燃气至少上传 1 张照片\"}"
+    },
+    {
+      "name": "leakMold-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "leakMold-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "leakMold-attempts-4",
+      "pass": false,
+      "error": "{\"attempts\":4,\"photos\":4,\"uploads\":4,\"submitted\":1,\"accepted\":0,\"error\":\"漏水与霉斑至少上传 1 张照片\"}"
+    },
+    {
+      "name": "leakMold-attempts-5",
+      "pass": false,
+      "error": "{\"attempts\":5,\"photos\":5,\"uploads\":5,\"submitted\":1,\"accepted\":0,\"error\":\"漏水与霉斑至少上传 1 张照片\"}"
+    },
+    {
+      "name": "ventilation-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "ventilation-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "ventilation-attempts-4",
+      "pass": false,
+      "error": "{\"attempts\":4,\"photos\":4,\"uploads\":4,\"submitted\":1,\"accepted\":0,\"error\":\"开窗通风30分钟至少上传 1 张照片\"}"
+    },
+    {
+      "name": "ventilation-attempts-5",
+      "pass": false,
+      "error": "{\"attempts\":5,\"photos\":5,\"uploads\":5,\"submitted\":1,\"accepted\":0,\"error\":\"开窗通风30分钟至少上传 1 张照片\"}"
+    },
+    {
+      "name": "mail-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "mail-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "mail-attempts-4",
+      "pass": false,
+      "error": "{\"attempts\":4,\"photos\":4,\"uploads\":4,\"submitted\":1,\"accepted\":0,\"error\":\"代收快递信件至少上传 1 张照片\"}"
+    },
+    {
+      "name": "mail-attempts-5",
+      "pass": false,
+      "error": "{\"attempts\":5,\"photos\":5,\"uploads\":5,\"submitted\":1,\"accepted\":0,\"error\":\"代收快递信件至少上传 1 张照片\"}"
+    },
+    {
+      "name": "photos-attempts-1",
+      "pass": true,
+      "observed": {
+        "attempts": 1,
+        "photos": 1,
+        "uploads": 1,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "photos-attempts-3",
+      "pass": true,
+      "observed": {
+        "attempts": 3,
+        "photos": 3,
+        "uploads": 3,
+        "submitted": 1,
+        "accepted": 1,
+        "error": ""
+      }
+    },
+    {
+      "name": "photos-attempts-4",
+      "pass": false,
+      "error": "{\"attempts\":4,\"photos\":4,\"uploads\":4,\"submitted\":1,\"accepted\":0,\"error\":\"巡检拍照至少上传 1 张照片\"}"
+    },
+    {
+      "name": "photos-attempts-5",
+      "pass": false,
+      "error": "{\"attempts\":5,\"photos\":5,\"uploads\":5,\"submitted\":1,\"accepted\":0,\"error\":\"巡检拍照至少上传 1 张照片\"}"
+    }
+  ]
+}

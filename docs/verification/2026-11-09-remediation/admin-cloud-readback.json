@@ -1,0 +1,11 @@
+{
+  "function": "admin",
+  "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "method": "official CLI download; every authorized ZIP source file SHA-256 compared",
+  "selectedPackageBytes": 122938,
+  "selectedPackageSha256": "4b96fdfacce005cabd82b9f7ff3ec7ecdca77485f6de7bc3458dec5959a987a0",
+  "comparedFiles": 75,
+  "matches": 75,
+  "mismatches": []
+}

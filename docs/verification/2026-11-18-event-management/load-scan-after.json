@@ -1,0 +1,8 @@
+{
+  "scope": "Isolated VM lifecycle and static references only; API always throws; no real cloud/visual/success-flow acceptance",
+  "pageCount": 69,
+  "scenarioCount": 207,
+  "referenceFailures": [],
+  "uncaught": [],
+  "unhandled": []
+}

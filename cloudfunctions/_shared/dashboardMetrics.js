@@ -36,4 +36,22 @@ function extensionMetrics(orders, activities, payouts, communityIds = null) {
     couponRedemptions, pointsIssued, pointsRedeemed, payoutStatus: Object.values(payoutStatus) };
 }
 
-module.exports = { extensionMetrics };
+function revenueMetrics(orders) {
+  const totals = { paidOrders: 0, serviceFeeTurnover: 0, actualIncome: 0, goodsReceived: 0, goodsRefunded: 0, goodsNet: 0, refundTotal: 0 };
+  for (const order of orders) {
+    if (!order.payment || !order.payment.paidAt) continue;
+    const service = integer(order.pricing.payAmount, '已付服务费');
+    const goods = integer(order.pricing.goodsCap || 0, '已付商品款');
+    const refunded = require('./refundState').refundTotals({ refunds: (order.refunds || []).filter(item => item.status === 'success') });
+    ensure(refunded.service <= service && refunded.goods <= goods, '成功退款超过已付金额', 'E_CONFIG');
+    totals.paidOrders++;
+    totals.serviceFeeTurnover += service;
+    totals.actualIncome += service - refunded.service;
+    totals.goodsReceived += goods;
+    totals.goodsRefunded += refunded.goods;
+    totals.goodsNet += goods - refunded.goods;
+    totals.refundTotal += refunded.service + refunded.goods;
+  }
+  return totals;
+}
+module.exports = { extensionMetrics, revenueMetrics };

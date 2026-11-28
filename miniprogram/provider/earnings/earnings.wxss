@@ -1,1 +1,1 @@
-button{margin:20rpx 0}.photo{width:200rpx;height:200rpx;margin:8rpx}navigator{color:#1F7A5C;display:block;padding:20rpx 0}
+.ui-button{margin:20rpx 0}.photo{width:200rpx;height:200rpx;margin:8rpx}.ui-navigator{color:#1F7A5C;display:block;padding:20rpx 0}

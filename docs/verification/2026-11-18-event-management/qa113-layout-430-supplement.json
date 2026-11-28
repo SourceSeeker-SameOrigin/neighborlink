@@ -1,0 +1,93 @@
+{
+  "date": "2026-11-19",
+  "scope": "Actual simulator clicks; synthetic modal and API, zero real release",
+  "visual": {
+    "initial": true,
+    "failure": true,
+    "cancelClearsError": true
+  },
+  "receipt": {
+    "width": 430,
+    "confirmations": 3,
+    "writes": 1,
+    "records": [
+      {
+        "state": "shown",
+        "busy": false,
+        "ready": true,
+        "error": "",
+        "rect": {
+          "left": 13,
+          "right": 417,
+          "top": 348,
+          "bottom": 398,
+          "width": 404,
+          "height": 50,
+          "disabled": false
+        }
+      },
+      {
+        "state": "busy",
+        "busy": true,
+        "rect": {
+          "left": 13,
+          "right": 417,
+          "top": 348,
+          "bottom": 398,
+          "width": 404,
+          "height": 50,
+          "disabled": true
+        }
+      },
+      {
+        "state": "settled",
+        "visible": true,
+        "busy": false,
+        "error": ""
+      },
+      {
+        "state": "busy",
+        "busy": true,
+        "rect": {
+          "left": 13,
+          "right": 417,
+          "top": 348,
+          "bottom": 398,
+          "width": 404,
+          "height": 50,
+          "disabled": true
+        }
+      },
+      {
+        "state": "settled",
+        "visible": true,
+        "busy": false,
+        "error": "放弃任务失败（本地合成）"
+      },
+      {
+        "state": "busy",
+        "busy": true,
+        "rect": {
+          "left": 13,
+          "right": 417,
+          "top": 348,
+          "bottom": 398,
+          "width": 404,
+          "height": 50,
+          "disabled": true
+        }
+      },
+      {
+        "state": "settled",
+        "visible": true,
+        "busy": false,
+        "error": ""
+      }
+    ]
+  },
+  "limitations": [
+    "Not native confirmation",
+    "Navigation return pending",
+    "Not whole page acceptance"
+  ]
+}

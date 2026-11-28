@@ -1,0 +1,344 @@
+{
+  "scope": "actual page; all cloud calls intercepted; no real acceptance or navigation",
+  "pass": 40,
+  "fail": 0,
+  "results": [
+    {
+      "name": "normal-read",
+      "pass": true,
+      "evidence": {
+        "count": 20
+      }
+    },
+    {
+      "name": "normal-next-page",
+      "pass": true,
+      "evidence": {
+        "count": 21,
+        "offsets": [
+          0,
+          20
+        ]
+      }
+    },
+    {
+      "name": "normal-accept",
+      "pass": true,
+      "evidence": {
+        "accepts": [
+          {
+            "action": "acceptBatch",
+            "data": {
+              "batchId": "A-0"
+            }
+          }
+        ],
+        "navigation": [
+          [
+            "navigateTo",
+            "/station/batch/batch?id=A-0"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "double-click-accept",
+      "pass": true,
+      "evidence": {
+        "accepts": 1
+      }
+    },
+    {
+      "name": "denied-clears-old-list",
+      "pass": true,
+      "evidence": {
+        "count": 0,
+        "error": "合成读取拒绝"
+      }
+    },
+    {
+      "name": "late-read-hide",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0
+      }
+    },
+    {
+      "name": "late-read-unload",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0
+      }
+    },
+    {
+      "name": "late-read-user",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0
+      }
+    },
+    {
+      "name": "return-refreshes-while-old-read-pending",
+      "pass": true,
+      "evidence": {
+        "pendingReads": 2
+      }
+    },
+    {
+      "name": "old-accept-hide",
+      "pass": true,
+      "evidence": {
+        "accepts": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "old-accept-unload",
+      "pass": true,
+      "evidence": {
+        "accepts": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "old-accept-user",
+      "pass": true,
+      "evidence": {
+        "accepts": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "old-accept-denied",
+      "pass": true,
+      "evidence": {
+        "accepts": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "late-accept-success-hide",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "late-accept-success-unload",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "late-accept-success-user",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "late-accept-success-refresh",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "late-accept-failure-hide",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "late-accept-failure-unload",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "late-accept-failure-user",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "late-accept-failure-refresh",
+      "pass": true,
+      "evidence": {
+        "uiWrites": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "next-page-network-retry-keeps-offset",
+      "pass": true,
+      "evidence": {
+        "retainedCount": 20,
+        "offsets": [
+          0,
+          20,
+          20
+        ],
+        "finalCount": 21
+      }
+    },
+    {
+      "name": "latest-refresh-wins",
+      "pass": true,
+      "evidence": {
+        "id": "new-0"
+      }
+    },
+    {
+      "name": "old-error-cannot-overwrite-refresh",
+      "pass": true,
+      "evidence": {
+        "error": ""
+      }
+    },
+    {
+      "name": "session-pending-user",
+      "pass": true,
+      "evidence": {
+        "cloudCalls": 0
+      }
+    },
+    {
+      "name": "session-pending-hide",
+      "pass": true,
+      "evidence": {
+        "cloudCalls": 0
+      }
+    },
+    {
+      "name": "session-pending-unload",
+      "pass": true,
+      "evidence": {
+        "cloudCalls": 0
+      }
+    },
+    {
+      "name": "next-page-denied-E_FORBIDDEN",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false,
+        "pageError": false
+      }
+    },
+    {
+      "name": "next-page-denied-E_FEATURE_OFF",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false,
+        "pageError": false
+      }
+    },
+    {
+      "name": "next-page-denied-E_UNBOUND",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false,
+        "pageError": false
+      }
+    },
+    {
+      "name": "next-page-denied-E_BLOCKED",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false,
+        "pageError": false
+      }
+    },
+    {
+      "name": "accept-denied-clears-list",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "busy": false
+      }
+    },
+    {
+      "name": "accept-failure-retry-only-reads",
+      "pass": true,
+      "evidence": {
+        "accepts": 1,
+        "ready": true
+      }
+    },
+    {
+      "name": "unlisted-batch-not-accepted",
+      "pass": true,
+      "evidence": {
+        "accepts": 0
+      }
+    },
+    {
+      "name": "changed-community-only-refreshes",
+      "pass": true,
+      "evidence": {
+        "accepts": 0,
+        "reads": 2
+      }
+    },
+    {
+      "name": "changed-role-only-refreshes",
+      "pass": true,
+      "evidence": {
+        "accepts": 0,
+        "reads": 2
+      }
+    },
+    {
+      "name": "page-inflight-blocks-accept-and-duplicate-load",
+      "pass": true,
+      "evidence": {
+        "pendingReads": 1,
+        "accepts": 0
+      }
+    },
+    {
+      "name": "dedup-does-not-rewind-offset",
+      "pass": true,
+      "evidence": {
+        "offsets": [
+          0,
+          20,
+          22
+        ],
+        "rows": 21
+      }
+    },
+    {
+      "name": "network-error-does-not-auto-retry-on-scroll",
+      "pass": true,
+      "evidence": {
+        "pendingReads": 1
+      }
+    },
+    {
+      "name": "return-after-late-accept-only-reads",
+      "pass": true,
+      "evidence": {
+        "accepts": 1,
+        "navigation": 0,
+        "busy": false,
+        "ready": true
+      }
+    }
+  ]
+}

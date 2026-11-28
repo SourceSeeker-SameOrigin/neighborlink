@@ -1,0 +1,40 @@
+{
+  "issue": "QA49 home service tile row height alignment",
+  "widths": [
+    {
+      "cssWidth": 320,
+      "device": "iPhone 5 simulator",
+      "status": "visual-observed",
+      "result": "The two columns of service tiles appear equal in height; long subtitles wrap without clipping. Exact bounding rectangles and click test not recorded."
+    },
+    {
+      "cssWidth": 375,
+      "device": "iPhone 6/7/8 simulator",
+      "status": "measured",
+      "result": "All four inner tile rectangles measured. First row express/trash: top 245, height 74, bottom 319. Second row buy/help: top 327, height 91, bottom 418. Each row is aligned; help subtitle wraps to two lines without clipping."
+    },
+    {
+      "cssWidth": 390,
+      "device": "iPhone 12/13 Pro simulator",
+      "status": "visual-observed",
+      "result": "Home rendered with aligned first and second rows; no clipping observed. Exact rectangles and click test not recorded."
+    },
+    {
+      "cssWidth": 430,
+      "device": "iPhone 14 Pro Max simulator",
+      "status": "visual-and-navigation-observed",
+      "result": "Actual 430-width home screenshot (75% display scale) shows aligned service tile rows and wrapped help subtitle without clipping. Trash service tile opened its form; back returned home. Exact tile rectangles not measured; full-page acceptance remains incomplete."
+    }
+  ],
+  "scope": "Only QA49 service tile row alignment. Screenshot/measurements are simulator evidence, not user acceptance or full-page visual acceptance.",
+  "runtimeErrors": 0,
+  "platformWarnings": 3,
+  "notes": [
+    "Simulator screenshot and accessibility tree occasionally lag device-model changes; width labels above only reflect observations where screen/device evidence matched.",
+    "QA49 visual click test remains outstanding.",
+    "430 actual screenshot observed after navigation refreshed the earlier stale image. Console AX click did not focus and coordinate click returned noWindowsAvailable; no console command pasted."
+  ],
+  "historicalSnapshot": true,
+  "latestEvidence": "../2026-11-12-mock-orders/widths.json",
+  "latestStatus": "All four widths now have equal-row rectangle measurements; old pending entries below describe the earlier snapshot only."
+}

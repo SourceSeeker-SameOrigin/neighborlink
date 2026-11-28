@@ -1,0 +1,75 @@
+{
+  "scope": "微信开发工具真实页面，iPhone12/13 Pro 390逻辑宽度；没有真实业务写入",
+  "pages": [
+    {
+      "route": "admin/order/order",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    },
+    {
+      "route": "board/detail/detail",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    },
+    {
+      "route": "events/detail/detail",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    },
+    {
+      "route": "idle/detail/detail",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    },
+    {
+      "route": "idle/sale/sale",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    },
+    {
+      "route": "pages/orders/detail",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    },
+    {
+      "route": "pet/reports",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    },
+    {
+      "route": "pet/work",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    },
+    {
+      "route": "provider/task/task",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    },
+    {
+      "route": "shops/booking/booking",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    },
+    {
+      "route": "shops/detail/detail",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    },
+    {
+      "route": "station/batch/batch",
+      "missingIdUI": "已核对截图及AX，提示和导航按钮可见；业务内容隐藏"
+    }
+  ],
+  "clickedReturns": [
+    "商家预约→商家列表",
+    "喂宠报告→我的订单标签页",
+    "订单详情→我的订单标签页",
+    "后台订单缺编号→订单管理（实际按钮点击，目标页已打开）",
+    "P16 provider/task/task→provider/workbench/workbench（实际点击；显示尚未提交服务员申请；不是已审服务员工作成功）",
+    "P39 board/detail/detail→board/list/list（实际点击；需求广场暂未开放）",
+    "P42 idle/detail/detail→idle/list/list（实际点击；闲置交易暂未开放）",
+    "P46 idle/sale/sale→idle/sales/sales（实际点击；暂无担保交易订单，卖家收入与结算入口可见）",
+    "P49 events/detail/detail→events/list/list（实际点击；该功能暂未开放）",
+    "P52 pet/work→provider/workbench/workbench（实际点击；重新从首页进入后提示正常，返回显示尚未提交服务员申请；此前偶发空白，QA30待真机对照）",
+    "P59 shops/detail/detail→shops/list/list（实际点击；该功能暂未开放）",
+    "P65 station/batch/batch→station/worker/worker → pages/index/index（实际点击；当前resident/admin账号无配送权限，providerHall实测E_FORBIDDEN并回首页；不是配送成功流程）"
+  ],
+  "notVerified": [
+    "有效编号对应的真实非空业务、已删除及越权记录边界",
+    "多尺寸/真机",
+    "QA30喂宠工作页偶发空白根因未定，用户已批准先真机与模拟器对照"
+  ],
+  "debugger": "连续导航后0错误38条累计警告；重新编译后0错误4警告。平台/热更新等警告仍存在，不声称零告警。",
+  "followupDate": "2026-11-10",
+  "clickedReturnCount": 12
+}

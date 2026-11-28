@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-08",
+  "method": "Official CloudBase UI readback and wx.cloud.callFunction via real miniprogram DevTools console; manually transcribed non-sensitive fields",
+  "globalLocation": true,
+  "communityCount": 2,
+  "communityId": "junyue_international",
+  "demoPreserved": true,
+  "center": {
+    "lat": 39.686298,
+    "lng": 116.31342
+  },
+  "source": "https://www.amap.com/place/B000A8ZKTD",
+  "geoPointReadback": "116.31342 E,39.686298 N",
+  "getCommunity": {
+    "ok": true,
+    "location": true,
+    "geoExposed": false,
+    "buildings": 0
+  },
+  "nearbyAtCenter": {
+    "ok": true,
+    "listIds": [
+      "junyue_international"
+    ],
+    "distanceKm": 0,
+    "hasMore": false,
+    "nextOffset": 1
+  },
+  "farQuery": {
+    "lat": 39.9,
+    "lng": 116.4,
+    "ok": true,
+    "count": 0
+  },
+  "invalidQuery": {
+    "lat": 100,
+    "lng": 116.4,
+    "ok": false,
+    "code": "E_INVALID_PARAM"
+  },
+  "deviceLocationAcceptance": "pending",
+  "orderLocationSharingAcceptance": "pending"
+}

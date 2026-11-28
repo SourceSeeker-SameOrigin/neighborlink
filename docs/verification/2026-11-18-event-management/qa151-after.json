@@ -1,0 +1,38 @@
+{
+  "case": "QA151",
+  "page": "chat/room/room",
+  "scope": "Front-end chat room, media selection callback and acceptance specification",
+  "isolationChecks": {
+    "passed": 14,
+    "total": 14,
+    "covered": [
+      "identity switch blocks stale send and clears messages",
+      "session failure exits loading and clears authorization",
+      "denied reload clears messages and cursor",
+      "stale privacy confirmation sends nothing",
+      "normal text send and refresh",
+      "late pull after hide cannot refill messages",
+      "identity switch blocks stale report",
+      "identity switch discards uploaded photo result",
+      "native camera return reauthenticates before sending",
+      "double tap sends once",
+      "unknown send result requires read-only reload",
+      "leaving during photo upload discards result",
+      "read-only conversation blocks send",
+      "late send response after identity switch clears old view"
+    ]
+  },
+  "mediaCallbackOrder": "onChosen observed before synthetic upload",
+  "simulator": {
+    "project": "Disposable tourist project with actual P35 JavaScript, WXML and WXSS plus synthetic API responses",
+    "normalWidths": [320, 375, 390, 430],
+    "normalState": "Each width rendered one synthetic message with report action and a visible image/text composer",
+    "deniedWidth": 430,
+    "deniedState": "Displayed only synthetic authorization error and read-only retry; previous message and composer absent",
+    "interactionLimit": "Native camera, text input and real dual-account backend exchange were not verified"
+  },
+  "jest": { "suitesPassed": 55, "testsPassed": 652 },
+  "cloudCalls": 0,
+  "realMessages": 0,
+  "remaining": "Native camera, real dual-account conversation and backend readback; browser simulator text input was not confirmed"
+}

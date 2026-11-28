@@ -1,0 +1,200 @@
+{
+  "frontend": "dff61b2",
+  "environment": "隔离数据库及模拟微信 API；微信预付单由 SDK 替身返回，payFlow.prepare 的参数组装使用仓库实现；未接入真实商户。",
+  "eventSignup": [
+    {
+      "mode": "wechat",
+      "entry": "首次",
+      "stage": "visible",
+      "modals": 0,
+      "cashier": 0,
+      "mockPay": 0,
+      "order": "pending_pay",
+      "signup": "pending_pay",
+      "error": "支付参数暂不可用，请到订单页重试"
+    },
+    {
+      "mode": "wechat",
+      "entry": "续付",
+      "stage": "visible",
+      "modals": 0,
+      "cashier": 0,
+      "mockPay": 0,
+      "order": "pending_pay",
+      "signup": "pending_pay",
+      "error": "支付参数暂不可用，请到订单页重试"
+    },
+    {
+      "mode": "mock",
+      "entry": "首次",
+      "stage": "visible",
+      "modals": 0,
+      "cashier": 0,
+      "mockPay": 1,
+      "order": "paid",
+      "signup": "signed",
+      "error": ""
+    },
+    {
+      "mode": "mock",
+      "entry": "首次",
+      "stage": "hidden",
+      "modals": 0,
+      "cashier": 0,
+      "mockPay": 1,
+      "order": "paid",
+      "signup": "signed",
+      "error": ""
+    },
+    {
+      "mode": "mock",
+      "entry": "首次",
+      "stage": "unloaded",
+      "modals": 0,
+      "cashier": 0,
+      "mockPay": 1,
+      "order": "paid",
+      "signup": "signed",
+      "error": ""
+    },
+    {
+      "mode": "mock",
+      "entry": "续付",
+      "stage": "visible",
+      "modals": 0,
+      "cashier": 0,
+      "mockPay": 1,
+      "order": "paid",
+      "signup": "signed",
+      "error": ""
+    },
+    {
+      "mode": "mock",
+      "entry": "续付",
+      "stage": "hidden",
+      "modals": 0,
+      "cashier": 0,
+      "mockPay": 1,
+      "order": "paid",
+      "signup": "signed",
+      "error": ""
+    },
+    {
+      "mode": "mock",
+      "entry": "续付",
+      "stage": "unloaded",
+      "modals": 0,
+      "cashier": 0,
+      "mockPay": 1,
+      "order": "paid",
+      "signup": "signed",
+      "error": ""
+    },
+    {
+      "mode": "free",
+      "entry": "首次",
+      "stage": "visible",
+      "modals": 0,
+      "cashier": 0,
+      "mockPay": 0,
+      "signup": "signed",
+      "error": ""
+    }
+  ],
+  "otherMockPaymentCalls": {
+    "trash": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "express": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "buy": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "help": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "meal": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "escort": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "pet": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "trash_monthly": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "express_monthly": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "visit_monthly": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "vacant_monthly": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "shop": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "board": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    },
+    "idle": {
+      "visibleConfirm": 1,
+      "visibleCancel": 0,
+      "hiddenConfirm": 1,
+      "unloadedConfirm": 1
+    }
+  },
+  "subsidyCsv": {
+    "rows": 102,
+    "unique": 102,
+    "privateFieldsExcluded": true,
+    "dateAndTypeExcluded": true,
+    "paidRow": "\"fixture_0\",\"c\",\"meal\",\"completed\",\"2026-11-17 09:00\",\"2026-11-17 09:00\",\"300\",\"2000\",\"100\"",
+    "unpaidRow": "\"unpaid\",\"c\",\"meal\",\"pending_pay\",\"2026-11-17 09:00\",\"\",\"500\",\"0\",\"0\"",
+    "header": "﻿\"订单号\",\"小区ID\",\"服务代码\",\"订单状态\",\"创建时间\",\"完成时间\",\"服务费实付（分）\",\"餐费实际（分）\",\"退款合计（分）\""
+  },
+  "residentExportDenied": "resident: E_FORBIDDEN"
+}

@@ -1,1 +1,1 @@
-.tabs{display:flex;gap:12rpx}.tabs button{flex:1;padding:0 8rpx;font-size:32rpx}
+.tabs{display:flex;gap:12rpx}.tabs .ui-button{flex:1;font-size:32rpx}

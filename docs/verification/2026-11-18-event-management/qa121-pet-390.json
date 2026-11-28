@@ -1,0 +1,58 @@
+{
+  "width": 390,
+  "reads": [
+    {
+      "orderId": "synthetic-order-a",
+      "user": "synthetic-a"
+    },
+    {
+      "orderId": "synthetic-order-a",
+      "user": "synthetic-b"
+    },
+    {
+      "orderId": "synthetic-order-a",
+      "user": "synthetic-b"
+    }
+  ],
+  "records": [
+    {
+      "phase": "stale-user",
+      "user": "synthetic-b",
+      "orderId": "synthetic-order-a",
+      "hasSecret": false,
+      "error": "",
+      "reading": false,
+      "context": {
+        "userId": "synthetic-b",
+        "orderId": "synthetic-order-a",
+        "read": 2
+      }
+    },
+    {
+      "phase": "explicit-reveal",
+      "user": "synthetic-b",
+      "orderId": "synthetic-order-a",
+      "hasSecret": true,
+      "error": "",
+      "reading": false,
+      "context": {
+        "userId": "synthetic-b",
+        "orderId": "synthetic-order-a",
+        "read": 2
+      }
+    },
+    {
+      "phase": "stale-order",
+      "user": "synthetic-b",
+      "orderId": "synthetic-order-b",
+      "hasSecret": false,
+      "error": "",
+      "reading": false,
+      "context": {
+        "userId": "synthetic-b",
+        "orderId": "synthetic-order-b",
+        "read": 3
+      }
+    }
+  ]
+}

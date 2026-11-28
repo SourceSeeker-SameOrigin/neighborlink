@@ -1,0 +1,18 @@
+{
+  "case": "QA164",
+  "page": "admin/order/order",
+  "method": "Actual page JavaScript in isolated Node VM with synthetic administrator A, resident B, order and provider; all CloudBase calls intercepted",
+  "passed": 1,
+  "failed": 4,
+  "results": [
+    "Normal administrator detail read displays the synthetic order",
+    "A's late detail read fills B's page with readOnly=false",
+    "Failed recheck retains A's old order and readOnly=false",
+    "Old assign action sends one assign request after switching to resident B",
+    "Old force-cancel confirmation sends one forceCancel request after switching to resident B"
+  ],
+  "cloudCalls": 0,
+  "realOrderWrites": 0,
+  "limits": "The cloud function may independently reject unauthorized changes; online incidence and other detail actions are unknown",
+  "status": "Reproduced in isolation; remediation recorded for unified user decision"
+}

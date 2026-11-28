@@ -1,0 +1,17 @@
+{
+  "case": "QA157",
+  "page": "idle/income/income",
+  "method": "node docs/verification/2026-11-18-event-management/seller-income-boundaries.cjs; actual page JavaScript in isolated Node VM with two synthetic residents and intercepted payout and native transfer calls",
+  "passed": 1,
+  "failed": 3,
+  "results": [
+    { "case": "normal-read", "ready": true, "available": "10.00" },
+    { "case": "late-read-after-identity-change", "ready": true, "available": "10.00", "expected": "old income not visible under new identity" },
+    { "case": "old-withdraw-after-identity-change", "createCalls": 1, "expected": 0 },
+    { "case": "late-payout-after-identity-change", "transferCalls": 1, "expected": 0 }
+  ],
+  "cloudCalls": 0,
+  "realTransfers": 0,
+  "limits": "The cloud function may independently reject stale requests; actual user incidence is unknown",
+  "status": "Reproduced in isolation; remediation awaits user decision"
+}

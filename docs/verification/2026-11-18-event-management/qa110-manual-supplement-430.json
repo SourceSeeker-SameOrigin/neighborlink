@@ -1,0 +1,695 @@
+{
+  "date": "2026-11-19",
+  "baseline": "1b16d94",
+  "width": 430,
+  "scope": "Actual UI clicks and synthetic API receipts; no real cloud writes",
+  "visual": "Observed matching simulator screenshots after scrolling: five operation cards and readable buttons; no horizontal clipping in target samples",
+  "manualRequests": [
+    {
+      "action": "checkin",
+      "eventId": "checkin"
+    },
+    {
+      "action": "retryCancellation",
+      "eventId": "retryCancellation"
+    },
+    {
+      "action": "cancelEvent",
+      "eventId": "cancelEvent"
+    },
+    {
+      "action": "review",
+      "eventId": "review"
+    },
+    {
+      "action": "publish",
+      "eventId": "publish"
+    }
+  ],
+  "manualRuns": [
+    {
+      "calls": [
+        {
+          "action": "publish",
+          "eventId": "publish"
+        },
+        {
+          "action": "publish",
+          "eventId": "publish"
+        },
+        {
+          "action": "review",
+          "eventId": "review"
+        },
+        {
+          "action": "review",
+          "eventId": "review"
+        },
+        {
+          "action": "cancelEvent",
+          "eventId": "cancelEvent"
+        },
+        {
+          "action": "cancelEvent",
+          "eventId": "cancelEvent"
+        },
+        {
+          "action": "retryCancellation",
+          "eventId": "retryCancellation"
+        },
+        {
+          "action": "retryCancellation",
+          "eventId": "retryCancellation"
+        },
+        {
+          "action": "checkin",
+          "eventId": "checkin"
+        },
+        {
+          "action": "checkin",
+          "eventId": "checkin"
+        },
+        {
+          "action": "checkin",
+          "eventId": "checkin"
+        },
+        {
+          "action": "retryCancellation",
+          "eventId": "retryCancellation"
+        },
+        {
+          "action": "cancelEvent",
+          "eventId": "cancelEvent"
+        },
+        {
+          "action": "review",
+          "eventId": "review"
+        },
+        {
+          "action": "publish",
+          "eventId": "publish"
+        }
+      ],
+      "error": "",
+      "busy": false
+    }
+  ],
+  "automaticProbe": {
+    "width": 430,
+    "cases": [
+      {
+        "action": "publish",
+        "requests": 2,
+        "error": "",
+        "busy": false,
+        "busyButtons": [
+          {
+            "dataset": {
+              "id": "publish"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2060,
+            "bottom": 2110,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "review"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2245,
+            "bottom": 2295,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "cancelEvent"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2453,
+            "bottom": 2503,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "cancelEvent"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2503,
+            "bottom": 2553,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "retryCancellation"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2688,
+            "bottom": 2738,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "checkin"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2896,
+            "bottom": 2946,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "checkin"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2946,
+            "bottom": 2996,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          }
+        ]
+      },
+      {
+        "action": "review",
+        "requests": 2,
+        "error": "",
+        "busy": false,
+        "busyButtons": [
+          {
+            "dataset": {
+              "id": "publish"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2060,
+            "bottom": 2110,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "review"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2245,
+            "bottom": 2295,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "cancelEvent"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2453,
+            "bottom": 2503,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "cancelEvent"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2503,
+            "bottom": 2553,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "retryCancellation"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2688,
+            "bottom": 2738,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "checkin"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2896,
+            "bottom": 2946,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "checkin"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2946,
+            "bottom": 2996,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          }
+        ]
+      },
+      {
+        "action": "cancelEvent",
+        "requests": 2,
+        "error": "",
+        "busy": false,
+        "busyButtons": [
+          {
+            "dataset": {
+              "id": "publish"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2060,
+            "bottom": 2110,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "review"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2245,
+            "bottom": 2295,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "cancelEvent"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2453,
+            "bottom": 2503,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "cancelEvent"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2503,
+            "bottom": 2553,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "retryCancellation"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2688,
+            "bottom": 2738,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "checkin"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2896,
+            "bottom": 2946,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "checkin"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2946,
+            "bottom": 2996,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          }
+        ]
+      },
+      {
+        "action": "retryCancellation",
+        "requests": 2,
+        "error": "",
+        "busy": false,
+        "busyButtons": [
+          {
+            "dataset": {
+              "id": "publish"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2060,
+            "bottom": 2110,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "review"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2245,
+            "bottom": 2295,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "cancelEvent"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2453,
+            "bottom": 2503,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "cancelEvent"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2503,
+            "bottom": 2553,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "retryCancellation"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2688,
+            "bottom": 2738,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "checkin"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2896,
+            "bottom": 2946,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "checkin"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2946,
+            "bottom": 2996,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          }
+        ]
+      },
+      {
+        "action": "checkin",
+        "requests": 2,
+        "error": "",
+        "busy": false,
+        "busyButtons": [
+          {
+            "dataset": {
+              "id": "publish"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2060,
+            "bottom": 2110,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "review"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2245,
+            "bottom": 2295,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "cancelEvent"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2453,
+            "bottom": 2503,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "cancelEvent"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2503,
+            "bottom": 2553,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "retryCancellation"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2688,
+            "bottom": 2738,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "checkin"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2896,
+            "bottom": 2946,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          },
+          {
+            "dataset": {
+              "id": "checkin"
+            },
+            "left": 27,
+            "right": 403,
+            "top": 2946,
+            "bottom": 2996,
+            "width": 376,
+            "height": 50,
+            "disabled": true
+          }
+        ]
+      }
+    ],
+    "buttons": [
+      {
+        "dataset": {
+          "id": "publish"
+        },
+        "left": 27,
+        "right": 403,
+        "top": 2033,
+        "bottom": 2083,
+        "width": 376,
+        "height": 50,
+        "disabled": false
+      },
+      {
+        "dataset": {
+          "id": "review"
+        },
+        "left": 27,
+        "right": 403,
+        "top": 2218,
+        "bottom": 2268,
+        "width": 376,
+        "height": 50,
+        "disabled": false
+      },
+      {
+        "dataset": {
+          "id": "cancelEvent"
+        },
+        "left": 27,
+        "right": 403,
+        "top": 2426,
+        "bottom": 2476,
+        "width": 376,
+        "height": 50,
+        "disabled": false
+      },
+      {
+        "dataset": {
+          "id": "cancelEvent"
+        },
+        "left": 27,
+        "right": 403,
+        "top": 2476,
+        "bottom": 2526,
+        "width": 376,
+        "height": 50,
+        "disabled": false
+      },
+      {
+        "dataset": {
+          "id": "retryCancellation"
+        },
+        "left": 27,
+        "right": 403,
+        "top": 2661,
+        "bottom": 2711,
+        "width": 376,
+        "height": 50,
+        "disabled": false
+      },
+      {
+        "dataset": {
+          "id": "checkin"
+        },
+        "left": 27,
+        "right": 403,
+        "top": 2869,
+        "bottom": 2919,
+        "width": 376,
+        "height": 50,
+        "disabled": false
+      },
+      {
+        "dataset": {
+          "id": "checkin"
+        },
+        "left": 27,
+        "right": 403,
+        "top": 2919,
+        "bottom": 2969,
+        "width": 376,
+        "height": 50,
+        "disabled": false
+      }
+    ],
+    "calls": [
+      {
+        "action": "publish",
+        "eventId": "publish"
+      },
+      {
+        "action": "publish",
+        "eventId": "publish"
+      },
+      {
+        "action": "review",
+        "eventId": "review"
+      },
+      {
+        "action": "review",
+        "eventId": "review"
+      },
+      {
+        "action": "cancelEvent",
+        "eventId": "cancelEvent"
+      },
+      {
+        "action": "cancelEvent",
+        "eventId": "cancelEvent"
+      },
+      {
+        "action": "retryCancellation",
+        "eventId": "retryCancellation"
+      },
+      {
+        "action": "retryCancellation",
+        "eventId": "retryCancellation"
+      },
+      {
+        "action": "checkin",
+        "eventId": "checkin"
+      },
+      {
+        "action": "checkin",
+        "eventId": "checkin"
+      }
+    ]
+  },
+  "limitations": [
+    "Automatic probe requests are separate from manual clicks",
+    "No real camera, checkin, refund or event mutation",
+    "Not full P50 or 69-page acceptance"
+  ]
+}

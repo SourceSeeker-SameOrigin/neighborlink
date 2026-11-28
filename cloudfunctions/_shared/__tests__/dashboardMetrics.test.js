@@ -29,3 +29,12 @@ test('小区只计本区提现份额，联合社区去重后每笔只计一次',
   ]);
   expect(extensionMetrics([], [], payouts, ['C']).payoutStatus).toEqual([]);
 });
+
+const { revenueMetrics } = require('../dashboardMetrics');
+test('R06 unpaid orders do not contribute, goods are separate, only successful refunds count',()=>{
+ const pricing={payAmount:500,goodsCap:5000};
+ const result=revenueMetrics([{pricing,payment:{}},{pricing,payment:{paidAt:new Date()},refunds:[{amount:1200,serviceAmount:200,goodsAmount:1000,status:'success'},{amount:100,serviceAmount:100,goodsAmount:0,status:'processing'},{amount:50,status:'failed'}]}]);
+ expect(result).toEqual({paidOrders:1,serviceFeeTurnover:500,actualIncome:300,goodsReceived:5000,goodsRefunded:1000,goodsNet:4000,refundTotal:1200});
+});
+test('R06 legacy goods difference and service refunds retain existing attribution',()=>{expect(revenueMetrics([{pricing:{payAmount:300,goodsCap:1000},payment:{paidAt:1},refunds:[{key:'goods_difference',amount:200,status:'success'},{key:'cancel',amount:300,status:'success'}]}])).toMatchObject({actualIncome:0,goodsNet:800,refundTotal:500});});
+test('R06 impossible refund amounts are flagged instead of masking data corruption',()=>{expect(()=>revenueMetrics([{pricing:{payAmount:100,goodsCap:0},payment:{paidAt:1},refunds:[{amount:200,status:'success'}]}])).toThrow('超过');});

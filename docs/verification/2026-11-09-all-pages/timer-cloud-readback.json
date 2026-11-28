@@ -1,0 +1,25 @@
+{
+  "function": "timer",
+  "sourceCommit": "73194f8f337717a8a58930f29a9ae8264de3e061",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "method": "Official CLI download; SHA-256 of every authorized source file",
+  "selectedPackageBytes": 125440,
+  "selectedPackageSha256": "68f2d6c784adfd1bb4840fb50d21bdd579061404871c4936286b8233f8d1e2a2",
+  "comparedFiles": 76,
+  "matches": 76,
+  "mismatches": [],
+  "sdkVersion": "4.0.2",
+  "execution": "not invoked; no trigger config applied",
+  "configurationReadback": {
+    "status": "normal",
+    "runtime": "Node.js 20.19",
+    "handler": "index.main",
+    "memoryMB": 256,
+    "timeoutSeconds": 3,
+    "modifiedAtBeijing": "2026-11-09 23:51:22",
+    "timerTriggers": 0,
+    "httpDomains": 0,
+    "environmentVariables": "none shown",
+    "verification": "CloudBase function configuration page after deployment"
+  }
+}

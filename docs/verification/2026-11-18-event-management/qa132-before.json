@@ -1,0 +1,198 @@
+{
+  "scope": "actual P62 page, synthetic identities and responses; zero cloud, clipboard or native modal actions",
+  "pass": 5,
+  "fail": 16,
+  "results": [
+    {
+      "name": "normal-read",
+      "pass": true,
+      "evidence": {
+        "rows": [
+          "A"
+        ]
+      }
+    },
+    {
+      "name": "normal-next-page",
+      "pass": true,
+      "evidence": {
+        "offset": 1,
+        "rows": [
+          "A",
+          "B"
+        ]
+      }
+    },
+    {
+      "name": "reload-denied-clears-old-batches",
+      "pass": false,
+      "evidence": {
+        "rows": 1,
+        "error": "合成无权访问"
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "older-success",
+      "pass": false,
+      "evidence": {
+        "rows": [
+          "A"
+        ],
+        "error": ""
+      },
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n+   'A'\n-   'B'\n  ]\n"
+    },
+    {
+      "name": "older-error",
+      "pass": false,
+      "evidence": {
+        "rows": [
+          "B"
+        ],
+        "error": "旧读取失败"
+      },
+      "error": "Expected values to be strictly equal:\n\n'旧读取失败' !== ''\n"
+    },
+    {
+      "name": "late-read-hide",
+      "pass": false,
+      "evidence": {
+        "writesAfterBoundary": 1,
+        "rows": []
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-read-unload",
+      "pass": false,
+      "evidence": {
+        "writesAfterBoundary": 1,
+        "rows": []
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-read-user",
+      "pass": false,
+      "evidence": {
+        "writesAfterBoundary": 2,
+        "rows": [
+          "A"
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "late-read-return",
+      "pass": false,
+      "evidence": {
+        "writesAfterBoundary": 2,
+        "rows": [
+          "A"
+        ]
+      },
+      "error": "Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "next-page-network-error-retains-rows",
+      "pass": true,
+      "evidence": {
+        "rows": [
+          "A"
+        ]
+      }
+    },
+    {
+      "name": "retry-event-keeps-failed-page-offset",
+      "pass": false,
+      "evidence": {
+        "offset": 0
+      },
+      "error": "Expected values to be strictly equal:\n\n0 !== 1\n"
+    },
+    {
+      "name": "normal-export",
+      "pass": true,
+      "evidence": {
+        "clipboard": 1,
+        "modals": 1
+      }
+    },
+    {
+      "name": "duplicate-export-blocked",
+      "pass": true,
+      "evidence": {
+        "exports": 1
+      }
+    },
+    {
+      "name": "export-start-hide",
+      "pass": false,
+      "evidence": {
+        "exports": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "export-start-unload",
+      "pass": false,
+      "evidence": {
+        "exports": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "export-start-user",
+      "pass": false,
+      "evidence": {
+        "exports": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "export-start-denied",
+      "pass": false,
+      "evidence": {
+        "exports": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-export-hide",
+      "pass": false,
+      "evidence": {
+        "clipboard": 1,
+        "modals": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-export-unload",
+      "pass": false,
+      "evidence": {
+        "clipboard": 1,
+        "modals": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-export-user",
+      "pass": false,
+      "evidence": {
+        "clipboard": 1,
+        "modals": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "late-export-refresh",
+      "pass": false,
+      "evidence": {
+        "clipboard": 1,
+        "modals": 1
+      },
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    }
+  ]
+}

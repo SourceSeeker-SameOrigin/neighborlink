@@ -1,3 +1,4 @@
+const { requireOrderFeatures } = require('./orderFeatures');
 const { ensure, text } = require('./validate');
 const { atomic, read } = require('./transaction');
 const { complaint, rating } = require('./orderLifecycle');
@@ -18,6 +19,7 @@ function residentOrderActions(cloud, server) {
   }
   async function confirm(event, { openid }) {
     const order = await own(event, openid);
+    await requireOrderFeatures(server, order);
     await ledger.complete(order, openid);
     return { orderId: order._id, status: 'completed' };
   }

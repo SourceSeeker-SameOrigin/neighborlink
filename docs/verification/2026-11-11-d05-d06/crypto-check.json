@@ -1,0 +1,39 @@
+{
+  "scope": "synthetic local cryptography; not cloud key consistency, authorization, audit or cleanup acceptance",
+  "passed": 8,
+  "total": 8,
+  "results": [
+    {
+      "name": "round trip",
+      "passed": true
+    },
+    {
+      "name": "wrong key rejected",
+      "passed": true
+    },
+    {
+      "name": "tag alteration rejected",
+      "passed": true
+    },
+    {
+      "name": "ciphertext alteration rejected",
+      "passed": true
+    },
+    {
+      "name": "random IV for repeated plaintext",
+      "passed": true
+    },
+    {
+      "name": "short key rejected",
+      "passed": true
+    },
+    {
+      "name": "missing key rejected",
+      "passed": true
+    },
+    {
+      "name": "unsupported algorithm rejected",
+      "passed": true
+    }
+  ]
+}

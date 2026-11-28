@@ -1,0 +1,127 @@
+{
+  "scope": "isolated actual-page handlers; synthetic camera lifecycle, not native device acceptance",
+  "pass": 30,
+  "fail": 0,
+  "results": [
+    {
+      "name": "same-page-success",
+      "pass": true
+    },
+    {
+      "name": "same-page-failure",
+      "pass": true
+    },
+    {
+      "name": "hidden-success",
+      "pass": true
+    },
+    {
+      "name": "hidden-failure",
+      "pass": true
+    },
+    {
+      "name": "unload-success",
+      "pass": true
+    },
+    {
+      "name": "unload-failure",
+      "pass": true
+    },
+    {
+      "name": "refresh-success",
+      "pass": true
+    },
+    {
+      "name": "refresh-failure",
+      "pass": true
+    },
+    {
+      "name": "change-user-success",
+      "pass": true
+    },
+    {
+      "name": "change-user-failure",
+      "pass": true
+    },
+    {
+      "name": "change-community-success",
+      "pass": true
+    },
+    {
+      "name": "change-community-failure",
+      "pass": true
+    },
+    {
+      "name": "native-camera-return-before-show",
+      "pass": true
+    },
+    {
+      "name": "native-camera-return-after-show",
+      "pass": true
+    },
+    {
+      "name": "native-camera-return-during-recheck",
+      "pass": true
+    },
+    {
+      "name": "camera-return-recheck-rejects-user",
+      "pass": true
+    },
+    {
+      "name": "camera-return-recheck-rejects-community",
+      "pass": true
+    },
+    {
+      "name": "camera-return-recheck-rejects-read-failure",
+      "pass": true
+    },
+    {
+      "name": "double-click-one-camera",
+      "pass": true
+    },
+    {
+      "name": "old-camera-cannot-overwrite-new-success",
+      "pass": true
+    },
+    {
+      "name": "old-camera-cannot-overwrite-new-failure",
+      "pass": true
+    },
+    {
+      "name": "cancel-clears-old-error-and-code",
+      "pass": true
+    },
+    {
+      "name": "scan-format-scene",
+      "pass": true
+    },
+    {
+      "name": "scan-format-path",
+      "pass": true
+    },
+    {
+      "name": "malformed-path-is-retryable",
+      "pass": true
+    },
+    {
+      "name": "blocked-before-camera-loading",
+      "pass": true
+    },
+    {
+      "name": "blocked-before-camera-not-ready",
+      "pass": true
+    },
+    {
+      "name": "blocked-before-camera-busy",
+      "pass": true
+    },
+    {
+      "name": "blocked-before-camera-hidden",
+      "pass": true
+    },
+    {
+      "name": "blocked-before-camera-changed-user",
+      "pass": true
+    }
+  ]
+}

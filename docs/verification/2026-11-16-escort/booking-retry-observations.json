@@ -1,0 +1,87 @@
+[
+  {
+    "priceType": "fixed",
+    "change": "同页重试",
+    "originalRecovered": true,
+    "distinctKeys": 1,
+    "orders": 1,
+    "payCalls": 1,
+    "code": null,
+    "prompt": null
+  },
+  {
+    "priceType": "fixed",
+    "change": "下架",
+    "originalRecovered": false,
+    "distinctKeys": 1,
+    "orders": 1,
+    "payCalls": 0,
+    "code": "E_INVALID_PARAM",
+    "prompt": "该服务暂不可预约"
+  },
+  {
+    "priceType": "fixed",
+    "change": "隐藏",
+    "originalRecovered": false,
+    "distinctKeys": 1,
+    "orders": 1,
+    "payCalls": 0,
+    "code": "E_INVALID_PARAM",
+    "prompt": "商家暂不可用"
+  },
+  {
+    "priceType": "fixed",
+    "change": "离页重进",
+    "originalRecovered": false,
+    "distinctKeys": 2,
+    "orders": 2,
+    "payCalls": 1,
+    "code": null,
+    "prompt": null
+  },
+  {
+    "priceType": "quote",
+    "change": "同页重试",
+    "originalRecovered": true,
+    "distinctKeys": 1,
+    "orders": 1,
+    "payCalls": 0,
+    "code": null,
+    "prompt": null
+  },
+  {
+    "priceType": "quote",
+    "change": "下架",
+    "originalRecovered": false,
+    "distinctKeys": 1,
+    "orders": 1,
+    "payCalls": 0,
+    "code": "E_INVALID_PARAM",
+    "prompt": "该服务暂不可预约"
+  },
+  {
+    "priceType": "quote",
+    "change": "隐藏",
+    "originalRecovered": false,
+    "distinctKeys": 1,
+    "orders": 1,
+    "payCalls": 0,
+    "code": "E_INVALID_PARAM",
+    "prompt": "商家暂不可用"
+  },
+  {
+    "priceType": "quote",
+    "change": "离页重进",
+    "originalRecovered": false,
+    "distinctKeys": 2,
+    "orders": 2,
+    "payCalls": 0,
+    "code": null,
+    "prompt": null
+  },
+  {
+    "newUser": true,
+    "oldRequirementVisible": true,
+    "canSubmit": true
+  }
+]

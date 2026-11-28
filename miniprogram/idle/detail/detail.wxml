@@ -1,12 +1,19 @@
+<view wx:if="{{missingRecord}}" class="page"><view class="card"><view class="section-title">缺少商品编号</view><view class="muted">请从闲置列表选择记录后重新进入。</view><navigator url="/idle/list/list" open-type="redirect"><button class="ui-button">前往闲置列表</button></navigator></view></view>
+<block wx:else>
 <view class="page">
   <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view>
+  <view wx:if="{{recovery}}" class="card"><view class="section-title">上次购买</view><view class="muted">{{recoveryHint}}</view>
+    <button wx:if="{{recovery === 'found'}}" bindtap="openOriginal">前往原订单</button>
+    <button wx:elif="{{recovery === 'lookup'}}" bindtap="load">重试核对原订单</button>
+    <block wx:elif="{{recovery === 'confirm' && item && item.status === 'on_sale'}}"><button bindtap="buy">确认并用原编号提交</button><button bindtap="startNewPurchase">明确开始新购买</button></block>
+  </view>
   <block wx:if="{{item}}">
     <view class="card">
       <view wx:if="{{item.sourceCommunityName}}" class="muted">来自 {{item.sourceCommunityName}}</view>
-      <view class="page-title">{{item.title}}</view><view class="price">¥{{item.priceText}}<text wx:if="{{item.negotiable}}" class="muted"> · 可议价</text></view>
+      <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/idle.png"/><view class="masthead-copy"><view class="page-title">{{item.title}}</view><view class="masthead-subtitle">闲置流转，物尽其用</view></view></view><view class="price">¥{{item.priceText}}<text wx:if="{{item.negotiable}}" class="muted"> · 可议价</text></view>
       <view class="muted">{{item.conditionText}} · {{item.timeText}}</view><view class="muted">{{item.category}}</view>
       <view class="desc">{{item.desc}}</view>
-      <image wx:for="{{item.images}}" wx:key="*this" src="{{item}}" class="photo" mode="aspectFill" data-url="{{item}}" bindtap="preview"/>
+      <private-media wx:for="{{item.images}}" wx:key="*this" src="{{item}}" media-class="photo" mode="aspectFill" data-url="{{item}}" bindtap="preview"/>
       <view wx:if="{{item.tradeMode === 'escrow'}}" class="notice">担保交易 · 支付由平台暂存，确认收货后结算给卖家</view>
       <view wx:if="{{item.status !== 'on_sale'}}" class="notice">{{item.status === 'sold' ? '已售出' : item.status === 'reserved' ? '担保交易进行中' : item.status === 'removed' ? '已下架' : '暂不可交易'}}</view>
     </view>
@@ -15,7 +22,7 @@
     </view>
     <view wx:elif="{{!item.seller && item.status === 'on_sale'}}" class="card">
       <view wx:if="{{item.sellerPhone}}" class="muted">卖家电话：{{item.sellerPhone}}</view>
-      <button wx:if="{{item.tradeMode === 'escrow' && item.status === 'on_sale'}}" type="primary" bindtap="buy" loading="{{busy}}">立即购买 · 担保交易</button>
+      <button wx:if="{{item.tradeMode === 'escrow' && item.status === 'on_sale' && !recovery}}" type="primary" bindtap="buy" loading="{{busy}}">立即购买 · 担保交易</button>
       <button wx:if="{{item.sellerPhone}}" type="primary" bindtap="contact">拨打卖家电话</button>
       <button wx:elif="{{item.tradeMode === 'offline'}}" type="primary" bindtap="want" loading="{{busy}}">我想要 · 联系卖家</button>
       <button bindtap="carry">一键帮搬</button><button bindtap="report">举报</button>
@@ -23,3 +30,5 @@
   </block>
   <view wx:if="{{loading}}" class="muted">正在加载…</view>
 </view>
+
+</block>

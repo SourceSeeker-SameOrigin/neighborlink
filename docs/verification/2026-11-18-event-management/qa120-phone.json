@@ -1,0 +1,403 @@
+{
+  "scope": "Actual page, synthetic calls only; no real phone, cloud writes or reports",
+  "pass": 54,
+  "fail": 0,
+  "results": [
+    {
+      "name": "phone-result-ready",
+      "pass": true,
+      "observed": {
+        "confirmed": true
+      }
+    },
+    {
+      "name": "phone-result-hidden",
+      "pass": true,
+      "observed": {
+        "confirmed": false
+      }
+    },
+    {
+      "name": "phone-result-unloaded",
+      "pass": true,
+      "observed": {
+        "confirmed": false
+      }
+    },
+    {
+      "name": "phone-result-refreshed",
+      "pass": true,
+      "observed": {
+        "confirmed": false
+      }
+    },
+    {
+      "name": "phone-result-changed-user",
+      "pass": true,
+      "observed": {
+        "confirmed": false
+      }
+    },
+    {
+      "name": "phone-result-changed-order",
+      "pass": true,
+      "observed": {
+        "confirmed": false
+      }
+    },
+    {
+      "name": "phone-result-attention-reset",
+      "pass": true,
+      "observed": {
+        "confirmed": false
+      }
+    },
+    {
+      "name": "phone-start-ready",
+      "pass": true,
+      "observed": {
+        "calls": 1
+      }
+    },
+    {
+      "name": "phone-start-hidden",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "phone-start-unloaded",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "phone-start-identity-changed-without-refresh",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "phone-start-order-changed-without-refresh",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-success-same",
+      "pass": true,
+      "observed": {
+        "confirmed": true,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-success-changed-user",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-success-changed-order",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-success-permission-revoked",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-success-phone-changed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-success-read-failed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-cancel-same",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-cancel-changed-user",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-cancel-changed-order",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-cancel-permission-revoked",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-cancel-phone-changed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-cancel-read-failed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-failure-same",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-failure-changed-user",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-failure-changed-order",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-failure-permission-revoked",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-failure-phone-changed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-before-return-failure-read-failed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-success-same",
+      "pass": true,
+      "observed": {
+        "confirmed": true,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-success-changed-user",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-success-changed-order",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-success-permission-revoked",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-success-phone-changed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-success-read-failed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-cancel-same",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-cancel-changed-user",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-cancel-changed-order",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-cancel-permission-revoked",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-cancel-phone-changed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-cancel-read-failed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-failure-same",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-failure-changed-user",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-failure-changed-order",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-failure-permission-revoked",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-failure-phone-changed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-system-return-after-return-failure-read-failed",
+      "pass": true,
+      "observed": {
+        "confirmed": false,
+        "calling": false
+      }
+    },
+    {
+      "name": "phone-duplicate-and-old-result-does-not-release-new-call",
+      "pass": true
+    },
+    {
+      "name": "phone-sync-failure-unlocks-retry",
+      "pass": true
+    },
+    {
+      "name": "phone-normal-nonvisit-does-not-confirm-visit",
+      "pass": true
+    },
+    {
+      "name": "phone-start-missing-phone",
+      "pass": true
+    },
+    {
+      "name": "phone-start-permission-denied",
+      "pass": true
+    },
+    {
+      "name": "phone-return-waits-for-current-detail",
+      "pass": true
+    }
+  ]
+}

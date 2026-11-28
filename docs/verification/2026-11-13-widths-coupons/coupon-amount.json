@@ -1,0 +1,26 @@
+{
+  "listPriceFen": 1000,
+  "rows": [
+    {
+      "value": 1,
+      "mine": "1 折",
+      "center": "1% 优惠",
+      "discountFen": 10
+    },
+    {
+      "value": 20,
+      "mine": "20 折",
+      "center": "20% 优惠",
+      "discountFen": 200
+    },
+    {
+      "value": 99,
+      "mine": "99 折",
+      "center": "99% 优惠",
+      "discountFen": 990
+    }
+  ],
+  "belowThresholdFen": 0,
+  "cappedFen": 150,
+  "floorFor999Fen": 199
+}

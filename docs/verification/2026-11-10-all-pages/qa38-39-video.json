@@ -1,0 +1,89 @@
+{
+  "reviewDate": "2026-11-11",
+  "source": "User supplied phone screen recordings; videos remain local, no frames or video committed",
+  "method": "Timeline contact sheets, 1-second sampling around interactions and original-resolution key frames; visual review only, not audio transcription",
+  "versionAttribution": "Provided in response to d4c9aaf preview request; recordings do not independently display commit hash",
+  "device": "User previously identified iPhone 16 Pro Max; encoded video dimensions are not CSS viewport dimensions",
+  "files": [
+    {
+      "name": "5c7f465dc5f375b25f08a7172e310c21.mp4",
+      "sha256": "9efea860a07e24663a219f519f66157bcb97f0acbb557cc5fbf1c318c9abd82a",
+      "bytes": 3605148,
+      "durationSeconds": 159.4,
+      "encodedDimensions": [
+        448,
+        960
+      ]
+    },
+    {
+      "name": "d4f4f10952fe01c7b3a8b3c78e4fc80a.mp4",
+      "sha256": "56fac1d09083d4f1f24884c751ee0dee8a877ae098fd82595ddf1d937d0bbf11",
+      "bytes": 3249201,
+      "durationSeconds": 86.966667,
+      "encodedDimensions": [
+        592,
+        1280
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "video": 1,
+      "seconds": "0-14",
+      "result": "My -> administrator dashboard -> data export navigation visible"
+    },
+    {
+      "video": 1,
+      "seconds": "20-39",
+      "result": "Start-date picker changes value; absent provider rejected; changing payee to property leaves old error (QA38)"
+    },
+    {
+      "video": 1,
+      "seconds": "44-52;78-88;104-132;149-156",
+      "result": "CSV viewer opens for property or seller export; headers visible, no business rows observed; not original-file content audit"
+    },
+    {
+      "video": 1,
+      "seconds": "62-76",
+      "result": "Merchant missing-object rejection; retry reloads and retains draft; seller switch retains old error until reload"
+    },
+    {
+      "video": 1,
+      "seconds": "133-140",
+      "result": "Return to management dashboard and re-enter export page; form initializes again"
+    },
+    {
+      "video": 2,
+      "seconds": "0-31",
+      "result": "Property CSV viewer opens and return works; repeat dashboard -> export navigation visible"
+    },
+    {
+      "video": 2,
+      "seconds": "34-52",
+      "result": "Subsidy type selected, privacy description visible, CSV viewer opens with headers; no business rows observed"
+    },
+    {
+      "video": 2,
+      "seconds": "55-74",
+      "result": "Recycler type selected; export reports feature unavailable; reload keeps type and restores form"
+    },
+    {
+      "video": 2,
+      "seconds": "76-85",
+      "result": "Station type and configured station visible; export reports feature unavailable"
+    }
+  ],
+  "findings": [
+    "QA38 stale validation error after payee changes; load retry shown for validation and export failures",
+    "QA39 picker affordance, persistent seller label and explanation/button spacing differ from approved form design"
+  ],
+  "userDecision": "QA38 and QA39 both A, approved in conversation 2026-11-11",
+  "limits": [
+    "No claim that all 69 pages pass",
+    "No original CSV bytes or nonempty totals/privacy verified",
+    "No weak-network/load failure/large-font/keyboard coverage",
+    "Recordings predate QA38/39 fixes; new design needs live review",
+    "User manually generated CSVs in videos; agent did not generate files or authorize subsequent exports, settlement or payment",
+    "D05/D06 paused; no role, binding, feature, timer or cloud deployment changes"
+  ]
+}

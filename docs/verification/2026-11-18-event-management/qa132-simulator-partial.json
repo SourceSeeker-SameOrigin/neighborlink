@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-25",
+  "scope": "synthetic fixture; no real CSV, clipboard or cloud writes",
+  "runtime320": {
+    "records": [
+      {
+        "phase": "load",
+        "width": 320,
+        "ready": true,
+        "rows": 20,
+        "error": "",
+        "pageError": false,
+        "hasMore": true,
+        "exporting": false
+      }
+    ],
+    "offsets": [
+      0
+    ],
+    "exports": 0,
+    "clipboards": 0,
+    "modals": 0
+  },
+  "visualPassWidths": [],
+  "pendingWidths": [
+    320,
+    375,
+    390,
+    430
+  ],
+  "blocker": "Failure button click now produced AX rows=0, export disabled and retry control. Screenshot still showed previous merchant page; retry attempt had no corresponding observed transition.",
+  "latest320": {
+    "source": "native accessibility state after actual failure button click",
+    "rows": 0,
+    "exportDisabled": true,
+    "retryVisible": true,
+    "visualVerified": false,
+    "retryVerified": false
+  }
+}

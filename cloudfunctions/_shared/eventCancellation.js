@@ -80,11 +80,18 @@ function createEventCancellationWorker(server, payments) {
     });
   }
 
-  async function closeFreeSignup(signup, now) {
+  async function closeFreeSignup(signup, now, withoutOrder = false) {
     await atomic(db, async transaction => {
       const current = await read(transaction, 'signups', signup._id);
-      if (!current || !['signed', 'pending_pay'].includes(current.status)) return;
+      if (withoutOrder) ensure(current && current.eventId === signup.eventId, '报名记录已变化', 'E_CONFLICT');
+      else if (!current || !['signed', 'pending_pay'].includes(current.status)) return;
       const event = await read(transaction, 'events', current.eventId);
+      if (withoutOrder) {
+        ensure(!current.orderId && event && event.fee === 0 && event.status === 'cancelled',
+          '免费报名与活动状态不一致', 'E_CONFIG');
+        ensure(['signed', 'cancelled'].includes(current.status), '免费报名状态待核对', 'E_CONFLICT');
+      }
+      if (!['signed', 'pending_pay'].includes(current.status)) return;
       await transaction.collection('signups').doc(current._id).update({ data: { status: 'cancelled', cancelledAt: now } });
       if (event) await transaction.collection('events').doc(event._id).update({ data: {
         signupCount: Math.max(0, (event.signupCount || 0) - (current.status === 'signed' ? 1 : 0)),
@@ -97,6 +104,11 @@ function createEventCancellationWorker(server, payments) {
   async function perform(task, now) {
     const signup = await server.get('signups', task.signupId);
     if (!signup) throw Object.assign(new Error('报名记录不存在'), { code: 'E_NOT_FOUND' });
+    ensure(signup.eventId === task.eventId, '报名不属于该活动', 'E_CONFIG');
+    if (!signup.orderId) {
+      await closeFreeSignup(signup, now, true);
+      return 'completed';
+    }
     let order = signup.orderId ? await server.get('orders', signup.orderId) : null;
     if (!order) throw Object.assign(new Error('报名订单不存在'), { code: 'E_CONFIG' });
     const key = 'event_cancel_' + signup._id;

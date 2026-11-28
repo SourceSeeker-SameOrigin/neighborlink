@@ -1,13 +1,13 @@
 <view class="page">
-  <view class="page-title">驿站账号审核</view>
-  <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view>
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/admin.png"/><view class="masthead-copy"><view class="page-title">驿站账号审核</view><view class="masthead-subtitle">社区运营 · 按权限管理</view></view></view>
+  <view wx:if="{{error}}" class="error">{{error}}<button class="ui-button" bindtap="retry">重试</button></view>
   <view class="card" wx:for="{{rows}}" wx:key="_id">
     <view class="section-title">{{item.stationName}}</view>
     <view>申请人：{{item.applicant}} · {{item.phone}}</view>
     <view class="muted">提交时间：{{item.createdAt}}</view>
-    <view class="row"><button data-index="{{index}}" data-status="rejected" bindtap="review" disabled="{{busy}}">拒绝</button><button type="primary" data-index="{{index}}" data-status="approved" bindtap="review" disabled="{{busy}}">通过并授权</button></view>
+    <view class="row"><button class="ui-button" data-index="{{index}}" data-status="rejected" bindtap="review" disabled="{{busy || loading}}">拒绝</button><button class="ui-button" type="primary" data-index="{{index}}" data-status="approved" bindtap="review" disabled="{{busy || loading}}">通过并授权</button></view>
   </view>
   <view wx:if="{{loading}}" class="card">正在加载…</view>
-  <view wx:if="{{!loading && !rows.length}}" class="card">暂无待审核申请</view>
+  <view wx:if="{{!loading && !error && !rows.length}}" class="card">暂无待审核申请</view>
 </view>
 <privacy-popup/>

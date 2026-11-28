@@ -1,0 +1,1647 @@
+{
+  "scope": "Source dependency reachability plus reviewed dynamic dispatch targets, not a runtime trace; app.ensureSession calls user.login globally",
+  "functions": {
+    "user": [
+      "身份与服务资料",
+      "微信登录、手填电话与门牌绑定、扫码来源、新人赠券重试",
+      "首页、绑定、我的、优惠券；全局应用及需身份的业务页面"
+    ],
+    "catalog": [
+      "小区服务目录",
+      "小区/楼栋/价格/班次查询、附近3公里小区、楼栋与推荐码解析",
+      "绑定页、首页、全部下单页、管理配置"
+    ],
+    "order": [
+      "交易主干",
+      "报价、创建、支付重试、列表详情、取消、确认、评价、投诉、报告订阅",
+      "核心/助老/回收等下单页、我的订单与详情"
+    ],
+    "provider": [
+      "服务员履约",
+      "申请、审核状态、值班、大厅、接单/放弃/开始/完成、收入、前台位置",
+      "服务员5页；订单详情展示履约结果"
+    ],
+    "membership": [
+      "周期服务",
+      "月卡方案、购买、我的月卡、跳过今天任务",
+      "月卡页；垃圾/快递/探访/空置房月卡共用"
+    ],
+    "admin": [
+      "运营与物业管理",
+      "看板、订单售后、服务员审核、小区/开关/楼栋、海报码、结算、导出",
+      "admin分包；物业只可操作规格允许的本小区功能"
+    ],
+    "board": [
+      "邻里互助",
+      "求助、悬赏、出行帮带的列表、详情、发布、评论、关闭、举报",
+      "需求广场3页；悬赏交易复用order/provider"
+    ],
+    "idle": [
+      "闲置交易",
+      "信息发布、联系、担保购买、卖家接单交付、收入与商品状态",
+      "闲置7页；担保售后复用订单处理"
+    ],
+    "event": [
+      "社区活动",
+      "创建/审核/发布、报名、签到、取消与异步退款任务管理",
+      "活动列表、详情、活动管理"
+    ],
+    "chat": [
+      "站内会话",
+      "打开会话、发送、拉取、未读、标记已读、授权审计查看",
+      "消息列表/聊天页、订单和闲置联系入口、后台审计"
+    ],
+    "coupon": [
+      "优惠券",
+      "领券中心、领取、我的券、模板管理、管理员发券",
+      "优惠券2页、后台模板页；积分计算在共享交易/回收逻辑内"
+    ],
+    "payout": [
+      "提现转账",
+      "服务员/卖家提现申请、锁定账本、查询转账状态",
+      "服务员收入、卖家收入；启用autoPayout且商户配置齐备"
+    ],
+    "merchant": [
+      "商家预约",
+      "入驻/审核、商家和服务查询、服务管理、预约报价与履约",
+      "商家4页、住户商家3页、后台商家审核"
+    ],
+    "station": [
+      "驿站批量配送",
+      "账号申请审核、住户同意、创建批次、接批次、逐户复核、配送与对账",
+      "驿站5页、我的送上门开关、服务员大厅、后台驿站审核"
+    ],
+    "content": [
+      "社区内容运营",
+      "公告、广告、曝光点击、确认广告收款、举报与内容/用户治理",
+      "首页、公告、广场/商家广告位、后台内容和举报页"
+    ],
+    "pet": [
+      "喂宠上门记录",
+      "每次上门任务、授权读取入户信息、完成或漏做记录",
+      "喂宠工作页/记录页；下单仍由order创建"
+    ],
+    "vacant": [
+      "空置房报告",
+      "授权读取入户信息、提交逐项巡检报告、订阅报告",
+      "服务员任务详情、住户订单详情；购买复用membership"
+    ],
+    "timer": [
+      "定时补偿与排期",
+      "支付超时、未接单提醒、自动确认、月卡排期、退款/提现查单、活动退款分批等",
+      "后台定时触发；无独立页面，不可由普通用户调用"
+    ],
+    "payCallback": [
+      "支付结果入口",
+      "可信支付通知、查单校验、幂等更新订单/月卡/资格",
+      "微信支付系统回调；前端支付成功提示不能替代它"
+    ],
+    "refundCallback": [
+      "退款结果入口",
+      "核实退款结果、幂等更新退款与关联业务",
+      "微信支付系统回调；用户从订单详情查看结果"
+    ],
+    "mediaCallback": [
+      "媒体审核结果",
+      "接收并核验异步图片审核结果，更新媒体可见性",
+      "平台消息推送；影响图片显示，无独立页面"
+    ]
+  },
+  "pages": [
+    {
+      "id": "P01",
+      "route": "pages/index/index",
+      "title": "近邻帮",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "catalog.getCommunity",
+        "content.adEvent",
+        "content.homeContent"
+      ],
+      "handlers": [
+        "load",
+        "openNotices",
+        "openAd",
+        "recordAd",
+        "introduce",
+        "callHotline"
+      ],
+      "visual": "已有模拟器截图；用户验收待做",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P02",
+      "route": "pages/bind/bind",
+      "title": "选择门牌",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "catalog.getCommunity",
+        "catalog.listCommunities",
+        "catalog.nearbyCommunities",
+        "catalog.resolveScene",
+        "user.bindPhone",
+        "user.setAddress"
+      ],
+      "handlers": [
+        "load",
+        "communityChange",
+        "buildingChange",
+        "unitChange",
+        "roomChange",
+        "toggleContact",
+        "contactNameChange",
+        "contactPhoneChange",
+        "manualPhoneChange",
+        "agreementChange",
+        "save",
+        "backHome"
+      ],
+      "visual": "已有模拟器截图；用户验收待做",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P03",
+      "route": "pages/service/express",
+      "title": "代取快递",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "catalog.getCommunity",
+        "order.create",
+        "order.detail",
+        "order.mockPay",
+        "order.quote",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "load",
+        "addressChange",
+        "address",
+        "change",
+        "slotChange",
+        "couponChange",
+        "pointsChange",
+        "retryQuote",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P04",
+      "route": "pages/service/trash",
+      "title": "代扔垃圾",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "catalog.getCommunity",
+        "order.create",
+        "order.detail",
+        "order.mockPay",
+        "order.quote",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "load",
+        "addressChange",
+        "address",
+        "change",
+        "slotChange",
+        "couponChange",
+        "pointsChange",
+        "retryQuote",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P05",
+      "route": "pages/service/buy",
+      "title": "周边代买",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "catalog.getCommunity",
+        "order.create",
+        "order.detail",
+        "order.mockPay",
+        "order.quote",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "load",
+        "addressChange",
+        "address",
+        "change",
+        "slotChange",
+        "couponChange",
+        "pointsChange",
+        "retryQuote",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P06",
+      "route": "pages/service/help",
+      "title": "帮把手",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "catalog.getCommunity",
+        "order.create",
+        "order.detail",
+        "order.mockPay",
+        "order.quote",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "load",
+        "addressChange",
+        "address",
+        "change",
+        "slotChange",
+        "couponChange",
+        "pointsChange",
+        "retryQuote",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P07",
+      "route": "pages/orders/list",
+      "title": "我的订单",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "chat.list",
+        "order.listMine"
+      ],
+      "handlers": [
+        "groupChange",
+        "retry"
+      ],
+      "visual": "已有模拟器截图；用户验收待做",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P08",
+      "route": "pages/orders/detail",
+      "title": "订单详情",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "chat.open",
+        "order.cancel",
+        "order.complain",
+        "order.confirm",
+        "order.detail",
+        "order.mockPay",
+        "order.rate",
+        "order.retryPayment",
+        "order.subscribeVisitReport",
+        "order.subscriptionTemplates",
+        "vacant.subscribeReport"
+      ],
+      "handlers": [
+        "load",
+        "openChat",
+        "subscribeVisitReport",
+        "subscribeVacantReport",
+        "previewVacant",
+        "openPetReports",
+        "callProvider",
+        "preview",
+        "pay",
+        "cancel",
+        "serviceAction",
+        "form"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P09",
+      "route": "pages/membership/index",
+      "title": "我的月卡",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "membership.buy",
+        "membership.mine",
+        "membership.plans",
+        "membership.skipToday",
+        "order.detail",
+        "order.mockPay",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "load",
+        "addressChange",
+        "slot",
+        "entry",
+        "entryPassword",
+        "buy",
+        "skip"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P10",
+      "route": "pages/me/me",
+      "title": "我的",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "chat.list",
+        "merchant.myApplication",
+        "station.myApplication",
+        "station.setDoorDelivery"
+      ],
+      "handlers": [
+        "load",
+        "callHotline",
+        "doorDeliveryChange",
+        "openWorkspace"
+      ],
+      "visual": "已有模拟器截图；用户验收待做",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P11",
+      "route": "pages/legal/privacy",
+      "title": "隐私政策",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [],
+      "handlers": [],
+      "visual": "已有模拟器截图；用户验收待做",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P12",
+      "route": "pages/legal/terms",
+      "title": "服务协议",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "核心或按操作关联模块",
+      "calls": [],
+      "handlers": [],
+      "visual": "已有模拟器截图；用户验收待做",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P13",
+      "route": "provider/apply/apply",
+      "title": "服务员申请",
+      "role": "申请页为住户；工作页需已审服务员",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "catalog.listCommunities",
+        "provider.apply",
+        "provider.myStatus",
+        "user.bindPhone"
+      ],
+      "handlers": [
+        "load",
+        "change",
+        "photo",
+        "agree",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P14",
+      "route": "provider/workbench/workbench",
+      "title": "服务员工作台",
+      "role": "申请页为住户；工作页需已审服务员",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "order.subscriptionTemplates",
+        "provider.myStatus",
+        "provider.myTasks",
+        "provider.referralPoster",
+        "provider.setDuty"
+      ],
+      "handlers": [
+        "load",
+        "duty",
+        "subscribeMore",
+        "saveReferralPoster",
+        "task",
+        "more"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P15",
+      "route": "provider/hall/hall",
+      "title": "任务大厅",
+      "role": "申请页为住户；工作页需已审服务员",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "order.subscriptionTemplates",
+        "provider.accept",
+        "provider.hall"
+      ],
+      "handlers": [
+        "retry",
+        "accept"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P16",
+      "route": "provider/task/task",
+      "title": "任务详情",
+      "role": "申请页为住户；工作页需已审服务员",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "order.detail",
+        "provider.deliver",
+        "provider.release",
+        "provider.start",
+        "provider.updateLocation",
+        "vacant.recordReport",
+        "vacant.revealEntry"
+      ],
+      "handlers": [
+        "load",
+        "callResident",
+        "openChat",
+        "openPetTasks",
+        "revealEntry",
+        "weight",
+        "act",
+        "photo",
+        "goods",
+        "checklist",
+        "vacantPhoto",
+        "vacantNotes",
+        "vacantAttention",
+        "visitCheck",
+        "visitNotes",
+        "visitAttention",
+        "submitVacantReport"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P17",
+      "route": "provider/earnings/earnings",
+      "title": "我的收入",
+      "role": "申请页为住户；工作页需已审服务员",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "payout.create",
+        "payout.list",
+        "provider.earnings"
+      ],
+      "handlers": [
+        "createPayout",
+        "retry"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P18",
+      "route": "admin/dashboard/dashboard",
+      "title": "管理看板",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "admin.dashboard",
+        "admin.notificationTemplates",
+        "catalog.listCommunities"
+      ],
+      "handlers": [
+        "load",
+        "chooseCommunity",
+        "chooseScope",
+        "chooseDate"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P19",
+      "route": "admin/orders/orders",
+      "title": "订单管理",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "admin.exportSubsidyOrders",
+        "admin.listOrders"
+      ],
+      "handlers": [
+        "filter",
+        "retry",
+        "open"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P20",
+      "route": "admin/order/order",
+      "title": "订单处理",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "admin.assign",
+        "admin.forceCancel",
+        "admin.listProviders",
+        "admin.resolveComplaint",
+        "admin.retryRefund",
+        "admin.voidMembership",
+        "order.detail"
+      ],
+      "handlers": [
+        "load",
+        "preview",
+        "openChat",
+        "retryRefund",
+        "provider",
+        "assign",
+        "cancel",
+        "resolutionField",
+        "liable",
+        "resolve",
+        "voidCard"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P21",
+      "route": "admin/providers/providers",
+      "title": "服务员审核",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "admin.cleanupProviderKyc",
+        "admin.listProviders",
+        "admin.reviewProvider",
+        "admin.setCerts",
+        "admin.setInsurance",
+        "admin.suspendProvider"
+      ],
+      "handlers": [
+        "filter",
+        "retry",
+        "preview",
+        "note",
+        "certs",
+        "review",
+        "cleanup",
+        "insurance",
+        "suspend"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P22",
+      "route": "admin/community/community",
+      "title": "小区配置",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "admin.managementConfig",
+        "admin.updateCommunity",
+        "admin.updateConfig",
+        "admin.upsertBuilding"
+      ],
+      "handlers": [
+        "load",
+        "chooseCommunity",
+        "input",
+        "chooseLocation",
+        "editBuilding",
+        "newBuilding",
+        "addBuilding",
+        "rowInput",
+        "removeRow",
+        "addRow",
+        "togglePetCert",
+        "choosePlan",
+        "saveCommunity",
+        "saveGlobal"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P23",
+      "route": "admin/posters/posters",
+      "title": "海报码",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "admin.genPoster",
+        "admin.listProviders",
+        "catalog.getCommunity",
+        "catalog.listCommunities"
+      ],
+      "handlers": [
+        "changeCommunity",
+        "generate",
+        "providerChange",
+        "preview",
+        "save"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P24",
+      "route": "admin/settlements/settlements",
+      "title": "结算",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "admin.exportCsv",
+        "admin.listProviders",
+        "admin.listSettlements",
+        "admin.settlementCreate",
+        "admin.settlementMarkPaid",
+        "admin.settlementPreview",
+        "catalog.getCommunity",
+        "catalog.listCommunities",
+        "merchant.adminList"
+      ],
+      "handlers": [
+        "load",
+        "select",
+        "input",
+        "preview",
+        "create",
+        "markPaid"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P25",
+      "route": "admin/features/features",
+      "title": "功能开关",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "admin.getFeatures",
+        "admin.updateCommunity",
+        "admin.updateConfig",
+        "catalog.listCommunities"
+      ],
+      "handlers": [
+        "load",
+        "scope",
+        "choose",
+        "toggle"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P26",
+      "route": "admin/reports/reports",
+      "title": "内容举报审核",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "content.listReports",
+        "content.moderateContent",
+        "content.moderateUser",
+        "content.resolveReport"
+      ],
+      "handlers": [
+        "chooseStatus",
+        "load",
+        "openChat",
+        "resolve",
+        "moderate"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P27",
+      "route": "admin/chat/chat",
+      "title": "聊天记录审计",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "chat.adminPull"
+      ],
+      "handlers": [
+        "load",
+        "preview"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P28",
+      "route": "admin/coupons/coupons",
+      "title": "优惠券模板管理",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "coupon.adminTemplates",
+        "coupon.manualIssue",
+        "coupon.saveTemplate"
+      ],
+      "handlers": [
+        "field",
+        "chooseKind",
+        "chooseMode",
+        "save",
+        "reset",
+        "edit",
+        "toggleStatus",
+        "templatePick",
+        "issue"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P29",
+      "route": "admin/content/content",
+      "title": "公告与广告管理",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "content.endAd",
+        "content.endNotice",
+        "content.listAds",
+        "content.listNotices",
+        "content.markAdReceived",
+        "content.saveAd",
+        "content.saveNotice"
+      ],
+      "handlers": [
+        "input",
+        "chooseImage",
+        "togglePinned",
+        "saveNotice",
+        "endNotice",
+        "adSlotChange",
+        "adTargetTypeChange",
+        "adPathChange",
+        "adStatusChange",
+        "saveAd",
+        "confirmAdReceived",
+        "endAd"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P30",
+      "route": "admin/merchants/merchants",
+      "title": "商家入驻审核",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "merchant.adminList",
+        "merchant.adminServices",
+        "merchant.review",
+        "merchant.setServiceStatus"
+      ],
+      "handlers": [
+        "load",
+        "inspect",
+        "serviceStatus",
+        "review"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P31",
+      "route": "admin/recycle/recycle",
+      "title": "回收企业月度对账",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "admin.exportRecyclerStatement",
+        "catalog.listCommunities"
+      ],
+      "handlers": [
+        "select",
+        "input"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P32",
+      "route": "admin/exports/exports",
+      "title": "数据导出",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "admin.exportCsv",
+        "admin.exportRecyclerStatement",
+        "admin.exportSubsidyOrders",
+        "admin.listProviders",
+        "catalog.getCommunity",
+        "catalog.listCommunities",
+        "merchant.adminList",
+        "station.exportStatement"
+      ],
+      "handlers": [
+        "load",
+        "select",
+        "input",
+        "exportData"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P33",
+      "route": "admin/stations/stations",
+      "title": "驿站账号审核",
+      "role": "管理员；物业按接口与小区限制",
+      "feature": "核心或按操作关联模块",
+      "calls": [
+        "station.listApplications",
+        "station.reviewApplication"
+      ],
+      "handlers": [
+        "load",
+        "review"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P34",
+      "route": "chat/list/list",
+      "title": "站内消息",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "chat",
+      "calls": [
+        "chat.list"
+      ],
+      "handlers": [
+        "load",
+        "open"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P35",
+      "route": "chat/room/room",
+      "title": "聊天",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "chat",
+      "calls": [
+        "chat.markRead",
+        "chat.open",
+        "chat.pull",
+        "chat.send",
+        "content.report"
+      ],
+      "handlers": [
+        "start",
+        "reportContent",
+        "input",
+        "image",
+        "send"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P36",
+      "route": "coupons/center/center",
+      "title": "优惠券中心",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "coupons",
+      "calls": [
+        "coupon.center",
+        "coupon.claim"
+      ],
+      "handlers": [
+        "load",
+        "claim"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P37",
+      "route": "coupons/mine/mine",
+      "title": "我的优惠券",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "coupons",
+      "calls": [
+        "coupon.mine",
+        "user.retryWelcomeCoupons"
+      ],
+      "handlers": [
+        "load",
+        "retryWelcome"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P38",
+      "route": "board/list/list",
+      "title": "需求广场",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "board / travelCarry",
+      "calls": [
+        "board.list",
+        "catalog.getCommunity",
+        "content.adEvent",
+        "content.adsForSlot"
+      ],
+      "handlers": [
+        "chooseType",
+        "chooseScope",
+        "retryAds",
+        "openAd",
+        "recordAd",
+        "load",
+        "open",
+        "create",
+        "more"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P39",
+      "route": "board/detail/detail",
+      "title": "求助详情",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "board / travelCarry",
+      "calls": [
+        "board.close",
+        "board.comment",
+        "board.detail",
+        "board.report"
+      ],
+      "handlers": [
+        "load",
+        "preview",
+        "continuePayment",
+        "close",
+        "report",
+        "reportComment",
+        "input",
+        "comment"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P40",
+      "route": "board/create/create",
+      "title": "发布需求",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "board / travelCarry",
+      "calls": [
+        "board.create",
+        "catalog.getCommunity",
+        "order.detail",
+        "order.mockPay",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "field",
+        "scope",
+        "choose",
+        "toggleEnterHome",
+        "agree",
+        "photos",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P41",
+      "route": "idle/list/list",
+      "title": "闲置交易",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "idle / idleEscrow",
+      "calls": [
+        "catalog.getCommunity",
+        "idle.list"
+      ],
+      "handlers": [
+        "scope",
+        "load",
+        "open",
+        "more",
+        "create",
+        "mine"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P42",
+      "route": "idle/detail/detail",
+      "title": "闲置详情",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "idle / idleEscrow",
+      "calls": [
+        "chat.openIdle",
+        "idle.buy",
+        "idle.contact",
+        "idle.detail",
+        "idle.markSold",
+        "idle.remove",
+        "idle.report",
+        "order.detail",
+        "order.mockPay",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "load",
+        "preview",
+        "edit",
+        "markSold",
+        "sales",
+        "remove",
+        "buy",
+        "contact",
+        "want",
+        "carry",
+        "report"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P43",
+      "route": "idle/create/create",
+      "title": "发布闲置",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "idle / idleEscrow",
+      "calls": [
+        "catalog.getCommunity",
+        "idle.create",
+        "idle.detail",
+        "idle.update"
+      ],
+      "handlers": [
+        "field",
+        "condition",
+        "switch",
+        "tradeMode",
+        "scope",
+        "photos",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P44",
+      "route": "idle/mine/mine",
+      "title": "我的闲置",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "idle / idleEscrow",
+      "calls": [
+        "idle.mine"
+      ],
+      "handlers": [
+        "load",
+        "open",
+        "sales",
+        "income",
+        "create"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P45",
+      "route": "idle/sales/sales",
+      "title": "担保交易订单",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "idle / idleEscrow",
+      "calls": [
+        "idle.sales"
+      ],
+      "handlers": [
+        "load",
+        "open"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P46",
+      "route": "idle/sale/sale",
+      "title": "卖家交付",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "idle / idleEscrow",
+      "calls": [
+        "idle.acceptSale",
+        "idle.deliverSale",
+        "order.detail"
+      ],
+      "handlers": [
+        "load",
+        "accept",
+        "preview",
+        "photos",
+        "note",
+        "deliver"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P47",
+      "route": "idle/income/income",
+      "title": "卖家收入",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "idle / idleEscrow",
+      "calls": [
+        "idle.earnings",
+        "payout.create",
+        "payout.list"
+      ],
+      "handlers": [
+        "load",
+        "withdraw"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P48",
+      "route": "events/list/list",
+      "title": "社区活动",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "events",
+      "calls": [
+        "event.list"
+      ],
+      "handlers": [
+        "load",
+        "open"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P49",
+      "route": "events/detail/detail",
+      "title": "活动详情",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "events",
+      "calls": [
+        "content.report",
+        "event.cancelSignup",
+        "event.detail",
+        "event.signup",
+        "event.templates",
+        "order.detail",
+        "order.mockPay",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "load",
+        "signup",
+        "cancelSignup",
+        "reportContent"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P50",
+      "route": "events/manage/manage",
+      "title": "活动管理",
+      "role": "管理员／物业／商家",
+      "feature": "events",
+      "calls": [
+        "event.adminList",
+        "event.cancelEvent",
+        "event.checkin",
+        "event.create",
+        "event.listSignups",
+        "event.publish",
+        "event.retryCancellation",
+        "event.review"
+      ],
+      "handlers": [
+        "load",
+        "input",
+        "typeChange",
+        "createActivity",
+        "scan",
+        "publish",
+        "showSignups",
+        "checkin",
+        "cancel",
+        "retryCancellation"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P51",
+      "route": "pet/order",
+      "title": "上门喂宠",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "pet",
+      "calls": [
+        "catalog.getCommunity",
+        "order.create",
+        "order.detail",
+        "order.mockPay",
+        "order.quote",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "load",
+        "addressChange",
+        "removePetDate",
+        "addPetDate",
+        "change",
+        "slotChange",
+        "retryQuote",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P52",
+      "route": "pet/work",
+      "title": "喂宠上门清单",
+      "role": "该订单已接单服务员",
+      "feature": "pet",
+      "calls": [
+        "pet.listVisits",
+        "pet.markDone",
+        "pet.markMissed",
+        "pet.revealEntry"
+      ],
+      "handlers": [
+        "load",
+        "reveal",
+        "done",
+        "missed",
+        "closeSecret"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P53",
+      "route": "pet/reports",
+      "title": "喂宠服务记录",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "pet",
+      "calls": [
+        "pet.listVisits"
+      ],
+      "handlers": [
+        "load"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P54",
+      "route": "merchant/apply/apply",
+      "title": "商家入驻",
+      "role": "申请页为住户；工作页需已审商家",
+      "feature": "merchants",
+      "calls": [
+        "merchant.apply",
+        "merchant.myApplication"
+      ],
+      "handlers": [
+        "input",
+        "chooseCategory",
+        "upload",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P55",
+      "route": "merchant/workbench/workbench",
+      "title": "商家工作台",
+      "role": "申请页为住户；工作页需已审商家",
+      "feature": "merchants",
+      "calls": [
+        "merchant.myApplication"
+      ],
+      "handlers": [
+        "load",
+        "orders",
+        "services",
+        "apply"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P56",
+      "route": "merchant/services/services",
+      "title": "服务管理",
+      "role": "申请页为住户；工作页需已审商家",
+      "feature": "merchants",
+      "calls": [
+        "merchant.myServices",
+        "merchant.upsertService"
+      ],
+      "handlers": [
+        "input",
+        "chooseType",
+        "photos",
+        "save"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P57",
+      "route": "merchant/orders/orders",
+      "title": "商家预约订单",
+      "role": "申请页为住户；工作页需已审商家",
+      "feature": "merchants",
+      "calls": [
+        "merchant.completeBooking",
+        "merchant.merchantOrders",
+        "merchant.merchantTransition",
+        "merchant.quoteBooking"
+      ],
+      "handlers": [
+        "load",
+        "chooseQuote",
+        "input",
+        "quote",
+        "transition",
+        "complete"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P58",
+      "route": "shops/list/list",
+      "title": "社区商家",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "merchants",
+      "calls": [
+        "content.adEvent",
+        "content.adsForSlot",
+        "merchant.listForCommunity"
+      ],
+      "handlers": [
+        "retryAds",
+        "openAd",
+        "recordAd",
+        "load",
+        "open"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P59",
+      "route": "shops/detail/detail",
+      "title": "商家详情",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "merchants",
+      "calls": [
+        "content.report",
+        "merchant.servicesForMerchant"
+      ],
+      "handlers": [
+        "load",
+        "book",
+        "reportContent"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P60",
+      "route": "shops/booking/booking",
+      "title": "提交预约",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "merchants",
+      "calls": [
+        "merchant.createBooking",
+        "merchant.lookupBooking",
+        "order.detail",
+        "order.mockPay",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "address",
+        "input",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P61",
+      "route": "station/apply/apply",
+      "title": "申请驿站账号",
+      "role": "住户申请／驿站／服务员，按页面核验",
+      "feature": "stationDelivery",
+      "calls": [
+        "station.applicationOptions",
+        "station.apply",
+        "station.myApplication"
+      ],
+      "handlers": [
+        "load",
+        "chooseCommunity",
+        "chooseStation",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P62",
+      "route": "station/workbench/workbench",
+      "title": "驿站工作台",
+      "role": "住户申请／驿站／服务员，按页面核验",
+      "feature": "stationDelivery",
+      "calls": [
+        "station.exportStatement",
+        "station.listMyBatches"
+      ],
+      "handlers": [
+        "monthChange",
+        "exportStatement",
+        "load"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P63",
+      "route": "station/create/create",
+      "title": "创建送上门批次",
+      "role": "住户申请／驿站／服务员，按页面核验",
+      "feature": "stationDelivery",
+      "calls": [
+        "station.createBatch"
+      ],
+      "handlers": [
+        "change",
+        "create"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P64",
+      "route": "station/worker/worker",
+      "title": "驿站配送任务",
+      "role": "住户申请／驿站／服务员，按页面核验",
+      "feature": "stationDelivery",
+      "calls": [
+        "station.acceptBatch",
+        "station.providerHall"
+      ],
+      "handlers": [
+        "load",
+        "accept"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P65",
+      "route": "station/batch/batch",
+      "title": "驿站批次",
+      "role": "住户申请／驿站／服务员，按页面核验",
+      "feature": "stationDelivery",
+      "calls": [
+        "station.checkDoorDeliveryConsent",
+        "station.providerBatch",
+        "station.recordDelivery",
+        "station.startBatch"
+      ],
+      "handlers": [
+        "load",
+        "start",
+        "delivered",
+        "failed"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P66",
+      "route": "elder/meal",
+      "title": "送餐上门",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "elder",
+      "calls": [
+        "catalog.getCommunity",
+        "order.create",
+        "order.detail",
+        "order.mockPay",
+        "order.quote",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "load",
+        "addressChange",
+        "change",
+        "slotChange",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P67",
+      "route": "elder/escort",
+      "title": "陪诊预约",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "elder",
+      "calls": [
+        "catalog.getCommunity",
+        "order.create",
+        "order.detail",
+        "order.mockPay",
+        "order.quote",
+        "order.subscriptionTemplates"
+      ],
+      "handlers": [
+        "load",
+        "addressChange",
+        "change",
+        "retryQuote",
+        "submit"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P68",
+      "route": "recycle/order/order",
+      "title": "预约上门回收",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "recycle / points",
+      "calls": [
+        "order.create",
+        "order.quote"
+      ],
+      "handlers": [
+        "category",
+        "note",
+        "selectSlot",
+        "load",
+        "create"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    },
+    {
+      "id": "P69",
+      "route": "notices/list/list",
+      "title": "小区公告",
+      "role": "真实微信用户，业务页需对应绑定/参与关系",
+      "feature": "notices",
+      "calls": [
+        "content.listNotices"
+      ],
+      "handlers": [
+        "load",
+        "loadMore"
+      ],
+      "visual": "待实景核查",
+      "business": "待完整业务验收"
+    }
+  ]
+}

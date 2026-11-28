@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-11",
+  "file": "00caa8b1660aeb67d2ddd9f323b448ec.mp4",
+  "sha256": "11c3b0e46fe46e3ac7fb938404395b76473b16c6e5d19fe3f7c3d20fecc46fb1",
+  "bytes": 6232155,
+  "durationSeconds": 205.633333,
+  "dimensions": [
+    448,
+    960
+  ],
+  "method": "Visual review: 5-second contact sheet, original-resolution selected frames, 1-second transitions at 47-56,125-132,187-195; no audio transcription. Original video and frames stay local.",
+  "versionAttribution": "User supplied after eccdaf0 preview; visible cards and error behavior match revised UI; recording does not independently expose commit hash.",
+  "observations": [
+    {
+      "seconds": "0-20",
+      "result": "My page -> administrator dashboard -> export page; loading then initialized form"
+    },
+    {
+      "seconds": "20-56",
+      "result": "Grouped cards, labels, arrows and date fields visible. Missing provider validation has no reload button; changing payee to property clears it."
+    },
+    {
+      "seconds": "48-50",
+      "result": "Provider selector opens an empty native picker; QA42 proposed, not approved."
+    },
+    {
+      "seconds": "60-110",
+      "result": "Property and subsidy CSV viewers open; return restores form. Headers visible, original CSV bytes and nonempty amounts not verified."
+    },
+    {
+      "seconds": "113-132",
+      "result": "Recycler export reports feature unavailable; export retry guidance shown; switching to station clears previous error."
+    },
+    {
+      "seconds": "140-150",
+      "result": "Station export reports feature unavailable; switching to settlement clears previous error."
+    },
+    {
+      "seconds": "160-180",
+      "result": "Missing provider warning appears again; changing to merchant/seller clears previous warning. Seller persistent label and scope explanation visible."
+    },
+    {
+      "seconds": "180-205",
+      "result": "Seller CSV viewer opens; returning restores seller form, then payee switches to provider."
+    }
+  ],
+  "limits": [
+    "No audio claims",
+    "No cloud configuration readback in this review",
+    "No original CSV contents, nonempty totals or privacy verification",
+    "No full keyboard, weak-network, large-font or multidevice acceptance",
+    "No user final visual sign-off inferred from upload",
+    "D05/D06 remain paused; no role, binding, flag, timer or payment mutations"
+  ]
+}

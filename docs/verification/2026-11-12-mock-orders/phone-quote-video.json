@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-12",
+  "source": "user-provided phone recording",
+  "filename": "e69b3e7e52dfbcbbd481cc60754abcd4.mp4",
+  "sha256": "99d9cc3f5b9b03d1ba76d75672727888988a9720e61ad1fbecdc084da00fa80c",
+  "durationSeconds": 103.32,
+  "videoSize": [
+    592,
+    1280
+  ],
+  "audio": "volumedetect mean/max -91 dB; no audible narration detected",
+  "method": "5-second overview sampling, 1-second sampling of final interaction segment, full-resolution frames at 98s and 100s",
+  "observed": [
+    {
+      "item": "home to trash page",
+      "result": "visible navigation and bound address loaded; private address not retained"
+    },
+    {
+      "item": "unchecked classification",
+      "result": "amount --, pale submit button, validation text 请确认垃圾已分类 visible after scrolling"
+    },
+    {
+      "item": "checked classification",
+      "result": "quote 1.00 yuan, 首单优惠, active-looking submit button"
+    },
+    {
+      "item": "toggle classification off/on",
+      "result": "quote cleared and validation shown when unchecked; price restored after rechecking"
+    },
+    {
+      "item": "time picker",
+      "result": "opened, changed from Nov 12 to Nov 13; final 100s frame shows Nov 13 07:00–00:00 and price 1.00"
+    },
+    {
+      "item": "visible layout",
+      "result": "cards, labels and price bar visible without obvious overlap in sampled phone frames; does not establish all-width or full-design acceptance"
+    }
+  ],
+  "notVerified": [
+    "order.create and persistence",
+    "mock payment dialog",
+    "unpaid cancellation",
+    "mock payment/refund",
+    "duplicate request idempotency",
+    "all 69 pages or all four widths",
+    "independent network trace of quote response",
+    "current simulator session refresh"
+  ],
+  "noOrderSubmissionObserved": true,
+  "versionAttribution": "Provided in response to current official preview; recording does not expose source commit independently",
+  "privacy": "Original video and extracted frames remain outside Git; no phone number or precise door address recorded"
+}

@@ -1,0 +1,677 @@
+{
+  "scope": "Actual page; synthetic responses only; no cloud writes, camera or real files",
+  "pass": 97,
+  "fail": 0,
+  "results": [
+    {
+      "name": "report-before-ready",
+      "pass": true,
+      "observed": {
+        "calls": 1
+      }
+    },
+    {
+      "name": "report-before-hidden",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "report-before-unloaded",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "report-before-changed-user",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "report-before-changed-order",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "report-before-read-failed",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "report-before-completed",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "report-before-disabled",
+      "pass": true,
+      "observed": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "report-late-success-ready",
+      "pass": true,
+      "observed": {
+        "updates": 8,
+        "toasts": 1,
+        "extraReads": 1
+      }
+    },
+    {
+      "name": "report-late-success-hidden",
+      "pass": true,
+      "observed": {
+        "updates": 0,
+        "toasts": 0,
+        "extraReads": 0
+      }
+    },
+    {
+      "name": "report-late-success-unloaded",
+      "pass": true,
+      "observed": {
+        "updates": 0,
+        "toasts": 0,
+        "extraReads": 0
+      }
+    },
+    {
+      "name": "report-late-success-changed-user",
+      "pass": true,
+      "observed": {
+        "updates": 0,
+        "toasts": 0,
+        "extraReads": 0
+      }
+    },
+    {
+      "name": "report-late-success-changed-order",
+      "pass": true,
+      "observed": {
+        "updates": 0,
+        "toasts": 0,
+        "extraReads": 0
+      }
+    },
+    {
+      "name": "report-late-success-refreshed",
+      "pass": true,
+      "observed": {
+        "updates": 0,
+        "toasts": 0,
+        "extraReads": 0
+      }
+    },
+    {
+      "name": "report-late-failure-ready",
+      "pass": true,
+      "observed": {
+        "updates": 9,
+        "toasts": 0,
+        "extraReads": 1
+      }
+    },
+    {
+      "name": "report-late-failure-hidden",
+      "pass": true,
+      "observed": {
+        "updates": 0,
+        "toasts": 0,
+        "extraReads": 0
+      }
+    },
+    {
+      "name": "report-late-failure-unloaded",
+      "pass": true,
+      "observed": {
+        "updates": 0,
+        "toasts": 0,
+        "extraReads": 0
+      }
+    },
+    {
+      "name": "report-late-failure-changed-user",
+      "pass": true,
+      "observed": {
+        "updates": 0,
+        "toasts": 0,
+        "extraReads": 0
+      }
+    },
+    {
+      "name": "report-late-failure-changed-order",
+      "pass": true,
+      "observed": {
+        "updates": 0,
+        "toasts": 0,
+        "extraReads": 0
+      }
+    },
+    {
+      "name": "report-late-failure-refreshed",
+      "pass": true,
+      "observed": {
+        "updates": 0,
+        "toasts": 0,
+        "extraReads": 0
+      }
+    },
+    {
+      "name": "media-photos-success-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-success-unloaded",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-success-changed-user",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-success-changed-order",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-success-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-failure-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-failure-unloaded",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-failure-changed-user",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-failure-changed-order",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-photos-failure-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-success-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-success-unloaded",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-success-changed-user",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-success-changed-order",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-success-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-failure-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-failure-unloaded",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-failure-changed-user",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-failure-changed-order",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-receipt-failure-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-success-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-success-unloaded",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-success-changed-user",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-success-changed-order",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-success-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-failure-ready",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-failure-unloaded",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-failure-changed-user",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-failure-changed-order",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-vacant-failure-picker-return",
+      "pass": true,
+      "observed": {
+        "uploads": 1
+      }
+    },
+    {
+      "name": "media-before-photos-hidden",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-photos-unloaded",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-photos-changed-user",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-photos-changed-order",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-photos-read-failed",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-photos-completed",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-photos-disabled",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-result-while-hidden-photos-same",
+      "pass": true,
+      "observed": {
+        "accepted": true
+      }
+    },
+    {
+      "name": "media-result-while-hidden-photos-changed-user",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-while-hidden-photos-changed-order",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-while-hidden-photos-read-failed",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-while-hidden-photos-completed",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-during-return-read-photos",
+      "pass": true
+    },
+    {
+      "name": "media-duplicate-cancel-retry-photos",
+      "pass": true
+    },
+    {
+      "name": "media-before-receipt-hidden",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-receipt-unloaded",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-receipt-changed-user",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-receipt-changed-order",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-receipt-read-failed",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-receipt-completed",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-receipt-disabled",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-result-while-hidden-receipt-same",
+      "pass": true,
+      "observed": {
+        "accepted": true
+      }
+    },
+    {
+      "name": "media-result-while-hidden-receipt-changed-user",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-while-hidden-receipt-changed-order",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-while-hidden-receipt-read-failed",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-while-hidden-receipt-completed",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-during-return-read-receipt",
+      "pass": true
+    },
+    {
+      "name": "media-duplicate-cancel-retry-receipt",
+      "pass": true
+    },
+    {
+      "name": "media-before-vacant-hidden",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-vacant-unloaded",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-vacant-changed-user",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-vacant-changed-order",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-vacant-read-failed",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-vacant-completed",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-before-vacant-disabled",
+      "pass": true,
+      "observed": {
+        "uploads": 0
+      }
+    },
+    {
+      "name": "media-result-while-hidden-vacant-same",
+      "pass": true,
+      "observed": {
+        "accepted": true
+      }
+    },
+    {
+      "name": "media-result-while-hidden-vacant-changed-user",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-while-hidden-vacant-changed-order",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-while-hidden-vacant-read-failed",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-while-hidden-vacant-completed",
+      "pass": true,
+      "observed": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "media-result-during-return-read-vacant",
+      "pass": true
+    },
+    {
+      "name": "media-duplicate-cancel-retry-vacant",
+      "pass": true
+    },
+    {
+      "name": "report-duplicate-and-retry",
+      "pass": true
+    },
+    {
+      "name": "report-old-result-does-not-unlock-new-operation",
+      "pass": true
+    },
+    {
+      "name": "report-actual-api-forbidden-ready",
+      "pass": true
+    },
+    {
+      "name": "report-actual-api-forbidden-hidden",
+      "pass": true
+    },
+    {
+      "name": "report-actual-api-forbidden-changed-user",
+      "pass": true
+    }
+  ]
+}

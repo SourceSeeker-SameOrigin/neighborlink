@@ -1,0 +1,71 @@
+{
+  "scope": "Isolated VM with synthetic fixtures, no real cloud writes or device geolocation",
+  "total": 16,
+  "passed": 16,
+  "results": [
+    {
+      "name": "Manual phone binds only after consent and successful server response",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid manual input never reaches cloud: ",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid manual input never reaches cloud: 138****0000",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid manual input never reaches cloud: 123",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid manual input never reaches cloud: 23800000000",
+      "status": "PASS"
+    },
+    {
+      "name": "Consent missing prevents manual binding",
+      "status": "PASS"
+    },
+    {
+      "name": "Missing address selection prevents phone write",
+      "status": "PASS"
+    },
+    {
+      "name": "Server failure preserves input and unbound identity; return stays home",
+      "status": "PASS"
+    },
+    {
+      "name": "Double save sends one request",
+      "status": "PASS"
+    },
+    {
+      "name": "Existing masked phone is never sent back as the new full phone",
+      "status": "PASS"
+    },
+    {
+      "name": "Service introductions do not call APIs or open a disabled business page",
+      "status": "PASS"
+    },
+    {
+      "name": "No eligible coordinates means no location permission request",
+      "status": "PASS"
+    },
+    {
+      "name": "Eligible coordinates trigger location once; denial leaves manual list usable",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit bound community suppresses location even with coordinates",
+      "status": "PASS"
+    },
+    {
+      "name": "Committed binding with coupon failure shows separate notice and returns home",
+      "status": "PASS"
+    },
+    {
+      "name": "Coupon retry is guarded, reloads successful results and exposes failures",
+      "status": "PASS"
+    }
+  ]
+}

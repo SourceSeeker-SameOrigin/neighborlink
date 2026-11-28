@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-12",
+  "jest": {
+    "suites": 53,
+    "tests": 624,
+    "failed": 0
+  },
+  "coreInteractions": {
+    "passed": 42,
+    "total": 42
+  },
+  "lifecycle": {
+    "pages": 69,
+    "scenarios": 207,
+    "uncaught": 0,
+    "unhandled": 0
+  },
+  "componentReferences": {
+    "pages": 69,
+    "templates": 77,
+    "problems": 0
+  },
+  "limits": "Isolated tests and compiler are not full live acceptance."
+}

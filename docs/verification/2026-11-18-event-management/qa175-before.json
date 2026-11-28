@@ -1,0 +1,155 @@
+{
+  "scope": "seven actual shared forms, synthetic residents; CloudBase/navigation intercepted",
+  "pass": 9,
+  "fail": 14,
+  "results": [
+    {
+      "case": "express-normal-load",
+      "pass": true
+    },
+    {
+      "case": "express-old-quote-after-user-switch",
+      "pass": false,
+      "observed": {
+        "quoted": true
+      }
+    },
+    {
+      "case": "express-old-order-entry-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/pages/orders/detail?id=order-a"
+        ]
+      }
+    },
+    {
+      "case": "trash-normal-load",
+      "pass": true
+    },
+    {
+      "case": "trash-old-quote-after-user-switch",
+      "pass": false,
+      "observed": {
+        "quoted": true
+      }
+    },
+    {
+      "case": "trash-old-order-entry-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/pages/orders/detail?id=order-a"
+        ]
+      }
+    },
+    {
+      "case": "buy-normal-load",
+      "pass": true
+    },
+    {
+      "case": "buy-old-quote-after-user-switch",
+      "pass": false,
+      "observed": {
+        "quoted": true
+      }
+    },
+    {
+      "case": "buy-old-order-entry-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/pages/orders/detail?id=order-a"
+        ]
+      }
+    },
+    {
+      "case": "help-normal-load",
+      "pass": true
+    },
+    {
+      "case": "help-old-quote-after-user-switch",
+      "pass": false,
+      "observed": {
+        "quoted": true
+      }
+    },
+    {
+      "case": "help-old-order-entry-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/pages/orders/detail?id=order-a"
+        ]
+      }
+    },
+    {
+      "case": "meal-normal-load",
+      "pass": true
+    },
+    {
+      "case": "meal-old-quote-after-user-switch",
+      "pass": false,
+      "observed": {
+        "quoted": true
+      }
+    },
+    {
+      "case": "meal-old-order-entry-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/pages/orders/detail?id=order-a"
+        ]
+      }
+    },
+    {
+      "case": "escort-normal-load",
+      "pass": true
+    },
+    {
+      "case": "escort-old-quote-after-user-switch",
+      "pass": false,
+      "observed": {
+        "quoted": true
+      }
+    },
+    {
+      "case": "escort-old-order-entry-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/pages/orders/detail?id=order-a"
+        ]
+      }
+    },
+    {
+      "case": "pet-normal-load",
+      "pass": true
+    },
+    {
+      "case": "pet-old-quote-after-user-switch",
+      "pass": false,
+      "observed": {
+        "quoted": true
+      }
+    },
+    {
+      "case": "pet-old-order-entry-after-user-switch",
+      "pass": false,
+      "observed": {
+        "navigation": [
+          "/pages/orders/detail?id=order-a"
+        ]
+      }
+    },
+    {
+      "case": "trash-submit-current-owner-check",
+      "pass": true
+    },
+    {
+      "case": "trash-old-quote-after-hide",
+      "pass": true
+    }
+  ]
+}

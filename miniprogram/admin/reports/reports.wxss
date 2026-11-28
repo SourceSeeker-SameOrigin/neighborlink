@@ -1,1 +1,6 @@
-.row{display:flex;gap:16rpx}.row button{flex:1}
+.row{display:flex;gap:16rpx}.row .ui-button{flex:1}
+
+.report-filters { gap:12rpx; }
+.report-filters .report-filter { min-width:0; }
+.report-filters .report-filter.is-selected { background:#19755B; color:#FFFFFF; }
+.report-scope { margin:20rpx 0; }

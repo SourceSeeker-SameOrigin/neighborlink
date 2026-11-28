@@ -1,0 +1,78 @@
+{
+  "sourceCommit": "d4c9aaf",
+  "authorization": "User chose A: upload current frontend to official WeChat preview for read-only phone verification",
+  "result": "official CLI preview success; PNG exists and inspected",
+  "qrSha256": "de6390bd3629480c38176fcc335ac340f3b6086cbd24e91eb462a14ca001d393",
+  "qrBytes": 47643,
+  "size": {
+    "total": 1062519,
+    "packages": [
+      {
+        "name": "TOTAL",
+        "size": 1062519
+      },
+      {
+        "name": "main",
+        "size": 683181
+      },
+      {
+        "name": "/admin/",
+        "size": 157786
+      },
+      {
+        "name": "/board/",
+        "size": 24773
+      },
+      {
+        "name": "/chat/",
+        "size": 11868
+      },
+      {
+        "name": "/coupons/",
+        "size": 6365
+      },
+      {
+        "name": "/elder/",
+        "size": 5980
+      },
+      {
+        "name": "/events/",
+        "size": 23695
+      },
+      {
+        "name": "/idle/",
+        "size": 36232
+      },
+      {
+        "name": "/merchant/",
+        "size": 19457
+      },
+      {
+        "name": "/notices/",
+        "size": 2399
+      },
+      {
+        "name": "/pet/",
+        "size": 12525
+      },
+      {
+        "name": "/provider/",
+        "size": 39824
+      },
+      {
+        "name": "/recycle/",
+        "size": 5873
+      },
+      {
+        "name": "/shops/",
+        "size": 11505
+      },
+      {
+        "name": "/station/",
+        "size": 21056
+      }
+    ]
+  },
+  "livePhoneResult": "Received two user videos on 2026-11-11; see qa38-39-video.json. Partial visual/navigation/file-opening evidence, QA38/39 fixes approved; not complete acceptance.",
+  "scope": "Original agent preview upload only, no release/CSV/settlement/payment or cloud update by agent. Later user recordings independently show manual CSV generation; no permission inferred for further agent exports."
+}

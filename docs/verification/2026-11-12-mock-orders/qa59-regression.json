@@ -1,0 +1,91 @@
+{
+  "mode": "actual-page-synthetic-only",
+  "total": 21,
+  "passed": 21,
+  "results": [
+    {
+      "name": "merchant failure keeps identity and other module usable",
+      "passed": true
+    },
+    {
+      "name": "merchant retry clears only its error and never navigates or writes",
+      "passed": true
+    },
+    {
+      "name": "merchant busy retry does not duplicate requests or show absent state",
+      "passed": true
+    },
+    {
+      "name": "merchant errored row retries read instead of opening application",
+      "passed": true
+    },
+    {
+      "name": "merchant onHide rejects late response and API side effects",
+      "passed": true
+    },
+    {
+      "name": "merchant onUnload rejects late response and API side effects",
+      "passed": true
+    },
+    {
+      "name": "merchant newer full load wins over older application",
+      "passed": true
+    },
+    {
+      "name": "station failure keeps identity and other module usable",
+      "passed": true
+    },
+    {
+      "name": "station retry clears only its error and never navigates or writes",
+      "passed": true
+    },
+    {
+      "name": "station busy retry does not duplicate requests or show absent state",
+      "passed": true
+    },
+    {
+      "name": "station errored row retries read instead of opening application",
+      "passed": true
+    },
+    {
+      "name": "station onHide rejects late response and API side effects",
+      "passed": true
+    },
+    {
+      "name": "station onUnload rejects late response and API side effects",
+      "passed": true
+    },
+    {
+      "name": "station newer full load wins over older application",
+      "passed": true
+    },
+    {
+      "name": "identity pending cannot open workspace",
+      "passed": true
+    },
+    {
+      "name": "identity failure has explicit retry, then successful reentry",
+      "passed": true
+    },
+    {
+      "name": "hide before identity completes prevents all dependent reads",
+      "passed": true
+    },
+    {
+      "name": "hidden page retry blocked; show refreshes, unload cannot revive",
+      "passed": true
+    },
+    {
+      "name": "closed modules and assigned station skip application reads",
+      "passed": true
+    },
+    {
+      "name": "unknown retry target sends no call",
+      "passed": true
+    },
+    {
+      "name": "older unread rejection cannot erase fresh count",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "qa19_23": {
+    "passed": 25,
+    "total": 25
+  },
+  "qa17_18": {
+    "passed": 14,
+    "total": 14
+  },
+  "qa09_13": {
+    "passed": 26,
+    "total": 26
+  },
+  "jest": {
+    "passed": 624,
+    "total": 624,
+    "suites": 53
+  },
+  "scan": {
+    "pages": 69,
+    "scenarios": 207,
+    "referenceFailures": [],
+    "uncaught": [],
+    "unhandled": []
+  },
+  "components": {
+    "pages": 69,
+    "templates": 77,
+    "problems": []
+  },
+  "baseline": "相同33项专项在84f92c5为6/33；QA56修复后33/33。两项旧关联失败在84f92c5同样复现，已按QA41/47更新测试，不改对应业务代码。"
+}

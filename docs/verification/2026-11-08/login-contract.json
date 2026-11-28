@@ -1,0 +1,9 @@
+{
+  "realSource": "user.login -> me.load with local read-only fixtures",
+  "reads": 5,
+  "writes": 0,
+  "loginOK": true,
+  "boardConfigured": true,
+  "meBoardEntryCondition": false,
+  "loginReturnsLocationGeo": true
+}

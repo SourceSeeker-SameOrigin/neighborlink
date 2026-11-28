@@ -1,0 +1,1107 @@
+{
+  "scope": "Offline lifecycle with synthetic resident/admin context and forced network failure; zero real cloud/network writes; not visual or business acceptance",
+  "pageCount": 69,
+  "results": [
+    {
+      "route": "pages/index/index",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pages/bind/bind",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/express",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/trash",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/buy",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pages/service/help",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pages/orders/list",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "list"
+        },
+        {
+          "name": "order",
+          "action": "listMine"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pages/orders/detail",
+      "calls": [
+        {
+          "name": "order",
+          "action": "detail"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pages/membership/index",
+      "calls": [
+        {
+          "name": "membership",
+          "action": "plans"
+        },
+        {
+          "name": "membership",
+          "action": "mine"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pages/me/me",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "list"
+        }
+      ],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pages/legal/privacy",
+      "calls": [],
+      "errors": {},
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pages/legal/terms",
+      "calls": [],
+      "errors": {},
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "provider/apply/apply",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "provider/workbench/workbench",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "myStatus"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "provider/hall/hall",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "hall"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "provider/task/task",
+      "calls": [
+        {
+          "name": "order",
+          "action": "detail"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "provider/earnings/earnings",
+      "calls": [
+        {
+          "name": "provider",
+          "action": "earnings"
+        },
+        {
+          "name": "payout",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/dashboard/dashboard",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/orders/orders",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "listOrders"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/order/order",
+      "calls": [
+        {
+          "name": "order",
+          "action": "detail"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/providers/providers",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "listProviders"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/community/community",
+      "calls": [
+        {
+          "name": "admin",
+          "action": "managementConfig"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/posters/posters",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/settlements/settlements",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "admin",
+          "action": "listSettlements"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/features/features",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/reports/reports",
+      "calls": [
+        {
+          "name": "content",
+          "action": "listReports"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/chat/chat",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "adminPull"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/coupons/coupons",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "adminTemplates"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/content/content",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "content",
+          "action": "listAds"
+        }
+      ],
+      "errors": {
+        "noticeError": "合成网络失败",
+        "adError": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/merchants/merchants",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/recycle/recycle",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/exports/exports",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "listCommunities"
+        },
+        {
+          "name": "admin",
+          "action": "listProviders"
+        },
+        {
+          "name": "merchant",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "admin/stations/stations",
+      "calls": [
+        {
+          "name": "station",
+          "action": "listApplications"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "chat/list/list",
+      "calls": [
+        {
+          "name": "chat",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "chat/room/room",
+      "calls": [],
+      "errors": {
+        "error": "聊天会话不存在"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "coupons/center/center",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "center"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "coupons/mine/mine",
+      "calls": [
+        {
+          "name": "coupon",
+          "action": "mine"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "board/list/list",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "board/detail/detail",
+      "calls": [
+        {
+          "name": "board",
+          "action": "detail"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "board/create/create",
+      "calls": [],
+      "errors": {},
+      "loading": true,
+      "uncaught": "ymd is not a function",
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "idle/list/list",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "idle/detail/detail",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "detail"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "idle/create/create",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "idle/mine/mine",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "mine"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "idle/sales/sales",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "sales"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "idle/sale/sale",
+      "calls": [
+        {
+          "name": "order",
+          "action": "detail"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "idle/income/income",
+      "calls": [
+        {
+          "name": "idle",
+          "action": "earnings"
+        },
+        {
+          "name": "payout",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "events/list/list",
+      "calls": [
+        {
+          "name": "event",
+          "action": "list"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "events/detail/detail",
+      "calls": [
+        {
+          "name": "event",
+          "action": "detail"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "events/manage/manage",
+      "calls": [
+        {
+          "name": "event",
+          "action": "adminList"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pet/order",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pet/work",
+      "calls": [
+        {
+          "name": "pet",
+          "action": "listVisits"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "pet/reports",
+      "calls": [
+        {
+          "name": "pet",
+          "action": "listVisits"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "merchant/apply/apply",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "merchant/workbench/workbench",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "merchant/services/services",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "myServices"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "merchant/orders/orders",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "merchantOrders"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "shops/list/list",
+      "calls": [
+        {
+          "name": "content",
+          "action": "adsForSlot"
+        },
+        {
+          "name": "merchant",
+          "action": "listForCommunity"
+        }
+      ],
+      "errors": {
+        "adError": "推荐内容加载失败，可重试",
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "shops/detail/detail",
+      "calls": [
+        {
+          "name": "merchant",
+          "action": "servicesForMerchant"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "shops/booking/booking",
+      "calls": [],
+      "errors": {},
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "station/apply/apply",
+      "calls": [
+        {
+          "name": "station",
+          "action": "applicationOptions"
+        },
+        {
+          "name": "station",
+          "action": "myApplication"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "station/workbench/workbench",
+      "calls": [
+        {
+          "name": "station",
+          "action": "listMyBatches"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "station/create/create",
+      "calls": [],
+      "errors": {},
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "station/worker/worker",
+      "calls": [
+        {
+          "name": "station",
+          "action": "providerHall"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "station/batch/batch",
+      "calls": [
+        {
+          "name": "station",
+          "action": "providerBatch"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "elder/meal",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "elder/escort",
+      "calls": [
+        {
+          "name": "catalog",
+          "action": "getCommunity"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "recycle/order/order",
+      "calls": [],
+      "errors": {},
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    },
+    {
+      "route": "notices/list/list",
+      "calls": [
+        {
+          "name": "content",
+          "action": "listNotices"
+        }
+      ],
+      "errors": {
+        "error": "合成网络失败"
+      },
+      "loading": false,
+      "uncaught": null,
+      "sourceOnly": true,
+      "navigation": []
+    }
+  ],
+  "unhandled": []
+}

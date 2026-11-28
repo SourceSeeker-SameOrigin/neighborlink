@@ -1,0 +1,111 @@
+{
+  "scope": "Isolated actual entry; ad uses existing unchanged synthetic media, no cloud/media/payment writes",
+  "total": 26,
+  "passed": 26,
+  "results": [
+    {
+      "name": "合法公告及长度上限 ",
+      "status": "PASS"
+    },
+    {
+      "name": "合法公告及长度上限 title",
+      "status": "PASS"
+    },
+    {
+      "name": "合法公告及长度上限 body",
+      "status": "PASS"
+    },
+    {
+      "name": "无效公告零写入 title:0",
+      "status": "PASS"
+    },
+    {
+      "name": "无效公告零写入 title:2",
+      "status": "PASS"
+    },
+    {
+      "name": "无效公告零写入 title:81",
+      "status": "PASS"
+    },
+    {
+      "name": "无效公告零写入 body:0",
+      "status": "PASS"
+    },
+    {
+      "name": "无效公告零写入 body:1",
+      "status": "PASS"
+    },
+    {
+      "name": "无效公告零写入 body:2001",
+      "status": "PASS"
+    },
+    {
+      "name": "合法广告保留原图片审核与金额 ",
+      "status": "PASS"
+    },
+    {
+      "name": "合法广告保留原图片审核与金额 title",
+      "status": "PASS"
+    },
+    {
+      "name": "合法广告保留原图片审核与金额 imageFileId",
+      "status": "PASS"
+    },
+    {
+      "name": "合法广告保留原图片审核与金额 communityIds",
+      "status": "PASS"
+    },
+    {
+      "name": "无效广告零写入 title:0",
+      "status": "PASS"
+    },
+    {
+      "name": "无效广告零写入 title:1",
+      "status": "PASS"
+    },
+    {
+      "name": "无效广告零写入 title:81",
+      "status": "PASS"
+    },
+    {
+      "name": "无效广告零写入 imageFileId:0",
+      "status": "PASS"
+    },
+    {
+      "name": "无效广告零写入 imageFileId:1",
+      "status": "PASS"
+    },
+    {
+      "name": "无效广告零写入 imageFileId:501",
+      "status": "PASS"
+    },
+    {
+      "name": "无效广告零写入 communityIds:0",
+      "status": "PASS"
+    },
+    {
+      "name": "无效广告零写入 communityIds:1",
+      "status": "PASS"
+    },
+    {
+      "name": "无效广告零写入 communityIds:101",
+      "status": "PASS"
+    },
+    {
+      "name": "saveNotice内容审核拒绝零写入",
+      "status": "PASS"
+    },
+    {
+      "name": "saveNotice普通住户无权写入",
+      "status": "PASS"
+    },
+    {
+      "name": "saveAd内容审核拒绝零写入",
+      "status": "PASS"
+    },
+    {
+      "name": "saveAd普通住户无权写入",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "scope": "Actual source functions isolated in VM; synthetic identities; no network/cloud read/write",
+  "results": [
+    {
+      "case": "mute",
+      "sentAction": "moderateUser",
+      "code": "E_INVALID_PARAM",
+      "message": "管理操作不正确",
+      "expected": "admin operation reaches corresponding branch",
+      "observed": "E_INVALID_PARAM before database access",
+      "status": "DEFECT_REPRODUCED"
+    },
+    {
+      "case": "block",
+      "sentAction": "moderateUser",
+      "code": "E_INVALID_PARAM",
+      "message": "管理操作不正确",
+      "expected": "admin operation reaches corresponding branch",
+      "observed": "E_INVALID_PARAM before database access",
+      "status": "DEFECT_REPRODUCED"
+    },
+    {
+      "case": "home catalog pet",
+      "status": "OBSERVED",
+      "result": "description modal only",
+      "count": 1
+    },
+    {
+      "case": "property settlements page",
+      "status": "DEFECT_REPRODUCED",
+      "message": "只有运营管理员可以管理结算",
+      "expected": "read-only own-community property share"
+    }
+  ]
+}

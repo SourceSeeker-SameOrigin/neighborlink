@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-13",
+  "scope": "QA59 and privacy/admin return; frontend source in this commit",
+  "width": 430,
+  "widthEvidence": "QA59_READY readback width=430; iPhone14ProMax simulator",
+  "observed": {
+    "initial": {
+      "route": "pages/me/me",
+      "ready": true,
+      "loading": false,
+      "error": "",
+      "merchantError": "",
+      "stationError": ""
+    },
+    "controlledSyntheticUI": [
+      "Only page-local community features and merchant/station myApplication responses replaced temporarily; no global config or cloud writes",
+      "Initial merchant and station read each failed once; error cards and retry buttons visible, not no-application state",
+      "Actual merchant retry succeeded and left station error intact",
+      "Actual station retry succeeded; each module exactly 2 reads including initial failure",
+      "Original wx.cloud.callFunction and page community restored; temporary hook deleted; real load completed without module errors"
+    ],
+    "privacy": [
+      "Actual My link opened privacy at 430",
+      "Top and bottom screenshots, four sections readable with wrapped text; no observed overlap or horizontal clipping",
+      "Actual top-left return reached My"
+    ],
+    "admin": [
+      "Actual administrator workspace opened admin/dashboard/dashboard",
+      "Navigation screenshot and bottom statistics screenshot readable; no observed overlap",
+      "Current date zero/empty data displayed; nonzero financial reconciliation not tested",
+      "Actual back reached My loading state then real profile and five workspaces appeared; merchant/station real feature-closed state restored"
+    ]
+  },
+  "lastDebugState": {
+    "errors": 0,
+    "warnings": 10,
+    "note": "Includes devtools/library/hot-reload notices; not claimed warning-free"
+  },
+  "sideEffects": {
+    "ordersCreated": 0,
+    "applicationsCreated": 0,
+    "payments": 0,
+    "uploads": 0,
+    "cloudRoleOrFeatureChanges": 0,
+    "persistentUISettingsChanged": false
+  },
+  "remaining": [
+    "QA59 other widths, large font, physical device",
+    "Real merchant/station application states and multi-role business success",
+    "Actual weak-network and nonzero unread messages",
+    "Dashboard nonzero data, all navigation destinations and complete UI acceptance",
+    "Overall 69-page acceptance remains incomplete"
+  ]
+}

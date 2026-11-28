@@ -1,1 +1,7 @@
-.picker { padding: 24rpx; margin: 18rpx 0; background: #f7f7f7; border-radius: 12rpx; }
+/* Reuse the approved shared card, label, input and button design. */
+.export-picker { gap:20rpx; }
+.export-value { flex:1; min-width:0; overflow-wrap:break-word; }
+.export-arrow { flex-shrink:0; color:#71816D; font-size:40rpx; line-height:1; }
+.field-help,.error-help { margin-top:16rpx; }
+.export-note { margin-bottom:28rpx; }
+.export-submit { margin-top:28rpx; }

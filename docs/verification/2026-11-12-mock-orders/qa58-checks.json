@@ -1,0 +1,26 @@
+{
+  "jest": {
+    "passed": 624,
+    "total": 624,
+    "suites": 53
+  },
+  "scan": {
+    "pages": 69,
+    "scenarios": 207,
+    "referenceFailures": [],
+    "uncaught": [],
+    "unhandled": []
+  },
+  "compiler": {
+    "wxml": {
+      "files": 77,
+      "exitCode": 0,
+      "stderr": ""
+    },
+    "wxss": {
+      "files": 78,
+      "exitCode": 0,
+      "stderr": ""
+    }
+  }
+}

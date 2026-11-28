@@ -1,0 +1,311 @@
+{
+  "scope": "actual merchant order page; all writes, photos and modal callbacks intercepted; no live authorization claim",
+  "pass": 7,
+  "fail": 28,
+  "results": [
+    {
+      "name": "read-normal",
+      "pass": true,
+      "evidence": {
+        "rows": 1,
+        "loading": false
+      }
+    },
+    {
+      "name": "read-denied-clears-old-order",
+      "pass": false,
+      "evidence": {
+        "rows": 1,
+        "error": "合成无权读取"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "read-latest-result-wins",
+      "pass": false,
+      "evidence": {
+        "id": "old"
+      },
+      "error": "'old' == 'new'"
+    },
+    {
+      "name": "read-late-hidden",
+      "pass": false,
+      "evidence": {
+        "updates": 2
+      },
+      "error": "2 == 0"
+    },
+    {
+      "name": "read-late-unloaded",
+      "pass": false,
+      "evidence": {
+        "updates": 2
+      },
+      "error": "2 == 0"
+    },
+    {
+      "name": "quoteBooking-entry-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "quoteBooking-entry-user",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "quoteBooking-entry-hidden",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "quoteBooking-entry-unloaded",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "quoteBooking-entry-read-failed",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "merchantTransition-entry-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      }
+    },
+    {
+      "name": "merchantTransition-entry-user",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "merchantTransition-entry-hidden",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "merchantTransition-entry-unloaded",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "merchantTransition-entry-read-failed",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 0
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "completeBooking-entry-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "uploads": 1
+      }
+    },
+    {
+      "name": "completeBooking-entry-user",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "completeBooking-entry-hidden",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "completeBooking-entry-unloaded",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "completeBooking-entry-read-failed",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "uploads": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "locksmith-confirm-late-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-a"
+      }
+    },
+    {
+      "name": "locksmith-confirm-late-user",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-b"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "locksmith-confirm-late-hidden",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-a"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "locksmith-confirm-late-unloaded",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-a"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "locksmith-confirm-late-refresh",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-a"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "completion-upload-late-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-a"
+      }
+    },
+    {
+      "name": "completion-upload-late-user",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-b"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "completion-upload-late-hidden",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-a"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "completion-upload-late-unloaded",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-a"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "completion-upload-late-refresh",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "merchant-user-a"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "locksmith-cancel-zero-write",
+      "pass": true,
+      "evidence": {
+        "writes": 0
+      }
+    },
+    {
+      "name": "complete-double-click",
+      "pass": false,
+      "evidence": {
+        "uploads": 2,
+        "writes": 2
+      },
+      "error": "2 == 1"
+    },
+    {
+      "name": "quoteBooking-late-error-after-hide",
+      "pass": false,
+      "evidence": {
+        "updates": 2,
+        "error": "合成旧操作失败"
+      },
+      "error": "2 == 0"
+    },
+    {
+      "name": "merchantTransition-late-error-after-hide",
+      "pass": false,
+      "evidence": {
+        "updates": 2,
+        "error": "合成旧操作失败"
+      },
+      "error": "2 == 0"
+    },
+    {
+      "name": "completeBooking-late-error-after-hide",
+      "pass": false,
+      "evidence": {
+        "updates": 2,
+        "error": "合成旧操作失败"
+      },
+      "error": "2 == 0"
+    }
+  ]
+}

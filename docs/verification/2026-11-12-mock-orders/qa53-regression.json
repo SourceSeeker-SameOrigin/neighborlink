@@ -1,0 +1,91 @@
+{
+  "scope": "Offline actual recycle page with synthetic API, storage and navigation; no real cloud or visual acceptance",
+  "total": 21,
+  "passed": 21,
+  "results": [
+    {
+      "name": "success then failed navigation retries only navigation",
+      "passed": true
+    },
+    {
+      "name": "unknown result retries same input with same request ID",
+      "passed": true
+    },
+    {
+      "name": "changed input after failed create receives different request ID",
+      "passed": true
+    },
+    {
+      "name": "concurrent submit while create pending calls create once",
+      "passed": true
+    },
+    {
+      "name": "received order locks edits and quotes",
+      "passed": true
+    },
+    {
+      "name": "fresh instance restores minimal own receipt without quote/create",
+      "passed": true
+    },
+    {
+      "name": "wrong user receipt ignored",
+      "passed": true
+    },
+    {
+      "name": "same page user change drops old in-memory receipt",
+      "passed": true
+    },
+    {
+      "name": "successful navigation removes only matching stored receipt",
+      "passed": true
+    },
+    {
+      "name": "late navigation success preserves newer receipt",
+      "passed": true
+    },
+    {
+      "name": "navigation pending blocks duplicate navigation",
+      "passed": true
+    },
+    {
+      "name": "synchronous navigation throw shows recovery error",
+      "passed": true
+    },
+    {
+      "name": "storage write failure retains memory lock",
+      "passed": true
+    },
+    {
+      "name": "invalid result does not lock and same input retains request ID",
+      "passed": true
+    },
+    {
+      "name": "late create after onHide persists receipt without UI/navigation",
+      "passed": true
+    },
+    {
+      "name": "late create after onUnload persists receipt without UI/navigation",
+      "passed": true
+    },
+    {
+      "name": "return while create pending stays locked until result",
+      "passed": true
+    },
+    {
+      "name": "late identity read after unload cannot update page",
+      "passed": true
+    },
+    {
+      "name": "quote response after hide cannot update page",
+      "passed": true
+    },
+    {
+      "name": "load failure blocks creation and preserves note",
+      "passed": true
+    },
+    {
+      "name": "invalid selected slot blocks request",
+      "passed": true
+    }
+  ]
+}

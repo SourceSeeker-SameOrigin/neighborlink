@@ -1,1 +1,28 @@
-<view class="page"><view class="page-title">回收企业月度对账</view><view wx:if="{{loading}}">正在加载…</view><view wx:if="{{error}}" class="error">{{error}}</view><block wx:if="{{communities.length}}"><picker range="{{communities}}" range-key="name" value="{{communityIndex}}" bindchange="select"><view class="picker">{{communities[communityIndex].name}}</view></picker><view class="field"><text class="label">期间开始</text><input type="date" data-field="from" value="{{from}}" bindinput="input"/></view><view class="field"><text class="label">期间结束</text><input type="date" data-field="to" value="{{to}}" bindinput="input"/></view><view class="muted">报表按已完成的回收订单，逐回收企业和品类统计重量及应付金额。</view><navigator class="card" url="/admin/exports/exports?type=recycle">前往统一数据导出 ›</navigator></block></view><privacy-popup/>
+<view class="page">
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/admin.png"/><view class="masthead-copy"><view class="page-title">回收企业月度对账</view><view class="masthead-subtitle">社区运营 · 按权限管理</view></view></view>
+  <view wx:if="{{loading}}">正在加载…</view>
+  <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load" disabled="{{loading}}">重新加载</button></view>
+  <block wx:if="{{ready && communities.length}}">
+    <view class="card">
+      <view class="section-title">对账范围</view>
+      <view class="field">
+        <view class="label">服务小区</view>
+        <picker disabled="{{loading || busy}}" range="{{communities}}" range-key="name" value="{{communityIndex}}" bindchange="select"><view class="picker statement-picker"><text class="statement-value">{{communities[communityIndex].name}}</text><text class="statement-arrow">›</text></view></picker>
+      </view>
+    </view>
+    <view class="card">
+      <view class="section-title">对账日期</view>
+      <view class="field">
+        <view class="label">开始日期</view>
+        <picker disabled="{{loading || busy}}" mode="date" data-field="from" value="{{from}}" bindchange="input"><view class="picker statement-picker"><text class="statement-value">{{from}}</text><text class="statement-arrow">›</text></view></picker>
+      </view>
+      <view class="field">
+        <view class="label">结束日期</view>
+        <picker disabled="{{loading || busy}}" mode="date" data-field="to" value="{{to}}" bindchange="input"><view class="picker statement-picker"><text class="statement-value">{{to}}</text><text class="statement-arrow">›</text></view></picker>
+      </view>
+    </view>
+    <view class="card statement-note"><view class="label">对账说明</view><view class="muted">报表按已完成的回收订单，逐回收企业和品类统计重量及应付金额。</view></view>
+    <button class="card menu-row statement-link" bindtap="openExports" disabled="{{loading || !ready}}"><image class="menu-icon" src="/assets/icons/recycle.png"/><text class="menu-copy">前往统一数据导出</text><text class="chevron">›</text></button>
+  </block>
+</view>
+<privacy-popup/>

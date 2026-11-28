@@ -1,0 +1,426 @@
+{
+  "scope": "actual pages; synthetic identities and intercepted writes; no live duty or acceptance",
+  "pass": 51,
+  "fail": 0,
+  "results": [
+    {
+      "name": "workbench-normal-load",
+      "pass": true,
+      "evidence": {
+        "provider": "provider-a",
+        "tasks": 1
+      }
+    },
+    {
+      "name": "workbench-rejected-refresh-clears-previous-data",
+      "pass": true,
+      "evidence": {
+        "tasks": 0,
+        "error": "synthetic forbidden"
+      }
+    },
+    {
+      "name": "workbench-latest-response-wins",
+      "pass": true,
+      "evidence": {
+        "provider": "new-provider"
+      }
+    },
+    {
+      "name": "workbench-late-read-onHide",
+      "pass": true,
+      "evidence": {
+        "updates": 0
+      }
+    },
+    {
+      "name": "workbench-late-read-onUnload",
+      "pass": true,
+      "evidence": {
+        "updates": 0
+      }
+    },
+    {
+      "name": "workbench-duty-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "provider-a"
+      }
+    },
+    {
+      "name": "workbench-duty-changed-user",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "currentUser": "provider-b"
+      }
+    },
+    {
+      "name": "workbench-duty-hidden",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "currentUser": "provider-a"
+      }
+    },
+    {
+      "name": "hall-accept-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "navigation": 1
+      }
+    },
+    {
+      "name": "hall-accept-changed-user",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-accept-hidden",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-accept-read-failed",
+      "pass": true,
+      "evidence": {
+        "writes": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-sent-success-hidden",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-sent-success-unloaded",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-sent-success-user",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-sent-success-refreshed",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-sent-success-returned",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-sent-failure-hidden",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-sent-failure-unloaded",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-sent-failure-user",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-sent-failure-refreshed",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-sent-failure-returned",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-pagination-retries-same-offset",
+      "pass": true,
+      "evidence": {
+        "offsets": [
+          0,
+          1,
+          1
+        ],
+        "count": 2
+      }
+    },
+    {
+      "name": "workbench-duplicate-action",
+      "pass": true,
+      "evidence": {
+        "writes": 1
+      }
+    },
+    {
+      "name": "workbench-pagination-forbidden-clears-data",
+      "pass": true,
+      "evidence": {
+        "tasks": 0,
+        "ready": false,
+        "loading": false
+      }
+    },
+    {
+      "name": "workbench-late-page-hidden",
+      "pass": true,
+      "evidence": {
+        "tasks": []
+      }
+    },
+    {
+      "name": "workbench-late-page-returned",
+      "pass": true,
+      "evidence": {
+        "tasks": [
+          "task-a"
+        ]
+      }
+    },
+    {
+      "name": "workbench-late-page-refreshed",
+      "pass": true,
+      "evidence": {
+        "tasks": [
+          "task-a"
+        ]
+      }
+    },
+    {
+      "name": "workbench-subscription-normal",
+      "pass": true,
+      "evidence": {
+        "prompts": 1,
+        "count": 1
+      }
+    },
+    {
+      "name": "workbench-late-subscription-templates",
+      "pass": true,
+      "evidence": {
+        "prompts": 0,
+        "count": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "workbench-late-subscription-authorization",
+      "pass": true,
+      "evidence": {
+        "prompts": 1,
+        "count": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-sent-success-hidden",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-sent-success-unloaded",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-sent-success-user",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-sent-success-refreshed",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-sent-success-returned",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-sent-failure-hidden",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-sent-failure-unloaded",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-sent-failure-user",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-sent-failure-refreshed",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-sent-failure-returned",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-pagination-retries-same-offset",
+      "pass": true,
+      "evidence": {
+        "offsets": [
+          0,
+          1,
+          1
+        ],
+        "count": 2
+      }
+    },
+    {
+      "name": "hall-duplicate-action",
+      "pass": true,
+      "evidence": {
+        "writes": 1
+      }
+    },
+    {
+      "name": "hall-pagination-forbidden-clears-data",
+      "pass": true,
+      "evidence": {
+        "tasks": 0,
+        "ready": false,
+        "loading": false
+      }
+    },
+    {
+      "name": "hall-late-page-hidden",
+      "pass": true,
+      "evidence": {
+        "tasks": []
+      }
+    },
+    {
+      "name": "hall-late-page-returned",
+      "pass": true,
+      "evidence": {
+        "tasks": [
+          "task-a"
+        ]
+      }
+    },
+    {
+      "name": "hall-late-page-refreshed",
+      "pass": true,
+      "evidence": {
+        "tasks": [
+          "task-a"
+        ]
+      }
+    },
+    {
+      "name": "hall-subscription-normal",
+      "pass": true,
+      "evidence": {
+        "prompts": 1,
+        "count": 1
+      }
+    },
+    {
+      "name": "hall-late-subscription-templates",
+      "pass": true,
+      "evidence": {
+        "prompts": 0,
+        "count": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "hall-late-subscription-authorization",
+      "pass": true,
+      "evidence": {
+        "prompts": 1,
+        "count": 0,
+        "navigation": 0
+      }
+    },
+    {
+      "name": "subscriptions-legacy-caller-compatible",
+      "pass": true,
+      "evidence": {
+        "prompts": 1,
+        "count": 1
+      }
+    }
+  ]
+}

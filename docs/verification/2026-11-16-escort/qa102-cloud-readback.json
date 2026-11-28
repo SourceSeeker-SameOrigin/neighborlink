@@ -1,0 +1,39 @@
+{
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "c84ead3744822fa3f1c3d18d143e1ea51f0830bd",
+  "function": "admin",
+  "selectedZipBytes": 124593,
+  "selectedZipSha256": "05f7c9d1dc706cc9c33a459aff9fc07b811bafa1a026ae37542c2bd635cfd341",
+  "downloadedZipSha256": "9f0fb1698ec69b89faa8cf3721812e6ffc8bf3152b054c880b0edc9db019e868",
+  "matchedSourceFiles": 76,
+  "sdk": "4.0.2",
+  "exportCheck": {
+    "dataset": "synthetic",
+    "rows": 102,
+    "uniqueOrderNumbers": 102,
+    "unpaidServiceFeeFen": 0,
+    "residentError": "E_FORBIDDEN"
+  },
+  "experience": {
+    "version": "0.1.10",
+    "files": 385,
+    "totalBytes": 1131111,
+    "mainBytes": 706928,
+    "submittedAtBeijing": "2026-11-17 20:43:59",
+    "remarks": "活动报名续付与模拟支付确认",
+    "verifiedLabel": "体验版"
+  },
+  "paidEventCallbackIsolation": {
+    "amountFen": 500,
+    "clientCallback": "rejected",
+    "wrongAmount": "rejected",
+    "firstVerifiedPayment": "accepted",
+    "repeatedVerifiedPayment": "accepted_without_state_change",
+    "differentTransactionId": "rejected",
+    "orders": 1,
+    "signedRegistrations": 1,
+    "signupCount": 1,
+    "reservedCount": 0,
+    "mockProviderOrderQueries": 1
+  }
+}

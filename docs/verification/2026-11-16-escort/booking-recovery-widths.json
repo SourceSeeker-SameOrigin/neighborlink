@@ -1,0 +1,29 @@
+{
+  "scope": "本地微信模拟器，合成响应；调用页面处理方法并读取控件边界。lookup 表示核对按钮在视口宽度内且旧表单隐藏，confirm 表示确认按钮在视口宽度内且需求输入框恢复。",
+  "measurements": [
+    {
+      "width": 320,
+      "lookup": true,
+      "confirm": true,
+      "date": "2026-11-17T03:54:45.562Z"
+    },
+    {
+      "width": 375,
+      "lookup": true,
+      "confirm": true,
+      "date": "2026-11-17T03:55:07.263Z"
+    },
+    {
+      "width": 390,
+      "lookup": true,
+      "confirm": true,
+      "date": "2026-11-17T03:57:33.252Z"
+    },
+    {
+      "width": 430,
+      "lookup": true,
+      "confirm": true,
+      "date": "2026-11-17T03:27:04.194Z"
+    }
+  ]
+}

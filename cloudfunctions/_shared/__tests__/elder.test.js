@@ -12,15 +12,18 @@ test('送餐绑定本小区合作食堂、餐费上限和默认 300 分服务费
   expect(() => quote('meal', { canteenCode: 'c1', items: '午餐', goodsCap: 5001 }, community.prices, community)).toThrow('餐费预付');
 });
 test('陪诊 1 到 4 档按 16800 分计价，并限制在完整值班窗口内', () => {
-  const result = quote('escort', { hospital: '市医院', department: '内科', date: '2026-11-20', start: '09:00', blocks: 2, pickup: false }, {}, community);
-  expect(result).toMatchObject({ listPrice: 33600, payAmount: 33600 });
-  expect(() => quote('escort', { hospital: '市医院', department: '内科', date: '2026-11-20', start: '09:00', blocks: 5, pickup: false }, {}, community)).toThrow('时长档数');
-  expect(() => quote('escort', { hospital: '市医院', department: '内科', date: '2026-02-30', start: '09:00', blocks: 1, pickup: false }, {}, community)).toThrow('日期无效');
-  expect(() => quote('escort', { hospital: '市医院', department: '内科', date: '2026-11-20', start: '12:00', blocks: 2, pickup: false }, {}, community)).toThrow('值班时段');
-  expect(() => cleanEscort({ hospital: '医院', department: '内科', date: '2026-12-08', start: '09:00', blocks: 1, pickup: false }, community.dutyWindows,
-    new Date('2026-11-07T10:00:00+08:00'))).toThrow('未来 30 天');
-  expect(escortSlot({ hospital: '医院', department: '内科', date: '2026-11-20', start: '09:00', blocks: 2, pickup: false }, community.dutyWindows,
-    new Date('2026-11-07T10:00:00+08:00'))).toEqual({ date: '2026-11-20', start: '08:00', end: '13:00' });
+  jest.useFakeTimers().setSystemTime(new Date('2026-11-07T10:00:00+08:00'));
+  try {
+    const result = quote('escort', { hospital: '市医院', department: '内科', date: '2026-11-20', start: '09:00', blocks: 2, pickup: false }, {}, community);
+    expect(result).toMatchObject({ listPrice: 33600, payAmount: 33600 });
+    expect(() => quote('escort', { hospital: '市医院', department: '内科', date: '2026-11-20', start: '09:00', blocks: 5, pickup: false }, {}, community)).toThrow('时长档数');
+    expect(() => quote('escort', { hospital: '市医院', department: '内科', date: '2026-02-30', start: '09:00', blocks: 1, pickup: false }, {}, community)).toThrow('日期无效');
+    expect(() => quote('escort', { hospital: '市医院', department: '内科', date: '2026-11-20', start: '12:00', blocks: 2, pickup: false }, {}, community)).toThrow('值班时段');
+    expect(() => cleanEscort({ hospital: '医院', department: '内科', date: '2026-12-08', start: '09:00', blocks: 1, pickup: false }, community.dutyWindows,
+      new Date('2026-11-07T10:00:00+08:00'))).toThrow('未来 30 天');
+    expect(escortSlot({ hospital: '医院', department: '内科', date: '2026-11-20', start: '09:00', blocks: 2, pickup: false }, community.dutyWindows,
+      new Date('2026-11-07T10:00:00+08:00'))).toEqual({ date: '2026-11-20', start: '08:00', end: '13:00' });
+  } finally { jest.useRealTimers(); }
 });
 test('送餐走首单服务费优惠且餐费预付不参与折扣', () => {
   const result = priceOrder({ serviceCode: 'meal', detail: { canteenCode: 'c1', items: '午餐', goodsCap: 2500 },

@@ -1,0 +1,74 @@
+{
+  "scope": "synthetic database; query order prearranged descending, not a real cloud index test",
+  "pass": 5,
+  "fail": 1,
+  "results": [
+    {
+      "name": "cloud-two-pages-read-21-own-orders",
+      "pass": true,
+      "evidence": {
+        "counts": [
+          20,
+          1
+        ],
+        "hasMore": [
+          true,
+          false
+        ],
+        "last": "order-20",
+        "writes": 0
+      }
+    },
+    {
+      "name": "page-can-reach-pending-21st-order",
+      "pass": false,
+      "evidence": {
+        "visible": 20,
+        "paginationButton": false,
+        "offsets": [
+          0
+        ],
+        "pendingVisible": false,
+        "writes": 0
+      },
+      "error": "第21笔待报价订单无法从页面读取"
+    },
+    {
+      "name": "cloud-other-merchant",
+      "pass": true,
+      "evidence": {
+        "ok": false,
+        "code": "E_FORBIDDEN",
+        "writes": 0
+      }
+    },
+    {
+      "name": "cloud-suspended",
+      "pass": true,
+      "evidence": {
+        "ok": false,
+        "code": "E_FORBIDDEN",
+        "writes": 0
+      }
+    },
+    {
+      "name": "cloud-invalid-offset",
+      "pass": true,
+      "evidence": {
+        "ok": false,
+        "code": "E_INVALID_PARAM",
+        "writes": 0
+      }
+    },
+    {
+      "name": "cloud-feature-off-history",
+      "pass": true,
+      "evidence": {
+        "ok": true,
+        "count": 20,
+        "enabled": 0,
+        "writes": 0
+      }
+    }
+  ]
+}

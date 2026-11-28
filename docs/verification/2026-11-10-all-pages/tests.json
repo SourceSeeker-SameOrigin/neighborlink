@@ -1,0 +1,28 @@
+{
+  "jest": {
+    "suites": 53,
+    "tests": 624,
+    "passed": true
+  },
+  "qa32": 19,
+  "qa33": 24,
+  "qa34Frontend": 9,
+  "qa34Shared": 10,
+  "lifecycle": {
+    "pages": 69,
+    "scenarios": 207,
+    "scope": "isolated API failures only"
+  },
+  "componentRegistration": {
+    "templates": 77,
+    "problems": []
+  },
+  "styles": {
+    "pages": 69,
+    "issues": []
+  },
+  "limits": "No full visual or live business acceptance. admin deployed and 76/76 source files verified; live empty pagination and invalid offset verified; nonempty pagination pending. QA36/QA37 local regressions and official WXML compilation pass; live export/nonempty preview pending stable UI connection, phone feedback and valid samples.",
+  "qa35Frontend": 9,
+  "qa36Frontend": 14,
+  "qa37Frontend": 1
+}

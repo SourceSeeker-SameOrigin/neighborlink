@@ -1,0 +1,68 @@
+{
+  "total": 15,
+  "passed": 15,
+  "failed": 0,
+  "scope": "isolated VM; synthetic data; no cloud or account mutations",
+  "results": [
+    {
+      "name": "D33 old pet draft removes secret fields and signatures, preserves safe input and other storage",
+      "status": "PASS"
+    },
+    {
+      "name": "D33 pet retry request remains in page memory but never in storage",
+      "status": "PASS"
+    },
+    {
+      "name": "D34 A B A accepts only latest address and ignores old failure",
+      "status": "PASS"
+    },
+    {
+      "name": "D34 hidden address response cannot restore quote or community",
+      "status": "PASS"
+    },
+    {
+      "name": "D34 queued quote disables submission immediately",
+      "status": "PASS"
+    },
+    {
+      "name": "D34 failed address retries selected address without old quote",
+      "status": "PASS"
+    },
+    {
+      "name": "D36 initialize failure retries without losing selections or notes",
+      "status": "PASS"
+    },
+    {
+      "name": "D36 reverse category quotes cannot replace latest selection",
+      "status": "PASS"
+    },
+    {
+      "name": "D36 repeated submit while busy does not create twice",
+      "status": "PASS"
+    },
+    {
+      "name": "D02 denied file never falls back to creator SDK",
+      "status": "PASS"
+    },
+    {
+      "name": "D02 expiry rechecks permission, invalidates previous URL, deduplicates refresh",
+      "status": "PASS"
+    },
+    {
+      "name": "D02 revoked permission cannot reuse previous signed URL",
+      "status": "PASS"
+    },
+    {
+      "name": "D02 preview calls native viewer exactly once with resolved URL",
+      "status": "PASS"
+    },
+    {
+      "name": "D02 media component auto-refreshes once then waits for manual retry",
+      "status": "PASS"
+    },
+    {
+      "name": "D02 legacy external business image also requires proven ownership",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,10 +1,14 @@
+const { validateCommunityPatch, validateGlobalPatch, changedCardEntitlements } = require('./communityConfig');
 const { ensure, integer, text } = require('./validate');
 const { requireRole, requireCommunityAccess } = require('./auth');
 const { parseDate, addDays, ymd } = require('./time');
 const { validateFeatures } = require('./features');
 const { visibleCommunityIds } = require('./visibility');
-const { extensionMetrics } = require('./dashboardMetrics');
+const { extensionMetrics, revenueMetrics } = require('./dashboardMetrics');
 const { payoutCommunityAmounts } = require('./payout');
+const crypto = require('crypto');
+const { atomic, read, insert } = require('./transaction');
+const { codeEnvVersion } = require('./qrEnv');
 
 function createAdminDashboard(cloud, server) {
   const { db, command } = server;
@@ -39,14 +43,12 @@ function createAdminDashboard(cloud, server) {
     ]);
     const statusCounts = {};
     const uniqueResidents = new Set();
-    let paidOrders = 0, turnover = 0, net = 0, refunds = 0, complaints = 0, alerted = 0;
+    const revenue = revenueMetrics(orders);
+    let complaints = 0, alerted = 0;
     let acceptMs = 0, acceptedCount = 0;
     for (const order of orders) {
       statusCounts[order.status] = (statusCounts[order.status] || 0) + 1;
       uniqueResidents.add(order.userOpenid);
-      if (order.payment && order.payment.paidAt) { paidOrders++; turnover += order.pricing.payAmount; }
-      const refunded = (order.refunds || []).filter(item => item.status === 'success').reduce((sum, item) => sum + item.amount, 0);
-      refunds += refunded; net += Math.max(0, (order.pricing.payAmount + order.pricing.goodsCap) - refunded);
       if (order.complaint) complaints++;
       if (order.alertedAt) alerted++;
       if (order.acceptedAt && order.payment && order.payment.paidAt) {
@@ -87,7 +89,7 @@ function createAdminDashboard(cloud, server) {
     }
     const extensions = extensionMetrics(orders, activities, scopedPayouts, communityIds);
     return { communityId, communityIds, scope: event.scope === 'federation' ? 'federation' : 'community', from, to, readOnly: !user.roles.includes('admin'), orders: statusCounts,
-      totalOrders: orders.length, paidOrders, serviceFeeTurnover: turnover, actualIncome: net,
+      totalOrders: orders.length, ...revenue,
       residentCount: uniqueResidents.size, newFirstPaidResidents: source.first_paid.size,
       secondPaidResidents: source.second_paid.size, acceptRate15m: acceptedCount ?
         Math.floor(orders.filter(item => item.payment && item.payment.paidAt && item.acceptedAt &&
@@ -95,7 +97,7 @@ function createAdminDashboard(cloud, server) {
           Math.max(1, orders.filter(item => item.payment && item.payment.paidAt).length)) : 0,
       averageAcceptMinutes: acceptedCount ? Math.round(acceptMs / acceptedCount / 60000) : 0,
       unacceptedAlerts: alerted, complaintCount: complaints, complaintRate: orders.length ? Math.floor(complaints * 10000 / orders.length) : 0,
-      refundTotal: refunds, memberships: members, onDutyProviders: duty.total,
+      memberships: members, onDutyProviders: duty.total,
       providerStats: providers.map(provider => ({ id: provider._id, name: provider.realName, completed: provider.stats.completed,
         averageRating: provider.stats.ratingCount ? (provider.stats.ratingSum / provider.stats.ratingCount).toFixed(1) : '暂无' })),
       funnel: { scans: source.scan.size, binds: source.bind.size, firstPaid: source.first_paid.size, secondPaid: source.second_paid.size },
@@ -142,9 +144,27 @@ function createAdminDashboard(cloud, server) {
     if (patch.rates) ensure(Number.isFinite(patch.rates.platform) && Number.isFinite(patch.rates.property) &&
       patch.rates.platform >= 0 && patch.rates.property >= 0 && patch.rates.platform + patch.rates.property <= 1,
     '分账费率配置不正确');
+    validateCommunityPatch(patch);
     patch.updatedAt = new Date();
-    const result = await db.collection('communities').where({ _id: current._id, status: current.status }).update({ data: patch });
-    ensure(result.stats.updated === 1, '小区配置已变化，请刷新', 'E_CONFLICT');
+    if (patch.cardPlans !== undefined) {
+      const { atomic, read, sameSnapshot } = require('./transaction');
+      const { nextMembershipRevision } = require('./membershipRevision');
+      // CloudBase transactions support doc operations, not where queries.
+      // A concurrent purchase or activation bumps the same community revision.
+      for (const code of changedCardEntitlements(current.cardPlans, patch.cardPlans)) {
+        const active = await server.one('memberships', {communityId: current._id, planCode: code, status: 'active', endAt: command.gt(new Date())});
+        const pending = await server.one('orders', {communityId: current._id, kind: 'membership_purchase', planCode: code, status: 'pending_pay'});
+        ensure(!active && !pending, '存在有效月卡或待付款月卡订单，不能删除计划或修改排期、额度和有效天数；可调整新购价格', 'E_CONFLICT');
+      }
+      await atomic(db, async transaction => {
+        const fresh = await read(transaction, 'communities', current._id);
+        sameSnapshot(fresh, current, ['status', 'cardPlans', 'updatedAt', 'membershipRevision']);
+        await transaction.collection('communities').doc(current._id).update({data:{...patch, membershipRevision:nextMembershipRevision(fresh)}});
+      });
+    } else {
+      const result = await db.collection('communities').where({ _id: current._id, status: current.status }).update({ data: patch });
+      ensure(result.stats.updated === 1, '小区配置已变化，请刷新', 'E_CONFLICT');
+    }
     return { communityId: current._id };
   }
 
@@ -164,9 +184,39 @@ function createAdminDashboard(cloud, server) {
       return { buildingId: current._id };
     }
     const { shortCode } = require('./ids');
-    const buildingId = 'b_' + require('crypto').randomBytes(16).toString('hex');
+    if (event.requestId) {
+      const requestId = text(event.requestId, '请求编号', 80);
+      ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(requestId), '请求编号不正确');
+      const buildingId = 'b_' + crypto.createHash('sha256').update(user.openid + ':' + community._id + ':' + requestId)
+        .digest('hex').slice(0, 32);
+      return atomic(db, async transaction => {
+        const existing = await read(transaction, 'buildings', buildingId);
+        if (existing) {
+          ensure(existing.communityId === community._id && existing.name === name &&
+            JSON.stringify(existing.units) === JSON.stringify(data.units), '请求编号已用于其他楼栋', 'E_CONFLICT');
+          return { buildingId, duplicate: true };
+        }
+        await insert(transaction, 'buildings', { _id: buildingId, ...data, shortCode: shortCode(),
+          posterFileId: null, createdAt: new Date() });
+        return { buildingId, duplicate: false };
+      });
+    }
+    const buildingId = 'b_' + crypto.randomBytes(16).toString('hex');
     await db.collection('buildings').add({ data: { _id: buildingId, ...data, shortCode: shortCode(), posterFileId: null, createdAt: new Date() } });
     return { buildingId };
+  }
+
+  async function lookupBuildingCreate(event, { user }) {
+    requireRole(user, ['admin']);
+    const communityId = text(event.communityId, '小区');
+    const requestId = text(event.requestId, '请求编号', 80);
+    ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(requestId), '请求编号不正确');
+    const buildingId = 'b_' + crypto.createHash('sha256').update(user.openid + ':' + communityId + ':' + requestId)
+      .digest('hex').slice(0, 32);
+    const existing = await server.get('buildings', buildingId);
+    if (!existing) return { buildingId: null };
+    ensure(existing.communityId === communityId, '无权查看此创建结果', 'E_FORBIDDEN');
+    return { buildingId, name: existing.name, units: existing.units };
   }
 
   async function updateConfig(event, { user }) {
@@ -174,7 +224,7 @@ function createAdminDashboard(cloud, server) {
     const current = await server.get('config', 'global');
     ensure(current, '全局配置不存在', 'E_CONFIG');
     const allowed = ['hotline', 'payMode', 'templateIds', 'templateFields', 'adminOpenids', 'blacklist',
-      'autoConfirmHours', 'acceptAlertMinutes', 'payTimeoutMinutes', 'complaintWindowHours', 'phoneVisibleHoursAfterDone', 'referralBonus', 'features'];
+      'autoConfirmHours', 'acceptAlertMinutes', 'payTimeoutMinutes', 'complaintWindowHours', 'phoneVisibleHoursAfterDone', 'referralBonus', 'features', 'idleBlacklist', 'carryBlacklist', 'contentBlacklist'];
     const patch = {};
     for (const key of allowed) if (Object.prototype.hasOwnProperty.call(event, key)) patch[key] = event[key];
     ensure(Object.keys(patch).length, '没有可保存的配置');
@@ -187,6 +237,7 @@ function createAdminDashboard(cloud, server) {
       const communities = await server.all('communities', {});
       for (const community of communities) validateFeatures({ ...nextFeatures, ...(community.features || {}) });
     }
+    validateGlobalPatch(patch);
     patch.updatedAt = new Date();
     await db.collection('config').doc('global').update({ data: patch });
     return { updated: Object.keys(patch).filter(key => key !== 'updatedAt') };
@@ -194,9 +245,22 @@ function createAdminDashboard(cloud, server) {
 
   async function getFeatures(event, { user }) {
     requireRole(user, ['admin']);
-    const [config, community] = await Promise.all([server.config(), get('communities', event.communityId || user.communityId)]);
+    const [config, community] = await Promise.all([server.config(), server.get('communities', event.communityId || user.communityId)]);
     return { global: config.features || {}, community: community && community.features || {},
       communityId: community && community._id };
+  }
+
+  async function managementConfig(event, { user }) {
+    requireRole(user, ['admin']);
+    const config = await server.config();
+    const keys = ['hotline','blacklist','idleBlacklist','carryBlacklist','contentBlacklist','autoConfirmHours','acceptAlertMinutes','payTimeoutMinutes','complaintWindowHours','phoneVisibleHoursAfterDone','referralBonus'];
+    const global = Object.fromEntries(keys.filter(key => config[key] !== undefined).map(key => [key,config[key]]));
+    const communities = (await server.all('communities', {})).map(item => ({ _id:item._id, name:item.name, status:item.status }));
+    const id = event.communityId || user.communityId || (communities[0] || {})._id;
+    const raw = id ? await server.get('communities', id) : null;
+    const community = raw ? { ...raw, buildings: await server.all('buildings',{communityId:id}) } : null;
+    if (community) delete community.locationGeo;
+    return { global, communities, community };
   }
 
   async function genPoster(event, { user }) {
@@ -211,15 +275,17 @@ function createAdminDashboard(cloud, server) {
       ensure(provider && provider.status === 'approved', '服务员不存在或未通过审核');
       scene = 'r=' + provider.referralCode; page = 'pages/index/index'; collection = 'providers'; id = provider._id;
     } else ensure(false, '请选择楼栋或服务员');
-    const response = await cloud.openapi.wxacode.getUnlimited({ scene, page, checkPath: false, envVersion: 'develop', width: 430 });
+    const envVersion = codeEnvVersion();
+    const response = await cloud.openapi.wxacode.getUnlimited({ scene, page, checkPath: false, envVersion, width: 430 });
     ensure(response && response.buffer, '小程序码生成失败', 'E_INTERNAL');
-    const file = await cloud.uploadFile({ cloudPath: 'posters/' + id + '.png', fileContent: response.buffer });
-    await db.collection(collection).doc(id).update({ data: { posterFileId: file.fileID, posterScene: scene, posterUpdatedAt: new Date() } });
+    const file = await cloud.uploadFile({ cloudPath: 'posters/' + id + '/' + envVersion + '-' + Date.now() + '.png', fileContent: response.buffer });
+    await db.collection(collection).doc(id).update({ data: { posterFileId: file.fileID, posterScene: scene,
+      posterEnvVersion: envVersion, posterUpdatedAt: new Date() } });
     const fresh = await cloud.getTempFileURL({ fileList: [file.fileID] });
-    return { fileId: file.fileID, tempFileURL: fresh.fileList[0].tempFileURL, scene };
+    return { fileId: file.fileID, tempFileURL: fresh.fileList[0].tempFileURL, scene, envVersion };
   }
 
-  return { dashboard, updateCommunity, upsertBuilding, updateConfig, getFeatures, genPoster };
+  return { managementConfig, dashboard, updateCommunity, upsertBuilding, lookupBuildingCreate, updateConfig, getFeatures, genPoster };
 }
 
 module.exports = { createAdminDashboard };

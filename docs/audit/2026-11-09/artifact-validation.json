@@ -1,0 +1,11 @@
+{
+  "tasks.csv": 34,
+  "pages.csv": 69,
+  "scenarios.csv": 40,
+  "baseline-clauses.csv": 616,
+  "markdownLinks": "all local targets exist",
+  "taskIds": "T00-T33 each once",
+  "findingIds": "F01-F14 each once",
+  "recommendationIds": "R01-R09 each once",
+  "businessCodeChanged": false
+}

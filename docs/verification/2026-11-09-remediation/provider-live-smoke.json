@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-09",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "identity": "real logged-in resident with no provider profile; no role changes",
+  "execution": "WeChat DevTools Console wx.cloud.callFunction; real cloud read-only calls",
+  "results": [
+    {
+      "action": "myStatus",
+      "ok": true,
+      "hasProvider": false
+    },
+    {
+      "action": "hall",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    },
+    {
+      "action": "myTasks",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    },
+    {
+      "action": "earnings",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    }
+  ],
+  "notVerified": [
+    "Approved provider application and review",
+    "On-duty, accept and fulfillment success",
+    "Actual earnings and cross-account data scope"
+  ],
+  "writes": "No business data writes; no phone, address, role, secrets or payment submitted"
+}

@@ -1,0 +1,18 @@
+{
+  "case": "QA159",
+  "page": "admin/community/community",
+  "method": "Actual page JavaScript in isolated Node VM with synthetic admin A and resident B; all CloudBase calls intercepted",
+  "passed": 1,
+  "failed": 4,
+  "results": [
+    "Normal administrator read displays one synthetic community",
+    "After identity changes to resident B and read is denied, A's old community remains visible",
+    "A's late configuration read sets authorized=true and fills B's page",
+    "Old global settings save sends one updateConfig request under B",
+    "Old community settings save sends one updateCommunity request under B"
+  ],
+  "cloudCalls": 0,
+  "realSettingsChanged": 0,
+  "limits": "The cloud function may independently reject stale actions; online incidence and real device behavior are unknown",
+  "status": "Reproduced in isolation; remediation recorded for unified user decision"
+}

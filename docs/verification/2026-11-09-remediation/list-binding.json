@@ -1,0 +1,47 @@
+{
+  "scope": "isolated real page handlers; synthetic binding only, no cloud writes",
+  "total": 10,
+  "passed": 10,
+  "results": [
+    {
+      "name": "board: incomplete binding clears old content without API calls or redirect",
+      "status": "PASS"
+    },
+    {
+      "name": "board: explicit bind and cancelled return do not create a navigation loop",
+      "status": "PASS"
+    },
+    {
+      "name": "board: failed save preserves unbound state; successful save refreshes next entry",
+      "status": "PASS"
+    },
+    {
+      "name": "board: bound but feature disabled keeps original error and skips list",
+      "status": "PASS"
+    },
+    {
+      "name": "board: login failure remains retryable and does not show business controls",
+      "status": "PASS"
+    },
+    {
+      "name": "idle: incomplete binding clears old content without API calls or redirect",
+      "status": "PASS"
+    },
+    {
+      "name": "idle: explicit bind and cancelled return do not create a navigation loop",
+      "status": "PASS"
+    },
+    {
+      "name": "idle: failed save preserves unbound state; successful save refreshes next entry",
+      "status": "PASS"
+    },
+    {
+      "name": "idle: bound but feature disabled keeps original error and skips list",
+      "status": "PASS"
+    },
+    {
+      "name": "idle: login failure remains retryable and does not show business controls",
+      "status": "PASS"
+    }
+  ]
+}

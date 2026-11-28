@@ -1,1 +1,13 @@
-<view class="page"><view class="card"><view>待结算 ¥{{pending}}</view><view>已结算 ¥{{settled}}</view><view>可提现 ¥{{available}}</view><view class="muted">单次 ¥10—¥2000，每日 1 次</view><button wx:if="{{payoutEnabled}}" type="primary" loading="{{creatingPayout}}" disabled="{{creatingPayout || !canWithdraw}}" bindtap="createPayout">提现可用收入</button></view><empty-state wx:if="{{error}}" message="{{error}}" retry bind:retry="retry"/><view class="section-title">提现记录</view><view class="card" wx:for="{{payouts}}" wx:key="payoutId"><view>¥{{item.amountText}} · {{item.stateText}}</view><view>{{item.time}}</view></view><view class="section-title">收入明细</view><view class="card" wx:for="{{rows}}" wx:key="_id"><view>¥{{item.amountText}} · {{item.settled ? '已结算' : item.locked ? '提现处理中' : '待结算'}}</view><view>{{item.time}}</view></view><empty-state wx:if="{{loading}}" message="正在加载收入…"/><empty-state wx:elif="{{!error && !rows.length}}" message="暂时没有收入明细"/></view>
+<view class="page">
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/help.png"/><view class="masthead-copy"><view class="page-title">我的收入</view><view class="masthead-subtitle">邻里服务 · 用心履约</view></view></view>
+  <empty-state wx:if="{{error}}" message="{{error}}" retry bind:retry="retry"/>
+  <empty-state wx:if="{{loading}}" message="正在加载收入…"/>
+  <block wx:if="{{ready && !loading}}">
+    <view class="card"><view>待结算 ¥{{pending}}</view><view>已结算 ¥{{settled}}</view><view>可提现 ¥{{available}}</view><view class="muted">单次 ¥10—¥2000，每日 1 次</view><button class="ui-button" wx:if="{{payoutEnabled}}" type="primary" loading="{{creatingPayout}}" disabled="{{creatingPayout || !canWithdraw}}" bindtap="createPayout">提现可用收入</button></view>
+    <view class="section-title">提现记录</view><view class="card" wx:for="{{payouts}}" wx:key="payoutId"><view>¥{{item.amountText}} · {{item.stateText}}</view><view>{{item.time}}</view></view>
+    <view wx:if="{{payoutError}}" class="error">{{payoutError}}</view>
+    <button wx:if="{{payoutHasMore}}" bindtap="morePayouts" loading="{{payoutPaging}}" disabled="{{payoutPaging}}">{{payoutError ? '重试加载提现记录' : '加载更多提现记录'}}</button>
+    <view class="section-title">收入明细</view><view class="card" wx:for="{{rows}}" wx:key="_id"><view>¥{{item.amountText}} · {{item.settled ? '已结算' : item.locked ? '提现处理中' : '待结算'}}</view><view>{{item.time}}</view></view>
+    <empty-state wx:if="{{!rows.length}}" message="暂时没有收入明细"/>
+  </block>
+</view>

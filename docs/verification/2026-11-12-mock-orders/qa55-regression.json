@@ -1,0 +1,79 @@
+{
+  "scope": "Offline real page with synthetic identity, API and payment. No cloud writes or visual acceptance.",
+  "total": 18,
+  "passed": 18,
+  "results": [
+    {
+      "name": "before initialization does not create",
+      "passed": true
+    },
+    {
+      "name": "failed initialization does not create and keeps requirement",
+      "passed": true
+    },
+    {
+      "name": "successful initialization ends loading and enables submission",
+      "passed": true
+    },
+    {
+      "name": "missing service never loads or submits",
+      "passed": true
+    },
+    {
+      "name": "pending load rejects submit and duplicate read",
+      "passed": true
+    },
+    {
+      "name": "retry preserves requirement and selected address by ID after reorder",
+      "passed": true
+    },
+    {
+      "name": "invalid address event ignored",
+      "passed": true
+    },
+    {
+      "name": "empty addresses retains current binding fallback after successful load",
+      "passed": true
+    },
+    {
+      "name": "late load after onHide does not update page",
+      "passed": true
+    },
+    {
+      "name": "late load after onUnload does not update page",
+      "passed": true
+    },
+    {
+      "name": "reentry accepts fresh read and rejects older response",
+      "passed": true
+    },
+    {
+      "name": "busy submit blocks read, editing and repeated submit",
+      "passed": true
+    },
+    {
+      "name": "late create after onHide does not pay, navigate or toast",
+      "passed": true
+    },
+    {
+      "name": "late create after onUnload does not pay, navigate or toast",
+      "passed": true
+    },
+    {
+      "name": "hide and return before create resolves does not auto pay or navigate",
+      "passed": true
+    },
+    {
+      "name": "late payment result after leave does not navigate or toast",
+      "passed": true
+    },
+    {
+      "name": "same unknown create result retries original request ID",
+      "passed": true
+    },
+    {
+      "name": "different user cannot resume previous user order",
+      "passed": true
+    }
+  ]
+}

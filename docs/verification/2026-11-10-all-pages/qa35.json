@@ -1,0 +1,43 @@
+{
+  "scope": "Isolated synthetic frontend inputs; no cloud, settlement or payment writes",
+  "total": 9,
+  "passed": 9,
+  "results": [
+    {
+      "name": "预览金额与请求日期、小区快照一致",
+      "status": "PASS"
+    },
+    {
+      "name": "四种选择条件变化立即清除预览且不调用业务",
+      "status": "PASS"
+    },
+    {
+      "name": "两种日期和卖家输入变化立即清除预览",
+      "status": "PASS"
+    },
+    {
+      "name": "相同条件事件不丢弃有效预览",
+      "status": "PASS"
+    },
+    {
+      "name": "预览中日期改变，迟到成功不恢复旧金额，忙碌可释放",
+      "status": "PASS"
+    },
+    {
+      "name": "过期失败不覆盖新条件的提示",
+      "status": "PASS"
+    },
+    {
+      "name": "再次预览失败不保留上次金额，重试可恢复",
+      "status": "PASS"
+    },
+    {
+      "name": "离页后迟到预览不更新页面",
+      "status": "PASS"
+    },
+    {
+      "name": "重复预览只发一次，未就绪不发请求",
+      "status": "PASS"
+    }
+  ]
+}

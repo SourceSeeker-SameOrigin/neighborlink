@@ -1,1 +1,30 @@
-<view class="page"><view class="page-title">优惠券中心</view><view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view><view wx:for="{{list}}" wx:key="_id" class="card"><view class="section-title">{{item.name}} · {{item.discountText}}</view><view>{{item.thresholdText}} · 有效 {{item.validDays}} 天</view><view class="muted">剩余 {{item.remaining}} 张</view><button type="primary" data-id="{{item._id}}" bindtap="claim" disabled="{{busy}}">领取</button></view><view wx:if="{{loading}}">正在加载…</view><view wx:elif="{{!list.length && !error}}">暂无可领取优惠券</view></view>
+<view class="page">
+  <view class="page-masthead">
+    <image class="masthead-icon" src="/assets/icons/coupon.png"/>
+    <view class="masthead-copy">
+      <view class="page-title">优惠券中心</view>
+      <view class="masthead-subtitle">查看可用优惠与使用条件</view>
+    </view>
+  </view>
+  <view class="coupon-loading" wx:if="{{loading}}">正在加载…</view>
+  <block wx:else>
+    <view wx:for="{{pending}}" wx:key="id" class="card">
+      <view class="section-title">{{item.name}} · 领取结果待确认</view>
+      <button class="ui-button" data-id="{{item.templateId}}" bindtap="claim" disabled="{{busy}}">重试上次领取</button>
+    </view>
+    <view wx:if="{{error}}" class="error">{{error}}
+      <button class="ui-button" bindtap="load">重试</button>
+    </view>
+    <block wx:else>
+      <block wx:if="{{list.length > 0}}">
+        <view wx:for="{{list}}" wx:key="_id" class="card coupon-item">
+          <view class="section-title">{{item.name}} · {{item.discountText}}</view>
+          <view>{{item.thresholdText}} · 有效 {{item.validDays}} 天</view>
+          <view class="muted">剩余 {{item.remaining}} 张</view>
+          <button class="ui-button" type="primary" data-id="{{item._id}}" bindtap="claim" disabled="{{busy || loading}}">领取</button>
+        </view>
+      </block>
+      <view class="coupon-empty" wx:else>暂无可领取优惠券</view>
+    </block>
+  </block>
+</view>

@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const { atomic, read, insert, sameSnapshot } = require('./transaction');
-const { newOrder, transitionPatch, validateSlot } = require('./orderData');
+const { newOrder, transitionPatch, validateSlot, cleanDetail, cleanNote } = require('./orderData');
 const { totalFee } = require('./paymentState');
 const { orderNo } = require('./ids');
 const { ensure, text } = require('./validate');
@@ -9,21 +9,79 @@ const { lockOrderDiscounts } = require('./couponFlow');
 const { encryptSecret } = require('./crypto');
 const { createPetVisits } = require('./petFlow');
 
+function digest(value) {
+  return crypto.createHash('sha256').update(value).digest('hex');
+}
+
+function requestOrderId(event, user) {
+  text(event.requestId, '请求编号', 80);
+  ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
+  return 'o_' + digest(user.openid + ':' + event.requestId).slice(0, 40);
+}
+
+function stableJson(value) {
+  return JSON.stringify(value, (_, item) => item && typeof item === 'object' && !Array.isArray(item)
+    ? Object.fromEntries(Object.keys(item).sort().map(key => [key, item[key]])) : item);
+}
+
+function intentHash(event) {
+  return digest(stableJson({ requestId: event.requestId, serviceCode: event.serviceCode, communityId: event.communityId,
+    addressId: event.addressId ?? null, detail: event.detail, note: cleanNote(event.note), slot: event.slot,
+    couponId: event.couponId ?? null, pointsToUse: event.pointsToUse ?? 0 }));
+}
+
+// 旧订单只保存成交时的有效优惠和规范化详情，保留原来的哈希字段顺序。
+function legacyHash(event, context) {
+  return digest(JSON.stringify({ serviceCode: event.serviceCode,
+    communityId: event.communityId, addressId: event.addressId || null, detail: context.detail, note: context.note,
+    slot: context.slot, couponId: context.pricing.couponId || null, pointsToUse: context.pricing.pointsRedeemed || 0,
+    secretHash: context.entryPassword ? digest(context.entryPassword) : null }));
+}
+
 function createOrderWriter(server) {
   const { db } = server;
+
+  async function matchesLegacy(event, order) {
+    if (!order.requestHash || event.serviceCode !== order.serviceCode || event.communityId !== order.communityId) return false;
+    const usedCoupon = order.pricing.couponId || '';
+    if (event.couponId != null && event.couponId !== usedCoupon) return false;
+    if ((event.pointsToUse ?? 0) !== (order.pricing.pointsRedeemed || 0)) return false;
+    const slot = event.serviceCode === 'escort' && event.slot === undefined ? order.slot : event.slot;
+    if (stableJson(slot) !== stableJson(order.slot)) return false;
+    const community = await server.get('communities', order.communityId);
+    if (!community) return false;
+    let detail, entryPassword;
+    if (event.serviceCode === 'pet') {
+      ({ detail, entryPassword } = require('./pet').clean(event.detail, community, order.createdAt));
+    } else if (event.serviceCode === 'escort') {
+      detail = require('./services/elder').cleanEscort(event.detail, [order.slot], order.createdAt);
+    } else {
+      detail = cleanDetail(event.serviceCode, event.detail, community);
+    }
+    return legacyHash(event, { detail, entryPassword, slot: order.slot, note: cleanNote(event.note),
+      pricing: order.pricing }) === order.requestHash;
+  }
+
+  async function findReplay(event, user) {
+    const existing = await server.get('orders', requestOrderId(event, user));
+    if (!existing) return null;
+    ensure(existing.userOpenid === user.openid && existing.kind === 'service', '请求编号与原订单不符', 'E_CONFLICT');
+    const matches = existing.intentHash ? existing.intentHash === intentHash(event) : await matchesLegacy(event, existing);
+    ensure(matches, '请求编号已用于其他订单', 'E_CONFLICT');
+    return existing;
+  }
+
   async function create(event, user, context) {
-    text(event.requestId, '请求编号', 80);
-    ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
-    const id = 'o_' + crypto.createHash('sha256').update(user.openid + ':' + event.requestId).digest('hex').slice(0, 40);
-    const requestHash = crypto.createHash('sha256').update(JSON.stringify({ serviceCode: event.serviceCode,
-      communityId: event.communityId, addressId: event.addressId || null, detail: context.detail, note: context.note,
-      slot: context.slot, couponId: context.pricing.couponId || null, pointsToUse: context.pricing.pointsRedeemed || 0,
-      secretHash: context.entryPassword ? crypto.createHash('sha256').update(context.entryPassword).digest('hex') : null })).digest('hex');
+    const id = requestOrderId(event, user);
+    const intent = intentHash(event);
+    const requestHash = legacyHash(event, context);
     let createdNow = false;
     const result = await atomic(db, async transaction => {
       const existing = await read(transaction, 'orders', id);
       if (existing) {
-        ensure(existing.userOpenid === user.openid && existing.requestHash === requestHash, '请求编号已用于其他订单', 'E_CONFLICT');
+        const matches = existing.intentHash ? existing.intentHash === intent : existing.requestHash === requestHash;
+        ensure(existing.userOpenid === user.openid && existing.kind === 'service' && matches,
+          '请求编号已用于其他订单', 'E_CONFLICT');
         return existing;
       }
       const currentUser = await read(transaction, 'users', user._id);
@@ -61,6 +119,7 @@ function createOrderWriter(server) {
       if (event.serviceCode === 'recycle') order.recycleSnapshot = context.recycleSnapshot;
       order.userId = user._id;
       order.requestHash = requestHash;
+      order.intentHash = intent;
       order.rateSnapshot = currentCommunity.rates;
       order.membershipTaskPayout = currentCommunity.prices.membershipTaskPayout;
       order.payment.mode = totalFee(order) === 0 ? 'free' : context.config.payMode;
@@ -81,7 +140,7 @@ function createOrderWriter(server) {
     return { ...result, createdNow };
   }
 
-  return { create };
+  return { create, findReplay };
 }
 
-module.exports = { createOrderWriter };
+module.exports = { createOrderWriter, requestOrderId };

@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-09",
+  "decision": "QA15 A approved",
+  "scope": "小区配置前端及规格，无真实配置写入或新云部署",
+  "implementation": [
+    "canReload仅加载/切换加载失败为true",
+    "三类保存或校验失败保留输入、渲染错误后滚至顶部",
+    "原保存按钮重试，原成功刷新行为保留"
+  ],
+  "validation": {
+    "qa15": {
+      "passed": 9,
+      "total": 9
+    },
+    "existingFlows": {
+      "passed": 29,
+      "total": 29
+    },
+    "jest": {
+      "suites": 52,
+      "passed": 605
+    },
+    "officialCompile": {
+      "wxml": 77,
+      "wxss": 78,
+      "issues": 0
+    }
+  },
+  "live": {
+    "passed": [
+      "实际全局非法数字校验拒绝并保留输入",
+      "实际滚顶提示且无重新加载按钮",
+      "测试字段恢复原值"
+    ],
+    "method": "通过实际页面saveGlobal触发本地校验，没有真实云配置写入",
+    "notVerified": [
+      "三类真实服务端保存失败及重试",
+      "多设备/大字体/真机"
+    ]
+  },
+  "remainingIssue": "QA16后续已批准A并修复，详见qa16-summary.json；写请求超时结果未知仍不计已解决",
+  "cloudWrites": 0
+}

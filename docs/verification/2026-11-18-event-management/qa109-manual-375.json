@@ -1,0 +1,108 @@
+{
+  "width": 375,
+  "observations": [
+    {
+      "label": "initial",
+      "recovery": "lookup",
+      "error": "合成网络中断，请重试核对",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 25,
+          "right": 350,
+          "top": 500,
+          "bottom": 544,
+          "width": 325,
+          "height": 44
+        }
+      ],
+      "calls": {
+        "create": 0,
+        "publish": 0,
+        "lookup": 1
+      }
+    },
+    {
+      "label": "createActivity",
+      "recovery": "confirm",
+      "error": "",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 25,
+          "right": 350,
+          "top": 1761,
+          "bottom": 1805,
+          "width": 325,
+          "height": 44
+        }
+      ],
+      "calls": {
+        "create": 0,
+        "publish": 0,
+        "lookup": 2
+      }
+    },
+    {
+      "label": "createActivity",
+      "recovery": "lookup",
+      "error": "合成创建响应丢失",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 25,
+          "right": 350,
+          "top": 445.609375,
+          "bottom": 489.609375,
+          "width": 325,
+          "height": 44
+        }
+      ],
+      "calls": {
+        "create": 1,
+        "publish": 0,
+        "lookup": 3
+      }
+    },
+    {
+      "label": "createActivity",
+      "recovery": "done",
+      "error": "",
+      "busy": false,
+      "buttons": [
+        {
+          "id": "",
+          "dataset": {},
+          "left": 25,
+          "right": 350,
+          "top": 362,
+          "bottom": 406,
+          "width": 325,
+          "height": 44
+        }
+      ],
+      "calls": {
+        "create": 1,
+        "publish": 1,
+        "lookup": 5
+      }
+    }
+  ],
+  "baseline": "e1a6f9f",
+  "verifiedDate": "2026-11-19",
+  "verificationTimezone": "America/Los_Angeles",
+  "observedUI": [
+    "Initial lookup failure and recovery card visible after user dismissed tourist notice",
+    "Actual AX click: original title and confirmed-absent explanation visible",
+    "First offscreen submit-button action only scrolled the button into view; full bottom confirmation button visible without overlap",
+    "Second explicit click: lost-create-response error and lookup button visible",
+    "Lookup click: published result visible; exactly one create and one publish"
+  ],
+  "limits": "Synthetic local API only. Busy-state screenshots, complete long-form design and real phone offline recovery not covered. 320 remains pending: stale screenshot after device change, then tool explicitly reported Mac locked."
+}

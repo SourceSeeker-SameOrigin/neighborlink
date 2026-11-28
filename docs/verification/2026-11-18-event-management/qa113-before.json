@@ -1,0 +1,120 @@
+{
+  "scope": "actual page with synthetic modal and API; no real order release",
+  "pass": 2,
+  "fail": 6,
+  "results": [
+    {
+      "boundary": "same-page",
+      "expectedRequests": 1,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "navigation": [
+        [
+          "redirectTo",
+          "/provider/workbench/workbench"
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "boundary": "cancel",
+      "expectedRequests": 0,
+      "actualRequests": 0,
+      "orderIds": [],
+      "navigation": [],
+      "pass": true
+    },
+    {
+      "boundary": "hidden",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "navigation": [
+        [
+          "redirectTo",
+          "/provider/workbench/workbench"
+        ]
+      ],
+      "pass": false
+    },
+    {
+      "boundary": "unload",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "navigation": [
+        [
+          "redirectTo",
+          "/provider/workbench/workbench"
+        ]
+      ],
+      "pass": false
+    },
+    {
+      "boundary": "user-changed",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "navigation": [
+        [
+          "redirectTo",
+          "/provider/workbench/workbench"
+        ]
+      ],
+      "pass": false
+    },
+    {
+      "boundary": "order-changed",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-b"
+      ],
+      "navigation": [
+        [
+          "redirectTo",
+          "/provider/workbench/workbench"
+        ]
+      ],
+      "pass": false
+    },
+    {
+      "boundary": "refreshed",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "navigation": [
+        [
+          "redirectTo",
+          "/provider/workbench/workbench"
+        ]
+      ],
+      "pass": false
+    },
+    {
+      "boundary": "completed",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "navigation": [
+        [
+          "redirectTo",
+          "/provider/workbench/workbench"
+        ]
+      ],
+      "pass": false
+    }
+  ]
+}

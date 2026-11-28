@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-12",
+  "baseCommit": "84f92c5",
+  "scope": "QA56修改后源码；模拟器390只读错误态与回归，不含真实申请或文件上传",
+  "qa55_390": {
+    "failure": {
+      "width": 390,
+      "ready": false,
+      "loading": false,
+      "loadError": true,
+      "draftKept": true
+    },
+    "actualRetryClick": true,
+    "formAndDraftVisibleAfterRetry": true,
+    "errorCleared": true,
+    "actualBackHome": true,
+    "temporaryEnsureSessionRestored": true,
+    "noObservedClippingOrOverlap": true,
+    "limit": "合成服务编号，无预约提交；真实业务/真机/键盘/大字体另验"
+  },
+  "qa54_390": {
+    "hotReloadEnabled": true,
+    "settingChanged": false,
+    "sameRuntimeNormalEntryBackReentry": true,
+    "state": {
+      "route": "recycle/order/order",
+      "width": 390,
+      "loading": false,
+      "error": "",
+      "created": false,
+      "busy": false,
+      "navigating": false,
+      "method": "function"
+    },
+    "limit": "普通预约页返回与重进，非旧订单详情连续返回链；未注册空白根因未知"
+  },
+  "qa56_390": {
+    "merchant": {
+      "ready": false,
+      "loading": false,
+      "busy": false,
+      "uploading": false,
+      "error": "该功能暂未开放",
+      "readSequenceAfterActualRetry": 2,
+      "upperAndLowerFormObserved": true,
+      "uploadAndSubmitDisabled": true,
+      "return": "通过Console navigateBack返回；不是实际点击返回按钮"
+    },
+    "station": {
+      "ready": false,
+      "loading": false,
+      "error": "该功能暂未开放",
+      "readSequenceAfterActualRetry": 2,
+      "noFalseUnappliedOrForm": true,
+      "actualBackClick": "回到首页加载页，尚未据此认定首页加载成功"
+    },
+    "design": "所见薄荷页头、米白背景、圆角卡片、中文标签及错误/重试无重叠截断；非两页所有状态视觉签收",
+    "remaining": "功能开启后的真实表单、申请/审核、相机返回与上传；320/375/430、大字体/键盘及真机"
+  },
+  "newOrders": 0,
+  "realApplications": 0,
+  "cloudUploads": 0,
+  "realPaymentFen": 0,
+  "cloudDeploymentNeeded": false
+}

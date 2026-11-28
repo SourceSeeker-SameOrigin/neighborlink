@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-12",
+  "scope": "QA49 home inner service tile row rectangles only; actual selector queries and simulator screenshots",
+  "widths": [
+    {
+      "width": 320,
+      "rows": [
+        {
+          "top": 200,
+          "height": 63,
+          "bottom": 263
+        },
+        {
+          "top": 269,
+          "height": 63,
+          "bottom": 332
+        }
+      ],
+      "aligned": true,
+      "trashOpenAndBack": true
+    },
+    {
+      "width": 375,
+      "rows": [
+        {
+          "top": 245,
+          "height": 74,
+          "bottom": 319
+        },
+        {
+          "top": 327,
+          "height": 91,
+          "bottom": 418
+        }
+      ],
+      "aligned": true,
+      "trashOpenAndBack": true
+    },
+    {
+      "width": 390,
+      "rows": [
+        {
+          "top": 247,
+          "height": 76,
+          "bottom": 323
+        },
+        {
+          "top": 331,
+          "height": 76,
+          "bottom": 407
+        }
+      ],
+      "aligned": true,
+      "trashOpenAndBack": true
+    },
+    {
+      "width": 430,
+      "rows": [
+        {
+          "top": 274,
+          "height": 84,
+          "bottom": 358
+        },
+        {
+          "top": 367,
+          "height": 102,
+          "bottom": 469
+        }
+      ],
+      "aligned": true,
+      "trashOpenAndBack": "Prior verified sample retained; not repeated today"
+    }
+  ],
+  "limits": [
+    "Measurements refer to both cards in each row",
+    "Not full 69-page visual acceptance",
+    "Font scaling, keyboard, other service entry clicks and complete screen states remain"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "scope": "synthetic residents/communities; API and navigation intercepted",
+  "pass": 2,
+  "fail": 4,
+  "results": [
+    {
+      "case": "normal-merchant-list",
+      "pass": true
+    },
+    {
+      "case": "late-community-a-shop-after-switch-to-b",
+      "pass": false,
+      "observed": {
+        "rows": 1
+      }
+    },
+    {
+      "case": "old-shop-card-after-user-change",
+      "pass": false,
+      "observed": {
+        "navigation": 1
+      }
+    },
+    {
+      "case": "late-shop-after-hide",
+      "pass": true
+    },
+    {
+      "case": "old-ad-click-after-user-change",
+      "pass": false,
+      "observed": {
+        "navigation": 1,
+        "adEvents": 1
+      }
+    },
+    {
+      "case": "late-community-a-ad-after-switch-to-b",
+      "pass": false,
+      "observed": {
+        "ads": 1
+      }
+    }
+  ]
+}

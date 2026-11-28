@@ -1,30 +1,45 @@
 <view class="page">
-  <view class="page-title">管理看板</view>
-  <navigator url="/admin/features/features">功能开关</navigator>
-  <navigator url="/admin/coupons/coupons">优惠券模板管理</navigator>
-  <navigator url="/admin/content/content">公告与广告管理</navigator>
-  <navigator url="/admin/reports/reports">内容举报审核</navigator><navigator url="/admin/merchants/merchants">商家入驻与服务审核</navigator><navigator wx:if="{{isAdmin}}" url="/admin/stations/stations">驿站账号审核</navigator><navigator wx:if="{{isAdmin}}" url="/admin/exports/exports">数据导出</navigator><navigator url="/admin/recycle/recycle">回收企业月度对账</navigator>
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/admin.png"/><view class="masthead-copy"><view class="page-title">管理看板</view><view class="masthead-subtitle">社区运营 · 按权限管理</view></view></view>
+  <view wx:if="{{authorized}}" class="card">
+    <navigator class="management-link" url="/admin/orders/orders"><image class="menu-icon" src="/assets/icons/orders.png"/><text class="menu-copy">订单与投诉</text><text class="chevron">›</text></navigator>
+    <navigator class="management-link" url="/admin/settlements/settlements"><image class="menu-icon" src="/assets/icons/ticket.png"/><text class="menu-copy">结算与物业分成</text><text class="chevron">›</text></navigator>
+    <navigator wx:if="{{isAdmin}}" class="management-link" url="/admin/providers/providers"><image class="menu-icon" src="/assets/icons/help.png"/><text class="menu-copy">服务员审核</text><text class="chevron">›</text></navigator>
+    <navigator wx:if="{{isAdmin}}" class="management-link" url="/admin/community/community"><image class="menu-icon" src="/assets/icons/home.png"/><text class="menu-copy">小区与运营配置</text><text class="chevron">›</text></navigator>
+    <navigator wx:if="{{isAdmin}}" class="management-link" url="/admin/posters/posters"><image class="menu-icon" src="/assets/icons/pin.png"/><text class="menu-copy">楼栋与推荐海报码</text><text class="chevron">›</text></navigator>
+    <navigator wx:if="{{isAdmin}}" class="management-link" url="/admin/features/features"><image class="menu-icon" src="/assets/icons/admin.png"/><text class="menu-copy">功能开关</text><text class="chevron">›</text></navigator>
+    <navigator wx:if="{{isAdmin}}" class="management-link" url="/admin/coupons/coupons"><image class="menu-icon" src="/assets/icons/coupon.png"/><text class="menu-copy">优惠券模板管理</text><text class="chevron">›</text></navigator>
+    <navigator class="management-link" url="/admin/content/content"><image class="menu-icon" src="/assets/icons/notice.png"/><text class="menu-copy">公告与广告管理</text><text class="chevron">›</text></navigator>
+    <navigator wx:if="{{isAdmin}}" class="management-link" url="/admin/reports/reports"><image class="menu-icon" src="/assets/icons/notice.png"/><text class="menu-copy">内容举报审核</text><text class="chevron">›</text></navigator>
+    <navigator wx:if="{{isAdmin}}" class="management-link" url="/admin/merchants/merchants"><image class="menu-icon" src="/assets/icons/shop.png"/><text class="menu-copy">商家入驻与服务审核</text><text class="chevron">›</text></navigator>
+    <navigator wx:if="{{isAdmin}}" class="management-link" url="/admin/stations/stations"><image class="menu-icon" src="/assets/icons/express.png"/><text class="menu-copy">驿站账号审核</text><text class="chevron">›</text></navigator>
+    <navigator wx:if="{{isAdmin}}" class="management-link" url="/admin/exports/exports"><image class="menu-icon" src="/assets/icons/legal.png"/><text class="menu-copy">数据导出</text><text class="chevron">›</text></navigator>
+    <navigator wx:if="{{isAdmin}}" class="management-link" url="/admin/recycle/recycle"><image class="menu-icon" src="/assets/icons/recycle.png"/><text class="menu-copy">回收企业月度对账</text><text class="chevron">›</text></navigator>
+  </view>
   <view wx:if="{{loading}}">正在加载数据…</view>
-  <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重新加载</button></view>
-  <picker wx:if="{{communities.length}}" range="{{communities}}" range-key="name" value="{{communityIndex}}" bindchange="chooseCommunity">
+  <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load" disabled="{{loading}}">重新加载</button></view>
+  <picker wx:if="{{communities.length}}" range="{{communities}}" range-key="name" value="{{communityIndex}}" disabled="{{!authorized}}" bindchange="chooseCommunity">
     <view class="picker">{{communities[communityIndex].name}}</view>
   </picker>
   <view wx:if="{{canFederate}}" class="row">
-    <button size="mini" data-scope="community" bindtap="chooseScope">本小区</button>
-    <button size="mini" data-scope="federation" bindtap="chooseScope">联合社区</button>
+    <button size="mini" data-scope="community" disabled="{{!authorized}}" bindtap="chooseScope">本小区</button>
+    <button size="mini" data-scope="federation" disabled="{{!authorized}}" bindtap="chooseScope">联合社区</button>
   </view>
+  <view wx:if="{{authorized}}" class="card"><view class="section-title">统计期间（北京时间）</view><picker mode="date" value="{{from}}" data-field="from" bindchange="chooseDate"><view class="picker">开始：{{from}}</view></picker><picker mode="date" value="{{to}}" data-field="to" bindchange="chooseDate"><view class="picker">结束：{{to}}</view></picker></view>
   <block wx:if="{{metrics}}">
     <view class="card">
       <view wx:if="{{metrics.scope === 'federation'}}" class="muted">联合社区汇总（{{metrics.communityIds.length}} 个小区）</view>
       <view>订单 {{metrics.totalOrders}} · 付费 {{metrics.paidOrders}}</view>
-      <view>服务费流水 ¥{{metrics.turnoverYuan}} · 实际收入 ¥{{metrics.actualYuan}}</view>
+      <view>服务费流水 ¥{{metrics.turnoverYuan}} · 服务费净收入 ¥{{metrics.actualYuan}}</view>
+      <view>商品款：已收 ¥{{metrics.goodsReceivedYuan}} · 已退 ¥{{metrics.goodsRefundedYuan}} · 净额 ¥{{metrics.goodsNetYuan}}</view>
+      <view class="muted">按本期创建订单统计，仅计付款成功和退款成功；未扣分成成本，非平台利润。</view>
       <view>住户 {{metrics.residentCount}} · 15 分钟接单率 {{metrics.acceptRateText}}</view>
       <view>平均接单 {{metrics.averageAcceptMinutes}} 分钟 · 未接单告警 {{metrics.unacceptedAlerts}}</view>
-      <view>投诉 {{metrics.complaintCount}} · 退款 ¥{{metrics.refundYuan}}</view>
+      <view>投诉 {{metrics.complaintCount}} · 投诉率 {{metrics.complaintRateText}} · 退款 ¥{{metrics.refundYuan}}</view>
+      <view>新增首单住户 {{metrics.newFirstPaidResidents}} · 第二单住户 {{metrics.secondPaidResidents}}</view>
       <view>值班服务员 {{metrics.onDutyProviders}}</view>
     </view>
     <view class="card"><view class="section-title">订单状态</view><view wx:for="{{metrics.statusRows}}" wx:key="status">{{item.label}}：{{item.count}}</view></view>
-    <view class="card"><view class="section-title">有效月卡</view><view>垃圾月卡 {{metrics.memberships.trash || 0}} · 快递月卡 {{metrics.memberships.express || 0}}</view></view>
+    <view class="card"><view class="section-title">有效月卡</view><view wx:for="{{metrics.membershipRows}}" wx:key="code">{{item.label}}：{{item.count}}</view><view wx:if="{{!metrics.membershipRows.length}}" class="muted">暂无有效月卡</view></view>
     <view class="card">
       <view class="section-title">广告统计</view><view>曝光 {{metrics.adStats.views}} · 点击 {{metrics.adStats.clicks}}</view>
       <view class="section-title">来源漏斗总览</view><view>扫码 {{metrics.funnel.scans}} · 绑定 {{metrics.funnel.binds}} · 首单 {{metrics.funnel.firstPaid}} · 第二单 {{metrics.funnel.secondPaid}}</view>

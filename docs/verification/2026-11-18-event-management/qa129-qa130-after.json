@@ -1,0 +1,417 @@
+{
+  "scope": "synthetic interfaces and database; no real media or cloud writes; query sorting simulated, real cloud index unverified",
+  "pass": 45,
+  "fail": 0,
+  "results": [
+    {
+      "name": "normal-load",
+      "pass": true,
+      "evidence": {
+        "rows": 1,
+        "ready": true
+      }
+    },
+    {
+      "name": "denied-reload-clears-old-services",
+      "pass": true,
+      "evidence": {
+        "rows": 0,
+        "ready": false
+      }
+    },
+    {
+      "name": "late-read-hidden",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "rows": 0
+      }
+    },
+    {
+      "name": "late-read-unloaded",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "rows": 0
+      }
+    },
+    {
+      "name": "late-read-user",
+      "pass": true,
+      "evidence": {
+        "updates": 0,
+        "rows": 0
+      }
+    },
+    {
+      "name": "return-refresh-not-blocked-by-old-read",
+      "pass": true,
+      "evidence": {
+        "calls": 2,
+        "id": "new"
+      }
+    },
+    {
+      "name": "save-entry-same-page",
+      "pass": true,
+      "evidence": {
+        "calls": 1
+      }
+    },
+    {
+      "name": "save-entry-hidden",
+      "pass": true,
+      "evidence": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "save-entry-unloaded",
+      "pass": true,
+      "evidence": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "save-entry-user",
+      "pass": true,
+      "evidence": {
+        "calls": 0
+      }
+    },
+    {
+      "name": "upload-result-same-page",
+      "pass": true,
+      "evidence": {
+        "images": 1
+      }
+    },
+    {
+      "name": "upload-result-unloaded",
+      "pass": true,
+      "evidence": {
+        "images": 0
+      }
+    },
+    {
+      "name": "upload-result-user",
+      "pass": true,
+      "evidence": {
+        "images": 0
+      }
+    },
+    {
+      "name": "account-change-clears-old-draft",
+      "pass": true,
+      "evidence": {
+        "title": "",
+        "images": 0
+      }
+    },
+    {
+      "name": "same-person-return-preserves-draft",
+      "pass": true,
+      "evidence": {
+        "title": "本人草稿",
+        "images": 1
+      }
+    },
+    {
+      "name": "late-save-hidden-false",
+      "pass": true,
+      "evidence": {
+        "title": "当前草稿",
+        "error": "",
+        "updates": 0
+      }
+    },
+    {
+      "name": "late-save-hidden-true",
+      "pass": true,
+      "evidence": {
+        "title": "当前草稿",
+        "error": "",
+        "updates": 0
+      }
+    },
+    {
+      "name": "late-save-unloaded-false",
+      "pass": true,
+      "evidence": {
+        "title": "当前草稿",
+        "error": "",
+        "updates": 0
+      }
+    },
+    {
+      "name": "late-save-unloaded-true",
+      "pass": true,
+      "evidence": {
+        "title": "当前草稿",
+        "error": "",
+        "updates": 0
+      }
+    },
+    {
+      "name": "late-save-user-false",
+      "pass": true,
+      "evidence": {
+        "title": "",
+        "error": "",
+        "updates": 5
+      }
+    },
+    {
+      "name": "late-save-user-true",
+      "pass": true,
+      "evidence": {
+        "title": "",
+        "error": "",
+        "updates": 5
+      }
+    },
+    {
+      "name": "late-save-refresh-false",
+      "pass": true,
+      "evidence": {
+        "title": "当前草稿",
+        "error": "",
+        "updates": 0
+      }
+    },
+    {
+      "name": "late-save-refresh-true",
+      "pass": true,
+      "evidence": {
+        "title": "当前草稿",
+        "error": "",
+        "updates": 0
+      }
+    },
+    {
+      "name": "save-failure-preserves-draft-and-allows-retry",
+      "pass": true,
+      "evidence": {
+        "title": "本人草稿",
+        "ready": true,
+        "busy": false,
+        "error": "合成保存失败"
+      }
+    },
+    {
+      "name": "system-media-result-first",
+      "pass": true,
+      "evidence": {
+        "images": 1,
+        "busy": false,
+        "error": "",
+        "uploads": 1
+      }
+    },
+    {
+      "name": "system-media-show-first",
+      "pass": true,
+      "evidence": {
+        "images": 1,
+        "busy": false,
+        "error": "",
+        "uploads": 1
+      }
+    },
+    {
+      "name": "system-media-read-pending",
+      "pass": true,
+      "evidence": {
+        "images": 1,
+        "busy": false,
+        "error": "",
+        "uploads": 1
+      }
+    },
+    {
+      "name": "system-media-cancel",
+      "pass": true,
+      "evidence": {
+        "images": 0,
+        "busy": false,
+        "error": "",
+        "uploads": 1
+      }
+    },
+    {
+      "name": "system-media-failure",
+      "pass": true,
+      "evidence": {
+        "images": 0,
+        "busy": false,
+        "error": "合成上传失败",
+        "uploads": 1
+      }
+    },
+    {
+      "name": "system-media-denied",
+      "pass": true,
+      "evidence": {
+        "images": 0,
+        "busy": false,
+        "error": "读取被拒",
+        "uploads": 1
+      }
+    },
+    {
+      "name": "system-media-merchant",
+      "pass": true,
+      "evidence": {
+        "images": 0,
+        "busy": false,
+        "error": "",
+        "uploads": 1
+      }
+    },
+    {
+      "name": "system-media-refresh",
+      "pass": true,
+      "evidence": {
+        "images": 0,
+        "busy": false,
+        "error": "",
+        "uploads": 1
+      }
+    },
+    {
+      "name": "page-network-retry-preserves-offset-and-draft",
+      "pass": true,
+      "evidence": {
+        "offsets": [
+          0,
+          20,
+          20
+        ],
+        "rows": 21,
+        "title": "本人草稿",
+        "hasMore": false
+      }
+    },
+    {
+      "name": "pagination-denied",
+      "pass": true,
+      "evidence": {
+        "ids": [],
+        "offset": 1,
+        "pageError": false
+      }
+    },
+    {
+      "name": "pagination-empty-more",
+      "pass": true,
+      "evidence": {
+        "ids": [
+          "a"
+        ],
+        "offset": 1,
+        "pageError": true
+      }
+    },
+    {
+      "name": "pagination-stale",
+      "pass": true,
+      "evidence": {
+        "ids": [],
+        "offset": 1,
+        "pageError": false
+      }
+    },
+    {
+      "name": "pagination-duplicate",
+      "pass": true,
+      "evidence": {
+        "ids": [
+          "a",
+          "b"
+        ],
+        "offset": 3,
+        "pageError": false
+      }
+    },
+    {
+      "name": "equal-time-stable-id-pagination",
+      "pass": true,
+      "evidence": {
+        "count": 41,
+        "first": "s040",
+        "last": "s000",
+        "unique": 41
+      }
+    },
+    {
+      "name": "cloud-offset-reaches-101st-service",
+      "pass": true,
+      "evidence": {
+        "counts": [
+          20,
+          1
+        ],
+        "firstIds": [
+          "service-0",
+          "service-100"
+        ],
+        "writes": 0
+      }
+    },
+    {
+      "name": "page-reaches-101st-service",
+      "pass": true,
+      "evidence": {
+        "rows": 101,
+        "paginationButton": true,
+        "calls": 6,
+        "writes": 0
+      }
+    },
+    {
+      "name": "other-merchant-cannot-read-services",
+      "pass": true,
+      "evidence": {
+        "ok": false,
+        "code": "E_FORBIDDEN",
+        "writes": 0
+      }
+    },
+    {
+      "name": "cloud-legacy",
+      "pass": true,
+      "evidence": {
+        "ok": true,
+        "count": 100,
+        "writes": 0
+      }
+    },
+    {
+      "name": "cloud-invalid-offset",
+      "pass": true,
+      "evidence": {
+        "ok": false,
+        "code": "E_INVALID_PARAM",
+        "writes": 0
+      }
+    },
+    {
+      "name": "cloud-feature-off",
+      "pass": true,
+      "evidence": {
+        "ok": false,
+        "code": "E_FEATURE_OFF",
+        "writes": 0
+      }
+    },
+    {
+      "name": "cloud-suspended",
+      "pass": true,
+      "evidence": {
+        "ok": false,
+        "code": "E_FORBIDDEN",
+        "writes": 0
+      }
+    }
+  ]
+}

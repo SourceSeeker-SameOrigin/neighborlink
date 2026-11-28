@@ -1,0 +1,9 @@
+{
+  "function": "user",
+  "sourceCommit": "110ebe8",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "method": "official CLI download to existing directory; every authorized ZIP file byte-compared",
+  "comparedFiles": 72,
+  "matches": 72,
+  "mismatches": []
+}

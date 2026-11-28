@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-08",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "151483331205b4783367e7c91365cb6b78044f6b",
+  "method": "wx.cloud.callFunction from the currently logged-in mini-program developer console; no injected identity. Output observed in full maximized console screenshot after AX text truncated the long result.",
+  "actor": "Current real logged-in, unbound resident; no role changes",
+  "scope": "Read-only current-user/public queries and feature/role rejection; not successful order/payment/OpenAPI business acceptance.",
+  "label": "JINLIN_READONLY_1514833",
+  "passed": 12,
+  "results": [
+    {
+      "name": "catalog",
+      "action": "listCommunities",
+      "ok": true,
+      "listCount": 1,
+      "requestId": "7cc25470-b367-42f4-9fb6-6b783dc7d3fd"
+    },
+    {
+      "name": "content",
+      "action": "homeContent",
+      "ok": true,
+      "noticeEmpty": true,
+      "noticesCount": 0,
+      "adsCount": 0,
+      "requestId": "ea017308-0452-4902-9d5f-c695f9ecce18"
+    },
+    {
+      "name": "board",
+      "action": "list",
+      "ok": false,
+      "code": "E_FEATURE_OFF",
+      "requestId": "49bc0a76-892b-4374-a782-9bd921779de2"
+    },
+    {
+      "name": "idle",
+      "action": "list",
+      "ok": false,
+      "code": "E_FEATURE_OFF"
+    },
+    {
+      "name": "event",
+      "action": "list",
+      "ok": false,
+      "code": "E_FEATURE_OFF"
+    },
+    {
+      "name": "station",
+      "action": "applicationOptions",
+      "ok": false,
+      "code": "E_FEATURE_OFF"
+    },
+    {
+      "name": "provider",
+      "action": "hall",
+      "ok": false,
+      "code": "E_FORBIDDEN"
+    },
+    {
+      "name": "provider",
+      "action": "myTasks",
+      "ok": false,
+      "code": "E_FORBIDDEN"
+    },
+    {
+      "name": "order",
+      "action": "listMine",
+      "group": "ongoing",
+      "ok": true,
+      "listCount": 0
+    },
+    {
+      "name": "order",
+      "action": "listMine",
+      "group": "done",
+      "ok": true,
+      "listCount": 0
+    },
+    {
+      "name": "order",
+      "action": "listMine",
+      "group": "aftersale",
+      "ok": true,
+      "listCount": 0
+    },
+    {
+      "name": "membership",
+      "action": "mine",
+      "ok": true,
+      "listCount": 0
+    }
+  ],
+  "requestIdNote": "First three IDs captured from AX text; remaining request IDs were not transcribed. All twelve outcome fields were verified from the full console screenshot.",
+  "businessWritesRequested": 0
+}

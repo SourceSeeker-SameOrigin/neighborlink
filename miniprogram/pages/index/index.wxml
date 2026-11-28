@@ -1,21 +1,21 @@
-<view class="page">
-  <view wx:if="{{loading}}" class="card">正在加载小区服务…</view>
+<view class="page home-page">
+  <view wx:if="{{loading}}" class="card muted">正在加载小区服务…</view>
   <view wx:elif="{{error}}" class="error">{{error}}<button bindtap="load">重新加载</button></view>
-  <block wx:elif="{{community}}">
-    <view class="card"><view class="page-title">{{community.name}}</view><navigator url="/pages/bind/bind" class="muted">修改门牌 ›</navigator></view>
-    <swiper wx:if="{{ads.length}}" class="home-ads" indicator-dots autoplay circular><swiper-item wx:for="{{ads}}" wx:key="_id" data-id="{{item._id}}" bindtap="openAd"><view class="ad-card"><image src="{{item.imageFileId}}" mode="aspectFill" data-id="{{item._id}}" bindload="recordAd"/><text class="ad-label">广告</text><text class="ad-title">{{item.title}}</text></view></swiper-item></swiper>
-    <view wx:if="{{notice}}" class="notice card" bindtap="openNotices"><text class="notice-label">公告</text><text>{{notice.title}}</text><text class="muted">›</text></view>
+  <block wx:else>
+    <view class="home-location"><navigator url="/pages/bind/bind" class="location-action"><image src="/assets/icons/pin.png" class="location-icon"/><text class="ui-text">{{community ? community.name : '选择服务小区'}}</text><text class="ui-text chevron">›</text></navigator><text class="ui-text login-state">已登录</text></view>
+    <view class="welcome-banner"><image class="neighborhood-art" src="/assets/illustrations/neighborhood.png" mode="aspectFit"/><view class="welcome-copy"><view class="welcome-title">邻里小事，有人帮忙</view><view class="welcome-caption">{{needsBinding ? '完善门牌，查看本小区服务' : '日常生活的帮手，就在身边'}}</view><navigator class="welcome-action" url="/pages/bind/bind">{{needsBinding ? '去绑定门牌' : '查看服务门牌'}} ›</navigator></view></view>
+    <view wx:if="{{notice}}" class="notice card" bindtap="openNotices"><text class="ui-text notice-label">公告</text><text class="ui-text">{{notice.title}}</text><text class="ui-text chevron">›</text></view>
+    <swiper wx:if="{{ads.length}}" class="home-ads" indicator-dots autoplay circular><swiper-item wx:for="{{ads}}" wx:key="_id" data-id="{{item._id}}" bindtap="openAd"><view class="ad-card"><private-media media-class="ad-photo" src="{{item.imageFileId}}" mode="aspectFill" data-id="{{item._id}}" bindload="recordAd"/><text class="ui-text ad-label">广告</text><text class="ui-text ad-title">{{item.title}}</text></view></swiper-item></swiper>
+    <view class="section-title">日常帮忙</view>
+    <view class="services"><service-tile class="service-cell" wx:for="{{services}}" wx:key="code" code="{{item.code}}" name="{{item.name}}" icon="{{item.icon}}" subtitle="{{item.subtitle}}" url="{{item.url || ''}}"/></view>
     <view wx:if="{{firstOrder}}" class="offer">首单服务费低至 1 元<view class="muted">适用于取快递、扔垃圾和代买，商品款另计</view></view>
-    <view class="services"><service-tile wx:for="{{services}}" wx:key="code" code="{{item.code}}" name="{{item.name}}" icon="{{item.icon}}" url="{{item.url}}"/></view>
-    <navigator wx:if="{{community.enabledFeatures.idle}}" class="card" url="/idle/list/list"><view class="section-title">闲置交易 ›</view><view class="muted">看看邻居发布的闲置好物</view></navigator>
-    <navigator wx:if="{{eventsEnabled}}" class="card" url="/events/list/list"><view class="section-title">社区活动</view><view class="muted">看看邻里正在举办的活动 ›</view></navigator>
-    <navigator class="card" url="/pages/membership/index"><view class="section-title">经常需要帮忙？看看月卡</view><view class="muted">快递月卡 · 垃圾月卡 ›</view></navigator>
-    <navigator wx:if="{{community.enabledFeatures.board}}" class="card" url="/board/list/list"><view class="section-title">需求广场 ›</view><view class="muted">看看邻居的求助和出行帮带</view></navigator>
-    <navigator wx:if="{{community.enabledFeatures.coupons}}" class="card" url="/coupons/center/center"><view class="section-title">优惠券中心 ›</view></navigator>
-    <navigator wx:if="{{community.features.pet}}" class="card" url="/pet/order"><view class="section-title">上门喂宠</view><view class="muted">按日期安排喂食、换水、清洁与遛狗 ›</view></navigator>
-    <navigator wx:if="{{community.enabledFeatures.merchants}}" class="card" url="/shops/list/list"><view class="section-title">周边商家 ›</view></navigator>
-    <navigator wx:if="{{community.features.elder}}" class="card" url="/elder/meal"><view class="section-title">助老送餐</view><view class="muted">合作食堂送餐上门 ›</view></navigator><navigator wx:if="{{community.features.elder}}" class="card" url="/elder/escort"><view class="section-title">陪诊预约</view><view class="muted">预约认证陪诊服务员 ›</view></navigator>
-    <button bindtap="callHotline">不会用？打电话下单</button>
+    <navigator class="membership-banner" url="{{needsBinding ? '/pages/bind/bind' : '/pages/membership/index'}}"><image src="/assets/icons/ticket.png" class="membership-icon"/><view><view class="membership-title">常用服务，看看月卡</view><view class="muted">快递月卡 · 垃圾月卡</view></view><text class="ui-text chevron">›</text></navigator>
+    <view class="catalog-heading"><view class="section-title">全部服务</view><view class="catalog-note">按本小区开放情况使用</view></view>
+    <view class="catalog-grid"><button wx:for="{{serviceCatalog}}" wx:key="code" class="catalog-item" data-code="{{item.code}}" bindtap="introduce"><image src="/assets/icons/{{item.icon}}.png" class="catalog-icon"/><text class="ui-text">{{item.name}}</text><text class="catalog-status">{{item.statusText}}</text></button></view>
+    <block wx:if="{{community}}">
+      <button class="hotline-button" bindtap="callHotline"><image src="/assets/icons/support.png" class="menu-icon"/>不会用？打电话下单</button>
+    </block>
+    <view class="page-footer">邻里互助，安心到家</view>
   </block>
 </view>
 <privacy-popup />

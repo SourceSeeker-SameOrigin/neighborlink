@@ -1,0 +1,93 @@
+{
+  "scope": "Actual page and cloud entry; synthetic database only; no cloud writes",
+  "pass": 5,
+  "fail": 3,
+  "results": [
+    {
+      "name": "pet-pending",
+      "pass": false,
+      "observed": {
+        "ok": true,
+        "parent": "delivered",
+        "visit": "pending",
+        "writes": 1
+      },
+      "error": "{\"ok\":true,\"parent\":\"delivered\",\"visit\":\"pending\",\"writes\":1}"
+    },
+    {
+      "name": "pet-missed",
+      "pass": false,
+      "observed": {
+        "ok": true,
+        "parent": "delivered",
+        "visit": "missed",
+        "writes": 1
+      },
+      "error": "{\"ok\":true,\"parent\":\"delivered\",\"visit\":\"missed\",\"writes\":1}"
+    },
+    {
+      "name": "pet-done-needs-specialized-flow",
+      "pass": false,
+      "observed": {
+        "ok": true,
+        "parent": "delivered",
+        "visit": "done",
+        "writes": 1
+      },
+      "error": "{\"ok\":true,\"parent\":\"delivered\",\"visit\":\"done\",\"writes\":1}"
+    },
+    {
+      "name": "pet-already-delivered",
+      "pass": true,
+      "observed": {
+        "ok": true,
+        "parent": "delivered",
+        "visit": "done",
+        "writes": 0
+      }
+    },
+    {
+      "name": "ordinary-trash",
+      "pass": true,
+      "observed": {
+        "ok": true,
+        "parent": "delivered",
+        "visit": "pending",
+        "writes": 1
+      }
+    },
+    {
+      "name": "vacant-specialized-report",
+      "pass": true,
+      "observed": {
+        "ok": false,
+        "code": "E_BAD_STATE",
+        "parent": "in_service",
+        "visit": "pending",
+        "writes": 0
+      }
+    },
+    {
+      "name": "pet-not-assigned",
+      "pass": true,
+      "observed": {
+        "ok": false,
+        "code": "E_FORBIDDEN",
+        "parent": "in_service",
+        "visit": "pending",
+        "writes": 0
+      }
+    },
+    {
+      "name": "pet-feature-disabled",
+      "pass": true,
+      "observed": {
+        "ok": false,
+        "code": "E_FEATURE_OFF",
+        "parent": "in_service",
+        "visit": "pending",
+        "writes": 0
+      }
+    }
+  ]
+}

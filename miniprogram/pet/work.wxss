@@ -1,1 +1,1 @@
-.secret { position: fixed; left: 8%; right: 8%; top: 35%; padding: 36rpx; z-index: 10; background: #fff; box-shadow: 0 4rpx 30rpx #777; border-radius: 16rpx; }
+.secret { position: fixed; left: 8%; right: 8%; top: 35%; padding: 36rpx; z-index: 10; background: #fff; box-shadow: 0 4rpx 30rpx #687466; border-radius: 16rpx; }

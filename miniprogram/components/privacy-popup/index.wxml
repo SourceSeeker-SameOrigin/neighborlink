@@ -2,8 +2,8 @@
   <view class="dialog">
     <view class="title">保护您的隐私</view>
     <view>为提供服务，需要在您同意后使用相关信息。请阅读隐私保护指引。</view>
-    <button bindtap="openContract">阅读隐私保护指引</button>
-    <button id="privacy-agree" type="primary" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="agree">同意并继续</button>
-    <button bindtap="decline">暂不同意</button>
+    <button class="privacy-action" bindtap="openContract">阅读隐私保护指引</button>
+    <button class="privacy-action privacy-primary" id="privacy-agree" type="primary" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="agree">同意并继续</button>
+    <button class="privacy-action" bindtap="decline">暂不同意</button>
   </view>
 </view>

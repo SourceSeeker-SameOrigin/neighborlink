@@ -1,0 +1,37 @@
+{
+  "scope": "珺悦国际 only; merge into current prices after deployment; preserve other fields",
+  "dutyWindows": [
+    {
+      "start": "07:00",
+      "end": "00:00"
+    }
+  ],
+  "stations": [
+    {
+      "code": "north_gate",
+      "name": "北门"
+    }
+  ],
+  "prices": {
+    "express": {
+      "base": 500,
+      "extraParcel": 100,
+      "largeSurcharge": 200,
+      "maxParcels": 10
+    },
+    "trash": {
+      "single": 500
+    },
+    "buy": {
+      "serviceFee": 5000,
+      "goodsCapMin": 1000,
+      "goodsCapMax": 20000
+    },
+    "help": {
+      "billingMode": "per_visit",
+      "perVisit": 3900,
+      "includedMinutes": 30
+    },
+    "firstOrderPrice": 100
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "source": "WeChat DevTools refreshed code dependency analysis",
+  "observedAt": "2026-11-08T14:26:07.478Z",
+  "totalKB": 918,
+  "mainKB": 645,
+  "files": 361,
+  "subpackages": 14,
+  "mainUnder2MB": true,
+  "previewUploaded": false
+}

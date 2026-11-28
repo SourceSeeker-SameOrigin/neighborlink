@@ -1,0 +1,15 @@
+{
+  "scope": "隔离合成数据，仅调用实际页面方法，无真实云写入",
+  "beforeReload": {
+    "name": "未保存名称",
+    "buildingName": "未保存楼栋",
+    "error": "合成保存失败"
+  },
+  "afterReload": {
+    "name": "原名称",
+    "buildingName": "",
+    "error": ""
+  },
+  "confirmed": "保存失败后的重新加载会重置未保存小区名称及楼栋输入",
+  "liveVerified": false
+}

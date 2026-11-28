@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-25",
+  "removed": [
+    "/tmp/jinlin-qa130-live-20261125",
+    "/tmp/jinlin-qa130-after-20261125",
+    "/tmp/jinlin-qa130-incremental-20261125",
+    "/tmp/jinlin-qa133-baseline-20261125",
+    "/tmp/jinlin-qa133-after-20261125",
+    "/tmp/jinlin-qa133-zipcheck-20261125",
+    "/tmp/jinlin-qa133-package-20261125"
+  ],
+  "retained": [
+    "QA130 pending index/query recovery package",
+    "current simulator fixture"
+  ],
+  "evidenceSaved": true
+}

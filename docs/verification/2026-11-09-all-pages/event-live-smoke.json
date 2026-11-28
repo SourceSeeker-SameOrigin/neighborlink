@@ -1,0 +1,55 @@
+{
+  "sourceCommit": "73194f8f337717a8a58930f29a9ae8264de3e061",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "scope": "Actual own mini-program session; readonly calls only this round",
+  "boundCommunity": "junyue_international",
+  "selectedCommunity": "demo_community",
+  "eventId": "ev_77e06a061cfb7cd3c103a7aa694d40bd",
+  "manage": {
+    "ready": true,
+    "error": "",
+    "status": "cancelled",
+    "fee": 0,
+    "capacity": 1,
+    "signupCount": 0,
+    "cancellation": {
+      "status": "queued",
+      "totalCount": 0,
+      "completedCount": 0,
+      "failedCount": 0,
+      "retryCount": 0
+    }
+  },
+  "checks": [
+    {
+      "action": "adminList",
+      "community": "junyue_international",
+      "ok": true,
+      "count": 0,
+      "hasMore": false
+    },
+    {
+      "action": "listSignups",
+      "ok": true,
+      "count": 0,
+      "hasMore": false
+    },
+    {
+      "action": "detail",
+      "ok": false,
+      "code": "E_FORBIDDEN"
+    },
+    {
+      "action": "adminList",
+      "community": "demo_community",
+      "invalidOffset": true,
+      "ok": false,
+      "code": "E_INVALID_PARAM"
+    }
+  ],
+  "limitations": [
+    "No signup or check-in writes",
+    "No timer execution",
+    "Not resident same-community or cloud concurrency acceptance"
+  ]
+}

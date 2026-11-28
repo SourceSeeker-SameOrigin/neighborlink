@@ -1,0 +1,11 @@
+{
+  "function": "idle",
+  "sourceCommit": "110ebe8b562cb1b8304a056e89bac5994b00e95d",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "method": "official CLI download; every authorized ZIP source file SHA-256 compared",
+  "selectedPackageBytes": 122168,
+  "selectedPackageSha256": "c18231a2cd9c38149d9c82a2ae7dd46ea4ea3d158740c577a020bc46c5fce510",
+  "comparedFiles": 72,
+  "matches": 72,
+  "mismatches": []
+}

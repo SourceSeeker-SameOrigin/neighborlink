@@ -108,17 +108,28 @@ function createChatFlow(cloud, server) {
       unread: conversation.unread && conversation.unread[openid] || 0, enabled: true };
   }
 
-  async function pullMessages(conversation, reference, openid, event, config) {
+  async function pullMessages(conversation, reference, openid, event, config, review = false) {
     const now = new Date();
     const isReadOnly = conversation.type === 'idle' ? idleReadOnly(reference, conversation) : readOnly(reference, conversation, config, now);
     if (isReadOnly && !conversation.closedAt) await db.collection('conversations').doc(conversation._id)
       .update({ data: { closedAt: now, updatedAt: now } });
+    const mode = review ? 'legacy' : event.mode || 'legacy';
+    ensure(['legacy', 'latest', 'older', 'newer'].includes(mode), '消息读取方式不正确');
     const afterId = !event.afterId ? '' : text(event.afterId, '消息游标', 100);
+    const beforeId = !event.beforeId ? '' : text(event.beforeId, '消息游标', 100);
+    if (mode === 'older') ensure(beforeId, '缺少较早消息游标');
     const filter = { convId: conversation._id };
-    if (afterId) filter._id = command.gt(afterId);
-    const result = await db.collection('messages').where(filter).orderBy('_id', 'asc').limit(50).get();
-    return { conversationId: conversation._id, list: result.data.map(item => messageView(item, openid)), hasMore: result.data.length === 50,
-      lastId: result.data.length ? result.data[result.data.length - 1]._id : afterId,
+    if (mode === 'older') filter._id = command.lt(beforeId);
+    else if (afterId) filter._id = command.gt(afterId);
+    const descending = mode === 'latest' || mode === 'older';
+    const result = await db.collection('messages').where(filter).orderBy('_id', descending ? 'desc' : 'asc')
+      .limit(mode === 'legacy' ? 50 : 51).get();
+    const rows = result.data.slice(0, 50);
+    if (descending) rows.reverse();
+    return { conversationId: conversation._id, list: rows.map(item => messageView(item, openid, review)),
+      hasMore: mode === 'legacy' ? result.data.length === 50 : result.data.length > 50,
+      firstId: rows.length ? rows[0]._id : beforeId,
+      lastId: rows.length ? rows[rows.length - 1]._id : afterId,
       readOnly: isReadOnly, unread: conversation.unread && conversation.unread[openid] || 0 };
   }
 
@@ -133,6 +144,7 @@ function createChatFlow(cloud, server) {
 
   async function send(event, { openid }) {
     text(event.conversationId, '会话');
+    require('./ugc').ensureCanPublish(await server.user(openid));
     ensure(['text', 'image'].includes(event.type), '消息类型不正确');
     const conversation = await server.get('conversations', event.conversationId);
     const reference = conversation && conversation.type === 'idle'
@@ -149,7 +161,7 @@ function createChatFlow(cloud, server) {
       content = await checkText(cloud, event.content, { blacklist: config.blacklist, type: 'message', openid });
     } else {
       fileId = text(event.fileId, '图片文件', 300);
-      ensure(fileId.startsWith('cloud://'), '图片文件地址不正确');
+      require('./providerData').fileInFolder(fileId, 'chat/' + conversation._id);
     }
     const recipient = conversation.members.find(member => member !== openid);
     ensure(recipient, '会话参与者不完整', 'E_CONFIG');
@@ -196,25 +208,37 @@ function createChatFlow(cloud, server) {
   }
 
   async function list(event, { openid }) {
-    const result = await db.collection('conversations').where({ members: openid })
-      .orderBy('lastAt', 'desc').limit(100).get();
+    await server.featureEntry('chat', await server.user(openid));
+    const pageSize = event.limit === undefined ? 100 : integer(event.limit, '每页会话数', 1, 100);
+    const cursor = event.cursor || null;
+    if (cursor) {
+      ensure(typeof cursor === 'object' && !Array.isArray(cursor) &&
+        typeof cursor.id === 'string' && cursor.id.length > 0 && cursor.id.length <= 100 &&
+        typeof cursor.lastAt === 'string' && Number.isFinite(Date.parse(cursor.lastAt)),
+      '会话分页位置不正确');
+    }
     const list = [];
     const config = await server.config();
     const idleCache = { config, buyer: null, communities: new Map() };
-    for (const conversation of result.data) {
+    const communityCache = new Map();
+    const communityFor = id => {
+      if (!communityCache.has(id)) communityCache.set(id, server.get('communities', id));
+      return communityCache.get(id);
+    };
+    async function view(conversation) {
       if (conversation.type === 'order') {
         const order = await server.get('orders', conversation.refId);
-        if (!order || (order.userOpenid !== openid && order.providerOpenid !== openid)) continue;
-        const community = await server.get('communities', order.communityId);
-        if (!isEnabled('chat', config, community)) continue;
-        list.push({ conversationId: conversation._id, type: conversation.type, refId: conversation.refId,
+        if (!order || (order.userOpenid !== openid && order.providerOpenid !== openid)) return null;
+        const community = await communityFor(order.communityId);
+        if (!isEnabled('chat', config, community)) return null;
+        return { conversationId: conversation._id, type: conversation.type, refId: conversation.refId,
           serviceName: ({ express: '代取快递', trash: '代扔垃圾', buy: '周边代买', help: '帮把手' })[order.serviceCode] || '订单',
           lastMessage: conversation.lastMessage || '', lastAt: conversation.lastAt,
           unread: conversation.unread && conversation.unread[openid] || 0,
-          readOnly: readOnly(order, conversation, config) });
+          readOnly: readOnly(order, conversation, config) };
       } else if (conversation.type === 'idle') {
         const item = await server.get('idleItems', conversation.refId);
-        if (!item || !conversation.members.includes(openid)) continue;
+        if (!item || !conversation.members.includes(openid)) return null;
         try {
           if (!idleCache.buyerLoaded) {
             idleCache.buyer = await server.one('users', { openid });
@@ -223,20 +247,56 @@ function createChatFlow(cloud, server) {
           await ensureIdleAccess(item, openid, idleCache);
         }
         catch (error) {
-          if (['E_FORBIDDEN', 'E_FEATURE_OFF'].includes(error.code)) continue;
+          if (['E_FORBIDDEN', 'E_FEATURE_OFF'].includes(error.code)) return null;
           throw error;
         }
-        list.push({ conversationId: conversation._id, type: conversation.type, refId: conversation.refId,
+        return { conversationId: conversation._id, type: conversation.type, refId: conversation.refId,
           serviceName: item.title, lastMessage: conversation.lastMessage || '', lastAt: conversation.lastAt,
           unread: conversation.unread && conversation.unread[openid] || 0,
-          readOnly: idleReadOnly(item, conversation) });
+          readOnly: idleReadOnly(item, conversation) };
       }
+      return null;
     }
-    return { list, unreadTotal: list.reduce((sum, item) => sum + item.unread, 0) };
+    let rawCursor = cursor && { lastAt: new Date(cursor.lastAt), id: cursor.id };
+    let unreadTotal = cursor ? null : 0, hasMore = false, nextCursor = null;
+    while (true) {
+      const filter = rawCursor ? command.or([
+        { members: openid, lastAt: command.lt(rawCursor.lastAt) },
+        { members: openid, lastAt: rawCursor.lastAt, _id: command.lt(rawCursor.id) }
+      ]) : { members: openid };
+      const result = await db.collection('conversations').where(filter)
+        .orderBy('lastAt', 'desc').orderBy('_id', 'desc').limit(100).get();
+      const rows = result.data;
+      for (let start = 0; start < rows.length; start += 8) {
+        const group = rows.slice(start, start + 8);
+        const visible = await Promise.all(group.map(view));
+        for (let index = 0; index < group.length; index++) {
+          const item = visible[index];
+          if (!item) continue;
+          if (!cursor) unreadTotal += item.unread;
+          const conversation = group[index];
+          if (list.length >= pageSize) { hasMore = true; continue; }
+          list.push(item);
+          nextCursor = { lastAt: new Date(conversation.lastAt).toISOString(), id: conversation._id };
+        }
+        if (cursor && hasMore) break;
+      }
+      if (cursor && hasMore || rows.length < 100) break;
+      const last = rows[rows.length - 1];
+      rawCursor = { lastAt: new Date(last.lastAt), id: last._id };
+    }
+    return { list, unreadTotal, hasMore, nextCursor: hasMore ? nextCursor : null };
   }
 
   async function markRead(event, { openid }) {
     text(event.conversationId, '会话');
+    let seenSequence = null;
+    if (event.seenMessageId !== undefined) {
+      const id = text(event.seenMessageId, '已显示的消息', 100);
+      ensure(id.startsWith(event.conversationId + '_') && /^\d{12}$/.test(id.slice(event.conversationId.length + 1)),
+        '已显示的消息编号不正确');
+      seenSequence = Number(id.slice(event.conversationId.length + 1));
+    }
     const initial = await server.get('conversations', event.conversationId);
     const reference = initial && initial.type === 'idle'
       ? await idleForMember(initial, openid) : await orderForMember(initial, openid);
@@ -244,6 +304,8 @@ function createChatFlow(cloud, server) {
     await atomic(db, async transaction => {
       const conversation = await read(transaction, 'conversations', initial._id);
       ensure(conversation && conversation.members.includes(openid), '无权访问此会话', 'E_FORBIDDEN');
+      if (seenSequence !== null) ensure((conversation.messageSeq || 0) <= seenSequence,
+        '会话有新消息，请先读取', 'E_CONFLICT');
       await transaction.collection('conversations').doc(conversation._id)
         .update({ data: { ['unread.' + openid]: 0, updatedAt: new Date() } });
     });
@@ -265,16 +327,15 @@ function createChatFlow(cloud, server) {
       if (order && order.providerOpenid) conversation = await server.get('conversations',
         orderConversationId(order._id, order.providerOpenid));
     }
-    ensure(conversation && conversation.type === 'order', '订单会话不存在');
-    const order = await server.get('orders', conversation.refId);
-    ensure(order, '关联订单不存在');
-    await server.feature('chat', order.communityId);
+    ensure(conversation && ['order', 'idle'].includes(conversation.type), '会话不存在');
+    const reference = await server.get(conversation.type === 'idle' ? 'idleItems' : 'orders', conversation.refId);
+    ensure(reference, '关联业务不存在');
     let reason;
     let caseId;
     if (event.caseType === 'complaint') {
-      ensure(order.status === 'disputed' && order.complaint && !order.complaint.resolution,
+      ensure(conversation.type === 'order' && reference.status === 'disputed' && reference.complaint && !reference.complaint.resolution,
         '该订单当前没有待处理投诉', 'E_FORBIDDEN');
-      reason = 'complaint'; caseId = order._id;
+      reason = 'complaint'; caseId = reference._id;
     } else if (event.caseType === 'report') {
       text(event.reportId, '举报记录');
       const report = await server.get('reports', event.reportId);
@@ -284,11 +345,12 @@ function createChatFlow(cloud, server) {
       caseMessage = message;
       reason = 'report'; caseId = report._id;
     } else ensure(false, '请提供有效的投诉或举报案件', 'E_FORBIDDEN');
+    await server.feature('chat', reference.communityId);
     await db.collection('auditLogs').add({ data: { action: 'chat_admin_view', actorOpenid: openid,
-      orderId: order._id, conversationId: conversation._id, caseType: reason, caseId, at: new Date() } });
-    const result = await pullMessages(conversation, order, openid, event, await server.config());
+      ...(conversation.type === 'order' ? { orderId: reference._id } : { itemId: reference._id }), conversationId: conversation._id, caseType: reason, caseId, at: new Date() } });
+    const result = await pullMessages(conversation, reference, openid, event, await server.config(), true);
     if (caseMessage && !result.list.some(item => item._id === caseMessage._id)) {
-      result.list.push(messageView(caseMessage, openid));
+      result.list.push(messageView(caseMessage, openid, true));
       result.list.sort((left, right) => left._id.localeCompare(right._id));
     }
     const senderRows = await Promise.all(result.list.map(item => server.get('messages', item._id)));

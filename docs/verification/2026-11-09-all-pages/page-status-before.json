@@ -1,0 +1,780 @@
+[
+  {
+    "id": "P01",
+    "title": "近邻帮",
+    "route": "pages/index/index",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P02",
+    "title": "选择门牌",
+    "route": "pages/bind/bind",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P03",
+    "title": "代取快递",
+    "route": "pages/service/express",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P04",
+    "title": "代扔垃圾",
+    "route": "pages/service/trash",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P05",
+    "title": "周边代买",
+    "route": "pages/service/buy",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P06",
+    "title": "帮把手",
+    "route": "pages/service/help",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P07",
+    "title": "我的订单",
+    "route": "pages/orders/list",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P08",
+    "title": "订单详情",
+    "route": "pages/orders/detail",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P09",
+    "title": "我的月卡",
+    "route": "pages/membership/index",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P10",
+    "title": "我的",
+    "route": "pages/me/me",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P11",
+    "title": "隐私政策",
+    "route": "pages/legal/privacy",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P12",
+    "title": "服务协议",
+    "route": "pages/legal/terms",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [
+      "QA10 帮把手协议过时，待决未改"
+    ],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P13",
+    "title": "服务员申请",
+    "route": "provider/apply/apply",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P14",
+    "title": "服务员工作台",
+    "route": "provider/workbench/workbench",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P15",
+    "title": "任务大厅",
+    "route": "provider/hall/hall",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P16",
+    "title": "任务详情",
+    "route": "provider/task/task",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P17",
+    "title": "我的收入",
+    "route": "provider/earnings/earnings",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P18",
+    "title": "管理看板",
+    "route": "admin/dashboard/dashboard",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P19",
+    "title": "订单管理",
+    "route": "admin/orders/orders",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P20",
+    "title": "订单处理",
+    "route": "admin/order/order",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P21",
+    "title": "服务员审核",
+    "route": "admin/providers/providers",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P22",
+    "title": "小区配置",
+    "route": "admin/community/community",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P23",
+    "title": "海报码",
+    "route": "admin/posters/posters",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P24",
+    "title": "结算",
+    "route": "admin/settlements/settlements",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P25",
+    "title": "功能开关",
+    "route": "admin/features/features",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P26",
+    "title": "内容举报审核",
+    "route": "admin/reports/reports",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P27",
+    "title": "聊天记录审计",
+    "route": "admin/chat/chat",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [
+      "QA12 审计成功提示，待决未改"
+    ],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P28",
+    "title": "优惠券模板管理",
+    "route": "admin/coupons/coupons",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P29",
+    "title": "公告与广告管理",
+    "route": "admin/content/content",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P30",
+    "title": "商家入驻审核",
+    "route": "admin/merchants/merchants",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [
+      "QA11 中文/标签/金额展示，待决未改"
+    ],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P31",
+    "title": "回收企业月度对账",
+    "route": "admin/recycle/recycle",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P32",
+    "title": "数据导出",
+    "route": "admin/exports/exports",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P33",
+    "title": "驿站账号审核",
+    "route": "admin/stations/stations",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P34",
+    "title": "站内消息",
+    "route": "chat/list/list",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P35",
+    "title": "聊天",
+    "route": "chat/room/room",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P36",
+    "title": "优惠券中心",
+    "route": "coupons/center/center",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P37",
+    "title": "我的优惠券",
+    "route": "coupons/mine/mine",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P38",
+    "title": "需求广场",
+    "route": "board/list/list",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P39",
+    "title": "求助详情",
+    "route": "board/detail/detail",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P40",
+    "title": "发布需求",
+    "route": "board/create/create",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "失败：ymd is not a function",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [
+      "QA09 日期函数缺失，待决未改"
+    ],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P41",
+    "title": "闲置交易",
+    "route": "idle/list/list",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P42",
+    "title": "闲置详情",
+    "route": "idle/detail/detail",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P43",
+    "title": "发布闲置",
+    "route": "idle/create/create",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P44",
+    "title": "我的闲置",
+    "route": "idle/mine/mine",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P45",
+    "title": "担保交易订单",
+    "route": "idle/sales/sales",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P46",
+    "title": "卖家交付",
+    "route": "idle/sale/sale",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P47",
+    "title": "卖家收入",
+    "route": "idle/income/income",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P48",
+    "title": "社区活动",
+    "route": "events/list/list",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P49",
+    "title": "活动详情",
+    "route": "events/detail/detail",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [
+      "QA11 中文/标签/金额展示，待决未改"
+    ],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P50",
+    "title": "活动管理",
+    "route": "events/manage/manage",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [
+      "QA11 中文/标签/金额展示，待决未改",
+      "QA13 固定默认日期，待决未改"
+    ],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P51",
+    "title": "上门喂宠",
+    "route": "pet/order",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P52",
+    "title": "喂宠上门清单",
+    "route": "pet/work",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P53",
+    "title": "喂宠服务记录",
+    "route": "pet/reports",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P54",
+    "title": "商家入驻",
+    "route": "merchant/apply/apply",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [
+      "QA11 中文/标签/金额展示，待决未改"
+    ],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P55",
+    "title": "商家工作台",
+    "route": "merchant/workbench/workbench",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [
+      "QA11 中文/标签/金额展示，待决未改"
+    ],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P56",
+    "title": "服务管理",
+    "route": "merchant/services/services",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [
+      "QA11 中文/标签/金额展示，待决未改"
+    ],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P57",
+    "title": "商家预约订单",
+    "route": "merchant/orders/orders",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P58",
+    "title": "社区商家",
+    "route": "shops/list/list",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P59",
+    "title": "商家详情",
+    "route": "shops/detail/detail",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P60",
+    "title": "提交预约",
+    "route": "shops/booking/booking",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P61",
+    "title": "申请驿站账号",
+    "route": "station/apply/apply",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P62",
+    "title": "驿站工作台",
+    "route": "station/workbench/workbench",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P63",
+    "title": "创建送上门批次",
+    "route": "station/create/create",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P64",
+    "title": "驿站配送任务",
+    "route": "station/worker/worker",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P65",
+    "title": "驿站批次",
+    "route": "station/batch/batch",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P66",
+    "title": "送餐上门",
+    "route": "elder/meal",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P67",
+    "title": "陪诊预约",
+    "route": "elder/escort",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P68",
+    "title": "预约上门回收",
+    "route": "recycle/order/order",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  },
+  {
+    "id": "P69",
+    "title": "小区公告",
+    "route": "notices/list/list",
+    "staticReferences": "通过（静态检查范围）",
+    "isolatedLifecycle": "3组均无未捕获异常（非成功业务验收）",
+    "liveUIThisRun": "未执行：锁屏/自动化监听边界阻塞",
+    "successFlowThisRun": "未验证",
+    "newFindings": [],
+    "userAcceptance": "待用户签收"
+  }
+]

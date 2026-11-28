@@ -1,0 +1,61 @@
+{
+  "scope": "Synthetic isolated actual page methods; no real cloud reads/writes or UI acceptance",
+  "passed": 13,
+  "total": 13,
+  "results": [
+    {
+      "name": "resident newer filter wins over late prior success",
+      "passed": true
+    },
+    {
+      "name": "resident filter failure clears old group rows",
+      "passed": true
+    },
+    {
+      "name": "resident failed next page preserves rows and offset on retry",
+      "passed": true
+    },
+    {
+      "name": "resident late list success after onHide has no page writes",
+      "passed": true
+    },
+    {
+      "name": "resident late list success after onUnload has no page writes",
+      "passed": true
+    },
+    {
+      "name": "admin newer filter wins over late prior success",
+      "passed": true
+    },
+    {
+      "name": "admin filter failure clears old group rows",
+      "passed": true
+    },
+    {
+      "name": "admin failed next page preserves rows and offset on retry",
+      "passed": true
+    },
+    {
+      "name": "admin late list success after onHide has no page writes",
+      "passed": true
+    },
+    {
+      "name": "admin late list success after onUnload has no page writes",
+      "passed": true
+    },
+    {
+      "name": "resident unread newer response wins",
+      "passed": true
+    },
+    {
+      "name": "resident unread after onHide has no tab changes",
+      "passed": true
+    },
+    {
+      "name": "resident unread after onUnload has no tab changes",
+      "passed": true
+    }
+  ],
+  "baseCommit": "07da819",
+  "workingTree": true
+}

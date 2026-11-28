@@ -1,1 +1,116 @@
-<view class="page"><view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view><view class="card"><view class="section-title">创建活动</view><input placeholder="活动标题" value="{{title}}" data-field="title" bindinput="input"/><textarea placeholder="活动说明" value="{{desc}}" data-field="desc" bindinput="input"/><input placeholder="活动地点" value="{{location}}" data-field="location" bindinput="input"/><picker range="{{types}}" bindchange="typeChange"><view class="picker">活动类型：{{type}}</view></picker><input wx:if="{{type === 'interest'}}" type="digit" placeholder="报名费用（元）" value="{{fee}}" data-field="fee" bindinput="input"/><input type="number" placeholder="名额" value="{{capacity}}" data-field="capacity" bindinput="input"/><view>开始日期 <picker mode="date" value="{{startDate}}" data-field="startDate" bindchange="input"><view class="picker">{{startDate}}</view></picker>时间 <picker mode="time" value="{{startTime}}" data-field="startTime" bindchange="input"><view class="picker">{{startTime}}</view></picker></view><view>结束日期 <picker mode="date" value="{{endDate}}" data-field="endDate" bindchange="input"><view class="picker">{{endDate}}</view></picker>时间 <picker mode="time" value="{{endTime}}" data-field="endTime" bindchange="input"><view class="picker">{{endTime}}</view></picker></view><view>报名截止 <picker mode="date" value="{{deadlineDate}}" data-field="deadlineDate" bindchange="input"><view class="picker">{{deadlineDate}}</view></picker>时间 <picker mode="time" value="{{deadlineTime}}" data-field="deadlineTime" bindchange="input"><view class="picker">{{deadlineTime}}</view></picker></view><view wx:if="{{isAdmin}}"><input placeholder="赞助方名称（可选）" value="{{sponsorName}}" data-field="sponsorName" bindinput="input"/><input type="digit" placeholder="赞助金额（元）" value="{{sponsorAmount}}" data-field="sponsorAmount" bindinput="input"/><input placeholder="赞助说明" value="{{sponsorNote}}" data-field="sponsorNote" bindinput="input"/></view><button type="primary" loading="{{busy}}" bindtap="createActivity">保存并提交活动审核</button></view><view class="card"><button bindtap="scan">扫描签到码</button><view wx:if="{{scanCode}}">签到码：{{scanCode}}</view></view><view class="card" wx:for="{{list}}" wx:key="_id"><view class="section-title">{{item.title}}</view><view>{{item.status}} · {{item.signupCount}}/{{item.capacity}} 人</view><view wx:if="{{item.reviewRequested}}" class="muted">待管理员审核</view><button wx:if="{{item.status === 'draft'}}" data-id="{{item._id}}" bindtap="publish">提交发布/审核</button><button wx:if="{{item.status === 'published'}}" data-id="{{item._id}}" bindtap="showSignups">查看报名名单</button><button data-id="{{item._id}}" bindtap="checkin">为此活动签到</button><button wx:if="{{item.status === 'published'}}" data-id="{{item._id}}" bindtap="cancel">取消活动</button><view wx:if="{{item.cancelRefund}}" class="muted">退款任务：{{item.cancelRefund.status}} · 完成 {{item.cancelRefund.completedCount}}/{{item.cancelRefund.totalCount}}<text wx:if="{{item.cancelRefund.retryCount}}"> · 待重试 {{item.cancelRefund.retryCount}}</text><text wx:if="{{item.cancelRefund.failedCount}}"> · 需处理 {{item.cancelRefund.failedCount}}</text></view><button wx:if="{{item.cancelRefund.status === 'attention' && item.cancelRefund.failedCount > 0}}" data-id="{{item._id}}" bindtap="retryCancellation">重试失败退款</button></view><view wx:if="{{loading}}" class="card">正在加载…</view><view class="card" wx:for="{{attendees}}" wx:key="signupId">{{item.status}} · {{item.checkinCode}}</view></view>
+<view class="page">
+<view class="page-masthead">
+<image class="masthead-icon" src="/assets/icons/events.png"/>
+<view class="masthead-copy">
+<view class="page-title">活动管理</view>
+<view class="masthead-subtitle">相聚社区，共享邻里时光</view>
+</view>
+</view>
+<view class="card" wx:if="{{communities.length}}">
+<view class="label">活动管理小区</view>
+<picker wx:if="{{isAdmin}}" range="{{communities}}" range-key="name" value="{{communityIndex}}" bindchange="chooseCommunity" disabled="{{loading || busy || recovery}}">
+<view class="picker">{{communities[communityIndex].name}} · 点击切换</view>
+</picker>
+<view wx:else>{{communities[communityIndex].name}}</view>
+<view class="muted">下方活动列表及新建活动均属于此小区，不改变您的住户门牌。</view>
+</view>
+<view wx:if="{{error}}" class="error">{{error}}<button wx:if="{{!errorFromForm}}" bindtap="load">重试</button>
+</view>
+<view wx:if="{{ready && recovery}}" class="card">
+<view class="section-title">原活动提交结果</view>
+<view>{{recoveryTitle}}</view>
+<view class="muted">{{recovery === 'done' ? recoveryStatus : recovery === 'confirm' ? '暂未查到原活动，请确认下方资料后沿用原编号提交。' : recovery === 'submit' ? '活动已保存，可继续提交这一场活动。' : '提交结果尚未确认，请先核对原活动，避免重复创建。'}}</view>
+<button wx:if="{{recovery === 'lookup' || recovery === 'submit'}}" class="ui-button" loading="{{busy}}" disabled="{{busy || loading}}" bindtap="createActivity">{{recovery === 'lookup' ? '核对原活动并恢复提交' : '继续提交原活动'}}</button>
+<button wx:if="{{recovery === 'done'}}" class="ui-button" disabled="{{busy || loading}}" bindtap="newActivity">创建下一场活动</button>
+</view>
+<view class="card" wx:if="{{ready && !loading && (!recovery || recovery === 'confirm')}}">
+<view class="section-title">{{recovery === 'confirm' ? '确认原活动资料' : '创建活动'}}</view>
+<view class="field">
+<view class="label">活动标题</view>
+<input placeholder="活动标题" value="{{title}}" data-field="title" bindinput="input"/>
+</view>
+<view class="field"><view class="label">活动说明</view>
+<textarea placeholder="活动说明" value="{{desc}}" data-field="desc" bindinput="input"/></view>
+<view class="field">
+<view class="label">活动地点</view>
+<input placeholder="活动地点" value="{{location}}" data-field="location" bindinput="input"/>
+</view>
+<picker range="{{typeLabels}}" value="{{type === 'charity' ? 1 : 0}}" bindchange="typeChange">
+<view class="picker">活动类型：{{type === 'charity' ? '公益活动' : '兴趣活动'}}</view>
+</picker>
+<view class="field" wx:if="{{type === 'interest'}}">
+<view class="label">报名费用（元）</view>
+<input type="digit" placeholder="报名费用（元）" value="{{fee}}" data-field="fee" bindinput="input"/>
+</view>
+<view class="field">
+<view class="label">名额（人）</view>
+<input type="number" placeholder="名额" value="{{capacity}}" data-field="capacity" bindinput="input"/>
+</view>
+<view>开始日期 <picker mode="date" value="{{startDate}}" data-field="startDate" bindchange="input">
+<view class="picker">{{startDate || '请选择日期'}}</view>
+</picker>时间 <picker mode="time" value="{{startTime}}" data-field="startTime" bindchange="input">
+<view class="picker">{{startTime}}</view>
+</picker>
+</view>
+<view>结束日期 <picker mode="date" value="{{endDate}}" data-field="endDate" bindchange="input">
+<view class="picker">{{endDate || '请选择日期'}}</view>
+</picker>时间 <picker mode="time" value="{{endTime}}" data-field="endTime" bindchange="input">
+<view class="picker">{{endTime}}</view>
+</picker>
+</view>
+<view>报名截止 <picker mode="date" value="{{deadlineDate}}" data-field="deadlineDate" bindchange="input">
+<view class="picker">{{deadlineDate || '请选择日期'}}</view>
+</picker>时间 <picker mode="time" value="{{deadlineTime}}" data-field="deadlineTime" bindchange="input">
+<view class="picker">{{deadlineTime}}</view>
+</picker>
+</view>
+<view wx:if="{{isAdmin}}">
+<view class="field">
+<view class="label">赞助方名称（选填）</view>
+<input placeholder="赞助方名称（可选）" value="{{sponsorName}}" data-field="sponsorName" bindinput="input"/>
+</view>
+<view class="field">
+<view class="label">赞助金额（元）</view>
+<input type="digit" placeholder="赞助金额（元）" value="{{sponsorAmount}}" data-field="sponsorAmount" bindinput="input"/>
+</view>
+<view class="field">
+<view class="label">赞助说明（选填）</view>
+<input placeholder="赞助说明" value="{{sponsorNote}}" data-field="sponsorNote" bindinput="input"/>
+</view>
+</view>
+<button type="primary" loading="{{busy}}" disabled="{{busy || loading || !ready || !communityId}}" bindtap="createActivity">{{recovery === 'confirm' ? '确认并用原编号提交' : '保存并提交活动审核'}}</button>
+</view>
+<view class="card">
+<button bindtap="scan" disabled="{{scanning || loading || busy || !ready}}" loading="{{scanning}}">扫描签到码</button>
+<view wx:if="{{scanCode}}">签到码：{{scanCode}}</view>
+</view>
+<view class="card" wx:for="{{list}}" wx:key="_id">
+<view class="section-title">{{item.title}}</view>
+<view>{{eventStatusNames[item.status] || '状态待确认'}} · {{item.signupCount}}/{{item.capacity}} 人</view>
+<view wx:if="{{item.reviewRequested}}" class="muted">待管理员审核</view>
+<button wx:if="{{item.status === 'draft'}}" data-id="{{item._id}}" disabled="{{busy || loading || !ready}}" bindtap="publish">提交发布/审核</button>
+<button wx:if="{{item.status === 'published'}}" data-id="{{item._id}}" bindtap="showSignups">查看报名名单</button>
+<button wx:if="{{item.status === 'published'}}" disabled="{{busy || loading || !ready}}" data-id="{{item._id}}" bindtap="checkin">为此活动签到</button>
+<button wx:if="{{item.status === 'published'}}" data-id="{{item._id}}" disabled="{{busy || loading || !ready}}" bindtap="cancel">取消活动</button>
+<view wx:if="{{item.cancelRefund}}" class="muted">退款任务：{{refundJobStatusNames[item.cancelRefund.status] || '状态待确认'}} · 完成 {{item.cancelRefund.completedCount}}/{{item.cancelRefund.totalCount}}<text wx:if="{{item.cancelRefund.retryCount}}"> · 待重试 {{item.cancelRefund.retryCount}}</text>
+<text wx:if="{{item.cancelRefund.failedCount}}"> · 需处理 {{item.cancelRefund.failedCount}}</text>
+</view>
+<button wx:if="{{item.cancelRefund.status === 'attention' && item.cancelRefund.failedCount > 0}}" data-id="{{item._id}}" disabled="{{busy || loading || !ready}}" bindtap="retryCancellation">重试失败退款</button>
+</view>
+<view wx:if="{{ready && eventMore}}" class="card">
+<view wx:if="{{eventError}}" class="error">{{eventError}}</view>
+<button class="ui-button" loading="{{eventLoading}}" disabled="{{eventLoading}}" bindtap="loadMoreEvents">{{eventError ? '重试本页活动' : '加载更多活动'}}</button>
+</view>
+<view wx:if="{{loading}}" class="card">正在加载…</view>
+<view class="card" wx:if="{{rosterId}}">
+<view class="section-title">{{rosterTitle}} · 报名名单</view>
+<view wx:for="{{attendees}}" wx:key="signupId">{{signupStatusNames[item.status] || '状态待确认'}} · {{item.checkinCode}}</view>
+<view wx:if="{{rosterLoading}}" class="muted">正在加载报名名单…</view>
+<block wx:elif="{{rosterError}}">
+<view class="error">{{rosterError}}</view>
+<button class="ui-button" bindtap="retrySignups">重试本页名单</button>
+</block>
+<button wx:elif="{{rosterMore}}" class="ui-button" bindtap="loadMoreSignups">加载更多报名</button>
+<view wx:elif="{{!attendees.length}}" class="muted">暂无报名记录</view>
+</view>
+</view>

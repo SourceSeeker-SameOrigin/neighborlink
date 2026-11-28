@@ -1,0 +1,13 @@
+{
+  "jest": {
+    "passedSuites": 53,
+    "passedTests": 624,
+    "success": true
+  },
+  "newIsolatedCases": 9,
+  "relatedQA36QA37": 15,
+  "officialCompiler": "qa38-39-compiler.json",
+  "liveNewUI": "not verified: admin click autoapproval timeout, retry no transition, AX/screenshot mismatch, scroll noWindowsAvailable",
+  "cloudFunctionChanges": false,
+  "D05D06": "paused"
+}

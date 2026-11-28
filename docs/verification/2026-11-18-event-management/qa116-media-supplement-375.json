@@ -1,0 +1,104 @@
+{
+  "width": 375,
+  "writes": [],
+  "uploads": [
+    {
+      "folder": "vacant/synthetic-vacant/windows",
+      "count": 1
+    },
+    {
+      "folder": "vacant/synthetic-vacant/windows",
+      "count": 1
+    }
+  ],
+  "records": [
+    {
+      "mode": "buy",
+      "ready": false,
+      "busy": false,
+      "uploading": false,
+      "error": "",
+      "photos": 0,
+      "receipt": false,
+      "items": []
+    },
+    {
+      "mode": "buy",
+      "status": "in_service",
+      "ready": true,
+      "busy": false,
+      "uploading": false,
+      "error": "",
+      "photos": 0,
+      "receipt": false,
+      "items": []
+    },
+    {
+      "mode": "vacant",
+      "ready": false,
+      "busy": false,
+      "uploading": false,
+      "error": "",
+      "photos": 0,
+      "receipt": false,
+      "items": []
+    },
+    {
+      "mode": "vacant",
+      "status": "in_service",
+      "ready": true,
+      "busy": false,
+      "uploading": false,
+      "error": "",
+      "photos": 0,
+      "receipt": false,
+      "items": []
+    },
+    {
+      "mode": "vacant",
+      "status": "in_service",
+      "ready": true,
+      "busy": false,
+      "uploading": true,
+      "error": "",
+      "photos": 0,
+      "receipt": false,
+      "items": []
+    },
+    {
+      "mode": "vacant",
+      "status": "in_service",
+      "ready": true,
+      "busy": false,
+      "uploading": false,
+      "error": "照片上传失败（合成），请重试",
+      "photos": 0,
+      "receipt": false,
+      "items": []
+    },
+    {
+      "mode": "vacant",
+      "status": "in_service",
+      "ready": true,
+      "busy": false,
+      "uploading": true,
+      "error": "",
+      "photos": 0,
+      "receipt": false,
+      "items": []
+    },
+    {
+      "mode": "vacant",
+      "status": "in_service",
+      "ready": true,
+      "busy": false,
+      "uploading": false,
+      "error": "",
+      "photos": 0,
+      "receipt": false,
+      "items": [
+        "windows"
+      ]
+    }
+  ]
+}

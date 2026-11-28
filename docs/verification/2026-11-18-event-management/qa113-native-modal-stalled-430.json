@@ -1,0 +1,35 @@
+{
+  "width": 430,
+  "confirmations": 1,
+  "writes": 0,
+  "records": [
+    {
+      "state": "shown",
+      "busy": false,
+      "ready": true,
+      "error": "",
+      "rect": {
+        "left": 13,
+        "right": 417,
+        "top": 348,
+        "bottom": 398,
+        "width": 404,
+        "height": 50,
+        "disabled": false
+      }
+    },
+    {
+      "state": "busy",
+      "busy": true,
+      "rect": {
+        "left": 13,
+        "right": 417,
+        "top": 348,
+        "bottom": 398,
+        "width": 404,
+        "height": 50,
+        "disabled": true
+      }
+    }
+  ]
+}

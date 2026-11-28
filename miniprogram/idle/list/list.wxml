@@ -1,13 +1,14 @@
 <view class="page">
-  <view class="page-title">闲置交易</view>
-  <view wx:if="{{federationEnabled}}" class="tabs"><button data-scope="community" bindtap="scope">本小区</button><button data-scope="federation" bindtap="scope">联合社区</button></view>
-  <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view>
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/idle.png"/><view class="masthead-copy"><view class="page-title">闲置交易</view><view class="masthead-subtitle">闲置流转，物尽其用</view></view></view>
+  <view wx:if="{{needsBinding && !loading && !error}}" class="card"><view class="section-title">请先绑定小区门牌</view><view class="muted">完善门牌后，可查看本小区已开放的闲置交易。</view><button class="ui-button" type="primary" bindtap="bindAddress">去绑定门牌</button></view>
+  <view wx:if="{{federationEnabled}}" class="tabs"><button class="ui-button" data-scope="community" bindtap="scope">本小区</button><button class="ui-button" data-scope="federation" bindtap="scope">联合社区</button></view>
+  <view wx:if="{{error}}" class="error">{{error}}<button class="ui-button" bindtap="retry">重试</button></view>
   <view wx:for="{{list}}" wx:key="_id" class="card" data-id="{{item._id}}" bindtap="open">
     <view wx:if="{{item.sourceCommunityName}}" class="muted">来自 {{item.sourceCommunityName}}</view>
     <view class="section-title">{{item.title}}</view><view>{{item.desc}}</view>
     <view class="price">¥{{item.priceText}}</view><view class="muted">{{item.condition}} · {{item.timeText}}</view>
   </view>
-  <view wx:if="{{loading}}" class="muted">正在加载…</view><view wx:elif="{{!list.length && !error}}" class="muted">还没有邻居发布闲置</view>
-  <button wx:if="{{hasMore}}" bindtap="more">加载更多</button>
-  <button type="primary" bindtap="create">发布闲置</button><button bindtap="mine">我的闲置</button>
+  <view wx:if="{{loading}}" class="muted">正在加载…</view><view wx:elif="{{!needsBinding && !list.length && !error && !hasMore}}" class="muted">还没有邻居发布闲置</view>
+  <button class="ui-button" wx:if="{{hasMore && !loading && !error}}" bindtap="more">加载更多</button>
+  <block wx:if="{{!needsBinding && !loading && !error}}"><button class="ui-button" type="primary" bindtap="create">发布闲置</button><button class="ui-button" bindtap="mine">我的闲置</button></block>
 </view>

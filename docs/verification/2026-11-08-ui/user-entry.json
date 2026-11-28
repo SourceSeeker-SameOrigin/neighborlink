@@ -1,0 +1,106 @@
+{
+  "resolvedIssues": [
+    "D45"
+  ],
+  "scope": "Actual cloud entry and server boundary, in-memory synthetic DB/OpenAPI; no network or real writes",
+  "total": 24,
+  "passed": 24,
+  "results": [
+    {
+      "name": "Actual user.setAddress accepts manual phone and writes masked public result",
+      "status": "PASS"
+    },
+    {
+      "name": "Client forged identity, roles, source and verification are ignored",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid input causes no user or event writes: {\"phone\":\"123\"}",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid input causes no user or event writes: {\"phone\":13800000000}",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid input causes no user or event writes: {\"phone\":null}",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid input causes no user or event writes: {}",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid input causes no user or event writes: {\"privacyAgreed\":false}",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid input causes no user or event writes: {\"buildingId\":\"other\"}",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid input causes no user or event writes: {\"unit\":\"other\"}",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid input causes no user or event writes: {\"room\":\"\"}",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid input causes no user or event writes: {\"communityId\":\"other\"}",
+      "status": "PASS"
+    },
+    {
+      "name": "Existing verified phone retained only if no replacement is supplied",
+      "status": "PASS"
+    },
+    {
+      "name": "Re-entering a previously verified phone is recorded as manual",
+      "status": "PASS"
+    },
+    {
+      "name": "Legacy number gets no retroactive verification",
+      "status": "PASS"
+    },
+    {
+      "name": "Blocked real user cannot save with manual phone",
+      "status": "PASS"
+    },
+    {
+      "name": "Genuine bindPhone action records WeChat source after provider response",
+      "status": "PASS"
+    },
+    {
+      "name": "Bind-event failure rolls back phone, address and event together",
+      "status": "PASS"
+    },
+    {
+      "name": "Transaction conflict returns E_CONFLICT without any profile change",
+      "status": "PASS"
+    },
+    {
+      "name": "Coupon failure returns binding success and pending status after commit",
+      "status": "PASS"
+    },
+    {
+      "name": "Disabled coupons do not turn binding into failure",
+      "status": "PASS"
+    },
+    {
+      "name": "Retry recovers partial issuance and never duplicates coupons or counters",
+      "status": "PASS"
+    },
+    {
+      "name": "A failure after one template preserves that coupon and completes only the missing template on retry",
+      "status": "PASS"
+    },
+    {
+      "name": "Retry keeps feature and binding checks and never issues for another identity",
+      "status": "PASS"
+    },
+    {
+      "name": "Retry failure keeps saved address and can be repeated later",
+      "status": "PASS"
+    }
+  ]
+}

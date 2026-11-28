@@ -44,10 +44,11 @@ function readOnly(order, conversation, config, now = new Date()) {
   return true;
 }
 
-function messageView(message, viewerOpenid) {
+function messageView(message, viewerOpenid, review = false) {
   const own = message.from === viewerOpenid;
   const result = { _id: message._id, mine: own, type: message.type, status: message.status,
     createdAt: message.createdAt };
+  if (message.moderationHidden && !review) return { ...result, type: 'text', status: 'hidden', content: '消息已隐藏，等待审核' };
   if (message.type === 'text') result.content = message.content;
   else if (message.status === 'ok' || message.status === 'pending' && own) result.fileId = message.fileId;
   if (message.status === 'pending' && !own) result.content = '图片审核中';

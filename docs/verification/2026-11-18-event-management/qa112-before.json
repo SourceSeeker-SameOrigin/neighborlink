@@ -1,0 +1,85 @@
+{
+  "scope": "diagnostic actual-page code with synthetic GPS; no real position or cloud writes",
+  "pass": 2,
+  "fail": 6,
+  "results": [
+    {
+      "boundary": "same-page",
+      "expectedRequests": 1,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "busy": false,
+      "pass": true
+    },
+    {
+      "boundary": "hide",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "busy": false,
+      "pass": false
+    },
+    {
+      "boundary": "unload",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "busy": false,
+      "pass": false
+    },
+    {
+      "boundary": "completed",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "busy": false,
+      "pass": false
+    },
+    {
+      "boundary": "sharing-disabled",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "busy": false,
+      "pass": false
+    },
+    {
+      "boundary": "order-changed",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-b"
+      ],
+      "busy": false,
+      "pass": false
+    },
+    {
+      "boundary": "user-changed",
+      "expectedRequests": 0,
+      "actualRequests": 1,
+      "orderIds": [
+        "synthetic-order-a"
+      ],
+      "busy": false,
+      "pass": false
+    },
+    {
+      "boundary": "location-denied",
+      "expectedRequests": 0,
+      "actualRequests": 0,
+      "orderIds": [],
+      "busy": false,
+      "pass": true
+    }
+  ]
+}

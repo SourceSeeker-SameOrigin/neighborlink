@@ -83,6 +83,10 @@
     "read": false,
     "write": false
   },
+  "couponIssueBatches": {
+    "read": false,
+    "write": false
+  },
   "coupons": {
     "read": false,
     "write": false

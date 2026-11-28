@@ -1,0 +1,112 @@
+{
+  "scope": "Isolated actual frontend handlers and template assertions only, no live cloud/UI/business acceptance",
+  "timezone": "host",
+  "total": 26,
+  "passed": 26,
+  "results": [
+    {
+      "name": "QA09 北京日期 2026-11-09T15:59:59Z",
+      "status": "PASS"
+    },
+    {
+      "name": "QA09 北京日期 2026-11-09T16:00:00Z",
+      "status": "PASS"
+    },
+    {
+      "name": "QA09 北京日期 2026-12-31T16:00:00Z",
+      "status": "PASS"
+    },
+    {
+      "name": "QA09 北京日期 2028-02-28T16:00:00Z",
+      "status": "PASS"
+    },
+    {
+      "name": "QA09 跨月/年/闰日加天不改原时间戳",
+      "status": "PASS"
+    },
+    {
+      "name": "QA09 三类发布初始化 ask",
+      "status": "PASS"
+    },
+    {
+      "name": "QA09 三类发布初始化 task",
+      "status": "PASS"
+    },
+    {
+      "name": "QA09 三类发布初始化 carry",
+      "status": "PASS"
+    },
+    {
+      "name": "QA10 协议兼容小区计价并明确继续服务另行确认",
+      "status": "PASS"
+    },
+    {
+      "name": "QA11 业务状态映射覆盖既有枚举且仅含中文展示",
+      "status": "PASS"
+    },
+    {
+      "name": "QA11 商家状态原值保留 merchant/apply/apply",
+      "status": "PASS"
+    },
+    {
+      "name": "QA11 商家状态原值保留 merchant/workbench/workbench",
+      "status": "PASS"
+    },
+    {
+      "name": "QA11 商家服务0分/1分/12345分展示元，存储金额原值保留",
+      "status": "PASS"
+    },
+    {
+      "name": "QA11 管理员服务查看转元且不扩大审核条件",
+      "status": "PASS"
+    },
+    {
+      "name": "QA11 活动/报名原状态与操作值不变",
+      "status": "PASS"
+    },
+    {
+      "name": "QA11 三个表单的全部输入项都有常驻中文标签",
+      "status": "PASS"
+    },
+    {
+      "name": "QA12 审计成功/失败/重试状态准确",
+      "status": "PASS"
+    },
+    {
+      "name": "QA12 迟到成功响应不覆盖最新失败",
+      "status": "PASS"
+    },
+    {
+      "name": "QA13 缺少日期阻止创建 startDate",
+      "status": "PASS"
+    },
+    {
+      "name": "QA13 缺少日期阻止创建 endDate",
+      "status": "PASS"
+    },
+    {
+      "name": "QA13 缺少日期阻止创建 deadlineDate",
+      "status": "PASS"
+    },
+    {
+      "name": "QA13 无效日历输入拒绝 {\"startDate\":\"2027-02-29\"}",
+      "status": "PASS"
+    },
+    {
+      "name": "QA13 无效日历输入拒绝 {\"endDate\":\"2028-02-30\"}",
+      "status": "PASS"
+    },
+    {
+      "name": "QA13 无效日历输入拒绝 {\"deadlineTime\":\"24:01\"}",
+      "status": "PASS"
+    },
+    {
+      "name": "QA11/13 选定日期提交原北京时间和金额参数 interest",
+      "status": "PASS"
+    },
+    {
+      "name": "QA11/13 选定日期提交原北京时间和金额参数 charity",
+      "status": "PASS"
+    }
+  ]
+}

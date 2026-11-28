@@ -1,0 +1,151 @@
+{
+  "date": "2026-11-08",
+  "timezone": "Asia/Shanghai",
+  "localCommit": "e7bb402",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "context": "real mini-program in WeChat devtools, unbound resident",
+  "scope": "read-only navigation and queries; no application, binding, role, purchase, payment, payout or cloud config mutation",
+  "ui": [
+    {
+      "page": "pages/me/me",
+      "loading": false,
+      "error": "",
+      "visible": "尚未选择小区、尚未绑定手机号、成为邻居帮手；无管理入口"
+    },
+    {
+      "page": "provider/apply/apply",
+      "loading": false,
+      "error": "",
+      "communityCount": 1,
+      "hasProvider": false,
+      "agreed": false
+    },
+    {
+      "page": "provider/workbench/workbench",
+      "loading": false,
+      "error": "",
+      "hasProvider": false,
+      "tasks": 0
+    },
+    {
+      "page": "pages/orders/list",
+      "group": "ongoing",
+      "loading": false,
+      "error": "",
+      "count": 0,
+      "hasMore": false
+    },
+    {
+      "entry": "pages/membership/index",
+      "resultTopRoute": "pages/bind/bind"
+    }
+  ],
+  "cloudChecks": [
+    {
+      "case": 1,
+      "name": "order",
+      "action": "detail",
+      "input": "missing orderId",
+      "ok": false,
+      "code": "E_INVALID_PARAM"
+    },
+    {
+      "case": 2,
+      "name": "order",
+      "action": "listMine",
+      "input": "invalid group",
+      "ok": false,
+      "code": "E_INVALID_PARAM"
+    },
+    {
+      "case": 3,
+      "name": "order",
+      "action": "listMine",
+      "input": "offset -1",
+      "ok": false,
+      "code": "E_INVALID_PARAM"
+    },
+    {
+      "case": 4,
+      "name": "provider",
+      "action": "hall",
+      "input": "no approved provider",
+      "ok": false,
+      "code": "E_FORBIDDEN"
+    },
+    {
+      "case": 5,
+      "name": "provider",
+      "action": "myTasks",
+      "input": "no approved provider",
+      "ok": false,
+      "code": "E_FORBIDDEN"
+    },
+    {
+      "case": 6,
+      "name": "membership",
+      "action": "mine",
+      "input": "current user",
+      "ok": true,
+      "code": "",
+      "count": 0
+    },
+    {
+      "case": 7,
+      "name": "payout",
+      "action": "list",
+      "input": "current user",
+      "ok": true,
+      "code": "",
+      "count": 0,
+      "limitation": "feature-off read exception pending D03"
+    },
+    {
+      "case": 8,
+      "name": "payout",
+      "action": "list",
+      "input": "offset -1",
+      "ok": false,
+      "code": "E_INVALID_PARAM"
+    },
+    {
+      "case": 9,
+      "name": "catalog",
+      "action": "getCommunity",
+      "input": "missing communityId",
+      "ok": false,
+      "code": "E_INVALID_PARAM"
+    },
+    {
+      "case": 10,
+      "name": "pet",
+      "action": "listVisits",
+      "input": "missing orderId",
+      "ok": false,
+      "code": "E_INVALID_PARAM"
+    }
+  ],
+  "warnings": [
+    "自动热重载",
+    "getSystemInfo HarmonyOS API提示",
+    "灰度基础库3.18.0",
+    "SharedArrayBuffer deprecation",
+    "WAWorker reportRealtimeAction:fail not support"
+  ],
+  "packageAnalysis": {
+    "reportedTotal": "8KB",
+    "reportedMain": "6KB",
+    "reportedFiles": 106,
+    "reportedSubpackages": [
+      "admin",
+      "provider"
+    ],
+    "runtimeSubpackageCount": 14,
+    "refreshed": true,
+    "recompiledThenRefreshed": true,
+    "acceptedAsPackageSizeEvidence": false,
+    "decision": "D37"
+  },
+  "endLimitation": "Mac locked during final additional console check; no result recorded for that check",
+  "browser": "local browser disabled in Work settings"
+}

@@ -47,8 +47,11 @@ exports.main = async (event = {}) => {
   await run('refundRecovery', () => ({ 'refunds.status': command.in(['processing', 'failed']) }), async order => {
     for (const refund of order.refunds.filter(item => item.status !== 'success' && order.payment.mode === 'wechat')) {
       try {
-        if (refund.status === 'processing' && !refund.dispatchedAt) await payments.dispatchRefund(order, refund);
-        else await payments.setRefundResult(order._id, refund, await payments.verifyRefund(order, refund));
+        const retryEventRefund = order.kind === 'event_signup' && refund.key === 'event_auto_refund_' + order._id &&
+          refund.status === 'failed';
+        if (!refund.dispatchedAt && (refund.status === 'processing' || retryEventRefund)) {
+          await payments.dispatchRefund(order, refund);
+        } else await payments.setRefundResult(order._id, refund, await payments.verifyRefund(order, refund));
       } catch (error) { console.error('退款核对待重试', order._id, error.code || 'E_PAYMENT'); }
     }
   });

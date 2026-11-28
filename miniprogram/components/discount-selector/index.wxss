@@ -1,1 +1,2 @@
 .discount{margin-top:20rpx}.label{display:block;margin-bottom:12rpx}
+.discount{padding:24rpx;border:1rpx solid #E3E7DB;border-radius:22rpx;background:#FFF;color:#243B2D;font-size:32rpx;line-height:1.6}.label{font-weight:600;color:#334A38}

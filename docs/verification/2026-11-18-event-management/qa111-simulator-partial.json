@@ -1,0 +1,294 @@
+{
+  "scope": "Actual simulator clicks with synthetic scanCode; 375 and 390 screenshot confirmed; 320 partial, 430 blocked at tool dialog",
+  "samples": [
+    {
+      "width": 320,
+      "records": [
+        {
+          "state": "initial",
+          "rect": {
+            "left": 21,
+            "right": 299,
+            "top": 1434,
+            "bottom": 1471,
+            "width": 278,
+            "height": 37,
+            "disabled": false,
+            "loading": false
+          }
+        },
+        {
+          "state": "scanning",
+          "rect": {
+            "left": 21,
+            "right": 299,
+            "top": 429,
+            "bottom": 466,
+            "width": 278,
+            "height": 37,
+            "disabled": true,
+            "loading": true
+          },
+          "scanning": true
+        },
+        {
+          "state": "settled",
+          "count": 1,
+          "rect": {
+            "left": 21,
+            "right": 299,
+            "top": 429,
+            "bottom": 466,
+            "width": 278,
+            "height": 37,
+            "disabled": false,
+            "loading": false
+          },
+          "error": "扫码失败（本地合成）",
+          "scanCode": "",
+          "scanning": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "records": [
+        {
+          "state": "initial",
+          "rect": {
+            "left": 25,
+            "right": 350,
+            "top": 1697,
+            "bottom": 1741,
+            "width": 325,
+            "height": 44,
+            "disabled": false,
+            "loading": false
+          }
+        },
+        {
+          "state": "scanning",
+          "rect": {
+            "left": 25,
+            "right": 350,
+            "top": 514,
+            "bottom": 558,
+            "width": 325,
+            "height": 44,
+            "disabled": true,
+            "loading": true
+          },
+          "scanning": true
+        },
+        {
+          "state": "settled",
+          "count": 1,
+          "rect": {
+            "left": 25,
+            "right": 350,
+            "top": 514,
+            "bottom": 558,
+            "width": 325,
+            "height": 44,
+            "disabled": false,
+            "loading": false
+          },
+          "error": "扫码失败（本地合成）",
+          "scanCode": "",
+          "scanning": false
+        },
+        {
+          "state": "scanning",
+          "rect": {
+            "left": 25,
+            "right": 350,
+            "top": 514,
+            "bottom": 558,
+            "width": 325,
+            "height": 44,
+            "disabled": true,
+            "loading": true
+          },
+          "scanning": true
+        },
+        {
+          "state": "settled",
+          "count": 2,
+          "rect": {
+            "left": 25,
+            "right": 350,
+            "top": 514,
+            "bottom": 558,
+            "width": 325,
+            "height": 44,
+            "disabled": false,
+            "loading": false
+          },
+          "error": "",
+          "scanCode": "",
+          "scanning": false
+        },
+        {
+          "state": "scanning",
+          "rect": {
+            "left": 25,
+            "right": 350,
+            "top": 514,
+            "bottom": 558,
+            "width": 325,
+            "height": 44,
+            "disabled": true,
+            "loading": true
+          },
+          "scanning": true
+        },
+        {
+          "state": "settled",
+          "count": 3,
+          "rect": {
+            "left": 25,
+            "right": 350,
+            "top": 514,
+            "bottom": 558,
+            "width": 325,
+            "height": 44,
+            "disabled": false,
+            "loading": false
+          },
+          "error": "",
+          "scanCode": "qa111-synthetic-code",
+          "scanning": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "records": [
+        {
+          "state": "initial",
+          "rect": {
+            "left": 25,
+            "right": 365,
+            "top": 1705,
+            "bottom": 1750,
+            "width": 340,
+            "height": 45,
+            "disabled": false,
+            "loading": false
+          }
+        },
+        {
+          "state": "scanning",
+          "rect": {
+            "left": 25,
+            "right": 365,
+            "top": 629,
+            "bottom": 674,
+            "width": 340,
+            "height": 45,
+            "disabled": true,
+            "loading": true
+          },
+          "scanning": true
+        },
+        {
+          "state": "settled",
+          "count": 1,
+          "rect": {
+            "left": 25,
+            "right": 365,
+            "top": 629,
+            "bottom": 674,
+            "width": 340,
+            "height": 45,
+            "disabled": false,
+            "loading": false
+          },
+          "error": "扫码失败（本地合成）",
+          "scanCode": "",
+          "scanning": false
+        },
+        {
+          "state": "scanning",
+          "rect": {
+            "left": 25,
+            "right": 365,
+            "top": 629,
+            "bottom": 674,
+            "width": 340,
+            "height": 45,
+            "disabled": true,
+            "loading": true
+          },
+          "scanning": true
+        },
+        {
+          "state": "settled",
+          "count": 2,
+          "rect": {
+            "left": 25,
+            "right": 365,
+            "top": 629,
+            "bottom": 674,
+            "width": 340,
+            "height": 45,
+            "disabled": false,
+            "loading": false
+          },
+          "error": "",
+          "scanCode": "",
+          "scanning": false
+        },
+        {
+          "state": "scanning",
+          "rect": {
+            "left": 25,
+            "right": 365,
+            "top": 629,
+            "bottom": 674,
+            "width": 340,
+            "height": 45,
+            "disabled": true,
+            "loading": true
+          },
+          "scanning": true
+        },
+        {
+          "state": "settled",
+          "count": 3,
+          "rect": {
+            "left": 25,
+            "right": 365,
+            "top": 629,
+            "bottom": 674,
+            "width": 340,
+            "height": 45,
+            "disabled": false,
+            "loading": false
+          },
+          "error": "",
+          "scanCode": "qa111-synthetic-code",
+          "scanning": false
+        }
+      ]
+    },
+    {
+      "width": 430,
+      "records": [
+        {
+          "state": "initial",
+          "rect": {
+            "left": 27,
+            "right": 403,
+            "top": 1875,
+            "bottom": 1925,
+            "width": 376,
+            "height": 50,
+            "disabled": false,
+            "loading": false
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "3815804",
+  "method": "浏览器选包 SHA-256 与清单匹配，部署后从各函数下载代码包逐文件核对 SHA-256，并检查云端 SDK 版本。",
+  "functions": [
+    {
+      "function": "merchant",
+      "matched": 76,
+      "sdk": "4.0.2",
+      "source": "3815804",
+      "sha256": "4bc96fa4688b3b0f0e381ca93b47f62f0d95370c92bcfc80090f15350315b276"
+    },
+    {
+      "function": "order",
+      "matched": 76,
+      "sdk": "4.0.2",
+      "source": "3815804",
+      "sha256": "e2ccd7fdd3bcba60a45ee2a30078785a583b2217dba786a976c8cfca73dc9e28"
+    },
+    {
+      "function": "timer",
+      "matched": 76,
+      "sdk": "4.0.2",
+      "source": "3815804",
+      "sha256": "c6bd35d11f7c12e00cff621c58de428c9cf8d9ca1b8ecae868f3603005acbaf5"
+    }
+  ]
+}

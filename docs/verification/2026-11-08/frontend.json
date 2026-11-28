@@ -1,0 +1,187 @@
+{
+  "total": 44,
+  "passed": 41,
+  "failed": 3,
+  "scope": "offline VM with synthetic inputs; no real login/storage/cloud writes",
+  "results": [
+    {
+      "name": "scene valid building",
+      "status": "PASS"
+    },
+    {
+      "name": "scene valid referral",
+      "status": "PASS"
+    },
+    {
+      "name": "scene malformed percent",
+      "status": "PASS"
+    },
+    {
+      "name": "scene extra query",
+      "status": "PASS"
+    },
+    {
+      "name": "scene missing",
+      "status": "PASS"
+    },
+    {
+      "name": "api overlapping requests keep spinner until last completion",
+      "status": "PASS"
+    },
+    {
+      "name": "api network failure releases loading and permits retry",
+      "status": "PASS"
+    },
+    {
+      "name": "api malformed response fails E_INTERNAL without silent toast",
+      "status": "PASS"
+    },
+    {
+      "name": "api event.action cannot be replaced by data.action",
+      "status": "PASS"
+    },
+    {
+      "name": "api forbidden routes to home and still rejects",
+      "status": "PASS"
+    },
+    {
+      "name": "privacy absent rejects stale request",
+      "status": "PASS"
+    },
+    {
+      "name": "privacy detach rejects stale request",
+      "status": "PASS"
+    },
+    {
+      "name": "privacy replace rejects stale request",
+      "status": "PASS"
+    },
+    {
+      "name": "privacy acceptance resolves active request",
+      "status": "PASS"
+    },
+    {
+      "name": "privacy platform denial rejects authorize",
+      "status": "PASS"
+    },
+    {
+      "name": "bind denied phone code sends no API call",
+      "status": "PASS"
+    },
+    {
+      "name": "bind empty selection cannot save",
+      "status": "PASS"
+    },
+    {
+      "name": "bind newest building selection wins",
+      "status": "PASS"
+    },
+    {
+      "name": "bind network retry recovers loading and data",
+      "status": "PASS"
+    },
+    {
+      "name": "bind invalid scene falls back and removes cache",
+      "status": "PASS"
+    },
+    {
+      "name": "bind denied location preserves full community list",
+      "status": "PASS"
+    },
+    {
+      "name": "bind no communities ends loading with empty state",
+      "status": "PASS"
+    },
+    {
+      "name": "session concurrent login calls deduplicate",
+      "status": "PASS"
+    },
+    {
+      "name": "session failed login resets promise and retry works",
+      "status": "PASS"
+    },
+    {
+      "name": "home unbound user returns to bind without business requests",
+      "status": "PASS"
+    },
+    {
+      "name": "home repeated load does not duplicate recycle tile",
+      "status": "PASS"
+    },
+    {
+      "name": "order tabs ignore old group response",
+      "status": "PASS"
+    },
+    {
+      "name": "service unbound guard sends no quote",
+      "status": "PASS"
+    },
+    {
+      "name": "service quote stale success does not overwrite latest",
+      "status": "PASS"
+    },
+    {
+      "name": "service quote stale failure does not erase latest success",
+      "status": "PASS"
+    },
+    {
+      "name": "service quote failure clears old price",
+      "status": "PASS"
+    },
+    {
+      "name": "service missing quote cannot submit",
+      "status": "PASS"
+    },
+    {
+      "name": "service busy cannot submit twice",
+      "status": "PASS"
+    },
+    {
+      "name": "service hidden page ignores outstanding quote",
+      "status": "PASS"
+    },
+    {
+      "name": "draft rejects another user",
+      "status": "PASS"
+    },
+    {
+      "name": "draft expires after 24 hours",
+      "status": "PASS"
+    },
+    {
+      "name": "draft restores current user form",
+      "status": "PASS"
+    },
+    {
+      "name": "privacy denial prevents media selection or upload",
+      "status": "PASS"
+    },
+    {
+      "name": "photo upload failure clears loading",
+      "status": "PASS"
+    },
+    {
+      "name": "empty subscription templates skip prompt",
+      "status": "PASS"
+    },
+    {
+      "name": "subscription platform failure does not throw business error",
+      "status": "PASS"
+    },
+    {
+      "name": "DRAFT_SECURITY: pet lock password absent from local draft",
+      "status": "FAIL",
+      "actual": "synthetic password was persisted in local draft"
+    },
+    {
+      "name": "ADDRESS_RACE: current selected address matches community after reversed responses",
+      "status": "FAIL",
+      "actual": "'a' == 'b'"
+    },
+    {
+      "name": "ADDRESS_QUOTE: switching address invalidates outstanding previous quote immediately",
+      "status": "FAIL",
+      "actual": "previous address quote was rendered before new community loaded"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "scope": "isolated real page code, synthetic dependencies; no cloud writes",
+  "results": [
+    {
+      "id": "provider-photo-after-load-error",
+      "expectedUploads": 0,
+      "actualUploads": 1,
+      "path": "kyc/undefined",
+      "passed": false
+    },
+    {
+      "id": "provider-submit-with-stale-community-after-error",
+      "expectedApplyCalls": 0,
+      "actualApplyCalls": 1,
+      "passed": false
+    },
+    {
+      "id": "recycle-export-range-handoff",
+      "link": "/admin/exports/exports?type=recycle",
+      "expectedDates": [
+        "2025-02-01",
+        "2025-02-02"
+      ],
+      "actualDates": [
+        "2026-11-01",
+        "2026-11-11"
+      ],
+      "passed": false
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-09",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "sourceCommit": "fc2a313",
+  "identity": "real logged-in unbound resident without administrator or property role",
+  "execution": "WeChat DevTools Console wx.cloud.callFunction; native dashboard navigation, retry and back",
+  "results": [
+    {
+      "action": "dashboard",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    },
+    {
+      "action": "managementConfig",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    },
+    {
+      "action": "getFeatures",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    },
+    {
+      "action": "listOrders",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    },
+    {
+      "action": "listProviders",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    },
+    {
+      "action": "listSettlements",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    },
+    {
+      "action": "notificationTemplates",
+      "ok": false,
+      "code": "E_FORBIDDEN",
+      "message": "暂无权限执行此操作"
+    }
+  ],
+  "uiObserved": [
+    "Dashboard displays 无权查看管理看板; no management navigation or financial details rendered",
+    "Reload preserves permission denial; retry text vertically centered at current simulator size",
+    "Back returns to idle list with 请先绑定小区门牌 guidance"
+  ],
+  "consoleObservation": {
+    "errors": 0,
+    "warningsBefore": 13,
+    "warningsAfterDashboard": 14,
+    "warningsAfterBack": 15,
+    "allWarningsClassified": false
+  },
+  "notVerified": [
+    "Authorized administrator and property successful business flows",
+    "Real building/unit and operational configuration writes",
+    "Dashboard totals against real paid/refunded ledger",
+    "R07/R08 real cloud concurrency and conflict performance",
+    "All dashboard states, devices and complete UI acceptance"
+  ],
+  "writes": "No roles, configurations, business records, payments or feature changes"
+}

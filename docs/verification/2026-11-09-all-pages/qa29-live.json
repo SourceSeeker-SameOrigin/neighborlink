@@ -1,0 +1,23 @@
+{
+  "scope": "Actual frontend with existing cancelled activity; QA29 event now deployed and separately cloud-verified",
+  "route": "events/manage/manage",
+  "viewportWidth": 390,
+  "selectedCommunity": "demo_community",
+  "bindingPreserved": "junyue_international",
+  "ready": true,
+  "error": "",
+  "listCount": 1,
+  "status": "cancelled",
+  "checkinButtonVisible": false,
+  "cancellation": "queued 0/0",
+  "verification": "Refreshed actual page list, AX and screenshot show cancelled card without check-in button",
+  "console": {
+    "errors": 0,
+    "accumulatedWarnings": 17
+  },
+  "limitations": [
+    "Published success and other states covered locally only",
+    "Real cloud concurrency and resident check-in pending"
+  ],
+  "cloudEvidence": "qa29-cloud-live.json"
+}

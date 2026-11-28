@@ -1,0 +1,554 @@
+[
+  {
+    "route": "pages/index/index",
+    "title": "近邻帮",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "observed in developer simulator; user acceptance pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pages/bind/bind",
+    "title": "选择门牌",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "observed in developer simulator; user acceptance pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pages/service/express",
+    "title": "代取快递",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pages/service/trash",
+    "title": "代扔垃圾",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pages/service/buy",
+    "title": "周边代买",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pages/service/help",
+    "title": "帮把手",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pages/orders/list",
+    "title": "我的订单",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "observed in developer simulator; user acceptance pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pages/orders/detail",
+    "title": "订单详情",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pages/membership/index",
+    "title": "我的月卡",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pages/me/me",
+    "title": "我的",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "observed in developer simulator; user acceptance pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pages/legal/privacy",
+    "title": "隐私政策",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "observed in developer simulator; user acceptance pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pages/legal/terms",
+    "title": "服务协议",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "observed in developer simulator; user acceptance pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "provider/apply/apply",
+    "title": "服务员申请",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "provider/workbench/workbench",
+    "title": "服务员工作台",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "provider/hall/hall",
+    "title": "任务大厅",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "provider/task/task",
+    "title": "任务详情",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "provider/earnings/earnings",
+    "title": "我的收入",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/dashboard/dashboard",
+    "title": "管理看板",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/orders/orders",
+    "title": "订单管理",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/order/order",
+    "title": "订单处理",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/providers/providers",
+    "title": "服务员审核",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/community/community",
+    "title": "小区配置",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/posters/posters",
+    "title": "海报码",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/settlements/settlements",
+    "title": "结算",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/features/features",
+    "title": "功能开关",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/reports/reports",
+    "title": "内容举报审核",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/chat/chat",
+    "title": "聊天记录审计",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/coupons/coupons",
+    "title": "优惠券模板管理",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/content/content",
+    "title": "公告与广告管理",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/merchants/merchants",
+    "title": "商家入驻审核",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/recycle/recycle",
+    "title": "回收企业月度对账",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/exports/exports",
+    "title": "数据导出",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "admin/stations/stations",
+    "title": "驿站账号审核",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "chat/list/list",
+    "title": "站内消息",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "chat/room/room",
+    "title": "聊天",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "coupons/center/center",
+    "title": "优惠券中心",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "coupons/mine/mine",
+    "title": "我的优惠券",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "board/list/list",
+    "title": "需求广场",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "board/detail/detail",
+    "title": "求助详情",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "board/create/create",
+    "title": "发布需求",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "idle/list/list",
+    "title": "闲置交易",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "idle/detail/detail",
+    "title": "闲置详情",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "idle/create/create",
+    "title": "发布闲置",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "idle/mine/mine",
+    "title": "我的闲置",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "idle/sales/sales",
+    "title": "担保交易订单",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "idle/sale/sale",
+    "title": "卖家交付",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "idle/income/income",
+    "title": "卖家收入",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "events/list/list",
+    "title": "社区活动",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "events/detail/detail",
+    "title": "活动详情",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "events/manage/manage",
+    "title": "活动管理",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pet/order",
+    "title": "上门喂宠",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pet/work",
+    "title": "喂宠上门清单",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "pet/reports",
+    "title": "喂宠服务记录",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "merchant/apply/apply",
+    "title": "商家入驻",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "merchant/workbench/workbench",
+    "title": "商家工作台",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "merchant/services/services",
+    "title": "服务管理",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "merchant/orders/orders",
+    "title": "商家预约订单",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "shops/list/list",
+    "title": "社区商家",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "shops/detail/detail",
+    "title": "商家详情",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "shops/booking/booking",
+    "title": "提交预约",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "station/apply/apply",
+    "title": "申请驿站账号",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "station/workbench/workbench",
+    "title": "驿站工作台",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "station/create/create",
+    "title": "创建送上门批次",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "station/worker/worker",
+    "title": "驿站配送任务",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "station/batch/batch",
+    "title": "驿站批次",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "elder/meal",
+    "title": "送餐上门",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "elder/escort",
+    "title": "陪诊预约",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "recycle/order/order",
+    "title": "预约上门回收",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  },
+  {
+    "route": "notices/list/list",
+    "title": "小区公告",
+    "sourceStyleCovered": true,
+    "eventsPreserved": true,
+    "liveVisualStatus": "pending",
+    "businessAcceptance": "pending"
+  }
+]

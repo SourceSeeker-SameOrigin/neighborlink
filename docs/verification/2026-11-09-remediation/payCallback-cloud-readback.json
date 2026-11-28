@@ -1,0 +1,13 @@
+{
+  "function": "payCallback",
+  "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "method": "official CLI download; every authorized ZIP source file SHA-256 compared",
+  "selectedPackageBytes": 122644,
+  "selectedPackageSha256": "3e8114cca0e1f47b31059563e442d579cb0f4f18a6a25efd6d41cb77eff95bff",
+  "comparedFiles": 75,
+  "matches": 75,
+  "mismatches": [],
+  "invoked": false,
+  "runtimePaymentVerified": false
+}

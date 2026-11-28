@@ -1,14 +1,21 @@
 <view class="page">
-  <view class="page-title">{{itemId ? '编辑闲置' : '发布闲置'}}</view>
-  <view wx:if="{{error}}" class="error">{{error}}</view>
-  <input placeholder="商品名称" maxlength="80" value="{{title}}" data-field="title" bindinput="field"/>
-  <textarea placeholder="描述商品情况" maxlength="2000" value="{{desc}}" data-field="desc" bindinput="field"/>
-  <input placeholder="分类（选填）" maxlength="40" value="{{category}}" data-field="category" bindinput="field"/>
-  <input type="digit" placeholder="价格（元）" value="{{priceYuan}}" data-field="priceYuan" bindinput="field"/>
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/idle.png"/><view class="masthead-copy"><view class="page-title">{{itemId ? '编辑闲置' : '发布闲置'}}</view><view class="masthead-subtitle">闲置流转，物尽其用</view></view></view>
+  <view wx:if="{{error}}" class="error">{{error}}<button wx:if="{{loadError}}" bindtap="load" disabled="{{loading}}">重新加载</button></view>
+  <view wx:if="{{recoveryHint && !itemId}}" class="card muted">{{recoveryHint}}
+    <button wx:if="{{createdItemId}}" bindtap="openCreated">前往已有商品</button>
+    <button wx:if="{{lookupError}}" bindtap="load" disabled="{{loading}}">重试核对原商品</button>
+    <button wx:if="{{!lookupError}}" bindtap="startNewRequest" disabled="{{busy || loading}}">放弃原编号，开始新发布</button>
+  </view>
+  <view class="card">
+  <view class="field"><view class="label">商品名称</view><input class="ui-input" placeholder="商品名称" maxlength="80" value="{{title}}" data-field="title" bindinput="field"/></view>
+  <view class="field"><view class="label">商品情况</view><textarea class="ui-textarea" placeholder="描述商品情况" maxlength="2000" value="{{desc}}" data-field="desc" bindinput="field"/></view>
+  <view class="field"><view class="label">分类（选填）</view><input class="ui-input" placeholder="分类（选填）" maxlength="40" value="{{category}}" data-field="category" bindinput="field"/></view>
+  <view class="field"><view class="label">价格（元）</view><input class="ui-input" type="digit" placeholder="价格（元）" value="{{priceYuan}}" data-field="priceYuan" bindinput="field"/></view>
   <picker range="{{conditionOptions}}" value="{{conditionIndex}}" bindchange="condition"><view class="picker">成色：{{conditionOptions[conditionIndex]}}</view></picker>
   <label class="row"><switch checked="{{negotiable}}" data-field="negotiable" bindchange="switch"/>接受议价</label>
   <picker wx:if="{{escrowEnabled}}" range="{{tradeModes}}" value="{{tradeModeIndex}}" bindchange="tradeMode"><view class="picker">交易方式：{{tradeModes[tradeModeIndex]}}</view></picker>
   <picker wx:if="{{federationEnabled}}" range="{{scopeOptions}}" value="{{scope === 'federation' ? 1 : 0}}" bindchange="scope"><view class="picker">{{scope === 'federation' ? '联合社区可见' : '本小区可见'}}</view></picker>
-  <view wx:if="{{images.length}}" class="muted">已选 {{images.length}} 张图片</view><button bindtap="photos">添加图片（最多 9 张）</button>
-  <button type="primary" bindtap="submit" loading="{{busy}}" disabled="{{busy || loading}}">保存并发布</button>
+  </view>
+  <view wx:if="{{images.length}}" class="muted">已选 {{images.length}} 张图片</view><button bindtap="photos" disabled="{{!ready || loading || busy}}">添加图片（最多 9 张）</button>
+  <button type="primary" bindtap="submit" loading="{{busy}}" disabled="{{!ready || loading || busy || lookupError}}">{{createdItemId ? '前往已有商品' : recoveryHint ? '确认并用原编号发布' : '保存并发布'}}</button>
 </view>

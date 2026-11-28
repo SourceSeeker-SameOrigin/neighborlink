@@ -41,8 +41,14 @@ function createServer(cloud) {
     ensure(isEnabled(name, settings, community), '该功能暂未开放', 'E_FEATURE_OFF');
     return { settings, community };
   }
+  async function featureEntry(name, actor, communityId = actor && actor.communityId) {
+    const result = await feature(name, communityId);
+    ensure(communityId, '请先绑定小区门牌');
+    ensure(result.community && result.community.status === 'active', '小区暂不可用');
+    return result;
+  }
   // 每个业务入口均从微信上下文取身份，不采信 event.openid/roles。
-  function entry(actions, roles = null) {
+  function entry(actions, roles = null, mediaDomain = null) {
     return wrap(async (event = {}) => {
       ensure(event && typeof event === 'object' && !Array.isArray(event), '请求格式不正确');
       if (typeof event.action !== 'string' || !Object.prototype.hasOwnProperty.call(actions, event.action)) {
@@ -51,10 +57,12 @@ function createServer(cloud) {
       const id = openid();
       const actor = roles ? await user(id) : null;
       if (roles) requireRole(actor, roles);
-      return actions[event.action](event, { openid: id, user: actor });
+      const result = await actions[event.action](event, { openid: id, user: actor });
+      return mediaDomain ? require('./mediaAccess').decorateMedia(cloud,
+        { get, one }, mediaDomain, event.action, event, result) : result;
     });
   }
-  return { db, command, one, get, all, openid, user, config, feature, entry };
+  return { db, command, one, get, all, openid, user, config, feature, featureEntry, entry };
 }
 
 module.exports = { createServer };

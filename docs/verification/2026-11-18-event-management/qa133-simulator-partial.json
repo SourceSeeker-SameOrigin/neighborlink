@@ -1,0 +1,90 @@
+{
+  "date": "2026-11-25",
+  "sourceCommit": "b01b64c",
+  "page": "station/create/create",
+  "fixtureSourceMatches": true,
+  "fixtureTemplateMatches": true,
+  "touristOnly": true,
+  "widthResults": [
+    {
+      "width": 320,
+      "lookupFailureVisible": true,
+      "readonlyRetryFoundOriginal": true,
+      "foundResultScreenshotConfirmed": true,
+      "confirmFormVisible": true,
+      "confirmSubmissionVerified": false,
+      "note": "Lower submit button was not visually reached; scroll returned noWindowsAvailable; no full-width completion claim."
+    },
+    {
+      "width": 375,
+      "verified": false,
+      "note": "On 2026-11-25 a normal CLI close/open and compile restored a matching 375-width lookup-failure screenshot and accessibility tree: synthetic query error, read-only retry, no create submission. Prior confirm/done screenshots remain recorded. The touristappid dialog remained after AX click and Return; coordinate click returned noWindowsAvailable. No further interaction behind the dialog was credited. Normal scroll acceptance remains pending.",
+      "readonlyRetryFoundOriginalAx": true,
+      "confirmOriginalInputClickedAx": true,
+      "lostCreateResponseRecoveredOriginalAx": true,
+      "screenshotsMatchedStates": false,
+      "confirmOriginalInputClicked": true,
+      "lostCreateResponseRecoveredOriginal": true,
+      "confirmFormScreenshotConfirmed": true,
+      "recoveredResultScreenshotConfirmed": true,
+      "lookupFailureVisible": true,
+      "lookupFailureScreenshotConfirmed": true
+    },
+    {
+      "width": 390,
+      "readonlyRetryFoundOriginal": true,
+      "confirmOriginalInputClicked": true,
+      "lostCreateResponseRecoveredOriginal": true,
+      "screenshotsMatchedStates": true
+    },
+    {
+      "width": 430,
+      "readonlyRetryFoundOriginal": true,
+      "confirmOriginalInputClicked": true,
+      "lostCreateResponseRecoveredOriginal": true,
+      "screenshotsMatchedStates": true
+    }
+  ],
+  "fullFourWidthAcceptance": false,
+  "normalScrollVerified": false,
+  "nativeOrLiveBusinessVerified": false,
+  "realCloudWrites": 0,
+  "syntheticRegressions": {
+    "creation": 24,
+    "recovery": 20,
+    "fail": 0
+  },
+  "jest": {
+    "suites": 55,
+    "tests": 652,
+    "fail": 0
+  },
+  "remaining": [
+    "320 lower submit reachability and retry flow",
+    "375 normal scrolling and fresh retry interaction after lookup failure",
+    "real account/device acceptance under separate scope"
+  ],
+  "latestRecheck": {
+    "date": "2026-11-25",
+    "sourceCommit": "1ace196",
+    "creationPass": 24,
+    "recoveryPass": 20,
+    "syntheticFailures": 0,
+    "qa137": {
+      "pass": 74,
+      "fail": 0,
+      "approvedForFix": true,
+      "cloudDeploymentAuthorized": false
+    },
+    "realCloudWrites": 0
+  },
+  "latestVisualRecheck": {
+    "date": "2026-11-25",
+    "sourceCommit": "13850d9",
+    "width": 375,
+    "lookupFailureScreenshotMatched": true,
+    "nativeDialogBlockedFurtherClicks": true,
+    "reportedLocked": false,
+    "realCloudWrites": 0
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "scope": "Offline page handlers, synthetic API/payment/navigation; not live UI acceptance",
+  "passed": 21,
+  "total": 28,
+  "cases": [
+    {
+      "name": "express: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "express: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "express: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "express: failed detail navigation must not create a new order on retry",
+      "passed": false,
+      "error": "navigation failure generated a new create request ID\n\n2 !== 1\n"
+    },
+    {
+      "name": "trash: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "trash: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "trash: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "trash: failed detail navigation must not create a new order on retry",
+      "passed": false,
+      "error": "navigation failure generated a new create request ID\n\n2 !== 1\n"
+    },
+    {
+      "name": "buy: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "buy: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "buy: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "buy: failed detail navigation must not create a new order on retry",
+      "passed": false,
+      "error": "navigation failure generated a new create request ID\n\n2 !== 1\n"
+    },
+    {
+      "name": "help: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "help: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "help: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "help: failed detail navigation must not create a new order on retry",
+      "passed": false,
+      "error": "navigation failure generated a new create request ID\n\n2 !== 1\n"
+    },
+    {
+      "name": "meal: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "meal: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "meal: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "meal: failed detail navigation must not create a new order on retry",
+      "passed": false,
+      "error": "navigation failure generated a new create request ID\n\n2 !== 1\n"
+    },
+    {
+      "name": "escort: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "escort: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "escort: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "escort: failed detail navigation must not create a new order on retry",
+      "passed": false,
+      "error": "navigation failure generated a new create request ID\n\n2 !== 1\n"
+    },
+    {
+      "name": "pet: double tap while create is pending submits once",
+      "passed": true
+    },
+    {
+      "name": "pet: uncertain network result reuses request ID for identical retry",
+      "passed": true
+    },
+    {
+      "name": "pet: payment failure redirects to existing order without a second create",
+      "passed": true
+    },
+    {
+      "name": "pet: failed detail navigation must not create a new order on retry",
+      "passed": false,
+      "error": "navigation failure generated a new create request ID\n\n2 !== 1\n"
+    }
+  ]
+}

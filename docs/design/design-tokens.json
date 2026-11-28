@@ -1,0 +1,18 @@
+{
+  "background": "#F7F6F1",
+  "surface": "#FFFFFF",
+  "primary": "#1F7A5C",
+  "heading": "#184F38",
+  "text": "#202A23",
+  "secondaryText": "#687466",
+  "serviceSurface": "#EDF2E6",
+  "profileSurface": "#E4F0DF",
+  "membershipSurface": "#FFF1D6",
+  "border": "#E3E7DB",
+  "errorText": "#9C3E2F",
+  "errorSurface": "#FFF0E9",
+  "bodyRpx": 32,
+  "minimumControlRpx": 88,
+  "cardRadiusRpx": 20,
+  "pageInsetRpx": 24
+}

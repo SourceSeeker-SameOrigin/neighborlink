@@ -1,0 +1,218 @@
+{
+  "width": 430,
+  "writes": [
+    {
+      "mode": "lost"
+    },
+    {
+      "mode": "not-sent"
+    },
+    {
+      "mode": "not-sent"
+    }
+  ],
+  "records": [
+    {
+      "mode": "lost",
+      "status": "in_service",
+      "ready": true,
+      "busy": false,
+      "loading": false,
+      "error": "",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    },
+    {
+      "mode": "lost",
+      "status": "in_service",
+      "ready": true,
+      "busy": true,
+      "loading": false,
+      "error": "",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    },
+    {
+      "mode": "lost",
+      "ready": false,
+      "busy": false,
+      "loading": false,
+      "error": "提交结果待核对，请重试读取。合成核对失败",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    },
+    {
+      "mode": "lost",
+      "ready": false,
+      "busy": false,
+      "loading": false,
+      "error": "提交结果待核对，请重试读取。合成核对失败",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    },
+    {
+      "mode": "lost",
+      "status": "delivered",
+      "ready": true,
+      "busy": false,
+      "loading": false,
+      "error": "",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    },
+    {
+      "mode": "not-sent",
+      "status": "in_service",
+      "ready": true,
+      "busy": false,
+      "loading": false,
+      "error": "",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    },
+    {
+      "mode": "not-sent",
+      "status": "in_service",
+      "ready": true,
+      "busy": true,
+      "loading": false,
+      "error": "",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    },
+    {
+      "mode": "not-sent",
+      "status": "in_service",
+      "ready": true,
+      "busy": false,
+      "loading": false,
+      "error": "合成请求未送达；已核对任务尚未完成，请检查草稿后重试提交",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    },
+    {
+      "mode": "not-sent",
+      "status": "in_service",
+      "ready": true,
+      "busy": false,
+      "loading": false,
+      "error": "合成请求未送达；已核对任务尚未完成，请检查草稿后重试提交",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    },
+    {
+      "mode": "not-sent",
+      "status": "in_service",
+      "ready": true,
+      "busy": true,
+      "loading": false,
+      "error": "",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    },
+    {
+      "mode": "not-sent",
+      "status": "delivered",
+      "ready": true,
+      "busy": false,
+      "loading": false,
+      "error": "",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    },
+    {
+      "mode": "not-sent",
+      "status": "delivered",
+      "ready": true,
+      "busy": false,
+      "loading": false,
+      "error": "",
+      "notes": "本地保留草稿",
+      "counts": {
+        "windows": 1,
+        "utilities": 1,
+        "leakMold": 1,
+        "ventilation": 1,
+        "mail": 1,
+        "photos": 1
+      }
+    }
+  ]
+}

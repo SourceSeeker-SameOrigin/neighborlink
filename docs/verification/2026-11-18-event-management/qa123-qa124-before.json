@@ -1,0 +1,110 @@
+{
+  "scope": "actual pages; synthetic identities and intercepted writes; no live duty or acceptance",
+  "pass": 3,
+  "fail": 9,
+  "results": [
+    {
+      "name": "workbench-normal-load",
+      "pass": true,
+      "evidence": {
+        "provider": "provider-a",
+        "tasks": 1
+      }
+    },
+    {
+      "name": "workbench-rejected-refresh-clears-previous-data",
+      "pass": false,
+      "evidence": {
+        "provider": "provider-a",
+        "tasks": 1,
+        "error": "synthetic forbidden"
+      },
+      "error": "{\n  _id: 'provider-a',\n  onDuty: true,\n  status: 'approved'\n} == null"
+    },
+    {
+      "name": "workbench-latest-response-wins",
+      "pass": false,
+      "evidence": {
+        "provider": "old-provider"
+      },
+      "error": "'old-provider' == 'new-provider'"
+    },
+    {
+      "name": "workbench-late-read-onHide",
+      "pass": false,
+      "evidence": {
+        "updates": 3
+      },
+      "error": "3 == 0"
+    },
+    {
+      "name": "workbench-late-read-onUnload",
+      "pass": false,
+      "evidence": {
+        "updates": 3
+      },
+      "error": "3 == 0"
+    },
+    {
+      "name": "workbench-duty-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "provider-a"
+      }
+    },
+    {
+      "name": "workbench-duty-changed-user",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "provider-b"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "workbench-duty-hidden",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "currentUser": "provider-a"
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "hall-accept-same-page",
+      "pass": true,
+      "evidence": {
+        "writes": 1,
+        "navigation": 1
+      }
+    },
+    {
+      "name": "hall-accept-changed-user",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "navigation": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "hall-accept-hidden",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "navigation": 1
+      },
+      "error": "1 == 0"
+    },
+    {
+      "name": "hall-accept-read-failed",
+      "pass": false,
+      "evidence": {
+        "writes": 1,
+        "navigation": 1
+      },
+      "error": "1 == 0"
+    }
+  ]
+}

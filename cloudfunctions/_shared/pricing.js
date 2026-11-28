@@ -64,11 +64,10 @@ function quote(input) {
     goodsCap = integer(detail.goodsCap, '商品预付金额', min, max);
     listPrice = price(config.serviceFee, '代买服务费');
   } else {
-    const maxBlocks = integer(config.maxBlocks, '最多时长块数', 1, 8, 'E_CONFIG');
-    integer(detail.blocks, '时长块数', 1, maxBlocks);
+    const terms = require('./helpPricing').helpTerms(config, detail);
     ensure(['carry', 'elder', 'other'].includes(detail.category), '帮把手服务类别不正确');
     text(detail.desc, '服务描述', 200);
-    listPrice = price(config.per15min, '每十五分钟价格') * detail.blocks;
+    listPrice = terms.billingMode === 'per_visit' ? config.perVisit : price(config.per15min, '每十五分钟价格') * terms.blocks;
   }
   price(listPrice, '服务总价');
   price(listPrice + goodsCap, '支付总额');

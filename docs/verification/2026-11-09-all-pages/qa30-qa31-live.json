@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-10",
+  "scope": "QA30模拟器对照和QA31官方预览；未执行真实业务写入",
+  "qa30": {
+    "decision": "用户A：先真机与模拟器对照，再决定代码修改",
+    "rootCause": "未知",
+    "observations": [
+      {
+        "entry": "provider/task缺编号返回工作台后redirectTo pet/work",
+        "result": "曾出现喂宠标题下空白；视觉页面pet/work、逻辑当前页provider/workbench/workbench不一致"
+      },
+      {
+        "entry": "切回首页再navigateTo pet/work",
+        "result": "缺少订单编号提示恢复，实际返回工作台显示未提交服务员申请"
+      },
+      {
+        "entry": "专用编译模式直接启动pet/work，query为空",
+        "result": "2026-11-10 10:07模拟器显示缺少订单编号、说明及返回按钮；截图核对，无业务操作"
+      }
+    ],
+    "phone": "用户反馈：iPhone 16 Pro Max首次扫码显示缺少订单编号，点击前往服务员工作台显示未提交服务员申请；退出后再次扫码仍正常显示缺少订单编号，未反馈空白。",
+    "localMode": "2026-11-10本轮已通过界面恢复普通编译；专用诊断配置仅本地保留，未入Git",
+    "businessCodeChanged": false,
+    "phoneChecks": {
+      "source": "用户对话反馈，2026-11-10；非代理直接观察手机",
+      "initialMissingId": "通过",
+      "workbenchUnapplied": "通过",
+      "repeatScanBlank": "用户反馈再次扫码正常，本次未复现空白",
+      "deviceModel": "iPhone 16 Pro Max",
+      "topNavigation": "用户看到房子图标、无返回箭头；直接启动页面未有上一页，页面内工作台入口已实点成功"
+    },
+    "conclusion": "本轮无编号入口真机三步对照通过；此前模拟器导航空白根因仍未知，不标已修复，不代表有效订单喂宠业务验收完成"
+  },
+  "qa31": {
+    "decision": "用户A：采用28字文案",
+    "beforeLength": 43,
+    "platformError": "80058 scope.userLocation exceeds 30",
+    "after": "用于附近小区排序、小区位置设置及服务中向订单住户共享位置",
+    "afterLength": 28,
+    "preview": {
+      "result": "官方CLI输出preview成功，二维码图片已生成并查看",
+      "time": "2026-11-10 10:12 Asia/Shanghai",
+      "size": {
+        "total": 1051549,
+        "packages": [
+          {
+            "name": "TOTAL",
+            "size": 1051549
+          },
+          {
+            "name": "main",
+            "size": 681861
+          },
+          {
+            "name": "/admin/",
+            "size": 148136
+          },
+          {
+            "name": "/board/",
+            "size": 24773
+          },
+          {
+            "name": "/chat/",
+            "size": 11868
+          },
+          {
+            "name": "/coupons/",
+            "size": 6365
+          },
+          {
+            "name": "/elder/",
+            "size": 5980
+          },
+          {
+            "name": "/events/",
+            "size": 23695
+          },
+          {
+            "name": "/idle/",
+            "size": 36232
+          },
+          {
+            "name": "/merchant/",
+            "size": 19457
+          },
+          {
+            "name": "/notices/",
+            "size": 2399
+          },
+          {
+            "name": "/pet/",
+            "size": 12525
+          },
+          {
+            "name": "/provider/",
+            "size": 39824
+          },
+          {
+            "name": "/recycle/",
+            "size": 5873
+          },
+          {
+            "name": "/shops/",
+            "size": 11505
+          },
+          {
+            "name": "/station/",
+            "size": 21056
+          }
+        ]
+      }
+    },
+    "tests": {
+      "suites": 52,
+      "passed": 614,
+      "failed": 0
+    }
+  },
+  "boundaries": [
+    "真机三步对照已有用户反馈；不是QA30根因已解决或完整喂宠业务通过",
+    "预览不等于正式上传发布或云函数更新",
+    "D05/D06暂停；timer不运行、不改角色/绑定/业务开关；不合并main"
+  ],
+  "toolIssue": "修复后CLI预览成功；10:08旧UI错误弹窗仍留在原窗口，关闭时点击返回noWindowsAvailable。旧弹窗不是10:12新预览结果。"
+}

@@ -2,12 +2,16 @@ const api = require('./api');
 
 const KEY = 'subscriptionReminderCount';
 
-async function request(keys) {
+async function request(keys, options = {}) {
+  const active = () => typeof options.isActive !== 'function' || options.isActive();
   try {
-    const ids = await api.call('order', 'subscriptionTemplates', {}, { loading: false, silent: true });
+    if (!active()) return 0;
+    const ids = await api.call('order', 'subscriptionTemplates', {}, { loading: false, silent: true, isActive: active });
+    if (!active()) return 0;
     const templates = [...new Set(keys.map(key => ids[key]).filter(Boolean))];
     if (!templates.length || typeof wx.requestSubscribeMessage !== 'function') return 0;
     const result = await new Promise((resolve, reject) => wx.requestSubscribeMessage({ tmplIds: templates, success: resolve, fail: reject }));
+    if (!active()) return 0;
     const accepted = templates.filter(id => result[id] === 'accept').length;
     const count = Number(wx.getStorageSync(KEY) || 0) + accepted;
     wx.setStorageSync(KEY, count);

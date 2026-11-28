@@ -1,36 +1,106 @@
-const api = require('../../utils/api');
+const validRange = require('../../utils/date-range');
+const listAll = require('../../utils/list-all');
 Page({
-  data: { loading: true, busy: false, error: '', communities: [], communityIndex: 0, from: '', to: '' },
+  data: { loading: true, ready: false, busy: false, error: '', communities: [], communityIndex: 0, from: '', to: '' },
   async onLoad() {
     const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
-    this.setData({ from: today.slice(0, 8) + '01', to: today });
+    this._autoDate = today;
+    this._defaultRange = { from: today.slice(0, 8) + '01', to: today };
+    this.setData(this._defaultRange);
     await this.load();
   },
+  onShow() {
+    this._hidden = false;
+    const userId = getApp().globalData.user?._id;
+    if (userId && this._lastOwnerId && userId !== this._lastOwnerId)
+      this._dateManual = this._drafts?.[userId]?.manual === true;
+    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+    if (this._autoDate && this._autoDate !== today && !this._dateManual) {
+      this._defaultRange = { from: today.slice(0, 8) + '01', to: today };
+      this.setData(this._defaultRange);
+    }
+    this._autoDate = today;
+    if (this._seenShow) return this.load();
+    this._seenShow = true;
+  },
+  onHide() {
+    this._hidden = true;
+    this.sequence = (this.sequence || 0) + 1;
+    if (this._ownerId) {
+      this._drafts = this._drafts || {};
+      this._drafts[this._ownerId] = { from: this.data.from, to: this.data.to, manual: this._dateManual === true };
+      this._lastOwnerId = this._ownerId;
+    }
+    this._ownerId = null;
+    this._ownerCommunityId = null;
+    this.setData({ ready: false, loading: false, busy: false, communities: [], error: '' });
+  },
+  onUnload() { this.onHide(); this._closed = true; },
+  currentOwner() {
+    const user = getApp().globalData.user;
+    if (!this._closed && !this._hidden && this.data.ready && this._ownerId &&
+        user?._id === this._ownerId && user.communityId === this._ownerCommunityId && user.roles?.includes('admin')) return true;
+    const changed = this._ownerId && !this._hidden && !this._closed;
+    this._ownerId = null;
+    this._ownerCommunityId = null;
+    this.setData({ ready: false, communities: [], ...(changed ? { error: '登录身份已变化，请重新加载' } : {}) });
+    return false;
+  },
   async load() {
-    this.setData({ loading: true, error: '' });
+    if (this._hidden || this._closed) return;
+    const sequence = this.sequence = (this.sequence || 0) + 1;
+    const current = () => !this._hidden && !this._closed && sequence === this.sequence;
+    if (this._ownerId) {
+      this._drafts = this._drafts || {};
+      this._drafts[this._ownerId] = { from: this.data.from, to: this.data.to, manual: this._dateManual === true };
+    }
+    const previousOwner = this._ownerId || this._lastOwnerId;
+    this._ownerId = null;
+    this._ownerCommunityId = null;
+    this.setData({ loading: true, ready: false, communities: [], error: '' });
     try {
       const user = await getApp().ensureSession();
-      if (!user.roles.includes('admin')) throw new Error('只有运营管理员可以导出回收企业对账');
-      const result = await api.call('catalog', 'listCommunities', {}, { loading: false, silent: true });
-      this.setData({ communities: result.list, communityIndex: Math.max(0, result.list.findIndex(item => item._id === user.communityId)) });
-    } catch (error) { this.setData({ error: error.message || '加载失败' }); }
-    finally { this.setData({ loading: false }); }
+      if (!current()) return;
+      const sameIdentity = () => getApp().globalData.user?._id === user?._id &&
+        getApp().globalData.user?.communityId === user?.communityId;
+      if (!sameIdentity()) throw new Error('登录身份已变化，请重新加载');
+      if (!user.roles?.includes('admin') || !getApp().globalData.user?.roles?.includes('admin'))
+        throw new Error('只有运营管理员可以导出回收企业对账');
+      if (previousOwner && previousOwner !== user._id) {
+        const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+        this._defaultRange = { from: today.slice(0, 8) + '01', to: today };
+        const draft = this._drafts?.[user._id];
+        this._dateManual = draft?.manual === true;
+        this.setData(draft ? { from: draft.from, to: draft.to } : this._defaultRange);
+      }
+      const communities = await listAll('catalog', 'listCommunities', {},
+        { redirectOnForbidden: false, isActive: () => current() && sameIdentity() });
+      if (!current()) return;
+      if (!sameIdentity() || !getApp().globalData.user?.roles?.includes('admin'))
+        throw new Error('登录身份已变化，请重新加载');
+      this._ownerId = user._id;
+      this._ownerCommunityId = user.communityId;
+      this._lastOwnerId = user._id;
+      this.setData({ communities, ready: true, communityIndex: Math.max(0, communities.findIndex(item => item._id === user.communityId)) });
+    } catch (error) { if (current()) this.setData({ error: error.message || '加载失败' }); }
+    finally { if (current()) this.setData({ loading: false }); }
   },
-  input(event) { this.setData({ [event.currentTarget.dataset.field]: event.detail.value }); },
-  select(event) { this.setData({ communityIndex: Number(event.detail.value) }); },
-  async exportStatement() {
-    if (this.data.busy) return;
+  input(event) {
+    if (!this.currentOwner()) return;
+    const field = event.currentTarget.dataset.field;
+    if (field === 'from' || field === 'to') { this._dateManual = true; this.setData({ [field]: event.detail.value }); }
+  },
+  select(event) { if (this.currentOwner()) this.setData({ communityIndex: Number(event.detail.value) }); },
+  openExports() {
+    if (this.data.loading || this.data.busy || !this.currentOwner()) return;
+    const ownerId = this._ownerId;
     const community = this.data.communities[this.data.communityIndex];
     if (!community) { this.setData({ error: '请选择小区' }); return; }
-    this.setData({ busy: true, error: '' });
-    try {
-      const result = await api.call('admin', 'exportRecyclerStatement', { communityId: community._id,
-        from: this.data.from, to: this.data.to });
-      const file = await new Promise((resolve, reject) => wx.downloadFile({ url: result.tempFileURL,
-        success: response => response.statusCode === 200 ? resolve(response.tempFilePath) : reject(new Error('CSV 下载失败')), fail: reject }));
-      wx.openDocument({ filePath: file, fileType: 'csv', showMenu: true,
-        fail: () => this.setData({ error: `已生成 ${result.count} 条对账明细，金额 ${result.totalFen} 分；CSV 已下载，请用其他应用打开` }) });
-    } catch (error) { this.setData({ error: error.message || '对账导出失败' }); }
-    finally { this.setData({ busy: false }); }
+    if (!validRange(this.data.from, this.data.to)) { this.setData({ error: '请选择有效的对账日期范围' }); return; }
+    this.setData({ error: '' });
+    const query = Object.entries({ type: 'recycle', communityId: community._id, from: this.data.from, to: this.data.to })
+      .map(([key, value]) => key + '=' + encodeURIComponent(value)).join('&');
+    wx.navigateTo({ url: '/admin/exports/exports?' + query,
+      fail: () => { if (this._ownerId === ownerId && this.currentOwner()) this.setData({ error: '未能打开数据导出页，请重试' }); } });
   }
 });

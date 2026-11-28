@@ -1,0 +1,11 @@
+{
+  "function": "chat",
+  "sourceCommit": "fc2a3135ef784c4c4ecd718c70d5e33d3e4f6ecb",
+  "environment": "cloud1-d4gbpd8zx89564fb6",
+  "method": "official CLI download; every authorized ZIP source file SHA-256 compared",
+  "selectedPackageBytes": 122193,
+  "selectedPackageSha256": "899e1f2ea4cd8fa1fc3fac413e8cffc5ca346c0f248e15535530e6019d8a129b",
+  "comparedFiles": 75,
+  "matches": 75,
+  "mismatches": []
+}

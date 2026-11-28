@@ -1,1 +1,14 @@
-<view class="page"><view class="page-title">卖家收入</view><view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view><view class="card"><view>待结算：¥{{pending}}</view><view>可申请打款：¥{{available}}</view><view>已结算：¥{{settled}}</view></view><view wx:if="{{!payoutEnabled}}" class="notice">本小区使用管理员人工结算；请联系小区运营查看结算安排。</view><button wx:if="{{payoutEnabled}}" type="primary" bindtap="withdraw" disabled="{{busy || !canWithdraw}}" loading="{{busy}}">申请自动打款</button><view wx:if="{{payoutEnabled && !canWithdraw}}" class="muted">收入满 ¥10 且超过售后期后可申请。</view><view class="section-title">打款记录</view><view wx:for="{{payouts}}" wx:key="payoutId" class="card">¥{{item.amountText}} · {{item.stateText}}<view class="muted">{{item.timeText}}</view></view><view wx:if="{{loading}}" class="muted">正在加载…</view></view>
+<view class="page">
+  <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/idle.png"/><view class="masthead-copy"><view class="page-title">卖家收入</view><view class="masthead-subtitle">闲置流转，物尽其用</view></view></view>
+  <view wx:if="{{error}}" class="error">{{error}}<button bindtap="load">重试</button></view>
+  <view wx:if="{{loading}}" class="muted">正在加载…</view>
+  <block wx:if="{{ready && !loading}}">
+    <view class="card"><view>待结算：¥{{pending}}</view><view>可申请打款：¥{{available}}</view><view>已结算：¥{{settled}}</view></view>
+    <view wx:if="{{!payoutEnabled}}" class="notice">本小区使用管理员人工结算；请联系小区运营查看结算安排。</view>
+    <button wx:if="{{payoutEnabled}}" type="primary" bindtap="withdraw" disabled="{{busy || !canWithdraw}}" loading="{{busy}}">申请自动打款</button>
+    <view wx:if="{{payoutEnabled && !canWithdraw}}" class="muted">收入满 ¥10 且超过售后期后可申请。</view>
+    <view class="section-title">打款记录</view><view wx:for="{{payouts}}" wx:key="payoutId" class="card">¥{{item.amountText}} · {{item.stateText}}<view class="muted">{{item.timeText}}</view></view>
+    <view wx:if="{{payoutError}}" class="error">{{payoutError}}</view>
+    <button wx:if="{{payoutHasMore}}" bindtap="morePayouts" loading="{{payoutPaging}}" disabled="{{payoutPaging}}">{{payoutError ? '重试加载打款记录' : '加载更多打款记录'}}</button>
+  </block>
+</view>

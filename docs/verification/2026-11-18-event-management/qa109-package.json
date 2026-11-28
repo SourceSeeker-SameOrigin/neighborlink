@@ -1,0 +1,28 @@
+{
+  "sourceCommit": "7d94d5e0c9711887c385eb6803d3cad9daceb568",
+  "environmentId": "cloud1-d4gbpd8zx89564fb6",
+  "package": {
+    "name": "event",
+    "file": "/tmp/jinlin-deploy-7d94d5e/event.zip",
+    "files": 76,
+    "bytes": 129994,
+    "sha256": "22d0b19f5b9569743821be5ab6a7720e4c66fd050835ef96f67d4b72d0548a46",
+    "changedFiles": [
+      "index.js"
+    ]
+  },
+  "verification": {
+    "files": 76,
+    "changedFiles": [
+      "index.js"
+    ],
+    "recoveryPassed": 27,
+    "createRetryPassed": 12,
+    "sponsorPassed": 4,
+    "signupCheckinRegression": "passed"
+  },
+  "cloudDeployment": "deployed; downloaded 76/76 source files match; SDK 4.0.2",
+  "experienceVersion": "unchanged this turn",
+  "visualAcceptance": "390: manual lookup/retry, missing-result form, physical bottom scroll/confirm and recovery passed; 320/375/430 three other state screenshots remain pending. Prior four-width success-card and measurement evidence retained.",
+  "liveReadOnly": "passed: absent own request returns null; invalid request returns E_INVALID_PARAM"
+}

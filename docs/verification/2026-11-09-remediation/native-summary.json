@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-09",
+  "environment": "WeChat DevTools Stable 2.01.2510290 / base library 3.18.0",
+  "identity": "real logged-in unbound resident; no role changes",
+  "observed": [
+    "Home displays 19 extension/capability directory entries with pending binding state",
+    "My page displays provider, merchant, station, admin and property workbenches",
+    "Admin click shows qualification explanation, no management access",
+    "Property click shows qualification explanation, no management access",
+    "Unbound merchant entry navigates to bind page",
+    "Bind page reads demo building and unit; phone is manual input, not WeChat authorization",
+    "Community picker contains Junyue International",
+    "Location falls back to complete list when simulator has no community within 3 km",
+    "Back home button returns to home without forced rebinding loop",
+    "Workspace text changed from inherited center alignment to left alignment and visually rechecked"
+  ],
+  "notVerified": [
+    "Successful real binding and persisted address",
+    "Junyue building/unit maintenance with actual admin role",
+    "All 69 pages in all roles and data states",
+    "Physical device GPS, permissions and screen sizes",
+    "New admin/content/chat/merchant cloud entry behavior",
+    "R07 live concurrent purchase and card activation boundary"
+  ],
+  "transientErrors": "Editing/hot reload caused navigateBack/routeDone missing webview 103 errors; manual compile restarted successfully, current tested navigation worked. Do not treat this as a production root-cause proof.",
+  "writes": "No real phone/address, roles, payments, test UGC or operational config submitted"
+}

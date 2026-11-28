@@ -1,0 +1,17 @@
+{
+  "scope": "隔离合成回读失败，无真实云写入",
+  "firstAttempt": {
+    "error": "合成回读失败",
+    "buildingId": "",
+    "successfulWrites": 1
+  },
+  "afterRetry": {
+    "successfulWrites": 2,
+    "submittedIds": [
+      null,
+      null
+    ]
+  },
+  "confirmed": "写入已成功但回读失败时仍提示错误，返回的buildingId未保留，重试再次提交无ID新增",
+  "liveVerified": false
+}

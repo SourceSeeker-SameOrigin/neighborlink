@@ -1,0 +1,230 @@
+[
+  {
+    "role": "admin",
+    "failure": "none",
+    "firstCount": 1,
+    "firstStatuses": [
+      "published"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "published"
+    ],
+    "reviewRequested": [
+      false
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "admin",
+    "failure": "after-create",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "published"
+    ],
+    "reviewRequested": [
+      false
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "admin",
+    "failure": "before-publish",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "published"
+    ],
+    "reviewRequested": [
+      false
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "admin",
+    "failure": "after-publish",
+    "firstCount": 1,
+    "firstStatuses": [
+      "published"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "published"
+    ],
+    "reviewRequested": [
+      false
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "property",
+    "failure": "none",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "draft"
+    ],
+    "reviewRequested": [
+      true
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "property",
+    "failure": "after-create",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "draft"
+    ],
+    "reviewRequested": [
+      true
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "property",
+    "failure": "before-publish",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "draft"
+    ],
+    "reviewRequested": [
+      true
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "property",
+    "failure": "after-publish",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "draft"
+    ],
+    "reviewRequested": [
+      true
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "merchant",
+    "failure": "none",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "draft"
+    ],
+    "reviewRequested": [
+      true
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "merchant",
+    "failure": "after-create",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "draft"
+    ],
+    "reviewRequested": [
+      true
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "merchant",
+    "failure": "before-publish",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "draft"
+    ],
+    "reviewRequested": [
+      true
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  },
+  {
+    "role": "merchant",
+    "failure": "after-publish",
+    "firstCount": 1,
+    "firstStatuses": [
+      "draft"
+    ],
+    "finalCount": 1,
+    "finalStatuses": [
+      "draft"
+    ],
+    "reviewRequested": [
+      true
+    ],
+    "ledgerCount": 0,
+    "ledgerAmounts": [],
+    "createCalls": 1,
+    "error": ""
+  }
+]

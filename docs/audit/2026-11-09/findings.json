@@ -1,0 +1,128 @@
+[
+  {
+    "id": "F01",
+    "priority": "高",
+    "title": "后台5个核心入口断开",
+    "requirement": "SPEC §3.3 / T06、T07、T10、T11",
+    "fact": "admin/orders、providers、community、posters、settlements 已注册，但所有前端导航搜索未找到入链；dashboard 只有扩展入口。",
+    "evidence": "miniprogram/admin/dashboard/dashboard.wxml",
+    "recommendation": "补齐按角色显示的订单/审核/配置/海报/结算入口；逐个从我的进入后返回。"
+  },
+  {
+    "id": "F02",
+    "priority": "高",
+    "title": "首页完整服务目录未落实最新要求",
+    "requirement": "D43旧静态介绍方案 + 用户后来要求入口和功能完整展示",
+    "fact": "9类 introduce 一律只弹介绍；存在另一组受开关控制的业务入口，但未形成全部功能、可用状态及直达关系。旧D43允许介绍弹窗；不能将旧实现当作后来要求已完成。",
+    "evidence": "miniprogram/pages/index/index.js;miniprogram/utils/service-catalog.js",
+    "recommendation": "目录可见与业务可用分离：可用项直达，未开通明确状态，无资料引导绑定；不自动全开开关。"
+  },
+  {
+    "id": "F03",
+    "priority": "高",
+    "title": "五端发现/进入说明不完整",
+    "requirement": "用户要求所有端入口可见；SPEC角色边界仍有效",
+    "fact": "服务员申请存在；商家/驿站申请依赖开关，管理员/物业入口依赖角色，无统一身份入口及未获资格说明。",
+    "evidence": "miniprogram/pages/me/me.wxml",
+    "recommendation": "增加工作台分组：有资格进入，无资格说明申请/审核条件；管理员和物业显示不同权限说明，绝不扫码授予角色。"
+  },
+  {
+    "id": "F04",
+    "priority": "高",
+    "title": "后台配置有接口但页面不完整",
+    "requirement": "SPEC §3.3 / T10 / T31",
+    "fact": "小区页只提交名称/站点/价格/时段/食堂/证书/坐标等；缺 cardPlans、rates、全局blacklist/hotline等编辑。updateConfig唯一页面调用只传features。楼栋按钮仅把最后一行当新增，未传buildingId供编辑已有楼栋。",
+    "evidence": "miniprogram/admin/community/community.js;miniprogram/admin/community/community.wxml;miniprogram/admin/features/features.js",
+    "recommendation": "补齐原规格配置表单和已有楼栋编辑；按分校验金额、整段校验时段/费率；业务值仍由用户提供。"
+  },
+  {
+    "id": "F05",
+    "priority": "高",
+    "title": "物业只读结算页被前端拒绝",
+    "requirement": "SPEC §2、§3.3、§14 / T11",
+    "fact": "结算页load只允许admin，property得到“只有运营管理员可以管理结算”；已用实际Page代码隔离复现。",
+    "evidence": "miniprogram/admin/settlements/settlements.js;docs/audit/2026-11-09/reproductions.json",
+    "recommendation": "增加本小区物业分成只读分支；不得展示或调用生成结算、标记付款等管理操作。"
+  },
+  {
+    "id": "F06",
+    "priority": "中",
+    "title": "看板日期/指标未完整呈现",
+    "requirement": "SPEC §15 / T10、T31",
+    "fact": "后台dashboard接收from/to，但页面refresh只传communityId/scope；无日期筛选；complaintRate未展示，新首单/第二单只见漏斗口径；月卡仅显示垃圾/快递。",
+    "evidence": "miniprogram/admin/dashboard/dashboard.js;miniprogram/admin/dashboard/dashboard.wxml;cloudfunctions/_shared/adminDashboard.js",
+    "recommendation": "补日期选择及规格指标、扩展月卡类型；区分漏斗和期间指标后核账，不编造统计结果。"
+  },
+  {
+    "id": "F07",
+    "priority": "高",
+    "title": "活动/商家/聊天缺举报入口",
+    "requirement": "SPEC_EXT E0.6 / T16、T18、T21、T26、T32",
+    "fact": "events/detail、shops/detail、chat/room未找到举报控件/处理器；board与idle有举报，因此不是全站完全没实现。content.report有通用后端但需要一并核对不同对象归属。",
+    "evidence": "miniprogram/events/detail/detail.wxml;miniprogram/shops/detail/detail.wxml;miniprogram/chat/room/room.wxml;cloudfunctions/content/index.js",
+    "recommendation": "补3类举报入口及目标归属/参与人校验；验证3个不同用户阈值、重复举报及后台审核。"
+  },
+  {
+    "id": "F08",
+    "priority": "高",
+    "title": "禁言/封禁参数冲突，按钮无法成功",
+    "requirement": "SPEC_EXT E0.6 / T16、T31、T32",
+    "fact": "页面传data.action=mute/block；api封装以路由action=moderateUser覆盖；后端又拿event.action判断mute/block。两路径均隔离复现E_INVALID_PARAM，写库前失败。",
+    "evidence": "miniprogram/admin/reports/reports.js;miniprogram/utils/api.js;cloudfunctions/content/index.js;docs/audit/2026-11-09/reproductions.json",
+    "recommendation": "将业务操作独立为operation，前后端一致；保留原action路由及管理员校验；补整条调用链回归。"
+  },
+  {
+    "id": "F09",
+    "priority": "中",
+    "title": "2个广告位可配置但没有展示消费",
+    "requirement": "SPEC_EXT E16 / T22",
+    "fact": "后台可选home_banner/board_top/shops_top；前台只有首页调用homeContent，查询只取home_banner；广场和商家列表未接另外2个广告位。",
+    "evidence": "miniprogram/admin/content/content.js;cloudfunctions/content/index.js;miniprogram/board/list/list.js;miniprogram/shops/list/list.js",
+    "recommendation": "按原广告位范围接入对应列表，保持广告标识/站内跳转/曝光点击/审核规则；若缩减需用户明确改规格。"
+  },
+  {
+    "id": "F10",
+    "priority": "中",
+    "title": "后台订单筛选漏待报价",
+    "requirement": "已批准pending_quote / T26、T31",
+    "fact": "订单状态筛选数组无pending_quote。全部列表可能含待报价，但不能单独筛选；不称整个订单丢失。",
+    "evidence": "miniprogram/admin/orders/orders.js",
+    "recommendation": "补待报价筛选和中文显示、全列表回归；维持不自动过期。"
+  },
+  {
+    "id": "F11",
+    "priority": "高",
+    "title": "手填号码代码与云版本未闭合",
+    "requirement": "D44、D45及已批准8包部署",
+    "fact": "8包进度uploaded/verified均空；user有旧版回读，当前页面已选119kB包但选包不是部署。官方CLI本轮下载报code17，未完成最新源码回读。",
+    "evidence": "docs/verification/2026-11-08-ui/deployment-progress.json;docs/verification/2026-11-08-ui/deployment-manifest.json",
+    "recommendation": "继续既有授权8包部署并逐文件回读；同时核对实际运行前端/环境与错误来源。不能再要求微信手机号资格才能手填。"
+  },
+  {
+    "id": "F12",
+    "priority": "高",
+    "title": "珺悦国际缺楼栋与运营配置",
+    "requirement": "D46保留真实数据边界",
+    "fact": "当前控制台可见坐标、GeoPoint、location=true；prices/rates为空，班次/月卡/站点为空。既有getCommunity返回0楼栋；本轮未重新查询buildings。无楼栋就不能保存有效门牌。",
+    "evidence": "docs/verification/2026-11-08-full-review/location-results.json;miniprogram/pages/bind/bind.js",
+    "recommendation": "用户提供真实楼栋/单元；未配置显示明确空状态而不是可用假象；先用标明测试的小区验其他流程。"
+  },
+  {
+    "id": "F13",
+    "priority": "高",
+    "title": "全页面视觉/功能验收没有完成",
+    "requirement": "用户批准设计稿 / D43、D46 / T14、T33",
+    "fact": "69页样式脚本通过只说明静态规则；既有6核心页截图不是69页实景。订单居中已局部实测；所有角色、大小屏/大字体/键盘/成功失败状态未逐页签收。",
+    "evidence": "docs/product/PAGE_ACCEPTANCE.md;docs/verification/2026-11-08-ui/page-coverage.md",
+    "recommendation": "按69页每页U1–U7/F1–F6收证据；缺角色或数据明确阻塞，不制作假完成截图。"
+  },
+  {
+    "id": "F14",
+    "priority": "中",
+    "title": "文档历史状态混用",
+    "requirement": "用户要求完整README/规格/验收交接",
+    "fact": "ACCEPTANCE/MANUAL_SETUP/部分协作说明保留“强制授权”“全部已部署”“仅1小区”等旧段；顶部覆盖说明易被忽略。原SPEC_EXT有重复E0.4/E20.2编号，接口setAddress参数表也未完整列D44字段。",
+    "evidence": "docs/ACCEPTANCE.md;docs/MANUAL_SETUP.md;docs/SPEC.md;docs/SPEC_EXT.md;.Codex/AGENTS.md",
+    "recommendation": "把当前状态独立为权威台账，历史转历史章节；补接口字段并整理重复编号，保留原ZIP与批准记录。"
+  }
+]

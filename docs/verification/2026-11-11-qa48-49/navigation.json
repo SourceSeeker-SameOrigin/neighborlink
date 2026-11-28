@@ -1,0 +1,282 @@
+{
+  "scope": "Static literal navigator targets only; not actual clicks",
+  "pages": 69,
+  "edges": [
+    {
+      "source": "pages/index/index",
+      "target": "pages/bind/bind",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/index/index",
+      "target": "pages/bind/bind",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/bind/bind",
+      "target": "pages/legal/privacy",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/bind/bind",
+      "target": "pages/legal/terms",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/service/trash",
+      "target": "pages/membership/index",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/orders/detail",
+      "target": "pages/orders/list",
+      "type": "switchTab"
+    },
+    {
+      "source": "pages/me/me",
+      "target": "pages/bind/bind",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/me/me",
+      "target": "pages/orders/list",
+      "type": "switchTab"
+    },
+    {
+      "source": "pages/me/me",
+      "target": "pages/membership/index",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/me/me",
+      "target": "pages/bind/bind",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/me/me",
+      "target": "board/list/list",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/me/me",
+      "target": "idle/mine/mine",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/me/me",
+      "target": "chat/list/list",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/me/me",
+      "target": "coupons/mine/mine",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/me/me",
+      "target": "events/manage/manage",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/me/me",
+      "target": "pages/legal/privacy",
+      "type": "navigate"
+    },
+    {
+      "source": "pages/me/me",
+      "target": "pages/legal/terms",
+      "type": "navigate"
+    },
+    {
+      "source": "provider/apply/apply",
+      "target": "provider/workbench/workbench",
+      "type": "navigate"
+    },
+    {
+      "source": "provider/apply/apply",
+      "target": "pages/bind/bind",
+      "type": "navigate"
+    },
+    {
+      "source": "provider/apply/apply",
+      "target": "pages/legal/terms",
+      "type": "navigate"
+    },
+    {
+      "source": "provider/workbench/workbench",
+      "target": "provider/apply/apply",
+      "type": "navigate"
+    },
+    {
+      "source": "provider/workbench/workbench",
+      "target": "provider/earnings/earnings",
+      "type": "navigate"
+    },
+    {
+      "source": "provider/workbench/workbench",
+      "target": "station/worker/worker",
+      "type": "navigate"
+    },
+    {
+      "source": "provider/workbench/workbench",
+      "target": "provider/hall/hall",
+      "type": "navigate"
+    },
+    {
+      "source": "provider/hall/hall",
+      "target": "station/worker/worker",
+      "type": "navigate"
+    },
+    {
+      "source": "provider/task/task",
+      "target": "provider/workbench/workbench",
+      "type": "redirect"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/orders/orders",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/settlements/settlements",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/providers/providers",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/community/community",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/posters/posters",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/features/features",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/coupons/coupons",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/content/content",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/reports/reports",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/merchants/merchants",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/stations/stations",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/exports/exports",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/dashboard/dashboard",
+      "target": "admin/recycle/recycle",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/orders/orders",
+      "target": "admin/exports/exports",
+      "type": "navigate"
+    },
+    {
+      "source": "admin/order/order",
+      "target": "admin/orders/orders",
+      "type": "redirect"
+    },
+    {
+      "source": "admin/settlements/settlements",
+      "target": "admin/exports/exports",
+      "type": "navigate"
+    },
+    {
+      "source": "coupons/mine/mine",
+      "target": "coupons/center/center",
+      "type": "navigate"
+    },
+    {
+      "source": "board/detail/detail",
+      "target": "board/list/list",
+      "type": "redirect"
+    },
+    {
+      "source": "idle/detail/detail",
+      "target": "idle/list/list",
+      "type": "redirect"
+    },
+    {
+      "source": "idle/sales/sales",
+      "target": "idle/income/income",
+      "type": "navigate"
+    },
+    {
+      "source": "idle/sale/sale",
+      "target": "idle/sales/sales",
+      "type": "redirect"
+    },
+    {
+      "source": "events/detail/detail",
+      "target": "events/list/list",
+      "type": "redirect"
+    },
+    {
+      "source": "pet/work",
+      "target": "provider/workbench/workbench",
+      "type": "redirect"
+    },
+    {
+      "source": "pet/reports",
+      "target": "pages/orders/list",
+      "type": "switchTab"
+    },
+    {
+      "source": "shops/detail/detail",
+      "target": "shops/list/list",
+      "type": "redirect"
+    },
+    {
+      "source": "shops/booking/booking",
+      "target": "shops/list/list",
+      "type": "redirect"
+    },
+    {
+      "source": "station/workbench/workbench",
+      "target": "station/create/create",
+      "type": "navigate"
+    },
+    {
+      "source": "station/create/create",
+      "target": "station/workbench/workbench",
+      "type": "navigate"
+    },
+    {
+      "source": "station/batch/batch",
+      "target": "station/worker/worker",
+      "type": "redirect"
+    }
+  ],
+  "issues": []
+}

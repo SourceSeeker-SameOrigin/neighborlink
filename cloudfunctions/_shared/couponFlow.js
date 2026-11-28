@@ -2,14 +2,15 @@ const crypto = require('crypto');
 const { atomic, read, insert } = require('./transaction');
 const { ensure, integer } = require('./validate');
 const { couponId, couponDiscount } = require('./couponData');
+const { refundParts } = require('./refundState');
 const { addDays } = require('./time');
 
 function communityMatches(template, communityId) {
   return template.communityIds === 'all' || template.communityIds.includes(communityId);
 }
 
-async function issueOne(server, { openid, templateId, mode, communityId, deterministic = false }) {
-  const suffix = deterministic ? mode : crypto.randomBytes(16).toString('hex');
+async function issueOne(server, { openid, templateId, mode, communityId, deterministic = false, claimRequestId }) {
+  const suffix = claimRequestId ? 'claim_' + claimRequestId : deterministic ? mode : crypto.randomBytes(16).toString('hex');
   const id = couponId(openid, templateId, suffix);
   const actor = await server.one('users', { openid });
   ensure(actor, '用户不存在');
@@ -27,7 +28,8 @@ async function issueOne(server, { openid, templateId, mode, communityId, determi
     ensure(count < template.perUserLimit, '已达到每人领取上限');
     const now = new Date();
     const coupon = { _id: id, templateId, openid, status: 'unused', validFrom: now,
-      validTo: addDays(now, template.validDays), orderId: null, createdAt: now };
+      validTo: addDays(now, template.validDays), orderId: null, createdAt: now,
+      ...(mode === 'manual' && claimRequestId ? { manualRequestId: claimRequestId } : {}) };
     await insert(transaction, 'coupons', coupon);
     await transaction.collection('couponTemplates').doc(templateId).update({ data: { issued: issued + 1, updatedAt: now } });
     await transaction.collection('users').doc(user._id).update({ data: { couponCounts: { ...counts, [templateId]: count + 1 } } });
@@ -89,7 +91,7 @@ async function releaseOrderDiscounts(transaction, order, user, now) {
   return nextBalance;
 }
 
-async function restoreRefundedPoints(transaction, order, refunds, now) {
+async function restoreRefundedPoints(transaction, order, refunds, now, newRefundNo) {
   const points = integer(order.pricing.pointsRedeemed || 0, '抵扣积分');
   const serviceFee = integer(order.pricing.payAmount || 0, '服务费实付');
   if (!points || !serviceFee) return 0;
@@ -101,18 +103,23 @@ async function restoreRefundedPoints(transaction, order, refunds, now) {
   let cumulativeServiceRefund = 0;
   let restored = 0;
   let totalAdded = 0;
+  const unposted = [];
+  // 先核对所有已入账的退款，再分配未入账的积分，以兼容逆序回调。
   for (const refund of successful) {
-    const serviceAmount = refund.serviceAmount === undefined
-      ? Math.max(0, refund.amount - (refund.goodsAmount || 0)) : refund.serviceAmount;
-    cumulativeServiceRefund += serviceAmount;
-    const target = Math.floor(points * Math.min(cumulativeServiceRefund, serviceFee) / serviceFee);
+    const { service } = refundParts(refund);
     const ledgerId = 'points_restore_' + refund.outRefundNo;
     const existing = await read(transaction, 'pointsLedger', ledgerId);
-    if (existing) {
-      restored += Math.max(0, existing.delta || 0);
-      continue;
+    if (existing || (newRefundNo && refund.outRefundNo !== newRefundNo)) {
+      cumulativeServiceRefund += service;
+      if (existing) restored += Math.max(0, existing.delta || 0);
+    } else {
+      unposted.push({ refund, ledgerId, service });
     }
-    const delta = Math.max(0, target - restored);
+  }
+  for (const { refund, ledgerId, service } of unposted) {
+    cumulativeServiceRefund += service;
+    const target = Math.floor(points * Math.min(cumulativeServiceRefund, serviceFee) / serviceFee);
+    const delta = service > 0 ? Math.max(0, target - restored) : 0;
     const balance = integer(user.pointsBalance || 0, '积分余额') + delta;
     await insert(transaction, 'pointsLedger', { _id: ledgerId, openid: user.openid, delta,
       reason: 'refund', refId: order._id, refundId: refund.outRefundNo, balanceAfter: balance, createdAt: now });
@@ -126,18 +133,39 @@ async function restoreRefundedPoints(transaction, order, refunds, now) {
   return totalAdded;
 }
 
-async function awardReferralCoupons(transaction, order, referredUser, referrerProvider, now, enabled) {
-  if (!enabled || order.kind !== 'service' || order.pricing.payAmount <= 0 ||
-    referredUser.firstPaidOrderId !== order._id || !referrerProvider || !referrerProvider.openid ||
-    referrerProvider.communityId !== order.communityId) return 0;
-  const recipient = await transaction.collection('users').where({ openid: referrerProvider.openid }).limit(1).get();
-  const user = recipient.data && recipient.data[0];
-  if (!user) return 0;
-  const rows = await transaction.collection('couponTemplates').where({ issueMode: 'referral', status: 'active' }).get();
+function qualifiesForReferralCoupon(order, referredUser, provider) {
+  return order.kind === 'service' && order.pricing.payAmount > 0 &&
+    referredUser && referredUser.firstPaidOrderId === order._id &&
+    provider && provider.openid && provider.communityId === order.communityId;
+}
+
+async function findReferralCandidates(server, order, enabled) {
+  if (!enabled || !order.userId || order.status !== 'delivered' ||
+      order.kind !== 'service' || order.pricing.payAmount <= 0) return null;
+  const user = await server.get('users', order.userId);
+  const providerId = user && user.source && user.source.referrerProviderId;
+  if (!providerId || user.firstPaidOrderId !== order._id) return null;
+  const provider = await server.get('providers', providerId);
+  if (!qualifiesForReferralCoupon(order, user, provider)) return null;
+  const recipient = await server.one('users', { openid: provider.openid });
+  const templates = recipient ? await server.all('couponTemplates', { issueMode: 'referral', status: 'active' }) : [];
+  return { providerId, openid: provider.openid, recipientId: recipient && recipient._id,
+    templateIds: [...new Set(templates.filter(t => communityMatches(t, order.communityId)).map(t => t._id))] };
+}
+
+async function awardReferralCoupons(transaction, order, referredUser, referrerProvider, now, enabled, candidates) {
+  if (!enabled || !qualifiesForReferralCoupon(order, referredUser, referrerProvider)) return 0;
+  ensure(candidates && candidates.providerId === referrerProvider._id && candidates.openid === referrerProvider.openid,
+    '推荐人资料已变化，请重试', 'E_CONFLICT');
+  if (!candidates.recipientId) return 0;
+  const user = await read(transaction, 'users', candidates.recipientId);
+  ensure(user && user.openid === candidates.openid, '推荐人账号已变化，请重试', 'E_CONFLICT');
   const counts = user.couponCounts || {};
   let issuedCount = 0;
-  for (const template of rows.data || []) {
-    if (!communityMatches(template, order.communityId)) continue;
+  for (const templateId of candidates.templateIds) {
+    const template = await read(transaction, 'couponTemplates', templateId);
+    if (!template || template.issueMode !== 'referral' || template.status !== 'active' ||
+        !communityMatches(template, order.communityId)) continue;
     const count = counts[template._id] || 0;
     if (count >= template.perUserLimit || template.issued >= template.totalLimit) continue;
     const id = couponId(user.openid, template._id, order._id);
@@ -148,7 +176,6 @@ async function awardReferralCoupons(transaction, order, referredUser, referrerPr
     await transaction.collection('couponTemplates').doc(template._id).update({ data: {
       issued: (template.issued || 0) + 1, updatedAt: now
     } });
-    template.issued = (template.issued || 0) + 1;
     counts[template._id] = count + 1;
     issuedCount++;
   }
@@ -156,12 +183,16 @@ async function awardReferralCoupons(transaction, order, referredUser, referrerPr
   return issuedCount;
 }
 
-async function finalizeRefundDiscounts(transaction, order, refunds, now) {
-  await restoreRefundedPoints(transaction, order, refunds, now);
-  const serviceRefunded = refunds.filter(item => item.status === 'success')
-    .reduce((sum, item) => sum + (item.serviceAmount === undefined ? item.amount : item.serviceAmount), 0);
-  const goodsRefunded = refunds.filter(item => item.status === 'success')
-    .reduce((sum, item) => sum + (item.goodsAmount || 0), 0);
+async function finalizeRefundDiscounts(transaction, order, refunds, now, newRefundNo) {
+  await restoreRefundedPoints(transaction, order, refunds, now, newRefundNo);
+  let serviceRefunded = 0;
+  let goodsRefunded = 0;
+  for (const refund of refunds) {
+    if (refund.status !== 'success') continue;
+    const { service, goods } = refundParts(refund);
+    serviceRefunded += service;
+    goodsRefunded += goods;
+  }
   if (serviceRefunded < order.pricing.payAmount || goodsRefunded < order.pricing.goodsCap) return false;
   if (order.pricing.couponId) {
     const coupon = await read(transaction, 'coupons', order.pricing.couponId);
@@ -184,4 +215,4 @@ async function releaseCoupon(transaction, order, now) {
 }
 
 module.exports = { communityMatches, issueOne, issueAutomatic, lockOrderDiscounts, markCouponUsed,
-  releaseCoupon, releaseOrderDiscounts, restoreRefundedPoints, awardReferralCoupons, finalizeRefundDiscounts };
+  releaseCoupon, releaseOrderDiscounts, restoreRefundedPoints, findReferralCandidates, awardReferralCoupons, finalizeRefundDiscounts };

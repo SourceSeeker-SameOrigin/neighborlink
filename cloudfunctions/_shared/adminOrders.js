@@ -1,9 +1,11 @@
+const { requireOrderFeatures } = require('./orderFeatures');
 const { ensure, text, integer } = require('./validate');
 const { requireRole, requireCommunityAccess } = require('./auth');
 const { canWork } = require('./providerData');
 const { listView } = require('./orderData');
 const { conditionalTransition } = require('./orderStore');
 const { createPayFlow } = require('./payFlow');
+const { createNotifier } = require('./notify');
 const { totalFee } = require('./paymentState');
 const { atomic, read, insert } = require('./transaction');
 const { transitionPatch } = require('./orderData');
@@ -19,6 +21,7 @@ const { subsidyCsv } = require('./subsidyExport');
 
 function adminOrderActions(cloud, server) {
   const payments = createPayFlow(cloud, server);
+  const notify = createNotifier(cloud, server);
   const ledger = createLedgerFlow(server);
   async function managed(event, user) {
     requireRole(user, ['admin']);
@@ -65,6 +68,7 @@ function adminOrderActions(cloud, server) {
   }
   async function assign(event, { user, openid }) {
     const order = await managed(event, user);
+    await requireOrderFeatures(server, order);
     text(event.providerId, '服务员');
     const provider = await server.get('providers', event.providerId);
     canWork(provider, new Date(), order.minLevel);
@@ -73,6 +77,8 @@ function adminOrderActions(cloud, server) {
     ensure(order.status === 'paid', '仅待接单订单可指派', 'E_BAD_STATE');
     const result = await conditionalTransition(server, order, 'accepted', openid, { providerId: provider._id,
       providerOpenid: provider.openid, acceptedAt: new Date() });
+    await notify.resident('accepted', { ...order, status: 'accepted', providerId: provider._id,
+      providerOpenid: provider.openid });
     try {
       await server.feature('chat', order.communityId);
       await ensureOrderConversation(server, { ...order, status: 'accepted', providerOpenid: provider.openid });
