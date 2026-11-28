@@ -8,6 +8,8 @@
 
 本轮开发云更新尝试均失败，不能记为部署：官方 CLI 完整部署 `admin` 在本地准备阶段返回 `EISDIR`；增量部署 `lib/shared` 目录与单个 `qrEnv.js` 文件均在签名阶段返回 `getCloudAPISignedHeader failed`、平台 `ret=40013 system error`。`cli islogin` 返回 `login:true`，函数列表只读查询仍成功；失败后再次下载 `admin`，未发现 `qrEnv.js`，没有成功更新证据。已停止重复使用该通道并转查其他部署方式。本批索引新增 0 项，体验版未切换。失败后的只读下载临时文件仅用于本次核对，随后清理。索引字段调整依据[腾讯云开发组合索引前缀、排序规则](https://docs.cloudbase.net/en/database/data-index)和[等值条件在前、范围条件在后的建议](https://docs.cloudbase.net/en/recipes/optimize-database-query-performance)；这仍不能替代真实执行计划。
 
+2026-11-28 复核：保留的 10 个待部署 ZIP 的字节数与完整 SHA-256 均仍匹配 `qa199-218-cloud-candidates.json`。本次仅做本地哈希复核，没有重新触发失败的部署通道；开发云状态仍为待部署，索引新增仍为 0 项。
+
 | 本轮执行状态 | 结果与下一步 |
 | --- | --- |
 | QA200、QA201、QA206、QA207、QA212、QA213、QA214 | 已完成代码修改及对应合成数据回归；QA212 重复交付相同内容返回原结果，不同内容拒绝。尚未做开发云、体验版、四宽及真机验收。 |
