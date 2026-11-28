@@ -14,6 +14,10 @@
 
 网页通道同日核验：现有 CloudBase 标签页此前能显示正确环境和数据库索引；导航到函数管理后刷新，官方站点将该标签页转到腾讯云登录页。浏览器会话已失效，不能据 CLI 的 `login:true` 认定网页也已登录；本轮网页上传 0 个文件。其余本地页面验收独立继续。
 
+2026-11-28 后续部署：用户恢复网页登录后，原浏览器操作通道仍在详情页加载时失效。改用腾讯云官方 CloudBase CLI 3.9.5；用户亲自在腾讯云页面批准该 CLI 的设备登录，CLI 只读环境列表确认唯一目标环境为 `cloud1-d4gbpd8zx89564fb6`。每个固定包先校验整体 SHA-256、源文件数和云端基线差异，再使用 `fn code update` 的“沿用当前配置”更新；逐个下载源码并验证 77/77 文件、SDK 4.0.2 与 `Active`。本批 `admin`、`board`、`content`、`event`、`idle`、`provider`、`station`、`payout`、`order`、`timer` 10/10 完成。`admin` 原 `UpdateFailed` 状态已恢复为 `Active`；`board` 首次回读为空目录，待平台显示 `Active` 后重新下载才完成 77/77 比对。仅更新代码，未执行 `timer`、付款、退款、建单或发券。
+
+同日索引回读：`payouts.payee_type_created_id`、`comments.post_status_created_id`、`notices.community_status_pinned_created_id` 均在确认不存在后按批准字段建立非唯一索引，并由原生 `listIndexes` 回读字段及方向。`ads.slot_active_start_id` 仍待查询计划：原生 `explain` 命令返回 `InvalidParameter`，因此尚未创建；三种广告位的原生命令读数也被该接口拒绝，不能据此判断新版实际业务查询。开发云本人会话只读调用、四宽与体验成员手机仍待完成。本次只读／索引操作未新增业务记录。
+
 | 本轮执行状态 | 结果与下一步 |
 | --- | --- |
 | QA200、QA201、QA206、QA207、QA212、QA213、QA214 | 已完成代码修改及对应合成数据回归；QA212 重复交付相同内容返回原结果，不同内容拒绝。尚未做开发云、体验版、四宽及真机验收。 |

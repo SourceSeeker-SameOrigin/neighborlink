@@ -29,7 +29,7 @@
 | settlements | provider_period | providerId 升序、period.from 升序、period.to 升序 | 否 |
 | settlements | seller_period | sellerOpenid 升序、period.from 升序、period.to 升序 | 否 |
 | payouts | payee_created | payeeOpenid 升序、createdAt 倒序 | 否 |
-| payouts | payee_type_created_id | payeeOpenid 升序、payeeType 升序、createdAt 倒序、_id 倒序（QA215 待云端核对） | 否 |
+| payouts | payee_type_created_id | payeeOpenid 升序、payeeType 升序、createdAt 倒序、_id 倒序（QA215，2026-11-28 开发云已回读） | 否 |
 | payouts | state_id | state 升序、_id 升序 | 否 |
 | payouts | community_created | communityId 升序、createdAt 倒序 | 否 |
 | payouts | createdAt | createdAt 倒序 | 否 |
@@ -57,7 +57,7 @@
 | posts | feed | communityId 升序、scope 升序、type 升序、status 升序、expireAt 升序、createdAt 倒序 | 否 |
 | posts | type_status_expireAt | type 升序、status 升序、expireAt 升序 | 否 |
 | comments | post_status_created | postId 升序、status 升序、createdAt 升序 | 否 |
-| comments | post_status_created_id | postId 升序、status 升序、createdAt 升序、_id 升序（QA216 待云端核对） | 否 |
+| comments | post_status_created_id | postId 升序、status 升序、createdAt 升序、_id 升序（QA216，2026-11-28 开发云已回读） | 否 |
 | couponTemplates | status_issueMode | status 升序、issueMode 升序 | 否 |
 | coupons | user_status_expiry | openid 升序、status 升序、validTo 升序 | 否 |
 | coupons | user_created | openid 升序、createdAt 倒序 | 否 |
@@ -69,7 +69,7 @@
 | ads | home_banner_active | status 升序、slot 升序、communityIds 升序、startAt 升序、endAt 升序 | 否 |
 | ads | slot_active_start_id | status 升序、slot 升序、startAt 升序、_id 升序（QA218 候选；communityIds 的 `in` 与 endAt 范围条件由查询继续过滤，须在云端验证执行计划后再决定是否创建） | 否 |
 | notices | community_status_pinned_created | communityId 升序、status 升序、pinnedAt 倒序、createdAt 倒序 | 否 |
-| notices | community_status_pinned_created_id | communityId 升序、status 升序、pinnedAt 倒序、createdAt 倒序、_id 倒序（QA218 待云端核对） | 否 |
+| notices | community_status_pinned_created_id | communityId 升序、status 升序、pinnedAt 倒序、createdAt 倒序、_id 倒序（QA218，2026-11-28 开发云已回读） | 否 |
 | events | community_at_type | communityId 升序、at 升序、type 升序 | 否 |
 
 | orders | merchant_kind_created | merchantId 升序、kind 升序、createdAt 倒序 | 否 |
