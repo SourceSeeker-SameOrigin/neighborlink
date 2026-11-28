@@ -5,7 +5,7 @@
   <view class="page-masthead"><image class="masthead-icon" src="/assets/icons/shop.png"/><view class="masthead-copy"><view class="page-title">提交预约</view><view class="masthead-subtitle">发现身边的生活服务</view></view></view>
   <view wx:if="{{loading}}" class="card muted">正在核对预约信息…</view>
   <block wx:if="{{ready && !loading && (!recovery || recovery === 'confirm')}}">
-    <view wx:if="{{recovery === 'confirm'}}" class="card">尚未查到原预约。请核对地址和需求，确认后使用原编号提交。</view>
+    <view wx:if="{{recovery === 'confirm'}}" class="card">{{legacyReceipt ? '旧版预约未记录所属小区。请先核对原预约；若已切换小区，可明确开始新预约。' : '尚未查到原预约。请核对地址和需求，确认后使用原编号提交。'}}</view>
     <view class="card">请简要说明需求，商家会根据预约内容提供服务或报价。</view>
     <picker wx:if="{{addresses.length}}" disabled="{{busy}}" range="{{addresses}}" range-key="label" value="{{addressIndex}}" bindchange="address"><view class="card">上门地址：{{addressIndex >= 0 ? addresses[addressIndex].label : '请重新选择地址'}}</view></picker>
     <view wx:else class="card">{{recovery === 'confirm' && addressIndex === -1 ? '原预约地址已移除，请确认使用当前绑定门牌地址' : '使用当前绑定门牌地址'}}</view>
@@ -13,5 +13,6 @@
   </block>
   <view wx:if="{{error}}" class="error">{{error}}</view>
   <button wx:if="{{loadError}}" class="ui-button" disabled="{{loading || busy}}" bindtap="load">重新加载</button>
+  <button wx:if="{{legacyReceipt && recovery === 'confirm' && ready && !loading}}" class="ui-button" disabled="{{busy}}" bindtap="startNewBooking">按当前小区开始新预约</button>
   <button wx:if="{{ready && !loading}}" type="primary" loading="{{busy}}" disabled="{{busy || loading || !ready}}" bindtap="submit">{{recovery === 'found' ? '前往已有订单' : recovery === 'lookup' ? '核对原预约' : recovery === 'confirm' ? '确认并用原编号提交' : '提交预约'}}</button>
 </view>

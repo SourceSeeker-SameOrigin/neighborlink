@@ -3,7 +3,7 @@ const { pay } = require('../../utils/payment');
 
 Page({
   data: { missingRecord: false, ready: false, loading: true, loadError: false,
-    recovery: '', busy: false, error: '', requirement: '', addresses: [], addressIndex: 0 },
+    recovery: '', legacyReceipt: false, busy: false, error: '', requirement: '', addresses: [], addressIndex: 0 },
   onLoad(options = {}) {
     this.serviceId = typeof options.serviceId === 'string' ? options.serviceId.trim() : '';
     this.setData({ missingRecord: !this.serviceId, loading: !!this.serviceId });
@@ -22,20 +22,28 @@ Page({
   },
   ensureOwner() {
     if (!this.userId) return false;
-    if (this.userId && this.userId === getApp().globalData.user?._id) return true;
+    const user = getApp().globalData.user;
+    if (this.userId === user?._id && this.communityId === user?.communityId) return true;
     this.invalidateReads();
     this.orderId = '';
     this.receipt = null;
-    this.setData({ ready: false, recovery: '', requirement: '', addresses: [], addressIndex: 0 });
+    this.userId = '';
+    this.communityId = '';
+    this.storageKey = '';
+    this.scopedStorageKey = '';
+    this.legacySkipKey = '';
+    this.legacyReceipt = false;
+    this.setData({ ready: false, recovery: '', legacyReceipt: false, requirement: '', addresses: [], addressIndex: 0 });
     this.load();
     return false;
   },
   async load() {
     if (!this.serviceId || this.closed || this.hidden || this.initializing || this.submitting) return;
     const sequence = this.loadSequence = (this.loadSequence || 0) + 1;
-    let ownerId = '';
+    let ownerId = '', ownerCommunityId = '';
     const current = () => !this.closed && !this.hidden && sequence === this.loadSequence &&
-      (!ownerId || getApp().globalData.user?._id === ownerId);
+      (!ownerId || (getApp().globalData.user?._id === ownerId &&
+        getApp().globalData.user?.communityId === ownerCommunityId));
     const selected = this.data.addresses[this.data.addressIndex];
     this.initializing = true;
     this.setData({ ready: false, loading: true, loadError: false, error: '', recovery: '' });
@@ -43,25 +51,41 @@ Page({
       const user = await getApp().ensureSession();
       if (!current()) return;
       if (!user || !user._id) throw new Error('登录状态不可用，请重试');
-      if (getApp().globalData.user?._id !== user._id) {
+      if (getApp().globalData.user?._id !== user._id ||
+          getApp().globalData.user?.communityId !== user.communityId) {
         this.orderId = '';
         this.receipt = null;
         this.userId = '';
+        this.communityId = '';
         this.storageKey = '';
+        this.scopedStorageKey = '';
+        this.legacySkipKey = '';
         this.setData({ ready: false, requirement: '', addresses: [], addressIndex: 0, recovery: '',
-          loadError: true, error: '登录身份已变化，请重新加载' });
+          loadError: true, error: '登录身份或小区已变化，请重新加载' });
         return;
       }
       ownerId = user._id;
+      ownerCommunityId = user.communityId;
       if (!current()) return;
-      const changed = this.userId && this.userId !== user._id;
+      const changed = this.userId && (this.userId !== user._id || this.communityId !== user.communityId);
       if (changed) {
         this.orderId = '';
         this.setData({ requirement: '', addresses: [], addressIndex: 0 });
       }
       this.userId = user._id;
-      this.storageKey = 'merchant-booking:' + encodeURIComponent(user._id) + ':' + encodeURIComponent(this.serviceId);
-      this.receipt = wx.getStorageSync(this.storageKey) || null;
+      this.communityId = user.communityId;
+      this.scopedStorageKey = 'merchant-booking:' + encodeURIComponent(user._id) + ':' +
+        encodeURIComponent(user.communityId || '') + ':' + encodeURIComponent(this.serviceId);
+      this.legacySkipKey = this.scopedStorageKey + ':legacy-skip';
+      const legacyKey = 'merchant-booking:' + encodeURIComponent(user._id) + ':' + encodeURIComponent(this.serviceId);
+      const scopedReceipt = wx.getStorageSync(this.scopedStorageKey);
+      const oldReceipt = scopedReceipt ? null : wx.getStorageSync(legacyKey);
+      const legacyReceipt = oldReceipt?.requestId && wx.getStorageSync(this.legacySkipKey) === oldReceipt.requestId
+        ? null : oldReceipt;
+      this.legacyReceipt = !!legacyReceipt;
+      this.storageKey = legacyReceipt ? legacyKey : this.scopedStorageKey;
+      this.receipt = scopedReceipt || legacyReceipt || null;
+      this.setData({ legacyReceipt: this.legacyReceipt });
       let recovery = '';
       if (this.orderId) recovery = 'found';
       else if (this.receipt) {
@@ -99,6 +123,14 @@ Page({
       (!this.data.recovery || this.data.recovery === 'confirm');
   },
   input(event) { if (this.canEdit()) this.setData({ requirement: event.detail.value }); },
+  startNewBooking() {
+    if (!this.legacyReceipt || !this.canEdit()) return;
+    wx.setStorageSync(this.legacySkipKey, this.receipt.requestId);
+    this.receipt = null;
+    this.legacyReceipt = false;
+    this.storageKey = this.scopedStorageKey;
+    this.setData({ recovery: '', legacyReceipt: false, requirement: '', error: '' });
+  },
   address(event) {
     const addressIndex = Number(event.detail.value);
     if (this.canEdit() && Number.isInteger(addressIndex) && this.data.addresses[addressIndex]) this.setData({ addressIndex });
@@ -133,8 +165,9 @@ Page({
     }
     const version = this.viewVersion;
     const userId = this.userId;
+    const communityId = this.communityId;
     const current = () => !this.closed && !this.hidden && this.viewVersion === version &&
-      getApp().globalData.user?._id === userId;
+      getApp().globalData.user?._id === userId && getApp().globalData.user?.communityId === communityId;
     this.submitting = true;
     this.setData({ busy: true, error: '' });
     try {
@@ -144,7 +177,7 @@ Page({
         return;
       }
       const requestId = this.receipt?.requestId || 'merchant_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 9);
-      const receipt = { requestId, addressId: selected?.id || '', hadRequirement: !!requirement };
+      const receipt = { requestId, communityId, addressId: selected?.id || '', hadRequirement: !!requirement };
       wx.setStorageSync(this.storageKey, receipt);
       this.receipt = receipt;
       const result = await api.call('merchant', 'createBooking', { serviceId: this.serviceId, requirement,
