@@ -10,6 +10,7 @@ async function setup(code, options = {}) {
   const r = runtime(async (n, action, body) => {
     if (action === 'plans') return { list: [{ code, price: 100, payAmount: 100 }] };
     if (action === 'mine') return { list: [] };
+    if (action === 'lookupBuy') return options.lookup ? options.lookup(body) : { orderId: null };
     if (action === 'buy') return options.create ? options.create(body) : { orderId: 'synthetic-order', mock: true };
     throw Error('Unexpected action ' + action);
   }, { payment: { pay: async () => { paymentCalls++; return options.pay ? options.pay() : false; } } });
@@ -28,9 +29,12 @@ async function setup(code, options = {}) {
       const t = r.page.buy(r.event); await r.page.buy(r.event); assert.equal(r.buys().length, 1);
       d.resolve({ orderId: 'synthetic-order', mock: true }); await t;
     });
-    await test(code + ': unknown create outcome retries same request ID', async () => {
+    await test(code + ': unknown create outcome waits for confirmation and reuses request ID', async () => {
       let n = 0; const r = await setup(code, { create: () => { if (!n++) throw Error('synthetic timeout'); return { orderId: 'synthetic-order' }; } });
       await r.page.buy(r.event); await r.page.buy(r.event);
+      assert.equal(r.buys().length, 1); assert.equal(r.page.data.recoveryPending, true);
+      if (code === 'vacant_monthly') r.page.setData({ entryPassword: 'synthetic-secret' });
+      await r.page.retryPending();
       assert.equal(r.buys().length, 2); assert.equal(r.buys()[0][2].requestId, r.buys()[1][2].requestId);
     });
     await test(code + ': cancelled payment and failed navigation do not buy or pay again', async () => {
@@ -63,14 +67,17 @@ async function setup(code, options = {}) {
       assert.equal(r.store[r.page.receiptKey].orderId, 'synthetic-order');
       if (lifecycle === 'onHide') { r.page.onShow(); await new Promise(setImmediate); assert.equal(r.page.data.createdOrderId, 'synthetic-order'); assert.equal(r.page.data.busy, false); }
     });
-    await test(code + ': invalid create result keeps request ID for retry', async () => {
+    await test(code + ': invalid create result keeps request ID for confirmed retry', async () => {
       let n = 0; const r = await setup(code, { create: () => n++ ? { orderId: 'synthetic-order' } : {} });
-      await r.page.buy(r.event); assert.equal(r.payments(), 0); await r.page.buy(r.event);
+      await r.page.buy(r.event); assert.equal(r.payments(), 0);
+      if (code === 'vacant_monthly') r.page.setData({ entryPassword: 'synthetic-secret' });
+      await r.page.retryPending();
       assert.equal(r.buys()[0][2].requestId, r.buys()[1][2].requestId);
     });
-    await test(code + ': storage failure retains in-memory create lock', async () => {
+    await test(code + ': storage failure prevents unsafe create', async () => {
       const r = await setup(code); r.wx.setStorageSync = () => { throw Error('synthetic storage full'); }; r.failNav();
-      await r.page.buy(r.event); await r.page.buy(r.event); assert.equal(r.buys().length, 1); assert.equal(r.payments(), 1);
+      await r.page.buy(r.event); await r.page.buy(r.event); assert.equal(r.buys().length, 0); assert.equal(r.payments(), 0);
+      assert.match(r.page.data.error, /无法保存本次购买编号/);
     });
   }
   await test('navigation pending rejects repeat click; success clears matching receipt and return permits new purchase', async () => {

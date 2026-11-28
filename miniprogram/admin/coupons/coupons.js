@@ -17,6 +17,7 @@ Page({
   onHide() { this.hidden = true; this.sequence = (this.sequence || 0) + 1; this.clearPrivate(); },
   onUnload() { this.closed = true; this.sequence = (this.sequence || 0) + 1; this.clearPrivate(); },
   clearPrivate() { this.setData({ rows: [], form: { ...EMPTY }, issueTemplateIndex: 0,
+    error: '',
     issueRecoveryHint: '', issueLookupError: false, templateRecoveryHint: '', templateLookupError: false,
     recoveredTemplateId: '' }); this.ownerId = null; this.pendingIssue = null; this.pendingTemplate = null; },
   currentAdmin(sequence = this.sequence) {
@@ -180,7 +181,7 @@ Page({
   },
   async issue() {
     if (!this.currentAdmin() || this.data.saving || this.data.issueLookupError) return;
-    const sequence = this.sequence;
+    const sequence = this.sequence, ownerId = this.ownerId;
     const selected = this.data.rows.find(row => row._id === this.data.form.issueTemplateId) || this.data.rows[0];
     if (!selected) { this.setData({ error: '请先创建优惠券模板' }); return; }
     this.setData({ saving: true, error: '' });
@@ -204,8 +205,12 @@ Page({
       } else this.setData({ issueRecoveryHint: '部分收件人未完成。核对原名单后可用原编号重试。' });
       wx.showToast({ title: '成功 ' + result.issued + '，重复 ' + result.duplicates + '，失败 ' + result.failures.length,
         icon: result.failures.length ? 'none' : 'success' });
-      await this.load();
-      if (result.failures.length) this.setData({ error: result.failures.map(item => item.userId + '：' + item.message).join('；') });
+      const refresh = this.load();
+      const refreshSequence = this.sequence;
+      await refresh;
+      if (result.failures.length && this.ownerId === ownerId && this.currentAdmin(refreshSequence) &&
+          !this.data.loading && !this.data.error)
+        this.setData({ error: result.failures.map(item => item.userId + '：' + item.message).join('；') });
     } catch (error) {
       if (this.currentAdmin(sequence)) {
         if (this.pendingIssue) {

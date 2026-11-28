@@ -97,7 +97,7 @@
 
 ## T08 月卡
 
-- 云函数 `membership`：`plans`、`buy`、`mine`、`skipToday`；`payFlow.onPaid` 里处理开卡和续期；`timer` 里生成垃圾月卡任务（确定性 `_id`，`add` 遇到重复键视为已生成）。
+- 云函数 `membership`：`plans`、`buy`、`lookupBuy`（按本人请求编号只读找回购买订单）、`mine`、`skipToday`；`payFlow.onPaid` 里处理开卡和续期；`timer` 里生成垃圾月卡任务（确定性 `_id`，`add` 遇到重复键视为已生成）。
 - 快递月卡额度在 `pricing.quote` 里生效（`todayUsedParcels` 由 `order` 云函数统计当天该用户 `freeByMembership=true` 的件数）。
 - 页面：`pages/membership/index`；首页月卡横幅。
 

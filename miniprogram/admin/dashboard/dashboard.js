@@ -7,9 +7,7 @@ Page({
   data: { loading: true, ready: false, error: '', metrics: null, communities: [], communityIndex: 0, scope: 'community', canFederate: false, isAdmin: false, authorized: false, from: '', to: '' },
   onShow() {
     this._hidden = false;
-    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
-    if (this._autoDate && this._autoDate !== today && !this._dateManual) this.setData({ from: today, to: today });
-    this._autoDate = today;
+    this.syncDateOwner(getApp().globalData.user?._id);
     this.load();
   },
   onHide() { this.invalidate(); },
@@ -20,6 +18,31 @@ Page({
     this.refreshSequence = (this.refreshSequence || 0) + 1;
     this.user = null;
     this.setData({ loading: false, ready: false, authorized: false, isAdmin: false, metrics: null, communities: [], canFederate: false, error: '' });
+  },
+  sameSession(user) {
+    const current = getApp().globalData.user;
+    return !!user?._id && current?._id === user._id && current.communityId === user.communityId &&
+      Boolean(current.roles?.includes('admin')) === Boolean(user.roles?.includes('admin')) &&
+      Boolean(current.roles?.includes('property')) === Boolean(user.roles?.includes('property'));
+  },
+  clearAccess(error) {
+    this.user = null;
+    this.setData({ authorized: false, isAdmin: false, ready: false, metrics: null,
+      communities: [], canFederate: false, error });
+  },
+  syncDateOwner(userId) {
+    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+    if (userId && this._dateOwner !== userId) {
+      if (this._dateOwner && this._dateManual) {
+        this._dateDrafts ||= {};
+        this._dateDrafts[this._dateOwner] = { from: this.data.from, to: this.data.to };
+      }
+      const saved = this._dateDrafts?.[userId];
+      this._dateOwner = userId;
+      this._dateManual = !!saved;
+      this.setData(saved || { from: today, to: today });
+    } else if (!this._dateManual && this._autoDate !== today) this.setData({ from: today, to: today });
+    this._autoDate = today;
   },
   async load() {
     if (this._hidden || this._unloaded) return;
@@ -33,25 +56,30 @@ Page({
     this.setData({ loading: true, ready: false, error: '', authorized: false, isAdmin: false, metrics: null, canFederate: false, communities: [], scope: 'community', from: validRange.from, to: validRange.to });
     try {
       const user = await getApp().ensureSession();
-      if (!active() || getApp().globalData.user?._id !== user._id) return;
+      if (!active()) return;
+      if (!this.sameSession(user)) throw Error('资料已变化，请重新加载');
+      this.syncDateOwner(user._id);
       if (!user.roles.includes('admin') && !user.roles.includes('property')) throw new Error('无权查看管理看板');
       this.user = user;
       if (user.roles.includes('admin')) {
         const communities = await listAll('catalog', 'listCommunities', {},
-          { redirectOnForbidden: false, isActive: () => active() && getApp().globalData.user?._id === user._id });
-        if (!active() || getApp().globalData.user?._id !== user._id) return;
+          { redirectOnForbidden: false, isActive: () => active() && this.sameSession(user) });
+        if (!active()) return;
+        if (!this.sameSession(user)) throw Error('资料已变化，请重新加载');
         const communityIndex = Math.max(0, communities.findIndex(item => item._id === user.communityId));
         this.setData({ communities, communityIndex, isAdmin: true, canFederate: Boolean(communities[communityIndex] && communities[communityIndex].federationGroupId) });
         const templates = await api.call('admin', 'notificationTemplates', {},
           { loading: false, silent: true, redirectOnForbidden: false,
-            isActive: () => active() && getApp().globalData.user?._id === user._id });
-        if (!active() || getApp().globalData.user?._id !== user._id) return;
+            isActive: () => active() && this.sameSession(user) });
+        if (!active()) return;
+        if (!this.sameSession(user)) throw Error('资料已变化，请重新加载');
         if (templates.unaccepted) await new Promise(resolve => wx.requestSubscribeMessage({ tmplIds: [templates.unaccepted], success: resolve, fail: resolve }));
       }
-      if (!active() || getApp().globalData.user?._id !== user._id) return;
+      if (!active()) return;
+      if (!this.sameSession(user)) throw Error('资料已变化，请重新加载');
       this.setData({ authorized: true, isAdmin: user.roles.includes('admin') });
       await this.refresh();
-    } catch (error) { if (active()) this.setData({ error: error.message || '看板加载失败' }); }
+    } catch (error) { if (active()) this.clearAccess(error.message || '看板加载失败'); }
     finally { if (active()) this.setData({ loading: false }); }
   },
   async refresh() {
@@ -59,10 +87,10 @@ Page({
     const user = this.user;
     const userId = user?._id;
     const active = () => !this._hidden && !this._unloaded && sequence === this.refreshSequence &&
-      this.data.authorized && userId && getApp().globalData.user?._id === userId;
+      this.data.authorized && userId && this.sameSession(user);
     if (!active()) {
-      this.user = null;
-      this.setData({ authorized: false, isAdmin: false, ready: false, metrics: null, communities: [], canFederate: false });
+      if (!this._hidden && !this._unloaded && sequence === this.refreshSequence && user && !this.sameSession(user))
+        this.clearAccess('资料已变化，请重新加载');
       return;
     }
     this.setData({metrics:null, ready:false});
@@ -72,10 +100,8 @@ Page({
       if (this.data.from > this.data.to) throw new Error('开始日期不能晚于结束日期，请调整日期');
       const metrics = await api.call('admin', 'dashboard', { communityId, scope: this.data.scope, from: this.data.from, to: this.data.to }, { loading: false, silent: true, isActive: active });
       if (!active()) {
-        if (!this._hidden && !this._unloaded && sequence === this.refreshSequence && getApp().globalData.user?._id !== userId) {
-          this.user = null;
-          this.setData({ authorized: false, isAdmin: false, ready: false, metrics: null, communities: [], canFederate: false });
-        }
+        if (!this._hidden && !this._unloaded && sequence === this.refreshSequence && !this.sameSession(user))
+          this.clearAccess('资料已变化，请重新加载');
         return;
       }
       this._lastValidRange = { from: this.data.from, to: this.data.to };
@@ -94,6 +120,7 @@ Page({
   },
   chooseDate(event) {
     if (!this.data.authorized || this._hidden || this._unloaded) return;
+    if (!this.sameSession(this.user)) { this.clearAccess('资料已变化，请重新加载'); return; }
     const field = event.currentTarget.dataset.field;
     if (field !== 'from' && field !== 'to') return;
     this._dateManual = true;
@@ -102,9 +129,12 @@ Page({
   },
   chooseCommunity(event) {
     if (!this.data.authorized || this._hidden || this._unloaded) return;
+    if (!this.sameSession(this.user)) { this.clearAccess('资料已变化，请重新加载'); return; }
     const communityIndex = Number(event.detail.value), community = this.data.communities[communityIndex];
     this.setData({ communityIndex, scope: 'community', canFederate: Boolean(community && community.federationGroupId) });
     this.refresh();
   },
-  chooseScope(event) { if (!this.data.authorized || this._hidden || this._unloaded) return; this.setData({ scope: event.currentTarget.dataset.scope }); this.refresh(); }
+  chooseScope(event) { if (!this.data.authorized || this._hidden || this._unloaded) return;
+    if (!this.sameSession(this.user)) { this.clearAccess('资料已变化，请重新加载'); return; }
+    this.setData({ scope: event.currentTarget.dataset.scope }); this.refresh(); }
 });

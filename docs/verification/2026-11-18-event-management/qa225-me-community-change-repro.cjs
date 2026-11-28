@@ -19,7 +19,7 @@ async function main() {
 
   const observed = { loading: page.data.loading, error: page.data.error,
     user: page.data.user, community: page.data.community, cloudCalls: r.requests.length };
-  assert.deepEqual(observed, { loading: false, error: '', user: null, community: null, cloudCalls: 0 });
+  assert.deepEqual(observed, { loading: false, error: '资料已变化，请重新加载', user: null, community: null, cloudCalls: 0 });
   const template = fs.readFileSync(path.join(__dirname, '../../../miniprogram/pages/me/me.wxml'), 'utf8');
   assert.match(template, /wx:if="{{loading}}"/);
   assert.match(template, /wx:elif="{{error}}"/);

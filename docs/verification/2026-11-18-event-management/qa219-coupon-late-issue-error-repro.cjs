@@ -46,5 +46,5 @@ async function reproduce(leave) {
   for (const leave of ['switch', 'hide', 'unload']) results.push(await reproduce(leave));
   console.log(JSON.stringify({ scope: 'actual P28 page; synthetic administrators and intercepted API',
     results, realCloudWrites: 0 }, null, 2));
-  assert(results.every(result => result.oldRecipientShown));
+  assert(results.every(result => !result.oldRecipientShown));
 })().catch(error => { console.error(error.stack); process.exitCode = 1; });

@@ -25,8 +25,8 @@ async function readWithChange() {
     authorized: page.data.authorized, pageCommunity: page.user?.communityId,
     currentCommunity: r.app.globalData.user.communityId,
     requestedCommunity: r.requests.find(([name, action]) => name === 'admin' && action === 'dashboard')?.[2]?.communityId };
-  assert.deepEqual(observed, { loading: false, ready: true, authorized: true,
-    pageCommunity: 'community-a', currentCommunity: 'community-b', requestedCommunity: 'community-a' });
+  assert.deepEqual(observed, { loading: false, ready: false, authorized: false,
+    pageCommunity: undefined, currentCommunity: 'community-b', requestedCommunity: undefined });
   page.onHide();
   return observed;
 }

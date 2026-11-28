@@ -16,7 +16,7 @@ async function main() {
     await page.onShow();
     const failed = { loading: page.data.loading, error: page.data.error,
       listLength: page.data.list.length, cloudCalls: r.requests.length };
-    assert.deepEqual(failed, { loading: true, error: '', listLength: 0, cloudCalls: 0 });
+    assert.deepEqual(failed, { loading: false, error: 'synthetic login timeout', listLength: 0, cloudCalls: 0 });
 
     r.app.globalData.user = { _id: 'seller-a', communityId: 'community-a' };
     r.app.ensureSession = async () => r.app.globalData.user;

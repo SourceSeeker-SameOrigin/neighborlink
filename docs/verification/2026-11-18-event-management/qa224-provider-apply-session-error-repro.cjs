@@ -10,7 +10,7 @@ async function main() {
   await page.load();
   const observed = { loading: page.data.loading, ready: page.data.ready, error: page.data.error,
     errorKind: page.data.errorKind, cloudCalls: r.requests.length };
-  assert.deepEqual(observed, { loading: true, ready: false, error: '', errorKind: '', cloudCalls: 0 });
+  assert.deepEqual(observed, { loading: false, ready: false, error: 'synthetic login timeout', errorKind: 'load', cloudCalls: 0 });
   console.log(JSON.stringify({ scope: 'Actual provider application page; synthetic session failure, no cloud writes', observed }, null, 2));
 }
 

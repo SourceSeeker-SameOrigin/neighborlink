@@ -3,10 +3,25 @@ const api = require('../../utils/api');
 Page({
   data: { loading: true, saving: false, authorizing: false, error: '', phoneError: '', communities: [], buildings: [], units: [],
     communityIndex: 0, buildingIndex: 0, unitIndex: 0, room: '', phone: '', manualPhone: '', phoneVerified: false, contactExpanded: false, contactName: '', contactPhone: '', agreed: false, locationHint: '' },
-  onLoad() { this.load(); },
-  onShow() { this.hidden = false; if (this.ownerId && !this.currentOwner()) this.load(); },
-  onHide() { this.hidden = true; this.readSequence = (this.readSequence || 0) + 1; this.clearOwnerData(); },
-  onUnload() { this.closed = true; this.readSequence = (this.readSequence || 0) + 1; this.clearOwnerData(); },
+  onLoad() { return this.load(); },
+  onShow() { this.hidden = false; if (this.wasHidden) { this.wasHidden = false; return this.load(); } },
+  onHide() {
+    if (this.currentOwner()) this.draft = {
+      ownerId: this.ownerId, communityId: this.ownerCommunityId,
+      selectedCommunityId: this.data.communities[this.data.communityIndex]?._id,
+      selectedBuildingId: this.data.buildings[this.data.buildingIndex]?._id,
+      selectedUnit: this.data.units[this.data.unitIndex],
+      room: this.data.room, manualPhone: this.data.manualPhone,
+      contactExpanded: this.data.contactExpanded, contactName: this.data.contactName,
+      contactPhone: this.data.contactPhone, agreed: this.data.agreed
+    };
+    this.hidden = true; this.wasHidden = true;
+    this.readSequence = (this.readSequence || 0) + 1;
+    this.buildingRequest = (this.buildingRequest || 0) + 1;
+    this.clearOwnerData();
+  },
+  onUnload() { this.onHide(); this.closed = true; this.draft = null; },
+  currentRead(sequence) { return !this.hidden && !this.closed && sequence === this.readSequence; },
   currentOwner(sequence = this.readSequence) {
     const user = getApp().globalData.user;
     return !this.hidden && !this.closed && sequence === this.readSequence && !!this.ownerId &&
@@ -15,17 +30,23 @@ Page({
   clearOwnerData() {
     this.setData({ communities: [], buildings: [], units: [], communityIndex: 0, buildingIndex: 0,
       unitIndex: 0, room: '', phone: '', manualPhone: '', phoneVerified: false,
-      contactName: '', contactPhone: '', agreed: false });
+      contactExpanded: false, contactName: '', contactPhone: '', agreed: false });
   },
   async load() {
     const sequence = this.readSequence = (this.readSequence || 0) + 1;
     if (this.ownerId && (getApp().globalData.user?._id !== this.ownerId ||
-        getApp().globalData.user?.communityId !== this.ownerCommunityId)) this.clearOwnerData();
+        getApp().globalData.user?.communityId !== this.ownerCommunityId)) {
+      if (getApp().globalData.user?._id) this.draft = null;
+      this.clearOwnerData();
+    }
     this.setData({ loading: true, error: '' });
     try {
       const user = await getApp().ensureSession();
-      if (sequence !== this.readSequence || this.hidden || this.closed ||
-          getApp().globalData.user?._id !== user._id) return;
+      if (!this.currentRead(sequence)) return;
+      if (!user?._id || getApp().globalData.user?._id !== user._id ||
+          getApp().globalData.user?.communityId !== user.communityId) throw Error('登录资料已变化，请重试');
+      if (this.draft && (this.draft.ownerId !== user._id || this.draft.communityId !== user.communityId)) this.draft = null;
+      const draft = this.draft;
       this.ownerId = user._id;
       this.ownerCommunityId = user.communityId;
       const communities = [];
@@ -56,9 +77,10 @@ Page({
         } catch (_) { if (this.currentOwner(sequence)) this.setData({ locationHint: '定位或附近查询暂不可用，已显示小区列表，可手动选择' }); }
       }
       communities.forEach(item => { item.displayName = Number.isFinite(item.distanceKm) ? `${item.name} · ${item.distanceKm.toFixed(1)} 公里` : item.name; });
-      let selected = { communityId: user.communityId, buildingId: user.buildingId };
+      let selected = { communityId: draft?.selectedCommunityId || user.communityId,
+        buildingId: draft?.selectedBuildingId || user.buildingId };
       const scene = wx.getStorageSync('scene');
-      if (!user.communityId && scene) {
+      if (!draft && !user.communityId && scene) {
         try { selected = await api.call('catalog', 'resolveScene', { scene }, { loading: false, silent: true }); }
         catch (error) {
           if (error.code !== 'E_INVALID_PARAM') throw error;
@@ -66,14 +88,30 @@ Page({
           if (this.currentOwner(sequence)) this.setData({ error: '二维码已失效，请手动选择小区和楼栋' });
         }
       }
+      const draftCommunityValid = !!draft && communities.some(item => item._id === draft.selectedCommunityId);
+      if (draft && !draftCommunityValid) selected = { communityId: user.communityId, buildingId: user.buildingId };
       const communityIndex = Math.max(0, communities.findIndex(item => item._id === selected.communityId));
       if (!this.currentOwner(sequence)) return;
-      this.setData({ communities, communityIndex, room: user.room || '', phone: user.phone || '', phoneVerified: user.phoneVerified === true });
-      if (communities.length) await this.loadBuildings(communities[communityIndex]._id, selected.buildingId, user.unit);
-    } catch (error) { if (this.currentOwner(sequence)) this.setData({ error: error.message || '加载失败，请重试' }); }
-    finally { if (this.currentOwner(sequence)) this.setData({ loading: false }); }
+      this.setData({ communities, communityIndex, room: draftCommunityValid ? draft.room : user.room || '',
+        phone: user.phone || '', phoneVerified: user.phoneVerified === true,
+        manualPhone: draftCommunityValid ? draft.manualPhone : '',
+        contactExpanded: draftCommunityValid ? draft.contactExpanded : false,
+        contactName: draftCommunityValid ? draft.contactName : '',
+        contactPhone: draftCommunityValid ? draft.contactPhone : '',
+        agreed: draftCommunityValid ? draft.agreed : false });
+      if (communities.length) await this.loadBuildings(communities[communityIndex]._id, selected.buildingId,
+        draftCommunityValid ? draft.selectedUnit : user.unit);
+      if (this.currentOwner(sequence) && draftCommunityValid &&
+          !this.data.buildings.some(item => item._id === draft.selectedBuildingId))
+        this.setData({ room: '', agreed: false });
+    } catch (error) { if (this.currentRead(sequence)) {
+      this.clearOwnerData();
+      this.setData({ error: error.message || '加载失败，请重试' });
+    } }
+    finally { if (this.currentRead(sequence)) this.setData({ loading: false }); }
   },
   async loadBuildings(communityId, buildingId, unit) {
+    if (!this.currentOwner()) return;
     const request = (this.buildingRequest || 0) + 1;
     this.buildingRequest = request;
     this.setData({ buildings: [], units: [] });
@@ -85,10 +123,13 @@ Page({
     this.setData({ buildings, buildingIndex, units, unitIndex: Math.max(0, units.indexOf(unit)) });
   },
   async communityChange(event) {
+    if (!this.currentOwner()) return;
+    const sequence = this.readSequence;
     const communityIndex = Number(event.detail.value);
+    if (!this.data.communities[communityIndex]) return;
     this.setData({ communityIndex, error: '' });
     try { await this.loadBuildings(this.data.communities[communityIndex]._id); }
-    catch (error) { this.setData({ error: error.message }); }
+    catch (error) { if (this.currentOwner(sequence)) this.setData({ error: error.message }); }
   },
   buildingChange(event) {
     const buildingIndex = Number(event.detail.value);

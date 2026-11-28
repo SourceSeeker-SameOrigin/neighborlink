@@ -109,6 +109,18 @@ async function buy(event, { user, openid }) {
   catch (error) { return { orderId: id, paymentError: error.code || 'E_PAYMENT' }; }
 }
 
+async function lookupBuy(event, { openid }) {
+  text(event.requestId, '请求编号', 80);
+  ensure(/^[a-zA-Z0-9_-]{8,80}$/.test(event.requestId), '请求编号不正确');
+  const id = 'mp_' + crypto.createHash('sha256').update(openid + ':' + event.requestId).digest('hex').slice(0, 40);
+  const order = await server.get('orders', id);
+  if (!order) return { orderId: null };
+  ensure(order.userOpenid === openid && order.kind === 'membership_purchase', '无权查看该月卡订单', 'E_FORBIDDEN');
+  return { orderId: order._id, planCode: order.planCode, communityId: order.communityId,
+    addressId: order.addressId || null, slot: order.detail?.slot || null,
+    entry: order.detail?.entry || null, status: order.status };
+}
+
 async function skipToday(event, { openid }) {
   text(event.membershipId, '月卡');
   return atomic(server.db, async transaction => {
@@ -126,4 +138,4 @@ async function skipToday(event, { openid }) {
     return { date, skipped: true };
   });
 }
-exports.main = server.entry({ plans, buy, mine, skipToday }, ['resident']);
+exports.main = server.entry({ plans, buy, lookupBuy, mine, skipToday }, ['resident']);

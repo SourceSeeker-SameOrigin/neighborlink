@@ -37,9 +37,15 @@ for (const [id, relative] of [
   clock = Date.parse('2026-11-30T16:05:00Z');
   page.onHide(); page.onShow();
   const afterMidnight = [page.data.from, page.data.to];
-  results.push({ id, afterSwitch, afterMidnight });
+  page.onHide(); user = { _id: 'admin-a', roles: ['admin'] }; page.onShow();
+  const afterReturn = [page.data.from, page.data.to];
+  results.push({ id, afterSwitch, afterMidnight, afterReturn });
 }
-assert(results.every(result => result.afterSwitch[0] === '2026-10-01' &&
-  result.afterMidnight[0] === '2026-10-01'));
+for (const result of results) {
+  assert.deepEqual(result.afterSwitch, result.id === 'P18'
+    ? ['2026-11-30', '2026-11-30'] : ['2026-11-01', '2026-11-30']);
+  assert.deepEqual(result.afterMidnight, ['2026-12-01', '2026-12-01']);
+  assert.deepEqual(result.afterReturn, ['2026-10-01', '2026-10-15']);
+}
 console.log(JSON.stringify({ scope: 'actual P18/P24/P32 date lifecycle; synthetic identity and clock; cloud load disabled',
   results, realCloudCalls: 0 }, null, 2));

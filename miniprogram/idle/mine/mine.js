@@ -5,6 +5,7 @@ Page({
   onShow() { this.hidden = false; return this.load(); },
   onHide() { this.hidden = true; this.sequence = (this.sequence || 0) + 1; this.setData({ list: [], hasMore: false, paging: false }); },
   onUnload() { this.closed = true; this.sequence = (this.sequence || 0) + 1; this.setData({ list: [], hasMore: false, paging: false }); },
+  currentRead(sequence) { return !this.hidden && !this.closed && sequence === this.sequence; },
   currentList(sequence = this.sequence) { const user = getApp().globalData.user; return !this.hidden && !this.closed &&
     sequence === this.sequence && !!this.ownerId && user?._id === this.ownerId && user?.communityId === this.ownerCommunityId; },
   async load() {
@@ -13,16 +14,22 @@ Page({
     this.setData({ loading: true, paging: false, hasMore: false, error: '', moreError: '', list: [] });
     try {
       const user = await getApp().ensureSession();
-      if (this.hidden || this.closed || sequence !== this.sequence || getApp().globalData.user?._id !== user._id) return;
+      if (!this.currentRead(sequence)) return;
+      if (!user?._id || getApp().globalData.user?._id !== user._id ||
+          getApp().globalData.user?.communityId !== user.communityId) throw Error('登录资料已变化，请重试');
       this.ownerId = user._id; this.ownerCommunityId = user.communityId;
       const result = await api.call('idle', 'mine', { offset: 0 }, { loading: false, silent: true, isActive: () => this.currentList(sequence) });
-      if (!this.currentList(sequence)) return;
+      if (!this.currentRead(sequence)) return;
+      if (!this.currentList(sequence)) throw Error('登录资料已变化，请重试');
       const statusText = { on_sale: '在售', reserved: '交易中', sold: '已售', removed: '已下架', hidden: '审核中' };
       this.nextOffset = result.list.length;
       this.setData({ hasMore: !!result.hasMore, list: result.list.map(item => ({ ...item, priceText: yuan(item.price),
         statusText: item.moderationHidden ? '审核中' : statusText[item.status] || item.status })) });
-    } catch (error) { if (this.currentList(sequence)) this.setData({ error: error.message || '闲置加载失败' }); }
-    finally { if (this.currentList(sequence)) this.setData({ loading: false }); }
+    } catch (error) { if (this.currentRead(sequence)) {
+      this.ownerId = null;
+      this.setData({ error: error.message || '闲置加载失败', list: [], hasMore: false });
+    } }
+    finally { if (this.currentRead(sequence)) this.setData({ loading: false }); }
   },
   async more() {
     if (!this.currentList() || this.data.loading || this.data.paging || !this.data.hasMore) return;

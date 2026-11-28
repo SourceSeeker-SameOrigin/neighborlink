@@ -30,11 +30,23 @@ Page({
   },
   onShow() {
     this.visible = true;
-    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
-    if (this._autoDate && this._autoDate !== today && !this._dateManual)
-      this.setData({ from: today.slice(0, 8) + '01', to: today });
-    this._autoDate = today;
+    this.syncDateOwner(getApp().globalData.user?._id);
     return this.load();
+  },
+  syncDateOwner(userId) {
+    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+    const defaults = { from: today.slice(0, 8) + '01', to: today };
+    if (userId && this._dateOwner !== userId) {
+      if (this._dateOwner && this._dateManual) {
+        this._dateDrafts ||= {};
+        this._dateDrafts[this._dateOwner] = { from: this.data.from, to: this.data.to };
+      }
+      const saved = this._dateDrafts?.[userId];
+      this._dateOwner = userId;
+      this._dateManual = !!saved;
+      this.setData(saved || defaults);
+    } else if (!this._dateManual && this._autoDate !== today) this.setData(defaults);
+    this._autoDate = today;
   },
   currentRead() {
     const context = this.readContext;
@@ -82,6 +94,7 @@ Page({
       const isAdmin = user.roles.includes('admin');
       if (!isAdmin && !user.roles.includes('property')) throw new Error('无权查看结算');
       if (!current()) return;
+      this.syncDateOwner(userId);
       this.setData({ authorized: true, isAdmin });
       if (!isAdmin) {
         if (!user.communityId) throw new Error('尚未分配物业服务小区');

@@ -12,11 +12,18 @@
 <view wx:if="{{navigationError}}" class="error">{{navigationError}}</view>
 <button class="ui-button" bindtap="openCreatedOrder" loading="{{navigating}}" disabled="{{busy || navigating}}">前往已有订单</button>
 </view>
+<view wx:if="{{recoveryPending && !createdOrderId}}" class="card">
+<view class="section-title">核对上次月卡购买</view>
+<view class="muted">{{recoveryHint}}</view>
+<view wx:if="{{recoveryPlanName}}">原计划：{{recoveryPlanName}} · {{addressText}}</view>
+<button class="ui-button" bindtap="load" disabled="{{loading || busy}}">重新查询原订单</button>
+<button class="ui-button" type="primary" bindtap="retryPending" disabled="{{loading || busy || !ready || !recoveryCanRetry}}">确认并用原编号提交</button>
+</view>
 <empty-state wx:if="{{loading}}" message="正在加载月卡…"/>
 <empty-state wx:if="{{!loading && error}}" message="{{error}}" retry bind:retry="load"/>
 <view wx:if="{{addresses.length > 1 && !createdOrderId}}" class="card">
 <view class="section-title">服务地址</view>
-<picker disabled="{{busy}}" range="{{addresses}}" range-key="pickerLabel" value="{{addressIndex}}" bindchange="addressChange">
+<picker disabled="{{busy || recoveryPending}}" range="{{addresses}}" range-key="pickerLabel" value="{{addressIndex}}" bindchange="addressChange">
 <view class="picker">{{addressText}} · 切换地址</view>
 </picker>
 </view>
@@ -31,24 +38,24 @@
 <view wx:if="{{item.serviceCode === 'express'}}">每日 {{item.dailyParcelQuota}} 件以内免费，超额整单按原价</view>
 <block wx:if="{{item.serviceCode === 'trash'}}">
 <view>每天上门一次，请选择时段并提前分类放在门口</view>
-<picker range="{{slots}}" value="{{slotIndex}}" bindchange="slot">
+<picker disabled="{{recoveryPending}}" range="{{slots}}" value="{{slotIndex}}" bindchange="slot">
 <view class="picker">{{slots[slotIndex]}}</view>
 </picker>
 </block>
 <block wx:if="{{item.serviceCode === 'visit'}}">
 <view>按月卡配置上门探访，服务地址：{{addressText}}</view>
-<picker range="{{slots}}" value="{{slotIndex}}" bindchange="slot">
+<picker disabled="{{recoveryPending}}" range="{{slots}}" value="{{slotIndex}}" bindchange="slot">
 <view class="picker">上门时段：{{slots[slotIndex]}}</view>
 </picker>
 </block>
 <block wx:if="{{item.serviceCode === 'vacant'}}">
 <view>月卡自购买日起有效 30 天；有效期内每月 1 日、15 日按小区值班时段巡检。</view>
-<picker range="{{entryOptions}}" value="0" bindchange="entry">
+<picker disabled="{{recoveryPending}}" range="{{entryOptions}}" value="0" bindchange="entry">
 <view class="picker">入户方式：{{entryOptions[entry === 'password' ? 0 : entry === 'key_handover' ? 1 : 2]}}</view>
 </picker>
 <input wx:if="{{entry === 'password'}}" password maxlength="100" value="{{entryPassword}}" bindinput="entryPassword" placeholder="填写门锁密码"/>
 </block>
-<button class="ui-button" type="primary" data-code="{{item.code}}" bindtap="buy" disabled="{{busy || loading || !ready}}" loading="{{busy}}">购买 / 续期</button>
+<button class="ui-button" type="primary" data-code="{{item.code}}" bindtap="buy" disabled="{{busy || loading || !ready || recoveryPending}}" loading="{{busy}}">购买 / 续期</button>
 </view>
 <view class="muted">月卡暂不支持自行退款，如需处理请联系客服。</view>
 <view class="section-title">我的月卡</view>

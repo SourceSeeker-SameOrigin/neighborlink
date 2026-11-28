@@ -33,7 +33,8 @@ Page({
       const app = getApp();
       const user = await app.ensureSession(true);
       if (!current()) return;
-      if (app.globalData.user?._id !== user._id || app.globalData.user?.communityId !== user.communityId) return;
+      if (app.globalData.user?._id !== user._id || app.globalData.user?.communityId !== user.communityId)
+        throw Error('资料已变化，请重新加载');
       const community = app.globalData.community, provider = app.globalData.provider;
       this._ready = true;
       this.setData({ user, community, provider, merchant: null, stationApplication: null, unreadTotal: 0,

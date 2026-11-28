@@ -14,6 +14,7 @@ Page({
     return !this._closed && !this._hidden && sequence === this.readSequence && !!this.userId &&
       user?._id === this.userId && user?.communityId === this.userCommunityId;
   },
+  currentRead(sequence) { return !this._closed && !this._hidden && sequence === this.readSequence; },
   clearOwnerData() {
     this.setData({ ready: false, provider: null, communities: [], phone: '', kycFileId: '', avatarFileId: '' });
   },
@@ -35,9 +36,9 @@ Page({
     this.setData({ loading: true, ready: false, error: '', errorKind: '' });
     try {
       const user = await getApp().ensureSession();
-      if (this._closed || this._hidden || sequence !== this.readSequence ||
-          getApp().globalData.user?._id !== user._id) return;
-      if (!user._id) throw new Error('登录资料不完整，请重新加载');
+      if (!this.currentRead(sequence)) return;
+      if (!user?._id || getApp().globalData.user?._id !== user._id ||
+          getApp().globalData.user?.communityId !== user.communityId) throw Error('登录资料已变化，请重试');
       this.userId = user._id;
       this.userCommunityId = user.communityId;
       const communities = await listAll('catalog', 'listCommunities');
@@ -49,8 +50,11 @@ Page({
       if (this.pendingPhotoResult?.userId === user._id && this.pendingPhotoResult.communityId === user.communityId) {
         this.setData({ [this.pendingPhotoResult.field]: this.pendingPhotoResult.fileId }); this.pendingPhotoResult = null;
       }
-    } catch (error) { if (this.currentOwner(sequence)) this.setData({ error: error.message || '加载失败，请重试', errorKind: 'load' }); }
-    finally { this._loading = false; if (this.currentOwner(sequence)) this.setData({ loading: false }); }
+    } catch (error) { if (this.currentRead(sequence)) {
+      this.clearOwnerData();
+      this.setData({ error: error.message || '加载失败，请重试', errorKind: 'load' });
+    } }
+    finally { this._loading = false; if (this.currentRead(sequence)) this.setData({ loading: false }); }
   },
   change(event) {
     if (!this.canEdit()) return;

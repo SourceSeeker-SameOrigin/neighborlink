@@ -24,11 +24,28 @@ Page({
   },
   onShow() {
     this._hidden = false;
-    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
-    if (this._autoDate && this._autoDate !== today && !this._dateManual)
-      this.setData({ from: today.slice(0, 8) + '01', to: today });
-    this._autoDate = today;
+    this.syncDateOwner(getApp().globalData.user?._id);
     return this.load();
+  },
+  syncDateOwner(userId) {
+    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+    const defaults = { from: today.slice(0, 8) + '01', to: today };
+    if (userId && this._dateOwner !== userId) {
+      if (this._dateOwner) {
+        if (this._dateManual) {
+          this._dateDrafts ||= {};
+          this._dateDrafts[this._dateOwner] = { from: this.data.from, to: this.data.to };
+        }
+        this._entryCommunity = null;
+      }
+      let saved = this._dateDrafts?.[userId];
+      if (!this._dateOwner && this._entryCommunity && this._dateManual && !saved)
+        saved = { from: this.data.from, to: this.data.to };
+      this._dateOwner = userId;
+      this._dateManual = !!saved;
+      this.setData(saved || defaults);
+    } else if (!this._dateManual && this._autoDate !== today) this.setData(defaults);
+    this._autoDate = today;
   },
   onHide() {
     this._hidden = true;
@@ -79,6 +96,7 @@ Page({
       const user = await getApp().ensureSession();
       if (!visible()) return;
       if (getApp().globalData.user?._id !== user._id || !user.roles?.includes('admin')) throw new Error('只有运营管理员可以使用数据导出');
+      this.syncDateOwner(user._id);
       const active = () => visible() && getApp().globalData.user?._id === user._id;
       const selectedCommunity = selectionOwner === user._id || this._entryCommunity ? selectedCommunityId || user.communityId : user.communityId;
       const [communities, providers, merchants] = await Promise.all([
