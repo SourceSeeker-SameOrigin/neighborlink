@@ -17,7 +17,8 @@ async function run(kind, phase) {
       result = { buildings: [{ _id: 'building-a', units: ['1'] }] };
     else if (name === 'order' && action === 'detail') result = order;
     else throw Error(`Unexpected read: ${name}.${action}`);
-    if (phase === 'late-read' && !finishRead && (action === 'listCommunities' || action === 'detail'))
+    if (!finishRead && ((phase === 'late-building' && action === 'getCommunity') ||
+        (phase === 'late-read' && (action === 'listCommunities' || action === 'detail'))))
       return new Promise(resolve => { finishRead = () => resolve(result); });
     return result;
   });
@@ -35,7 +36,7 @@ async function run(kind, phase) {
   if (phase === 'first-session') {
     env.app.globalData.user = user('b');
     finishSession();
-  } else if (phase === 'late-read') {
+  } else if (phase === 'late-read' || phase === 'late-building') {
     for (let i = 0; i < 25 && !finishRead; i += 1) await Promise.resolve();
     assert.equal(typeof finishRead, 'function', `${kind}: intercepted read must start`);
     env.app.globalData.user = user('b');
@@ -44,10 +45,12 @@ async function run(kind, phase) {
   await pending;
   const observed = { kind, phase, loading: page.data.loading, error: page.data.error,
     communities: page.data.communities?.length || 0, orderId: page.data.order?._id || '',
+    room: page.data.room || '', phone: page.data.phone || '',
     calls: env.requests.map(request => request[1]) };
   const desired = phase === 'normal' ? !observed.loading && !observed.error &&
     (kind === 'bind' ? observed.communities === 1 : observed.orderId === order._id) :
     !observed.loading && !observed.communities && !observed.orderId &&
+    !observed.room && !observed.phone &&
     /登录.*变化|资料.*变化/.test(observed.error || '');
   page.onHide();
   return { ...observed, desired };
@@ -58,9 +61,10 @@ async function main() {
   for (const kind of ['bind', 'order'])
     for (const phase of ['normal', 'first-session', 'late-read'])
       results.push(await run(kind, phase));
+  results.push(await run('bind', 'late-building'));
   const failed = results.filter(result => !result.desired);
-  assert.equal(results.length, 6);
-  assert.equal(failed.length, 3, 'reproduction baseline changed; inspect before editing decision record');
+  assert.equal(results.length, 7);
+  assert.equal(failed.length, 4, 'reproduction baseline changed; inspect before editing decision record');
   console.log(JSON.stringify({ scope: 'P02/P08 actual pages; synthetic profiles; no cloud writes',
     controlsPassed: results.length - failed.length, boundariesFailed: failed.length, failed }, null, 2));
 }
