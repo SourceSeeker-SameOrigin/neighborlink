@@ -1394,3 +1394,7 @@ P62实际页面onLoad在北京时间刚跨月的两个固定时刻运行：北�
 用户批准固定范围并亲自完成 CloudBase CLI 设备登录后，`admin`、`board`、`content`、`event`、`idle`、`provider`、`station`、`payout`、`order`、`timer` 逐包校验并更新；各包完整 SHA-256 与批准清单一致，独立下载后各 77/77 个源码文件一致，SDK 4.0.2，最终状态均为 `Active`。原先 `admin` 的 `UpdateFailed` 已恢复。按批准字段新增并回读三个非唯一索引：`payouts.payee_type_created_id`、`comments.post_status_created_id`、`notices.community_status_pinned_created_id`。`ads.slot_active_start_id` 仍待查询计划验证，尚未创建。详见 `qa199-218-cloud-deployment-20261128.json` 与原批准清单；仅更新代码和索引，未执行 timer 或业务写入。
 
 同轮使用实际页面代码与合成首次会话错误检查 P14 工作台、P15 任务大厅、P17 收入和 P21 服务员审核：四页均结束加载、显示错误、没有发云业务请求。P13 服务员申请页则仍保持加载态且没有错误，记录为待统一决策 QA224，不计真实界面通过。Jest 55 套、653 项通过。开发云本人会话只读调用、体验成员手机、69 页完整业务与四宽验收仍待进行；体验版前端未在本轮切换。临时 CLI 与固定 ZIP 目录经逐文件复核后已删除。
+
+## 16 页首次会话失败隔离检查（2026-11-28）
+
+实际页面生命周期接合成 `ensureSession` 错误，P14、P15、P17、P18、P19、P21、P22、P23、P24、P26、P30、P31、P32、P33、P54、P61 全部结束加载、显示错误，旧列表或授权状态未保留，云业务调用均为 0。复跑命令：`node docs/verification/2026-11-18-event-management/session-error-smoke-20261128.cjs`。该结果仅证明首次会话失败边界；P13 的 QA224 仍待统一决策，真实双账号、页面按钮、四宽及手机验收未因此增加通过项。
