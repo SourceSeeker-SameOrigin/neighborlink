@@ -57,7 +57,11 @@ Page({
     try {
       const user = await getApp().ensureSession();
       if (!current()) return;
-      if (getApp().globalData.user?._id !== user._id || !user.roles?.includes('admin')) throw new Error('只有运营管理员可以导出回收企业对账');
+      const sameIdentity = () => getApp().globalData.user?._id === user?._id &&
+        getApp().globalData.user?.communityId === user?.communityId;
+      if (!sameIdentity()) throw new Error('登录身份已变化，请重新加载');
+      if (!user.roles?.includes('admin') || !getApp().globalData.user?.roles?.includes('admin'))
+        throw new Error('只有运营管理员可以导出回收企业对账');
       if (previousOwner && previousOwner !== user._id) {
         const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
         this._defaultRange = { from: today.slice(0, 8) + '01', to: today };
@@ -66,8 +70,10 @@ Page({
         this.setData(draft ? { from: draft.from, to: draft.to } : this._defaultRange);
       }
       const communities = await listAll('catalog', 'listCommunities', {},
-        { redirectOnForbidden: false, isActive: () => current() && getApp().globalData.user?._id === user._id });
-      if (!current() || getApp().globalData.user?._id !== user._id) return;
+        { redirectOnForbidden: false, isActive: () => current() && sameIdentity() });
+      if (!current()) return;
+      if (!sameIdentity() || !getApp().globalData.user?.roles?.includes('admin'))
+        throw new Error('登录身份已变化，请重新加载');
       this._ownerId = user._id;
       this._lastOwnerId = user._id;
       this.setData({ communities, ready: true, communityIndex: Math.max(0, communities.findIndex(item => item._id === user.communityId)) });

@@ -95,16 +95,23 @@ Page({
     try {
       const user = await getApp().ensureSession();
       if (!visible()) return;
-      if (getApp().globalData.user?._id !== user._id || !user.roles?.includes('admin')) throw new Error('只有运营管理员可以使用数据导出');
+      const sameIdentity = () => getApp().globalData.user?._id === user?._id &&
+        getApp().globalData.user?.communityId === user?.communityId;
+      if (!sameIdentity()) throw new Error('登录身份已变化，请重新加载');
+      if (!user.roles?.includes('admin') || !getApp().globalData.user?.roles?.includes('admin'))
+        throw new Error('只有运营管理员可以使用数据导出');
       this.syncDateOwner(user._id);
-      const active = () => visible() && getApp().globalData.user?._id === user._id;
+      const active = () => visible() && sameIdentity() && getApp().globalData.user?.roles?.includes('admin');
       const selectedCommunity = selectionOwner === user._id || this._entryCommunity ? selectedCommunityId || user.communityId : user.communityId;
       const [communities, providers, merchants] = await Promise.all([
         this.loadAll('catalog', 'listCommunities', {}, active),
         this.loadAll('admin', 'listProviders', { status: 'approved' }, active),
         this.loadAll('merchant', 'adminList', { status: 'approved' }, active)
       ]);
-      if (!active()) return;
+      if (!active()) {
+        if (visible()) throw new Error('登录身份已变化，请重新加载');
+        return;
+      }
       if (this._entryCommunity && !communities.some(item => item._id === this._entryCommunity)) {
         throw new Error('入口小区不在当前可选范围，请返回重新选择');
       }
@@ -114,8 +121,18 @@ Page({
         merchantIndex: Math.max(0, merchants.findIndex(item => item._id === (selectionOwner === user._id ? selectedMerchantId : null))) });
       this._ownerId = user._id;
       await this.loadCommunity();
+      if (!active()) {
+        if (visible()) throw new Error('登录身份已变化，请重新加载');
+        return;
+      }
       if (this.data.ready) this._entryCommunity = null;
-    } catch (error) { if (visible()) this.setData({ error: error.message || '数据导出页面加载失败', errorKind: 'load' }); }
+    } catch (error) { if (visible()) {
+      if (error.message === '登录身份已变化，请重新加载') {
+        this._ownerId = null;
+        this.setData({ ready: false, communityLoading: false, communities: [], community: null, providers: [], merchants: [] });
+      }
+      this.setData({ error: error.message || '数据导出页面加载失败', errorKind: 'load' });
+    } }
     finally { if (visible()) { this._loading = false; this.setData({ loading: false }); } }
   },
   async loadCommunity() {
