@@ -105,7 +105,7 @@ Page({
             const saved = wx.getStorageSync(key);
             if (saved && saved.userId === receipt.userId && saved.orderId === receipt.orderId) wx.removeStorageSync(key);
           } catch (_) { /* A retained receipt can safely reopen the same order. */ }
-          if (this.receipt === receipt && this.currentOwner(sequence)) this.receipt = null;
+          if (this.receipt === receipt) this.receipt = null;
         } });
     } catch (_) { fail(); }
   },
