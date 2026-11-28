@@ -32,15 +32,18 @@ Page({
       this._lastOwnerId = this._ownerId;
     }
     this._ownerId = null;
+    this._ownerCommunityId = null;
     this.setData({ ready: false, loading: false, busy: false, communities: [], error: '' });
   },
   onUnload() { this.onHide(); this._closed = true; },
   currentOwner() {
     const user = getApp().globalData.user;
     if (!this._closed && !this._hidden && this.data.ready && this._ownerId &&
-        user?._id === this._ownerId && user.roles?.includes('admin')) return true;
+        user?._id === this._ownerId && user.communityId === this._ownerCommunityId && user.roles?.includes('admin')) return true;
+    const changed = this._ownerId && !this._hidden && !this._closed;
     this._ownerId = null;
-    this.setData({ ready: false, communities: [] });
+    this._ownerCommunityId = null;
+    this.setData({ ready: false, communities: [], ...(changed ? { error: '登录身份已变化，请重新加载' } : {}) });
     return false;
   },
   async load() {
@@ -53,6 +56,7 @@ Page({
     }
     const previousOwner = this._ownerId || this._lastOwnerId;
     this._ownerId = null;
+    this._ownerCommunityId = null;
     this.setData({ loading: true, ready: false, communities: [], error: '' });
     try {
       const user = await getApp().ensureSession();
@@ -75,6 +79,7 @@ Page({
       if (!sameIdentity() || !getApp().globalData.user?.roles?.includes('admin'))
         throw new Error('登录身份已变化，请重新加载');
       this._ownerId = user._id;
+      this._ownerCommunityId = user.communityId;
       this._lastOwnerId = user._id;
       this.setData({ communities, ready: true, communityIndex: Math.max(0, communities.findIndex(item => item._id === user.communityId)) });
     } catch (error) { if (current()) this.setData({ error: error.message || '加载失败' }); }

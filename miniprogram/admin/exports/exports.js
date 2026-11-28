@@ -52,6 +52,7 @@ Page({
     this._loadVersion = (this._loadVersion || 0) + 1;
     this._communityVersion = (this._communityVersion || 0) + 1;
     this._ownerId = null;
+    this._ownerCommunityId = null;
     this._loading = false;
     this.setData({ ready: false, loading: false, communityLoading: false, busy: false,
       communities: [], community: null, providers: [], merchants: [], error: '', errorKind: '' });
@@ -59,9 +60,13 @@ Page({
   onUnload() { this.onHide(); this._closed = true; },
   currentAdmin() {
     const user = getApp().globalData.user;
-    if (!this._closed && !this._hidden && this._ownerId && user?._id === this._ownerId && user.roles?.includes('admin')) return true;
+    if (!this._closed && !this._hidden && this._ownerId && user?._id === this._ownerId &&
+        user.communityId === this._ownerCommunityId && user.roles?.includes('admin')) return true;
+    const changed = this._ownerId && !this._hidden && !this._closed;
     this._ownerId = null;
-    this.setData({ ready: false, communities: [], community: null, providers: [], merchants: [] });
+    this._ownerCommunityId = null;
+    this.setData({ ready: false, communities: [], community: null, providers: [], merchants: [],
+      ...(changed ? { error: '登录身份已变化，请重新加载', errorKind: 'load' } : {}) });
     return false;
   },
   async loadAll(name, action, params = {}, active = () => true) {
@@ -91,6 +96,7 @@ Page({
     const selectedProviderId = this.data.providers[this.data.providerIndex]?._id;
     const selectedMerchantId = this.data.merchants[this.data.merchantIndex]?._id;
     this._ownerId = null;
+    this._ownerCommunityId = null;
     this.setData({ loading: true, ready: false, communities: [], community: null, providers: [], merchants: [], error: '', errorKind: '' });
     try {
       const user = await getApp().ensureSession();
@@ -120,6 +126,7 @@ Page({
         providerIndex: Math.max(0, providers.findIndex(item => item._id === (selectionOwner === user._id ? selectedProviderId : null))),
         merchantIndex: Math.max(0, merchants.findIndex(item => item._id === (selectionOwner === user._id ? selectedMerchantId : null))) });
       this._ownerId = user._id;
+      this._ownerCommunityId = user.communityId;
       await this.loadCommunity();
       if (!active()) {
         if (visible()) throw new Error('登录身份已变化，请重新加载');
@@ -129,6 +136,7 @@ Page({
     } catch (error) { if (visible()) {
       if (error.message === '登录身份已变化，请重新加载') {
         this._ownerId = null;
+        this._ownerCommunityId = null;
         this.setData({ ready: false, communityLoading: false, communities: [], community: null, providers: [], merchants: [] });
       }
       this.setData({ error: error.message || '数据导出页面加载失败', errorKind: 'load' });
@@ -140,7 +148,8 @@ Page({
     const version = this._communityVersion = (this._communityVersion || 0) + 1;
     const ownerId = this._ownerId;
     const current = () => !this._closed && !this._hidden && version === this._communityVersion &&
-      this._ownerId === ownerId && getApp().globalData.user?._id === ownerId;
+      this._ownerId === ownerId && getApp().globalData.user?._id === ownerId &&
+      getApp().globalData.user?.communityId === this._ownerCommunityId;
     const community = this.data.communities[this.data.communityIndex];
     const selectedStation = this.data.community?._id === community?._id
       ? this.data.community?.stations?.[this.data.stationIndex]?.code : null;
@@ -199,7 +208,8 @@ Page({
     if (!this.currentAdmin() || this.data.busy || this.data.loading || !this.data.ready) return;
     const ownerId = this._ownerId, version = this._loadVersion;
     const active = () => !this._closed && !this._hidden && this._ownerId === ownerId &&
-      getApp().globalData.user?._id === ownerId && version === this._loadVersion && this.data.ready;
+      getApp().globalData.user?._id === ownerId && getApp().globalData.user?.communityId === this._ownerCommunityId &&
+      version === this._loadVersion && this.data.ready;
     this.setData({ busy: true, error: '', errorKind: '' });
     let errorKind = 'validation';
     try {
